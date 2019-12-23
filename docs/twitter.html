@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Twitter | Logit Models</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Twitter | Logit Models" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Twitter | Logit Models" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Bill" />
+
+
+<meta name="date" content="2019-12-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Basics</a></li>
+<li class="chapter" data-level="2" data-path="probit.html"><a href="probit.html"><i class="fa fa-check"></i><b>2</b> Probit</a></li>
+<li class="chapter" data-level="3" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>3</b> MLE</a></li>
+<li class="chapter" data-level="4" data-path="twitter.html"><a href="twitter.html"><i class="fa fa-check"></i><b>4</b> Twitter</a><ul>
+<li class="chapter" data-level="4.1" data-path="twitter.html"><a href="twitter.html#model"><i class="fa fa-check"></i><b>4.1</b> Model</a></li>
+<li class="chapter" data-level="4.2" data-path="twitter.html"><a href="twitter.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>4.2</b> Simulating Data of Senators on Twitter</a></li>
+<li class="chapter" data-level="4.3" data-path="twitter.html"><a href="twitter.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>4.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="4.4" data-path="twitter.html"><a href="twitter.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>4.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Logit Models</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="twitter" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Twitter</h1>
+<p>The following is part of my course project for Stat 536. It aims to replicate part of the findings from Barbera (2015) Birds of the Same Feather Tweet Together: Bayesian Ideal Point Estimation Using Twitter Data. Political Analysis 23 (1). Note that, the following model is much simpler than that in the original paper.</p>
+<div id="model" class="section level2">
+<h2><span class="header-section-number">4.1</span> Model</h2>
+<p>Suppose that a Twitter user is presented with a choice between following or not following another target <span class="math inline">\(j \in \{ 1, ..., m\}\)</span>. Let <span class="math inline">\(y_{j}=1\)</span> if the user decides to follow <span class="math inline">\(j\)</span>, and <span class="math inline">\(y_{j}=0\)</span> otherwise.</p>
+<p><span class="math display">\[y_{j}=\begin{cases} 1 &amp; Following \\ 0 &amp; Not Following \end{cases}\]</span></p>
+<p><span class="math display">\[p(y_{j}=1|\theta) = \frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)}\]</span> We additionally know the priors of <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[\theta_i \sim N(0,10^2) (i = 0, 1)\]</span></p>
+<p>The likelihood function is as follows.</p>
+<p><span class="math display">\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]</span> Thus, the posterior is as follows.</p>
+<p><span class="math display">\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]</span> <span class="math display">\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]</span></p>
+</div>
+<div id="simulating-data-of-senators-on-twitter" class="section level2">
+<h2><span class="header-section-number">4.2</span> Simulating Data of Senators on Twitter</h2>
+<p>Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know their ideology. Assume that Democrats have negative ideology scores to indicate that they are more liberal, whereas Republicans have positive scores to indicate that they are more conservative. The following is data simulation for senators.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Republicans are more conservative, and they have positive numbers.</span>
+Republicans&lt;-<span class="kw">c</span>()
+Republicans&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="dv">1</span>,<span class="fl">0.5</span>)
+No_Republicans&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,<span class="dv">1</span>)
+Part_<span class="dv">1</span>&lt;-<span class="kw">cbind</span>(No_Republicans,Republicans)
+
+<span class="co"># Democrats are more liberal, and they have negative numbers.</span>
+Democrats&lt;-<span class="kw">c</span>()
+Democrats&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="op">-</span><span class="dv">1</span>,<span class="fl">0.5</span>)
+No_Democrats&lt;-<span class="kw">rep</span>(<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">1</span>)
+Part_<span class="dv">2</span>&lt;-<span class="kw">cbind</span>(No_Democrats,Democrats)
+Data_Elites&lt;-<span class="kw">rbind</span>(Part_<span class="dv">1</span>,Part_<span class="dv">2</span>)
+Data_Elites&lt;-<span class="kw">as.data.frame</span>(Data_Elites)
+<span class="kw">colnames</span>(Data_Elites) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Elite_No&quot;</span>,<span class="st">&quot;Elite_ideology&quot;</span>)
+
+<span class="kw">head</span>(Data_Elites)</code></pre></div>
+<pre><code>##   Elite_No Elite_ideology
+## 1        1      1.0029420
+## 2        2      1.3260701
+## 3        3      1.3418211
+## 4        4      1.4813700
+## 5        5      1.0571706
+## 6        6      0.3383715</code></pre>
+</div>
+<div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
+<h2><span class="header-section-number">4.3</span> Simulating Data of Conservative Users on Twitter and Model Testing</h2>
+<p>Assume that we observe one Twitter user, who is more conservative. To simulate Twitter following data for this user, I assign this user to follow more Republican senators. Thus, if the Metropolis Hastings algorithm works as intended, we would expect to see a positive estimated value for their ideology. Importantly, as we can see in the histogram below, the estimated value indeed is positive, providing preliminary evidence for the statistical model and the algorithm. In addition, for the acceptance rate, we can see that the constant has a lower number than ideology, since we only accept a constant when it is positive.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This user approximately follows 45 Republican Senators and 10 Democrat Senators. </span>
+Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)
+<span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;R_User&quot;</span>)
+Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)
+
+X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology
+Y_data&lt;-Data_combined<span class="op">$</span>R_User
+
+fit_C&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
+fit_C<span class="op">$</span>acceptance_rate</code></pre></div>
+<pre><code>## [1] 0.1665833 0.5012506</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Conservative Users)&quot;</span>,
+     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
+     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
+     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-5-3.png" width="672" /></p>
+</div>
+<div id="simulating-data-of-liberal-users-on-twitter-and-model-testing" class="section level2">
+<h2><span class="header-section-number">4.4</span> Simulating Data of Liberal Users on Twitter and Model Testing</h2>
+<p>To further verify the Metropolis Hastings algorithm, I plan to test the opposite estimate. Specifically, assume that we observe another user, who is more liberal. To simulate Twitter following data for this user, I assign this user to follow more Democrat senators. In this case, we would expect to see a negative value for their estimated ideology. As we can see in the histogram shown below, as expected, the estimated value is negative, providing convergent evidence for the model and the algorithm.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This user approximately follows 10 Republican Senators and 45 Democrat Senators. </span>
+Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)
+<span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;L_User&quot;</span>)
+Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)
+
+X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology
+Y_data&lt;-Data_combined<span class="op">$</span>L_User
+
+
+fit_L&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
+fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
+<pre><code>## [1] 0.1280640 0.5352676</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Liberal Users)&quot;</span>,
+     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
+     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
+     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-6-3.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-mh-algorithm-and-data.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
