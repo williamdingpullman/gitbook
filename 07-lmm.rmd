@@ -1,4 +1,7 @@
 # Linear Mixed Models
+
+The following is a shortened version of Jonathan Rosenblatt's LMM tutorial. http://www.john-ros.com/Rcourse/lme.html
+
 Assume that $y$ is a function of $x$ and $u$, where $x$ is the fixed effect and $u$ is the random effect. Thus, we can get,
 
 $$y|x, u = x'\beta+z'u+\epsilon$$
@@ -73,5 +76,23 @@ t_results$statistic
 ```{R}
 data(Dyestuff, package='lme4')
 attach(Dyestuff)
+Dyestuff
 
+lme_batch<- lmer( Yield ~ 1 + (1|Batch)  , Dyestuff )
+summary(lme_batch)
 ```
+
+
+## Full LMM model
+
+```{R}
+data(sleepstudy, package='lme4')
+attach(sleepstudy)
+head(sleepstudy)
+nrow(sleepstudy)
+
+#lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )
+lmer ( Reaction ~ Days + ( Days| Subject ) , data= sleepstudy )
+```
+
+

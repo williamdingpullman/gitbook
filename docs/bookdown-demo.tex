@@ -298,12 +298,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      0.9818194
-## 2        2      1.8128229
-## 3        3      0.7121921
-## 4        4      0.4938375
-## 5        5      1.5708312
-## 6        6      1.3478442
+## 1        1      0.8634892
+## 2        2      0.5036073
+## 3        3      0.5735237
+## 4        4      1.0919489
+## 5        5     -0.4979753
+## 6        6      0.4295362
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -335,7 +335,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1275638 0.6138069
+## [1] 0.2216108 0.4392196
 \end{verbatim}
 
 \begin{Shaded}
@@ -394,7 +394,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1725863 0.5112556
+## [1] 0.2491246 0.3916958
 \end{verbatim}
 
 \begin{Shaded}
@@ -426,20 +426,25 @@ algorithm.
 
 \chapter{Linear Mixed Models}\label{linear-mixed-models}
 
+The following is a shortened version of Jonathan Rosenblatt's LMM
+tutorial. \url{http://www.john-ros.com/Rcourse/lme.html}
+
 Assume that \(y\) is a function of \(x\) and \(u\), where \(x\) is the
 fixed effect and \(u\) is the random effect. Thus, we can get,
 
 \[y|x, u = x'\beta+z'u+\epsilon\]
 
-FOr random effect,one example can be that you want to test the treatment
-effect, and sample 8 observations from 4 groups. You measure before and
-after the treatment. In this case, \(x\) represents the treatment
-effect, whereas \(z\) represents the group effect (i.e., random effect).
-Note that, in this case, it reminds the paired t-test. Remember in SPSS,
-why do we do paired t-test? Typically, it is the case when we measure a
-subject (or, participant) twice. In this case, we can consider each
-participant as an unit of random effect (rather than as group in the
-last example.)
+For random effect, one example can be that you want to test the
+treatment effect, and sample 8 observations from 4 groups. You measure
+before and after the treatment. In this case, \(x\) represents the
+treatment effect, whereas \(z\) represents the group effect (i.e.,
+random effect). Note that, in this case, it reminds the paired t-test.
+Remember in SPSS, why do we do paired t-test? Typically, it is the case
+when we measure a subject (or, participant) twice. In this case, we can
+consider each participant as an unit of random effect (rather than as
+group in the last example.)
+
+\section{Calculate mean}\label{calculate-mean}
 
 The following code generates 4 numbers (\(N(0,10)\)) for 4 groups. Then,
 replicate it within each group.That is, in the end, there are 8
@@ -447,7 +452,9 @@ observations.
 
 Note that, in the following code, there are no ``independent
 variables''. Both the linear model and mixed model are actually just
-trying to calculate the mean.
+trying to calculate the mean. Note that
+\$lmer(y\textasciitilde{}1+1\textbar{}groups) \$ and
+\(lmer(y~1|groups)\) will generate the same results.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -482,9 +489,9 @@ trying to calculate the mean.
 \CommentTok{# fit a mixed-model that deals with the group dependence}
 \CommentTok{#install.packages("lme4")}
 \KeywordTok{library}\NormalTok{(lme4)}
-\NormalTok{lme.}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
-
-\KeywordTok{summary}\NormalTok{(lm.}\DecValTok{5}\NormalTok{)}
+\NormalTok{lme.}\FloatTok{5.}\NormalTok{a <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{+}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
+\NormalTok{lme.}\FloatTok{5.}\NormalTok{b <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
+\NormalTok{lm.}\DecValTok{5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -493,42 +500,277 @@ trying to calculate the mean.
 ## Call:
 ## lm(formula = y ~ 1)
 ## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -7.758 -5.930 -2.671  2.889 12.859 
-## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)
-## (Intercept)    4.283      2.914    1.47    0.185
-## 
-## Residual standard error: 8.243 on 7 degrees of freedom
+## (Intercept)  
+##       4.283
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(lme.}\DecValTok{5}\NormalTok{)}
+\NormalTok{lme.}\FloatTok{5.}\NormalTok{a }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: y ~ 1 + 1 | groups
+## REML criterion at convergence: 36.1666
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  groups   (Intercept) 8.8521  
+##  Residual             0.8873  
+## Number of obs: 8, groups:  groups, 4
+## Fixed Effects:
+## (Intercept)  
+##       4.283
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lme.}\FloatTok{5.}\NormalTok{b }
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## Linear mixed model fit by REML ['lmerMod']
 ## Formula: y ~ 1 | groups
+## REML criterion at convergence: 36.1666
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  groups   (Intercept) 8.8521  
+##  Residual             0.8873  
+## Number of obs: 8, groups:  groups, 4
+## Fixed Effects:
+## (Intercept)  
+##       4.283
+\end{verbatim}
+
+\section{Test the treatment effect}\label{test-the-treatment-effect}
+
+As we can see that, LLM and paired t-test generate the same t-value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{times<-}\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DecValTok{4}\NormalTok{) }\CommentTok{# first time and second time}
+\NormalTok{times}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 2 1 2 1 2 1 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data_combined<-}\KeywordTok{cbind}\NormalTok{(y,groups,times)}
+\NormalTok{data_combined}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               y groups times
+## [1,] -3.4754687      1     1
+## [2,] -1.8896915      1     2
+## [3,]  0.1591413      2     1
+## [4,] -1.5668361      2     2
+## [5,] 16.9002303      3     1
+## [6,] 17.1414212      3     2
+## [7,]  3.9291657      4     1
+## [8,]  3.0648977      4     2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lme_diff_times<-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\NormalTok{times}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{groups)) }
+
+
+\NormalTok{t_results<-}\KeywordTok{t.test}\NormalTok{(y}\OperatorTok{~}\NormalTok{times, }\DataTypeTok{paired=}\OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{lme_diff_times}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: y ~ times + (1 | groups)
+## REML criterion at convergence: 35.0539
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  groups   (Intercept) 8.845   
+##  Residual             1.013   
+## Number of obs: 8, groups:  groups, 4
+## Fixed Effects:
+## (Intercept)        times  
+##      4.5691      -0.1908
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(}\StringTok{"The following results are from paired t-test"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "The following results are from paired t-test"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t_results}\OperatorTok{$}\NormalTok{statistic}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         t 
+## 0.2664793
+\end{verbatim}
+
+\section{Another example}\label{another-example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(Dyestuff, }\DataTypeTok{package=}\StringTok{'lme4'}\NormalTok{)}
+\KeywordTok{attach}\NormalTok{(Dyestuff)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The following objects are masked from Dyestuff (pos = 4):
 ## 
-## REML criterion at convergence: 36.2
+##     Batch, Yield
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Dyestuff}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Batch Yield
+## 1      A  1545
+## 2      A  1440
+## 3      A  1440
+## 4      A  1520
+## 5      A  1580
+## 6      B  1540
+## 7      B  1555
+## 8      B  1490
+## 9      B  1560
+## 10     B  1495
+## 11     C  1595
+## 12     C  1550
+## 13     C  1605
+## 14     C  1510
+## 15     C  1560
+## 16     D  1445
+## 17     D  1440
+## 18     D  1595
+## 19     D  1465
+## 20     D  1545
+## 21     E  1595
+## 22     E  1630
+## 23     E  1515
+## 24     E  1635
+## 25     E  1625
+## 26     F  1520
+## 27     F  1455
+## 28     F  1450
+## 29     F  1480
+## 30     F  1445
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lme_batch<-}\StringTok{ }\KeywordTok{lmer}\NormalTok{( Yield }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{Batch)  , Dyestuff )}
+\KeywordTok{summary}\NormalTok{(lme_batch)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: Yield ~ 1 + (1 | Batch)
+##    Data: Dyestuff
+## 
+## REML criterion at convergence: 319.7
 ## 
 ## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.00066 -0.60178  0.07176  0.57552  0.94448 
+##     Min      1Q  Median      3Q     Max 
+## -1.4117 -0.7634  0.1418  0.7792  1.8296 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  groups   (Intercept) 78.3590  8.8521  
-##  Residual              0.7874  0.8873  
-## Number of obs: 8, groups:  groups, 4
+##  Batch    (Intercept) 1764     42.00   
+##  Residual             2451     49.51   
+## Number of obs: 30, groups:  Batch, 6
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)    4.283      4.437   0.965
+## (Intercept)  1527.50      19.38    78.8
+\end{verbatim}
+
+\section{Full LMM model}\label{full-lmm-model}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(sleepstudy, }\DataTypeTok{package=}\StringTok{'lme4'}\NormalTok{)}
+\KeywordTok{attach}\NormalTok{(sleepstudy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The following objects are masked from sleepstudy (pos = 4):
+## 
+##     Days, Reaction, Subject
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(sleepstudy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Reaction Days Subject
+## 1 249.5600    0     308
+## 2 258.7047    1     308
+## 3 250.8006    2     308
+## 4 321.4398    3     308
+## 5 356.8519    4     308
+## 6 414.6901    5     308
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(sleepstudy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 180
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )}
+\KeywordTok{lmer}\NormalTok{ ( Reaction }\OperatorTok{~}\StringTok{ }\NormalTok{Days }\OperatorTok{+}\StringTok{ }\NormalTok{( Days}\OperatorTok{|}\StringTok{ }\NormalTok{Subject ) , }\DataTypeTok{data=}\NormalTok{ sleepstudy )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: Reaction ~ Days + (Days | Subject)
+##    Data: sleepstudy
+## REML criterion at convergence: 1743.628
+## Random effects:
+##  Groups   Name        Std.Dev. Corr
+##  Subject  (Intercept) 24.737       
+##           Days         5.923   0.07
+##  Residual             25.592       
+## Number of obs: 180, groups:  Subject, 18
+## Fixed Effects:
+## (Intercept)         Days  
+##      251.41        10.47
 \end{verbatim}
 
 \chapter{Generalized Linear Mixed

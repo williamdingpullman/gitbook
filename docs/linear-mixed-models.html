@@ -117,7 +117,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>3.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
 <li class="chapter" data-level="3.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>3.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>4</b> Linear Mixed Models</a></li>
+<li class="chapter" data-level="4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>4</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>4.1</b> Calculate mean</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>4.2</b> Test the treatment effect</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>4.3</b> Another example</a></li>
+<li class="chapter" data-level="4.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>4.4</b> Full LMM model</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -141,11 +146,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="linear-mixed-models" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Linear Mixed Models</h1>
+<p>The following is a shortened version of Jonathan Rosenblatt’s LMM tutorial. <a href="http://www.john-ros.com/Rcourse/lme.html" class="uri">http://www.john-ros.com/Rcourse/lme.html</a></p>
 <p>Assume that <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(u\)</span>, where <span class="math inline">\(x\)</span> is the fixed effect and <span class="math inline">\(u\)</span> is the random effect. Thus, we can get,</p>
 <p><span class="math display">\[y|x, u = x&#39;\beta+z&#39;u+\epsilon\]</span></p>
-<p>FOr random effect,one example can be that you want to test the treatment effect, and sample 8 observations from 4 groups. You measure before and after the treatment. In this case, <span class="math inline">\(x\)</span> represents the treatment effect, whereas <span class="math inline">\(z\)</span> represents the group effect (i.e., random effect). Note that, in this case, it reminds the paired t-test. Remember in SPSS, why do we do paired t-test? Typically, it is the case when we measure a subject (or, participant) twice. In this case, we can consider each participant as an unit of random effect (rather than as group in the last example.)</p>
+<p>For random effect, one example can be that you want to test the treatment effect, and sample 8 observations from 4 groups. You measure before and after the treatment. In this case, <span class="math inline">\(x\)</span> represents the treatment effect, whereas <span class="math inline">\(z\)</span> represents the group effect (i.e., random effect). Note that, in this case, it reminds the paired t-test. Remember in SPSS, why do we do paired t-test? Typically, it is the case when we measure a subject (or, participant) twice. In this case, we can consider each participant as an unit of random effect (rather than as group in the last example.)</p>
+<div id="calculate-mean" class="section level2">
+<h2><span class="header-section-number">4.1</span> Calculate mean</h2>
 <p>The following code generates 4 numbers (<span class="math inline">\(N(0,10)\)</span>) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations.</p>
-<p>Note that, in the following code, there are no “independent variables”. Both the linear model and mixed model are actually just trying to calculate the mean.</p>
+<p>Note that, in the following code, there are no “independent variables”. Both the linear model and mixed model are actually just trying to calculate the mean. Note that $lmer(y~1+1|groups) $ and <span class="math inline">\(lmer(y~1|groups)\)</span> will generate the same results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
 n.groups &lt;-<span class="st"> </span><span class="dv">4</span> <span class="co"># number of groups</span>
 n.repeats &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># samples per group</span>
@@ -170,42 +178,170 @@ lm.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">lm</
 <span class="co">#install.packages(&quot;lme4&quot;)</span>
 <span class="kw">library</span>(lme4)</code></pre></div>
 <pre><code>## Loading required package: Matrix</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>(y<span class="op">~</span><span class="dv">1</span><span class="op">|</span>groups) 
-
-<span class="kw">summary</span>(lm.<span class="dv">5</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="fl">5.</span>a &lt;-<span class="st"> </span><span class="kw">lmer</span>(y<span class="op">~</span><span class="dv">1</span><span class="op">+</span><span class="dv">1</span><span class="op">|</span>groups) 
+lme.<span class="fl">5.</span>b &lt;-<span class="st"> </span><span class="kw">lmer</span>(y<span class="op">~</span><span class="dv">1</span><span class="op">|</span>groups) 
+lm.<span class="dv">5</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ 1)
 ## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -7.758 -5.930 -2.671  2.889 12.859 
-## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)    4.283      2.914    1.47    0.185
-## 
-## Residual standard error: 8.243 on 7 degrees of freedom</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lme.<span class="dv">5</span>)</code></pre></div>
+## (Intercept)  
+##       4.283</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="fl">5.</span>a </code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: y ~ 1 + 1 | groups
+## REML criterion at convergence: 36.1666
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  groups   (Intercept) 8.8521  
+##  Residual             0.8873  
+## Number of obs: 8, groups:  groups, 4
+## Fixed Effects:
+## (Intercept)  
+##       4.283</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="fl">5.</span>b </code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ 1 | groups
+## REML criterion at convergence: 36.1666
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  groups   (Intercept) 8.8521  
+##  Residual             0.8873  
+## Number of obs: 8, groups:  groups, 4
+## Fixed Effects:
+## (Intercept)  
+##       4.283</code></pre>
+</div>
+<div id="test-the-treatment-effect" class="section level2">
+<h2><span class="header-section-number">4.2</span> Test the treatment effect</h2>
+<p>As we can see that, LLM and paired t-test generate the same t-value.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">times&lt;-<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dv">4</span>) <span class="co"># first time and second time</span>
+times</code></pre></div>
+<pre><code>## [1] 1 2 1 2 1 2 1 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_combined&lt;-<span class="kw">cbind</span>(y,groups,times)
+data_combined</code></pre></div>
+<pre><code>##               y groups times
+## [1,] -3.4754687      1     1
+## [2,] -1.8896915      1     2
+## [3,]  0.1591413      2     1
+## [4,] -1.5668361      2     2
+## [5,] 16.9002303      3     1
+## [6,] 17.1414212      3     2
+## [7,]  3.9291657      4     1
+## [8,]  3.0648977      4     2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme_diff_times&lt;-<span class="st"> </span><span class="kw">lmer</span>(y<span class="op">~</span>times<span class="op">+</span>(<span class="dv">1</span><span class="op">|</span>groups)) 
+
+
+t_results&lt;-<span class="kw">t.test</span>(y<span class="op">~</span>times, <span class="dt">paired=</span><span class="ot">TRUE</span>)
+
+lme_diff_times</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: y ~ times + (1 | groups)
+## REML criterion at convergence: 35.0539
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  groups   (Intercept) 8.845   
+##  Residual             1.013   
+## Number of obs: 8, groups:  groups, 4
+## Fixed Effects:
+## (Intercept)        times  
+##      4.5691      -0.1908</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;The following results are from paired t-test&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;The following results are from paired t-test&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t_results<span class="op">$</span>statistic</code></pre></div>
+<pre><code>##         t 
+## 0.2664793</code></pre>
+</div>
+<div id="another-example" class="section level2">
+<h2><span class="header-section-number">4.3</span> Another example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Dyestuff, <span class="dt">package=</span><span class="st">&#39;lme4&#39;</span>)
+<span class="kw">attach</span>(Dyestuff)
+Dyestuff</code></pre></div>
+<pre><code>##    Batch Yield
+## 1      A  1545
+## 2      A  1440
+## 3      A  1440
+## 4      A  1520
+## 5      A  1580
+## 6      B  1540
+## 7      B  1555
+## 8      B  1490
+## 9      B  1560
+## 10     B  1495
+## 11     C  1595
+## 12     C  1550
+## 13     C  1605
+## 14     C  1510
+## 15     C  1560
+## 16     D  1445
+## 17     D  1440
+## 18     D  1595
+## 19     D  1465
+## 20     D  1545
+## 21     E  1595
+## 22     E  1630
+## 23     E  1515
+## 24     E  1635
+## 25     E  1625
+## 26     F  1520
+## 27     F  1455
+## 28     F  1450
+## 29     F  1480
+## 30     F  1445</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme_batch&lt;-<span class="st"> </span><span class="kw">lmer</span>( Yield <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>Batch)  , Dyestuff )
+<span class="kw">summary</span>(lme_batch)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: Yield ~ 1 + (1 | Batch)
+##    Data: Dyestuff
 ## 
-## REML criterion at convergence: 36.2
+## REML criterion at convergence: 319.7
 ## 
 ## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.00066 -0.60178  0.07176  0.57552  0.94448 
+##     Min      1Q  Median      3Q     Max 
+## -1.4117 -0.7634  0.1418  0.7792  1.8296 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  groups   (Intercept) 78.3590  8.8521  
-##  Residual              0.7874  0.8873  
-## Number of obs: 8, groups:  groups, 4
+##  Batch    (Intercept) 1764     42.00   
+##  Residual             2451     49.51   
+## Number of obs: 30, groups:  Batch, 6
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)    4.283      4.437   0.965</code></pre>
+## (Intercept)  1527.50      19.38    78.8</code></pre>
+</div>
+<div id="full-lmm-model" class="section level2">
+<h2><span class="header-section-number">4.4</span> Full LMM model</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(sleepstudy, <span class="dt">package=</span><span class="st">&#39;lme4&#39;</span>)
+<span class="kw">attach</span>(sleepstudy)
+<span class="kw">head</span>(sleepstudy)</code></pre></div>
+<pre><code>##   Reaction Days Subject
+## 1 249.5600    0     308
+## 2 258.7047    1     308
+## 3 250.8006    2     308
+## 4 321.4398    3     308
+## 5 356.8519    4     308
+## 6 414.6901    5     308</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(sleepstudy)</code></pre></div>
+<pre><code>## [1] 180</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )</span>
+<span class="kw">lmer</span> ( Reaction <span class="op">~</span><span class="st"> </span>Days <span class="op">+</span><span class="st"> </span>( Days<span class="op">|</span><span class="st"> </span>Subject ) , <span class="dt">data=</span> sleepstudy )</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: Reaction ~ Days + (Days | Subject)
+##    Data: sleepstudy
+## REML criterion at convergence: 1743.628
+## Random effects:
+##  Groups   Name        Std.Dev. Corr
+##  Subject  (Intercept) 24.737       
+##           Days         5.923   0.07
+##  Residual             25.592       
+## Number of obs: 180, groups:  Subject, 18
+## Fixed Effects:
+## (Intercept)         Days  
+##      251.41        10.47</code></pre>
 
+</div>
 </div>
             </section>
 
