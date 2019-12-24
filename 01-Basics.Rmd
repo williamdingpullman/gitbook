@@ -1,7 +1,6 @@
 # MLE {#intro}
 
 
-
 The probablity of $y=1$ is as follows:
 
 $$p=p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}$$ 

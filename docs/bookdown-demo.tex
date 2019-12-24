@@ -130,6 +130,8 @@
 }
 \chapter{Basics}\label{basics}
 
+\section{Logit}\label{logit}
+
 \[f(x)=log(\frac{p(y=1)}{1-p(y=1)})\] The basic idea of logistic
 regression:
 \[p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]
@@ -150,7 +152,7 @@ to \(+\infty\), and \(p(y=1)\) will be always within the range of
 We can also write the function into another format as follows:
 \[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\]
 
-\chapter{Probit}\label{probit}
+\section{Probit}\label{probit}
 
 \[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)\] Thus,
 \[\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\]
@@ -234,7 +236,7 @@ log-likelihood or the likelihood itself.
 ## as.factor(rank)4 -1.551463677 -1.563396035
 \end{verbatim}
 
-\chapter{Twitter}\label{twitter}
+\chapter{Twitter Example}\label{twitter-example}
 
 The following is part of my course project for Stat 536. It aims to
 replicate part of the findings from Barbera (2015) Birds of the Same
@@ -296,12 +298,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.7372459
-## 2        2      1.3845798
-## 3        3      0.3313012
-## 4        4      1.3375896
-## 5        5      1.8965360
-## 6        6      0.4199245
+## 1        1      1.3134284
+## 2        2      1.0371266
+## 3        3      0.3974996
+## 4        4      1.4948212
+## 5        5      0.1147621
+## 6        6      1.2086111
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -333,7 +335,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.09954977 0.78039020
+## [1] 0.1480740 0.6088044
 \end{verbatim}
 
 \begin{Shaded}
@@ -392,7 +394,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2821411 0.3621811
+## [1] 0.1610805 0.5522761
 \end{verbatim}
 
 \begin{Shaded}

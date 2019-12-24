@@ -9,10 +9,12 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: rstudio/bookdown-demo
-description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+description: "The webpages are mainly about logit models."
 ---
 
 # Basics
+
+## Logit
 
 $$f(x)=log(\frac{p(y=1)}{1-p(y=1)})$$
 The basic idea of logistic regression:
@@ -29,7 +31,7 @@ plot(data,f(data),type = "b")
 We can also write the function into another format as follows:
 $$log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n$$
 
-# Probit
+## Probit
 
 $$\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)$$
 Thus, 
