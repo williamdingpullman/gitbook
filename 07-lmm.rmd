@@ -3,12 +3,14 @@ Assume that $y$ is a function of $x$ and $u$, where $x$ is the fixed effect and 
 
 $$y|x, u = x'\beta+z'u+\epsilon$$
 
-FOr random effect,one example can be that you want to test the treatment effect, and sample 8 observations from 4 groups. You measure before and after the treatment. In this case, $x$ represents the treatment effect, whereas $z$ represents the group effect (i.e., random effect). Note that, in this case, it reminds the paired t-test. Remember in SPSS, why do we do paired t-test? Typically, it is the case when we measure a subject (or, participant) twice. In this case, we can consider each participant as an unit of random effect (rather than as group in the last example.)
+For random effect, one example can be that you want to test the treatment effect, and sample 8 observations from 4 groups. You measure before and after the treatment. In this case, $x$ represents the treatment effect, whereas $z$ represents the group effect (i.e., random effect). Note that, in this case, it reminds the paired t-test. Remember in SPSS, why do we do paired t-test? Typically, it is the case when we measure a subject (or, participant) twice. In this case, we can consider each participant as an unit of random effect (rather than as group in the last example.)
 
+
+## Calculate mean
 
 The following code generates 4 numbers ($N(0,10)$) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations. 
 
-Note that, in the following code, there are no "independent variables". Both the linear model and mixed model are actually just trying to calculate the mean. 
+Note that, in the following code, there are no "independent variables". Both the linear model and mixed model are actually just trying to calculate the mean. Note that $lmer(y~1+1|groups) $ and $lmer(y~1|groups)$ will generate the same results.
 
 ```{R}
 set.seed(123)
@@ -36,8 +38,40 @@ lm.5 <- lm(y~1)
 # fit a mixed-model that deals with the group dependence
 #install.packages("lme4")
 library(lme4)
-lme.5 <- lmer(y~1|groups) 
+lme.5.a <- lmer(y~1+1|groups) 
+lme.5.b <- lmer(y~1|groups) 
+lm.5
+lme.5.a 
+lme.5.b 
 
-summary(lm.5)
-summary(lme.5)
+```
+
+## Test the treatment effect 
+
+As we can see that, LLM and paired t-test generate the same t-value. 
+
+```{R}
+times<-rep(c(1,2),4) # first time and second time
+times
+data_combined<-cbind(y,groups,times)
+data_combined
+
+lme_diff_times<- lmer(y~times+(1|groups)) 
+
+
+t_results<-t.test(y~times, paired=TRUE)
+
+lme_diff_times
+
+print("The following results are from paired t-test")
+t_results$statistic
+```
+
+
+## Another example
+
+```{R}
+data(Dyestuff, package='lme4')
+attach(Dyestuff)
+
 ```
