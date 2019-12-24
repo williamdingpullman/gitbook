@@ -31,6 +31,17 @@ plot(data,f(data),type = "b")
 We can also write the function into another format as follows:
 $$log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n$$
 
+The following is an example testing whether that home teams are more likely to win in NFL games. The results show that the odd of winning is the same for both home and away teams.
+
+```{R}
+mydata = read.csv(url('https://raw.githubusercontent.com/nfl-football-ops/Big-Data-Bowl/master/Data/games.csv'))
+mydata$result_new<-ifelse(mydata$HomeScore>mydata$VisitorScore,1,0)
+summary(mydata$result_new)
+mylogit1 = glm(result_new~1, family=binomial, data=mydata)
+summary(mylogit1)
+
+```
+
 ## Probit
 
 $$\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)$$

@@ -24,7 +24,7 @@
 <meta name="author" content="Bill" />
 
 
-<meta name="date" content="2019-12-23" />
+<meta name="date" content="2019-12-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -151,7 +151,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">Logit Models</h1>
 <p class="author"><em>Bill</em></p>
-<p class="date"><em>2019-12-23</em></p>
+<p class="date"><em>2019-12-24</em></p>
 </div>
 <div id="basics" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Basics</h1>
@@ -163,6 +163,33 @@ data&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">1
 <span class="kw">plot</span>(data,<span class="kw">f</span>(data),<span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>We can also write the function into another format as follows: <span class="math display">\[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\]</span></p>
+<p>The following is an example testing whether that home teams are more likely to win in NFL games. The results show that the odd of winning is the same for both home and away teams.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata =<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">url</span>(<span class="st">&#39;https://raw.githubusercontent.com/nfl-football-ops/Big-Data-Bowl/master/Data/games.csv&#39;</span>))
+mydata<span class="op">$</span>result_new&lt;-<span class="kw">ifelse</span>(mydata<span class="op">$</span>HomeScore<span class="op">&gt;</span>mydata<span class="op">$</span>VisitorScore,<span class="dv">1</span>,<span class="dv">0</span>)
+<span class="kw">summary</span>(mydata<span class="op">$</span>result_new)</code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0000  0.0000  0.4945  1.0000  1.0000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylogit1 =<span class="st"> </span><span class="kw">glm</span>(result_new<span class="op">~</span><span class="dv">1</span>, <span class="dt">family=</span>binomial, <span class="dt">data=</span>mydata)
+<span class="kw">summary</span>(mylogit1)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = result_new ~ 1, family = binomial, data = mydata)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.168  -1.168  -1.168   1.187   1.187  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept) -0.02198    0.20967  -0.105    0.917
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 126.14  on 90  degrees of freedom
+## Residual deviance: 126.14  on 90  degrees of freedom
+## AIC: 128.14
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
 </div>
 <div id="probit" class="section level2">
 <h2><span class="header-section-number">1.2</span> Probit</h2>

@@ -119,7 +119,7 @@
 
 \title{Logit Models}
 \author{Bill}
-\date{2019-12-23}
+\date{2019-12-24}
 
 \begin{document}
 \maketitle
@@ -151,6 +151,52 @@ to \(+\infty\), and \(p(y=1)\) will be always within the range of
 
 We can also write the function into another format as follows:
 \[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\]
+
+The following is an example testing whether that home teams are more
+likely to win in NFL games. The results show that the odd of winning is
+the same for both home and away teams.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\KeywordTok{url}\NormalTok{(}\StringTok{'https://raw.githubusercontent.com/nfl-football-ops/Big-Data-Bowl/master/Data/games.csv'}\NormalTok{))}
+\NormalTok{mydata}\OperatorTok{$}\NormalTok{result_new<-}\KeywordTok{ifelse}\NormalTok{(mydata}\OperatorTok{$}\NormalTok{HomeScore}\OperatorTok{>}\NormalTok{mydata}\OperatorTok{$}\NormalTok{VisitorScore,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(mydata}\OperatorTok{$}\NormalTok{result_new)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0000  0.0000  0.4945  1.0000  1.0000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mylogit1 =}\StringTok{ }\KeywordTok{glm}\NormalTok{(result_new}\OperatorTok{~}\DecValTok{1}\NormalTok{, }\DataTypeTok{family=}\NormalTok{binomial, }\DataTypeTok{data=}\NormalTok{mydata)}
+\KeywordTok{summary}\NormalTok{(mylogit1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = result_new ~ 1, family = binomial, data = mydata)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.168  -1.168  -1.168   1.187   1.187  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)
+## (Intercept) -0.02198    0.20967  -0.105    0.917
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 126.14  on 90  degrees of freedom
+## Residual deviance: 126.14  on 90  degrees of freedom
+## AIC: 128.14
+## 
+## Number of Fisher Scoring iterations: 3
+\end{verbatim}
 
 \section{Probit}\label{probit}
 
@@ -298,12 +344,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.1475584
-## 2        2      1.1754757
-## 3        3      0.6836400
-## 4        4     -0.2846277
-## 5        5      1.0901397
-## 6        6      1.0112953
+## 1        1      1.2887818
+## 2        2      0.9773784
+## 3        3      0.7437353
+## 4        4      1.3321009
+## 5        5      0.9609065
+## 6        6      0.5025110
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -335,7 +381,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2036018 0.4847424
+## [1] 0.1660830 0.5637819
 \end{verbatim}
 
 \begin{Shaded}
@@ -345,7 +391,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -354,7 +400,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-5-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -363,7 +409,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-5-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -394,7 +440,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1815908 0.4672336
+## [1] 0.1605803 0.5297649
 \end{verbatim}
 
 \begin{Shaded}
@@ -404,7 +450,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -413,7 +459,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -422,7 +468,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-3.pdf}
 
 \chapter{Linear Mixed Models}\label{linear-mixed-models}
 
