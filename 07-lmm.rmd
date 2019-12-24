@@ -1,13 +1,13 @@
 # Linear Mixed Models
+Assume that $y$ is a function of $x$ and $u$, where $x$ is the fixed effect and $u$ is the random effect. Thus, we can get,
+
+$$y|x, u = x'\beta+z'u+\epsilon$$
 
 The following code generates 4 numbers ($N(0,10)$) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations. 
 
 Note that, in the following code, there are no "independent variables". Both the linear model and mixed model are actually just trying to calculate the mean. 
 
 ```{R}
-# The original R code: http://www.john-ros.com/Rcourse/lme.html
-# I did some minor changes and added some additional comments.
-
 set.seed(123)
 n.groups <- 4 # number of groups
 n.repeats <- 2 # samples per group
@@ -16,9 +16,8 @@ groups <- as.factor(rep(1:n.groups, each=n.repeats))
 n <- length(groups)
 #Generating 4 random numbers, assuming normal distribution
 z0 <- rnorm(n.groups, 0, 10) 
-(z <- z0[as.numeric(groups)]) # generate and inspect random group effects
-
-
+z <- z0[as.numeric(groups)] # generate and inspect random group effects
+z
 ```
 
 
@@ -35,4 +34,7 @@ lm.5 <- lm(y~1)
 #install.packages("lme4")
 library(lme4)
 lme.5 <- lmer(y~1|groups) 
+
+summary(lm.5)
+summary(lme.5)
 ```

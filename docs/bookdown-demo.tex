@@ -298,12 +298,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1       1.337188
-## 2        2       1.470603
-## 3        3       0.538886
-## 4        4       1.611851
-## 5        5       1.490693
-## 6        6       1.012758
+## 1        1    1.131397144
+## 2        2    0.003567223
+## 3        3    1.882301741
+## 4        4    0.776492656
+## 5        5    0.407862090
+## 6        6    0.429556079
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -335,7 +335,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1580790 0.5067534
+## [1] 0.1655828 0.5517759
 \end{verbatim}
 
 \begin{Shaded}
@@ -394,7 +394,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.09904952 0.80140070
+## [1] 0.1135568 0.6373187
 \end{verbatim}
 
 \begin{Shaded}
@@ -426,6 +426,11 @@ algorithm.
 
 \chapter{Linear Mixed Models}\label{linear-mixed-models}
 
+Assume that \(y\) is a function of \(x\) and \(u\), where \(x\) is the
+fixed effect and \(u\) is the random effect. Thus, we can get,
+
+\[y|x, u = x'\beta+z'u+\epsilon\]
+
 The following code generates 4 numbers (\(N(0,10)\)) for 4 groups. Then,
 replicate it within each group.That is, in the end, there are 8
 observations.
@@ -436,9 +441,6 @@ trying to calculate the mean.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# The original R code: http://www.john-ros.com/Rcourse/lme.html}
-\CommentTok{# I did some minor changes and added some additional comments.}
-
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
 \NormalTok{n.groups <-}\StringTok{ }\DecValTok{4} \CommentTok{# number of groups}
 \NormalTok{n.repeats <-}\StringTok{ }\DecValTok{2} \CommentTok{# samples per group}
@@ -447,7 +449,8 @@ trying to calculate the mean.
 \NormalTok{n <-}\StringTok{ }\KeywordTok{length}\NormalTok{(groups)}
 \CommentTok{#Generating 4 random numbers, assuming normal distribution}
 \NormalTok{z0 <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n.groups, }\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{) }
-\NormalTok{(z <-}\StringTok{ }\NormalTok{z0[}\KeywordTok{as.numeric}\NormalTok{(groups)]) }\CommentTok{# generate and inspect random group effects}
+\NormalTok{z <-}\StringTok{ }\NormalTok{z0[}\KeywordTok{as.numeric}\NormalTok{(groups)] }\CommentTok{# generate and inspect random group effects}
+\NormalTok{z}
 \end{Highlighting}
 \end{Shaded}
 
@@ -470,8 +473,53 @@ trying to calculate the mean.
 \CommentTok{#install.packages("lme4")}
 \KeywordTok{library}\NormalTok{(lme4)}
 \NormalTok{lme.}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
+
+\KeywordTok{summary}\NormalTok{(lm.}\DecValTok{5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y ~ 1)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -7.758 -5.930 -2.671  2.889 12.859 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept)    4.283      2.914    1.47    0.185
+## 
+## Residual standard error: 8.243 on 7 degrees of freedom
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(lme.}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: y ~ 1 | groups
+## 
+## REML criterion at convergence: 36.2
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -1.00066 -0.60178  0.07176  0.57552  0.94448 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  groups   (Intercept) 78.3590  8.8521  
+##  Residual              0.7874  0.8873  
+## Number of obs: 8, groups:  groups, 4
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)    4.283      4.437   0.965
+\end{verbatim}
 
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}
