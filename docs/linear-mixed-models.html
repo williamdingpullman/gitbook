@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Logit Models</title>
+  <title>Chapter 4 Linear Mixed Models | Logit Models</title>
   <meta name="description" content="The webpages are mainly about logit models." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Logit Models" />
+  <meta property="og:title" content="Chapter 4 Linear Mixed Models | Logit Models" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Logit Models" />
+  <meta name="twitter:title" content="Chapter 4 Linear Mixed Models | Logit Models" />
   
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="intro.html"/>
+<link rel="prev" href="twitter-example.html"/>
+<link rel="next" href="generalized-linear-mixed-models.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -139,35 +139,46 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Logit Models</h1>
-<p class="author"><em>Bill</em></p>
-<p class="date"><em>2019-12-23</em></p>
-</div>
-<div id="basics" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Basics</h1>
-<div id="logit" class="section level2">
-<h2><span class="header-section-number">1.1</span> Logit</h2>
-<p><span class="math display">\[f(x)=log(\frac{p(y=1)}{1-p(y=1)})\]</span> The basic idea of logistic regression: <span class="math display">\[p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]</span> Thus, <span class="math inline">\(e^{\beta_0+\beta_1x_1+...+\beta_nx_n}\)</span> can be from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>, and <span class="math inline">\(p(y=1)\)</span> will be always within the range of <span class="math inline">\((0,1)\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f&lt;-<span class="cf">function</span>(x){<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))}
-data&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">1</span>)
-<span class="kw">plot</span>(data,<span class="kw">f</span>(data),<span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>We can also write the function into another format as follows: <span class="math display">\[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\]</span></p>
-</div>
-<div id="probit" class="section level2">
-<h2><span class="header-section-number">1.2</span> Probit</h2>
-<p><span class="math display">\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)\]</span> Thus, <span class="math display">\[\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\]</span></p>
+<div id="linear-mixed-models" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Linear Mixed Models</h1>
+<p>The following code generates 4 numbers (<span class="math inline">\(N(0,10)\)</span>) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations.</p>
+<p>Note that, in the following code, there are no “independent variables”. Both the linear model and mixed model are actually just trying to calculate the mean.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The original R code: http://www.john-ros.com/Rcourse/lme.html</span>
+<span class="co"># I did some minor changes and added some additional comments.</span>
 
-</div>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+n.groups &lt;-<span class="st"> </span><span class="dv">4</span> <span class="co"># number of groups</span>
+n.repeats &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># samples per group</span>
+<span class="co">#Generating index for observations belong to the same group</span>
+groups &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n.groups, <span class="dt">each=</span>n.repeats))
+n &lt;-<span class="st"> </span><span class="kw">length</span>(groups)
+<span class="co">#Generating 4 random numbers, assuming normal distribution</span>
+z0 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n.groups, <span class="dv">0</span>, <span class="dv">10</span>) 
+(z &lt;-<span class="st"> </span>z0[<span class="kw">as.numeric</span>(groups)]) <span class="co"># generate and inspect random group effects</span></code></pre></div>
+<pre><code>## [1] -5.6047565 -5.6047565 -2.3017749 -2.3017749 15.5870831 15.5870831  0.7050839
+## [8]  0.7050839</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">epsilon &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># generate measurement error</span>
+beta0 &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># this is the actual parameter of interest! The global mean.</span>
+y &lt;-<span class="st"> </span>beta0 <span class="op">+</span><span class="st"> </span>z <span class="op">+</span><span class="st"> </span>epsilon <span class="co"># sample from an LMM</span>
+
+<span class="co"># fit a linear model assuming independence</span>
+<span class="co"># i.e., assume that there is no &quot;group things&quot;.</span>
+lm.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>)
+
+<span class="co"># fit a mixed-model that deals with the group dependence</span>
+<span class="co">#install.packages(&quot;lme4&quot;)</span>
+<span class="kw">library</span>(lme4)</code></pre></div>
+<pre><code>## Loading required package: Matrix</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>(y<span class="op">~</span><span class="dv">1</span><span class="op">|</span>groups) </code></pre></div>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="twitter-example.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="generalized-linear-mixed-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -198,7 +209,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-lmm.rmd",
 "text": "Edit"
 },
 "history": {

@@ -298,12 +298,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.1624077
-## 2        2      0.9726312
-## 3        3      1.3622804
-## 4        4      1.8999763
-## 5        5      0.5375869
-## 6        6      0.1670664
+## 1        1       1.337188
+## 2        2       1.470603
+## 3        3       0.538886
+## 4        4       1.611851
+## 5        5       1.490693
+## 6        6       1.012758
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -335,7 +335,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1265633 0.5707854
+## [1] 0.1580790 0.5067534
 \end{verbatim}
 
 \begin{Shaded}
@@ -394,7 +394,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1645823 0.4562281
+## [1] 0.09904952 0.80140070
 \end{verbatim}
 
 \begin{Shaded}
@@ -423,6 +423,61 @@ algorithm.
 \end{Shaded}
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-3.pdf}
+
+\chapter{Linear Mixed Models}\label{linear-mixed-models}
+
+The following code generates 4 numbers (\(N(0,10)\)) for 4 groups. Then,
+replicate it within each group.That is, in the end, there are 8
+observations.
+
+Note that, in the following code, there are no ``independent
+variables''. Both the linear model and mixed model are actually just
+trying to calculate the mean.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# The original R code: http://www.john-ros.com/Rcourse/lme.html}
+\CommentTok{# I did some minor changes and added some additional comments.}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n.groups <-}\StringTok{ }\DecValTok{4} \CommentTok{# number of groups}
+\NormalTok{n.repeats <-}\StringTok{ }\DecValTok{2} \CommentTok{# samples per group}
+\CommentTok{#Generating index for observations belong to the same group}
+\NormalTok{groups <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.groups, }\DataTypeTok{each=}\NormalTok{n.repeats))}
+\NormalTok{n <-}\StringTok{ }\KeywordTok{length}\NormalTok{(groups)}
+\CommentTok{#Generating 4 random numbers, assuming normal distribution}
+\NormalTok{z0 <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n.groups, }\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{) }
+\NormalTok{(z <-}\StringTok{ }\NormalTok{z0[}\KeywordTok{as.numeric}\NormalTok{(groups)]) }\CommentTok{# generate and inspect random group effects}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -5.6047565 -5.6047565 -2.3017749 -2.3017749 15.5870831 15.5870831  0.7050839
+## [8]  0.7050839
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{epsilon <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{) }\CommentTok{# generate measurement error}
+\NormalTok{beta0 <-}\StringTok{ }\DecValTok{2} \CommentTok{# this is the actual parameter of interest! The global mean.}
+\NormalTok{y <-}\StringTok{ }\NormalTok{beta0 }\OperatorTok{+}\StringTok{ }\NormalTok{z }\OperatorTok{+}\StringTok{ }\NormalTok{epsilon }\CommentTok{# sample from an LMM}
+
+\CommentTok{# fit a linear model assuming independence}
+\CommentTok{# i.e., assume that there is no "group things".}
+\NormalTok{lm.}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{# fit a mixed-model that deals with the group dependence}
+\CommentTok{#install.packages("lme4")}
+\KeywordTok{library}\NormalTok{(lme4)}
+\NormalTok{lme.}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{Generalized Linear Mixed
+Models}\label{generalized-linear-mixed-models}
+
+The following is the note from Charle E. McCulloch's ``Maximum
+likelihood algorithems for Generalized Linear Mixed Models''
 
 \bibliography{book.bib,packages.bib}
 
