@@ -122,8 +122,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>4.2</b> Test the treatment effect</a></li>
 <li class="chapter" data-level="4.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>4.3</b> Another example</a></li>
 <li class="chapter" data-level="4.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>4.4</b> Full LMM model</a></li>
+<li class="chapter" data-level="4.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>4.5</b> Serial correlations in time and space</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a></li>
+<li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-1"><i class="fa fa-check"></i><b>5.1</b> Basics</a></li>
+<li class="chapter" data-level="5.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>5.2</b> Some References</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
 
@@ -146,7 +150,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="linear-mixed-models" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Linear Mixed Models</h1>
-<p>The following is a shortened version of Jonathan Rosenblatt’s LMM tutorial. <a href="http://www.john-ros.com/Rcourse/lme.html" class="uri">http://www.john-ros.com/Rcourse/lme.html</a></p>
+<p>The following is a shortened version of Jonathan Rosenblatt’s LMM tutorial. <a href="http://www.john-ros.com/Rcourse/lme.html" class="uri">http://www.john-ros.com/Rcourse/lme.html</a>.</p>
+<p>In addition, another reference is from Douglas Bates’s R package document. <a href="https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf?fbclid=IwAR1nmmRP9A0BrhKdgBibNjM5acR_spTpXV8QlQGdmTWyQz3ZtV3LYn6kCbQ" class="uri">https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf?fbclid=IwAR1nmmRP9A0BrhKdgBibNjM5acR_spTpXV8QlQGdmTWyQz3ZtV3LYn6kCbQ</a></p>
 <p>Assume that <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(u\)</span>, where <span class="math inline">\(x\)</span> is the fixed effect and <span class="math inline">\(u\)</span> is the random effect. Thus, we can get,</p>
 <p><span class="math display">\[y|x, u = x&#39;\beta+z&#39;u+\epsilon\]</span></p>
 <p>For random effect, one example can be that you want to test the treatment effect, and sample 8 observations from 4 groups. You measure before and after the treatment. In this case, <span class="math inline">\(x\)</span> represents the treatment effect, whereas <span class="math inline">\(z\)</span> represents the group effect (i.e., random effect). Note that, in this case, it reminds the paired t-test. Remember in SPSS, why do we do paired t-test? Typically, it is the case when we measure a subject (or, participant) twice. In this case, we can consider each participant as an unit of random effect (rather than as group in the last example.)</p>
@@ -340,6 +345,106 @@ Dyestuff</code></pre></div>
 ## Fixed Effects:
 ## (Intercept)         Days  
 ##      251.41        10.47</code></pre>
+</div>
+<div id="serial-correlations-in-time-and-space" class="section level2">
+<h2><span class="header-section-number">4.5</span> Serial correlations in time and space</h2>
+<p>The hierarchical model of <span class="math inline">\(y|x, u = x&#39;\beta+z&#39;u+\epsilon\)</span> can work well for correlations within blocks, but not for correlations in time as the correlations decay in time. The following uses nlme package to calculate time serial data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nlme)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;nlme&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:lme4&#39;:
+## 
+##     lmList</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(nlme<span class="op">::</span>Ovary,<span class="dt">n=</span><span class="dv">50</span>)</code></pre></div>
+<pre><code>## Grouped Data: follicles ~ Time | Mare
+##    Mare        Time follicles
+## 1     1 -0.13636360        20
+## 2     1 -0.09090910        15
+## 3     1 -0.04545455        19
+## 4     1  0.00000000        16
+## 5     1  0.04545455        13
+## 6     1  0.09090910        10
+## 7     1  0.13636360        12
+## 8     1  0.18181820        14
+## 9     1  0.22727270        13
+## 10    1  0.27272730        20
+## 11    1  0.31818180        22
+## 12    1  0.36363640        15
+## 13    1  0.40909090        18
+## 14    1  0.45454550        17
+## 15    1  0.50000000        14
+## 16    1  0.54545450        18
+## 17    1  0.59090910        14
+## 18    1  0.63636360        16
+## 19    1  0.68181820        17
+## 20    1  0.72727270        18
+## 21    1  0.77272730        18
+## 22    1  0.81818180        17
+## 23    1  0.86363640        14
+## 24    1  0.90909090        12
+## 25    1  0.95454550        12
+## 26    1  1.00000000        14
+## 27    1  1.04545500        10
+## 28    1  1.09090900        11
+## 29    1  1.13636400        16
+## 30    2 -0.15000000         6
+## 31    2 -0.10000000         6
+## 32    2 -0.05000000         8
+## 33    2  0.00000000         7
+## 34    2  0.05000000        16
+## 35    2  0.10000000        10
+## 36    2  0.15000000        13
+## 37    2  0.20000000         9
+## 38    2  0.25000000         7
+## 39    2  0.30000000         6
+## 40    2  0.35000000         8
+## 41    2  0.40000000         8
+## 42    2  0.45000000         6
+## 43    2  0.50000000         8
+## 44    2  0.55000000         7
+## 45    2  0.60000000         9
+## 46    2  0.65000000         6
+## 47    2  0.70000000         4
+## 48    2  0.75000000         5
+## 49    2  0.80000000         8
+## 50    2  0.85000000        11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fm1Ovar.lme &lt;-<span class="st"> </span>nlme<span class="op">::</span><span class="kw">lme</span>(<span class="dt">fixed=</span>follicles <span class="op">~</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>Time) <span class="op">+</span><span class="st"> </span><span class="kw">cos</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>Time), 
+                   <span class="dt">data =</span> Ovary, 
+                   <span class="dt">random =</span> <span class="kw">pdDiag</span>(<span class="op">~</span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>Time)), 
+                   <span class="dt">correlation=</span><span class="kw">corAR1</span>() )
+<span class="kw">summary</span>(fm1Ovar.lme)</code></pre></div>
+<pre><code>## Linear mixed-effects model fit by REML
+##  Data: Ovary 
+##        AIC     BIC   logLik
+##   1563.448 1589.49 -774.724
+## 
+## Random effects:
+##  Formula: ~sin(2 * pi * Time) | Mare
+##  Structure: Diagonal
+##         (Intercept) sin(2 * pi * Time) Residual
+## StdDev:    2.858385           1.257977 3.507053
+## 
+## Correlation Structure: AR(1)
+##  Formula: ~1 | Mare 
+##  Parameter estimate(s):
+##       Phi 
+## 0.5721866 
+## Fixed effects: follicles ~ sin(2 * pi * Time) + cos(2 * pi * Time) 
+##                        Value Std.Error  DF   t-value p-value
+## (Intercept)        12.188089 0.9436602 295 12.915760  0.0000
+## sin(2 * pi * Time) -2.985297 0.6055968 295 -4.929513  0.0000
+## cos(2 * pi * Time) -0.877762 0.4777821 295 -1.837159  0.0672
+##  Correlation: 
+##                    (Intr) s(*p*T
+## sin(2 * pi * Time)  0.000       
+## cos(2 * pi * Time) -0.123  0.000
+## 
+## Standardized Within-Group Residuals:
+##         Min          Q1         Med          Q3         Max 
+## -2.34910093 -0.58969626 -0.04577893  0.52931186  3.37167486 
+## 
+## Number of Observations: 308
+## Number of Groups: 11</code></pre>
 
 </div>
 </div>

@@ -298,12 +298,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      0.8634892
-## 2        2      0.5036073
-## 3        3      0.5735237
-## 4        4      1.0919489
-## 5        5     -0.4979753
-## 6        6      0.4295362
+## 1        1      1.1475584
+## 2        2      1.1754757
+## 3        3      0.6836400
+## 4        4     -0.2846277
+## 5        5      1.0901397
+## 6        6      1.0112953
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -335,7 +335,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2216108 0.4392196
+## [1] 0.2036018 0.4847424
 \end{verbatim}
 
 \begin{Shaded}
@@ -394,7 +394,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2491246 0.3916958
+## [1] 0.1815908 0.4672336
 \end{verbatim}
 
 \begin{Shaded}
@@ -427,7 +427,11 @@ algorithm.
 \chapter{Linear Mixed Models}\label{linear-mixed-models}
 
 The following is a shortened version of Jonathan Rosenblatt's LMM
-tutorial. \url{http://www.john-ros.com/Rcourse/lme.html}
+tutorial. \url{http://www.john-ros.com/Rcourse/lme.html}.
+
+In addition, another reference is from Douglas Bates's R package
+document.
+\url{https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf?fbclid=IwAR1nmmRP9A0BrhKdgBibNjM5acR_spTpXV8QlQGdmTWyQz3ZtV3LYn6kCbQ}
 
 Assume that \(y\) is a function of \(x\) and \(u\), where \(x\) is the
 fixed effect and \(u\) is the random effect. Thus, we can get,
@@ -635,7 +639,7 @@ As we can see that, LLM and paired t-test generate the same t-value.
 \end{Shaded}
 
 \begin{verbatim}
-## The following objects are masked from Dyestuff (pos = 4):
+## The following objects are masked from Dyestuff (pos = 5):
 ## 
 ##     Batch, Yield
 \end{verbatim}
@@ -719,7 +723,7 @@ As we can see that, LLM and paired t-test generate the same t-value.
 \end{Shaded}
 
 \begin{verbatim}
-## The following objects are masked from sleepstudy (pos = 4):
+## The following objects are masked from sleepstudy (pos = 5):
 ## 
 ##     Days, Reaction, Subject
 \end{verbatim}
@@ -773,11 +777,136 @@ As we can see that, LLM and paired t-test generate the same t-value.
 ##      251.41        10.47
 \end{verbatim}
 
+\section{Serial correlations in time and
+space}\label{serial-correlations-in-time-and-space}
+
+The hierarchical model of \(y|x, u = x'\beta+z'u+\epsilon\) can work
+well for correlations within blocks, but not for correlations in time as
+the correlations decay in time. The following uses nlme package to
+calculate time serial data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(nlme)}
+\KeywordTok{head}\NormalTok{(nlme}\OperatorTok{::}\NormalTok{Ovary,}\DataTypeTok{n=}\DecValTok{50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Grouped Data: follicles ~ Time | Mare
+##    Mare        Time follicles
+## 1     1 -0.13636360        20
+## 2     1 -0.09090910        15
+## 3     1 -0.04545455        19
+## 4     1  0.00000000        16
+## 5     1  0.04545455        13
+## 6     1  0.09090910        10
+## 7     1  0.13636360        12
+## 8     1  0.18181820        14
+## 9     1  0.22727270        13
+## 10    1  0.27272730        20
+## 11    1  0.31818180        22
+## 12    1  0.36363640        15
+## 13    1  0.40909090        18
+## 14    1  0.45454550        17
+## 15    1  0.50000000        14
+## 16    1  0.54545450        18
+## 17    1  0.59090910        14
+## 18    1  0.63636360        16
+## 19    1  0.68181820        17
+## 20    1  0.72727270        18
+## 21    1  0.77272730        18
+## 22    1  0.81818180        17
+## 23    1  0.86363640        14
+## 24    1  0.90909090        12
+## 25    1  0.95454550        12
+## 26    1  1.00000000        14
+## 27    1  1.04545500        10
+## 28    1  1.09090900        11
+## 29    1  1.13636400        16
+## 30    2 -0.15000000         6
+## 31    2 -0.10000000         6
+## 32    2 -0.05000000         8
+## 33    2  0.00000000         7
+## 34    2  0.05000000        16
+## 35    2  0.10000000        10
+## 36    2  0.15000000        13
+## 37    2  0.20000000         9
+## 38    2  0.25000000         7
+## 39    2  0.30000000         6
+## 40    2  0.35000000         8
+## 41    2  0.40000000         8
+## 42    2  0.45000000         6
+## 43    2  0.50000000         8
+## 44    2  0.55000000         7
+## 45    2  0.60000000         9
+## 46    2  0.65000000         6
+## 47    2  0.70000000         4
+## 48    2  0.75000000         5
+## 49    2  0.80000000         8
+## 50    2  0.85000000        11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fm1Ovar.lme <-}\StringTok{ }\NormalTok{nlme}\OperatorTok{::}\KeywordTok{lme}\NormalTok{(}\DataTypeTok{fixed=}\NormalTok{follicles }\OperatorTok{~}\StringTok{ }\KeywordTok{sin}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}\OperatorTok{*}\NormalTok{Time) }\OperatorTok{+}\StringTok{ }\KeywordTok{cos}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}\OperatorTok{*}\NormalTok{Time), }
+                   \DataTypeTok{data =}\NormalTok{ Ovary, }
+                   \DataTypeTok{random =} \KeywordTok{pdDiag}\NormalTok{(}\OperatorTok{~}\KeywordTok{sin}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}\OperatorTok{*}\NormalTok{Time)), }
+                   \DataTypeTok{correlation=}\KeywordTok{corAR1}\NormalTok{() )}
+\KeywordTok{summary}\NormalTok{(fm1Ovar.lme)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed-effects model fit by REML
+##  Data: Ovary 
+##        AIC     BIC   logLik
+##   1563.448 1589.49 -774.724
+## 
+## Random effects:
+##  Formula: ~sin(2 * pi * Time) | Mare
+##  Structure: Diagonal
+##         (Intercept) sin(2 * pi * Time) Residual
+## StdDev:    2.858385           1.257977 3.507053
+## 
+## Correlation Structure: AR(1)
+##  Formula: ~1 | Mare 
+##  Parameter estimate(s):
+##       Phi 
+## 0.5721866 
+## Fixed effects: follicles ~ sin(2 * pi * Time) + cos(2 * pi * Time) 
+##                        Value Std.Error  DF   t-value p-value
+## (Intercept)        12.188089 0.9436602 295 12.915760  0.0000
+## sin(2 * pi * Time) -2.985297 0.6055968 295 -4.929513  0.0000
+## cos(2 * pi * Time) -0.877762 0.4777821 295 -1.837159  0.0672
+##  Correlation: 
+##                    (Intr) s(*p*T
+## sin(2 * pi * Time)  0.000       
+## cos(2 * pi * Time) -0.123  0.000
+## 
+## Standardized Within-Group Residuals:
+##         Min          Q1         Med          Q3         Max 
+## -2.34910093 -0.58969626 -0.04577893  0.52931186  3.37167486 
+## 
+## Number of Observations: 308
+## Number of Groups: 11
+\end{verbatim}
+
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}
 
+\section{Basics}\label{basics-1}
+
 The following is the note from Charle E. McCulloch's ``Maximum
 likelihood algorithems for Generalized Linear Mixed Models''
+
+\section{Some References}\label{some-references}
+
+\url{http://www.biostat.umn.edu/~baolin/teaching/linmods/glmm.html}
+
+\url{http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html}
+
+\url{https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html}
 
 \bibliography{book.bib,packages.bib}
 

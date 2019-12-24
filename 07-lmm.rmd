@@ -1,6 +1,10 @@
 # Linear Mixed Models
 
-The following is a shortened version of Jonathan Rosenblatt's LMM tutorial. http://www.john-ros.com/Rcourse/lme.html
+The following is a shortened version of Jonathan Rosenblatt's LMM tutorial. http://www.john-ros.com/Rcourse/lme.html.
+
+In addition, another reference is from Douglas Bates's R package document.
+https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf?fbclid=IwAR1nmmRP9A0BrhKdgBibNjM5acR_spTpXV8QlQGdmTWyQz3ZtV3LYn6kCbQ
+
 
 Assume that $y$ is a function of $x$ and $u$, where $x$ is the fixed effect and $u$ is the random effect. Thus, we can get,
 
@@ -95,4 +99,18 @@ nrow(sleepstudy)
 lmer ( Reaction ~ Days + ( Days| Subject ) , data= sleepstudy )
 ```
 
+## Serial correlations in time and space
+
+The hierarchical model of $y|x, u = x'\beta+z'u+\epsilon$ can work well for correlations within blocks, but not for correlations in time as the correlations decay in time. The following uses nlme package to calculate time serial data.
+
+```{R}
+library(nlme)
+head(nlme::Ovary,n=50)
+
+fm1Ovar.lme <- nlme::lme(fixed=follicles ~ sin(2*pi*Time) + cos(2*pi*Time), 
+                   data = Ovary, 
+                   random = pdDiag(~sin(2*pi*Time)), 
+                   correlation=corAR1() )
+summary(fm1Ovar.lme)
+```
 
