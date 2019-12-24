@@ -298,12 +298,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1    1.131397144
-## 2        2    0.003567223
-## 3        3    1.882301741
-## 4        4    0.776492656
-## 5        5    0.407862090
-## 6        6    0.429556079
+## 1        1      0.9818194
+## 2        2      1.8128229
+## 3        3      0.7121921
+## 4        4      0.4938375
+## 5        5      1.5708312
+## 6        6      1.3478442
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -335,7 +335,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1655828 0.5517759
+## [1] 0.1275638 0.6138069
 \end{verbatim}
 
 \begin{Shaded}
@@ -394,7 +394,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1135568 0.6373187
+## [1] 0.1725863 0.5112556
 \end{verbatim}
 
 \begin{Shaded}
@@ -430,6 +430,16 @@ Assume that \(y\) is a function of \(x\) and \(u\), where \(x\) is the
 fixed effect and \(u\) is the random effect. Thus, we can get,
 
 \[y|x, u = x'\beta+z'u+\epsilon\]
+
+FOr random effect,one example can be that you want to test the treatment
+effect, and sample 8 observations from 4 groups. You measure before and
+after the treatment. In this case, \(x\) represents the treatment
+effect, whereas \(z\) represents the group effect (i.e., random effect).
+Note that, in this case, it reminds the paired t-test. Remember in SPSS,
+why do we do paired t-test? Typically, it is the case when we measure a
+subject (or, participant) twice. In this case, we can consider each
+participant as an unit of random effect (rather than as group in the
+last example.)
 
 The following code generates 4 numbers (\(N(0,10)\)) for 4 groups. Then,
 replicate it within each group.That is, in the end, there are 8

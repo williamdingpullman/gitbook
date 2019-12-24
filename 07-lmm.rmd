@@ -3,6 +3,9 @@ Assume that $y$ is a function of $x$ and $u$, where $x$ is the fixed effect and 
 
 $$y|x, u = x'\beta+z'u+\epsilon$$
 
+FOr random effect,one example can be that you want to test the treatment effect, and sample 8 observations from 4 groups. You measure before and after the treatment. In this case, $x$ represents the treatment effect, whereas $z$ represents the group effect (i.e., random effect). Note that, in this case, it reminds the paired t-test. Remember in SPSS, why do we do paired t-test? Typically, it is the case when we measure a subject (or, participant) twice. In this case, we can consider each participant as an unit of random effect (rather than as group in the last example.)
+
+
 The following code generates 4 numbers ($N(0,10)$) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations. 
 
 Note that, in the following code, there are no "independent variables". Both the linear model and mixed model are actually just trying to calculate the mean. 
