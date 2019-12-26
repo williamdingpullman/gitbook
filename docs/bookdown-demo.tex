@@ -344,12 +344,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.2289590
-## 2        2      1.0355419
-## 3        3      0.2425039
-## 4        4      0.4701581
-## 5        5      1.2007826
-## 6        6      0.4526103
+## 1        1      1.4283828
+## 2        2      0.9248178
+## 3        3      1.4932854
+## 4        4      0.5540820
+## 5        5      1.8258166
+## 6        6      1.6083740
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -381,7 +381,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1870935 0.4962481
+## [1] 0.1655828 0.4972486
 \end{verbatim}
 
 \begin{Shaded}
@@ -440,7 +440,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1620810 0.5232616
+## [1] 0.1935968 0.4567284
 \end{verbatim}
 
 \begin{Shaded}
@@ -768,6 +768,11 @@ In the following, I used the data from the package of lme4. For Days +
 for Days. Note that, random effects do not generate specific slopes for
 each level of Days, but rather just a variance of all the slopes.
 
+Therefore, we can see that ``Days + ( Days\textbar{} Subject )'' and
+``Days + ( 1+Days\textbar{} Subject )'' generate the same results. For
+more discussion, you can refer to the following link:
+\url{https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{data}\NormalTok{(sleepstudy, }\DataTypeTok{package=}\StringTok{'lme4'}\NormalTok{)}
@@ -825,6 +830,41 @@ each level of Days, but rather just a variance of all the slopes.
 \begin{verbatim}
 ## Linear mixed model fit by REML ['lmerMod']
 ## Formula: Reaction ~ Days + (Days | Subject)
+##    Data: sleepstudy
+## 
+## REML criterion at convergence: 1743.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.9536 -0.4634  0.0231  0.4633  5.1793 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  Subject  (Intercept) 611.90   24.737       
+##           Days         35.08    5.923   0.07
+##  Residual             654.94   25.592       
+## Number of obs: 180, groups:  Subject, 18
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  251.405      6.824  36.843
+## Days          10.467      1.546   6.771
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## Days -0.138
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fm3<-}\KeywordTok{lmer}\NormalTok{ ( Reaction }\OperatorTok{~}\StringTok{ }\NormalTok{Days }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{Days}\OperatorTok{|}\StringTok{ }\NormalTok{Subject ) , }\DataTypeTok{data=}\NormalTok{ sleepstudy )}
+\KeywordTok{summary}\NormalTok{(fm3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: Reaction ~ Days + (1 + Days | Subject)
 ##    Data: sleepstudy
 ## 
 ## REML criterion at convergence: 1743.6

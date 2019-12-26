@@ -319,6 +319,7 @@ Dyestuff</code></pre></div>
 <div id="full-lmm-model" class="section level2">
 <h2><span class="header-section-number">4.4</span> Full LMM model</h2>
 <p>In the following, I used the data from the package of lme4. For Days + (1 | Subject), it only has random intercept; in contrast, Days + ( Days| Subject ) has both random intercept and random slope for Days. Note that, random effects do not generate specific slopes for each level of Days, but rather just a variance of all the slopes.</p>
+<p>Therefore, we can see that “Days + ( Days| Subject )” and “Days + ( 1+Days| Subject )” generate the same results. For more discussion, you can refer to the following link: <a href="https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r" class="uri">https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(sleepstudy, <span class="dt">package=</span><span class="st">&#39;lme4&#39;</span>)
 <span class="kw">attach</span>(sleepstudy)
 
@@ -352,6 +353,33 @@ fm1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(Reaction <span cl
 <span class="kw">summary</span>(fm2)</code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: Reaction ~ Days + (Days | Subject)
+##    Data: sleepstudy
+## 
+## REML criterion at convergence: 1743.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.9536 -0.4634  0.0231  0.4633  5.1793 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  Subject  (Intercept) 611.90   24.737       
+##           Days         35.08    5.923   0.07
+##  Residual             654.94   25.592       
+## Number of obs: 180, groups:  Subject, 18
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  251.405      6.824  36.843
+## Days          10.467      1.546   6.771
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## Days -0.138</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fm3&lt;-<span class="kw">lmer</span> ( Reaction <span class="op">~</span><span class="st"> </span>Days <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">+</span>Days<span class="op">|</span><span class="st"> </span>Subject ) , <span class="dt">data=</span> sleepstudy )
+<span class="kw">summary</span>(fm3)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: Reaction ~ Days + (1 + Days | Subject)
 ##    Data: sleepstudy
 ## 
 ## REML criterion at convergence: 1743.6

@@ -89,7 +89,9 @@ summary(lme_batch)
 
 ## Full LMM model
 
-In the following, I used the data from the package of lme4. For Days + (1 | Subject), it only has random intercept; in contrast, Days + ( Days| Subject ) has both random intercept and random slope for Days. Note that, random effects do not generate specific slopes for each level of Days, but rather just a variance of all the slopes.
+In the following, I used the data from the package of lme4. For Days + (1 | Subject), it only has random intercept; in contrast, Days + ( Days| Subject ) has both random intercept and random slope for Days. Note that, random effects do not generate specific slopes for each level of Days, but rather just a variance of all the slopes. 
+
+Therefore, we can see that "Days + ( Days| Subject )" and "Days + ( 1+Days| Subject )" generate the same results. For more discussion, you can refer to the following link: https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r
 
 ```{R}
 data(sleepstudy, package='lme4')
@@ -100,6 +102,9 @@ summary(fm1)
 
 fm2<-lmer ( Reaction ~ Days + ( Days| Subject ) , data= sleepstudy )
 summary(fm2)
+
+fm3<-lmer ( Reaction ~ Days + (1+Days| Subject ) , data= sleepstudy )
+summary(fm3)
 ```
 
 ## Serial correlations in time and space
