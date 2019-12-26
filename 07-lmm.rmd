@@ -17,7 +17,7 @@ For random effect, one example can be that you want to test the treatment effect
 
 The following code generates 4 numbers ($N(0,10)$) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations. 
 
-Note that, in the following code, there are no "independent variables". Both the linear model and mixed model are actually just trying to calculate the mean. Note that $lmer(y~1+1|groups) $ and $lmer(y~1|groups)$ will generate the same results.
+Note that, in the following code, there are no "independent variables". Both the linear model and mixed model are actually just trying to calculate the mean. Note that lmer(y~1+1|groups) and lmer(y~1|groups) will generate the same results.
 
 ```{R}
 set.seed(123)
@@ -89,14 +89,17 @@ summary(lme_batch)
 
 ## Full LMM model
 
+In the following, I used the data from the package of lme4. For Days + (1 | Subject), it only has random intercept; in contrast, Days + ( Days| Subject ) has both random intercept and random slope for Days. Note that, random effects do not generate specific slopes for each level of Days, but rather just a variance of all the slopes.
+
 ```{R}
 data(sleepstudy, package='lme4')
 attach(sleepstudy)
-head(sleepstudy)
-nrow(sleepstudy)
 
-#lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )
-lmer ( Reaction ~ Days + ( Days| Subject ) , data= sleepstudy )
+fm1 <- lmer(Reaction ~ Days + (1 | Subject), sleepstudy)
+summary(fm1)
+
+fm2<-lmer ( Reaction ~ Days + ( Days| Subject ) , data= sleepstudy )
+summary(fm2)
 ```
 
 ## Serial correlations in time and space

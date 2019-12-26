@@ -119,7 +119,7 @@
 
 \title{Logit Models}
 \author{Bill}
-\date{2019-12-24}
+\date{2019-12-26}
 
 \begin{document}
 \maketitle
@@ -344,12 +344,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.2887818
-## 2        2      0.9773784
-## 3        3      0.7437353
-## 4        4      1.3321009
-## 5        5      0.9609065
-## 6        6      0.5025110
+## 1        1      1.2289590
+## 2        2      1.0355419
+## 3        3      0.2425039
+## 4        4      0.4701581
+## 5        5      1.2007826
+## 6        6      0.4526103
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -381,7 +381,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1660830 0.5637819
+## [1] 0.1870935 0.4962481
 \end{verbatim}
 
 \begin{Shaded}
@@ -440,7 +440,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1605803 0.5297649
+## [1] 0.1620810 0.5232616
 \end{verbatim}
 
 \begin{Shaded}
@@ -503,8 +503,9 @@ observations.
 Note that, in the following code, there are no ``independent
 variables''. Both the linear model and mixed model are actually just
 trying to calculate the mean. Note that
-\$lmer(y\textasciitilde{}1+1\textbar{}groups) \$ and
-\(lmer(y~1|groups)\) will generate the same results.
+lmer(y\textasciitilde{}1+1\textbar{}groups) and
+lmer(y\textasciitilde{}1\textbar{}groups) will generate the same
+results.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -761,6 +762,12 @@ As we can see that, LLM and paired t-test generate the same t-value.
 
 \section{Full LMM model}\label{full-lmm-model}
 
+In the following, I used the data from the package of lme4. For Days +
+(1 \textbar{} Subject), it only has random intercept; in contrast, Days
++ ( Days\textbar{} Subject ) has both random intercept and random slope
+for Days. Note that, random effects do not generate specific slopes for
+each level of Days, but rather just a variance of all the slopes.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{data}\NormalTok{(sleepstudy, }\DataTypeTok{package=}\StringTok{'lme4'}\NormalTok{)}
@@ -776,34 +783,42 @@ As we can see that, LLM and paired t-test generate the same t-value.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{head}\NormalTok{(sleepstudy)}
+\NormalTok{fm1 <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(Reaction }\OperatorTok{~}\StringTok{ }\NormalTok{Days }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{Subject), sleepstudy)}
+\KeywordTok{summary}\NormalTok{(fm1)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##   Reaction Days Subject
-## 1 249.5600    0     308
-## 2 258.7047    1     308
-## 3 250.8006    2     308
-## 4 321.4398    3     308
-## 5 356.8519    4     308
-## 6 414.6901    5     308
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: Reaction ~ Days + (1 | Subject)
+##    Data: sleepstudy
+## 
+## REML criterion at convergence: 1786.5
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.2257 -0.5529  0.0109  0.5188  4.2506 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Subject  (Intercept) 1378.2   37.12   
+##  Residual              960.5   30.99   
+## Number of obs: 180, groups:  Subject, 18
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept) 251.4051     9.7467   25.79
+## Days         10.4673     0.8042   13.02
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## Days -0.371
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{nrow}\NormalTok{(sleepstudy)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 180
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )}
-\KeywordTok{lmer}\NormalTok{ ( Reaction }\OperatorTok{~}\StringTok{ }\NormalTok{Days }\OperatorTok{+}\StringTok{ }\NormalTok{( Days}\OperatorTok{|}\StringTok{ }\NormalTok{Subject ) , }\DataTypeTok{data=}\NormalTok{ sleepstudy )}
+\NormalTok{fm2<-}\KeywordTok{lmer}\NormalTok{ ( Reaction }\OperatorTok{~}\StringTok{ }\NormalTok{Days }\OperatorTok{+}\StringTok{ }\NormalTok{( Days}\OperatorTok{|}\StringTok{ }\NormalTok{Subject ) , }\DataTypeTok{data=}\NormalTok{ sleepstudy )}
+\KeywordTok{summary}\NormalTok{(fm2)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -811,16 +826,28 @@ As we can see that, LLM and paired t-test generate the same t-value.
 ## Linear mixed model fit by REML ['lmerMod']
 ## Formula: Reaction ~ Days + (Days | Subject)
 ##    Data: sleepstudy
-## REML criterion at convergence: 1743.628
+## 
+## REML criterion at convergence: 1743.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.9536 -0.4634  0.0231  0.4633  5.1793 
+## 
 ## Random effects:
-##  Groups   Name        Std.Dev. Corr
-##  Subject  (Intercept) 24.737       
-##           Days         5.923   0.07
-##  Residual             25.592       
+##  Groups   Name        Variance Std.Dev. Corr
+##  Subject  (Intercept) 611.90   24.737       
+##           Days         35.08    5.923   0.07
+##  Residual             654.94   25.592       
 ## Number of obs: 180, groups:  Subject, 18
-## Fixed Effects:
-## (Intercept)         Days  
-##      251.41        10.47
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  251.405      6.824  36.843
+## Days          10.467      1.546   6.771
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## Days -0.138
 \end{verbatim}
 
 \section{Serial correlations in time and

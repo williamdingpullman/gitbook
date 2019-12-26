@@ -24,7 +24,7 @@
 <meta name="author" content="Bill" />
 
 
-<meta name="date" content="2019-12-24" />
+<meta name="date" content="2019-12-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,7 +158,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="calculate-mean" class="section level2">
 <h2><span class="header-section-number">4.1</span> Calculate mean</h2>
 <p>The following code generates 4 numbers (<span class="math inline">\(N(0,10)\)</span>) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations.</p>
-<p>Note that, in the following code, there are no “independent variables”. Both the linear model and mixed model are actually just trying to calculate the mean. Note that $lmer(y~1+1|groups) $ and <span class="math inline">\(lmer(y~1|groups)\)</span> will generate the same results.</p>
+<p>Note that, in the following code, there are no “independent variables”. Both the linear model and mixed model are actually just trying to calculate the mean. Note that lmer(y~1+1|groups) and lmer(y~1|groups) will generate the same results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
 n.groups &lt;-<span class="st"> </span><span class="dv">4</span> <span class="co"># number of groups</span>
 n.repeats &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># samples per group</span>
@@ -318,33 +318,63 @@ Dyestuff</code></pre></div>
 </div>
 <div id="full-lmm-model" class="section level2">
 <h2><span class="header-section-number">4.4</span> Full LMM model</h2>
+<p>In the following, I used the data from the package of lme4. For Days + (1 | Subject), it only has random intercept; in contrast, Days + ( Days| Subject ) has both random intercept and random slope for Days. Note that, random effects do not generate specific slopes for each level of Days, but rather just a variance of all the slopes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(sleepstudy, <span class="dt">package=</span><span class="st">&#39;lme4&#39;</span>)
 <span class="kw">attach</span>(sleepstudy)
-<span class="kw">head</span>(sleepstudy)</code></pre></div>
-<pre><code>##   Reaction Days Subject
-## 1 249.5600    0     308
-## 2 258.7047    1     308
-## 3 250.8006    2     308
-## 4 321.4398    3     308
-## 5 356.8519    4     308
-## 6 414.6901    5     308</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(sleepstudy)</code></pre></div>
-<pre><code>## [1] 180</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )</span>
-<span class="kw">lmer</span> ( Reaction <span class="op">~</span><span class="st"> </span>Days <span class="op">+</span><span class="st"> </span>( Days<span class="op">|</span><span class="st"> </span>Subject ) , <span class="dt">data=</span> sleepstudy )</code></pre></div>
+
+fm1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(Reaction <span class="op">~</span><span class="st"> </span>Days <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Subject), sleepstudy)
+<span class="kw">summary</span>(fm1)</code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: Reaction ~ Days + (1 | Subject)
+##    Data: sleepstudy
+## 
+## REML criterion at convergence: 1786.5
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.2257 -0.5529  0.0109  0.5188  4.2506 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Subject  (Intercept) 1378.2   37.12   
+##  Residual              960.5   30.99   
+## Number of obs: 180, groups:  Subject, 18
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept) 251.4051     9.7467   25.79
+## Days         10.4673     0.8042   13.02
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## Days -0.371</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fm2&lt;-<span class="kw">lmer</span> ( Reaction <span class="op">~</span><span class="st"> </span>Days <span class="op">+</span><span class="st"> </span>( Days<span class="op">|</span><span class="st"> </span>Subject ) , <span class="dt">data=</span> sleepstudy )
+<span class="kw">summary</span>(fm2)</code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: Reaction ~ Days + (Days | Subject)
 ##    Data: sleepstudy
-## REML criterion at convergence: 1743.628
+## 
+## REML criterion at convergence: 1743.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.9536 -0.4634  0.0231  0.4633  5.1793 
+## 
 ## Random effects:
-##  Groups   Name        Std.Dev. Corr
-##  Subject  (Intercept) 24.737       
-##           Days         5.923   0.07
-##  Residual             25.592       
+##  Groups   Name        Variance Std.Dev. Corr
+##  Subject  (Intercept) 611.90   24.737       
+##           Days         35.08    5.923   0.07
+##  Residual             654.94   25.592       
 ## Number of obs: 180, groups:  Subject, 18
-## Fixed Effects:
-## (Intercept)         Days  
-##      251.41        10.47</code></pre>
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  251.405      6.824  36.843
+## Days          10.467      1.546   6.771
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## Days -0.138</code></pre>
 </div>
 <div id="serial-correlations-in-time-and-space" class="section level2">
 <h2><span class="header-section-number">4.5</span> Serial correlations in time and space</h2>
