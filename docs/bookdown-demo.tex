@@ -150,7 +150,10 @@ to \(+\infty\), and \(p(y=1)\) will be always within the range of
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-1-1.pdf}
 
 We can also write the function into another format as follows:
-\[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\]
+\[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\] Thus,
+we know that the regression coeficients of \(\beta_i\) actually change
+the ``log-odds'' of the event. Of course, note that the magnitude of
+\(\beta_i\) is dependent upon the units of \(x_i\).
 
 The following is an example testing whether that home teams are more
 likely to win in NFL games. The results show that the odd of winning is
@@ -200,8 +203,28 @@ the same for both home and away teams.
 
 \section{Probit}\label{probit}
 
-\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)\] Thus,
+As noted above, logit provides \(f(x)=log(\frac{p(y=1)}{1-p(y=1)})\)
+provides the resulting range of \((0,1)\). Another way to provide the
+same rage is through the cdf of normal distribution.The following R code
+is used to illusrate this process.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data2<-}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(data2,}\KeywordTok{pnorm}\NormalTok{(data2),}\DataTypeTok{type =} \StringTok{"b"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-3-1.pdf}
+Thus, the cdf of normal distribution can be used to indicate the
+probability of \(p(y=1)\).
+
 \[\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\]
+
+Similar to logit model, we can also write the inverse function of the
+cdf to get the function that can be from \(-\infty\) to \(+\infty\).
+
+\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)\]
 
 \chapter{MLE}\label{intro}
 
@@ -344,12 +367,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.4283828
-## 2        2      0.9248178
-## 3        3      1.4932854
-## 4        4      0.5540820
-## 5        5      1.8258166
-## 6        6      1.6083740
+## 1        1     0.41635123
+## 2        2     0.60601935
+## 3        3     0.87327329
+## 4        4    -0.05996508
+## 5        5     0.61617423
+## 6        6     1.05556269
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -381,7 +404,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1655828 0.4972486
+## [1] 0.1965983 0.4792396
 \end{verbatim}
 
 \begin{Shaded}
@@ -391,7 +414,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -400,7 +423,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -409,7 +432,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-6-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -440,7 +463,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1935968 0.4567284
+## [1] 0.1280640 0.7363682
 \end{verbatim}
 
 \begin{Shaded}
@@ -450,7 +473,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -459,7 +482,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -468,7 +491,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-3.pdf}
 
 \chapter{Linear Mixed Models}\label{linear-mixed-models}
 

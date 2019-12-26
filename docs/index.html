@@ -162,7 +162,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 data&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">1</span>)
 <span class="kw">plot</span>(data,<span class="kw">f</span>(data),<span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>We can also write the function into another format as follows: <span class="math display">\[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\]</span></p>
+<p>We can also write the function into another format as follows: <span class="math display">\[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\]</span> Thus, we know that the regression coeficients of <span class="math inline">\(\beta_i\)</span> actually change the “log-odds” of the event. Of course, note that the magnitude of <span class="math inline">\(\beta_i\)</span> is dependent upon the units of <span class="math inline">\(x_i\)</span>.</p>
 <p>The following is an example testing whether that home teams are more likely to win in NFL games. The results show that the odd of winning is the same for both home and away teams.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata =<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">url</span>(<span class="st">&#39;https://raw.githubusercontent.com/nfl-football-ops/Big-Data-Bowl/master/Data/games.csv&#39;</span>))
 mydata<span class="op">$</span>result_new&lt;-<span class="kw">ifelse</span>(mydata<span class="op">$</span>HomeScore<span class="op">&gt;</span>mydata<span class="op">$</span>VisitorScore,<span class="dv">1</span>,<span class="dv">0</span>)
@@ -193,7 +193,13 @@ mydata<span class="op">$</span>result_new&lt;-<span class="kw">ifelse</span>(myd
 </div>
 <div id="probit" class="section level2">
 <h2><span class="header-section-number">1.2</span> Probit</h2>
-<p><span class="math display">\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)\]</span> Thus, <span class="math display">\[\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\]</span></p>
+<p>As noted above, logit provides <span class="math inline">\(f(x)=log(\frac{p(y=1)}{1-p(y=1)})\)</span> provides the resulting range of <span class="math inline">\((0,1)\)</span>. Another way to provide the same rage is through the cdf of normal distribution.The following R code is used to illusrate this process.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data2&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">1</span>)
+<span class="kw">plot</span>(data2,<span class="kw">pnorm</span>(data2),<span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" width="672" /> Thus, the cdf of normal distribution can be used to indicate the probability of <span class="math inline">\(p(y=1)\)</span>.</p>
+<p><span class="math display">\[\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\]</span></p>
+<p>Similar to logit model, we can also write the inverse function of the cdf to get the function that can be from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>.</p>
+<p><span class="math display">\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)\]</span></p>
 
 </div>
 </div>

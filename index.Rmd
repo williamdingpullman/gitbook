@@ -30,6 +30,7 @@ plot(data,f(data),type = "b")
 
 We can also write the function into another format as follows:
 $$log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n$$
+Thus, we know that the regression coeficients of $\beta_i$ actually change the "log-odds" of the event. Of course, note that the magnitude of $\beta_i$ is dependent upon the units of $x_i$.
 
 The following is an example testing whether that home teams are more likely to win in NFL games. The results show that the odd of winning is the same for both home and away teams.
 
@@ -44,6 +45,17 @@ summary(mylogit1)
 
 ## Probit
 
-$$\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)$$
-Thus, 
+As noted above, logit provides $f(x)=log(\frac{p(y=1)}{1-p(y=1)})$ provides the resulting range of $(0,1)$. Another way to provide the same rage is through the cdf of normal distribution.The following R code is used to illusrate this process. 
+
+```{R}
+data2<-seq(-5,5,1)
+plot(data2,pnorm(data2),type = "b")
+```
+Thus, the cdf of normal distribution can be used to indicate the probability of $p(y=1)$.
+
 $$\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)$$
+
+Similar to logit model, we can also write the inverse function of the cdf to get the function that can be from $-\infty$ to $+\infty$.
+
+$$\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)$$
+
