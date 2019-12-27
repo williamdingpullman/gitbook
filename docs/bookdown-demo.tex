@@ -573,12 +573,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.7021104
-## 2        2      1.5460725
-## 3        3      1.6636975
-## 4        4      0.7403458
-## 5        5      1.0246143
-## 6        6      1.0546108
+## 1        1      1.3493576
+## 2        2      1.0199132
+## 3        3      0.8502367
+## 4        4      1.0082851
+## 5        5      0.8697868
+## 6        6      0.8605332
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -610,7 +610,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1190595 0.7048524
+## [1] 0.1180590 0.6793397
 \end{verbatim}
 
 \begin{Shaded}
@@ -669,7 +669,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1480740 0.5677839
+## [1] 0.1005503 0.7418709
 \end{verbatim}
 
 \begin{Shaded}
@@ -1304,11 +1304,11 @@ Specifically,
 The idea is that, we can generate \(x_i\) from exponential distribution
 of \(e{-(x-2)}\), and then insert them into the density function of
 \(\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}\). Thus, as you
-can see, importance sampling is based on expetation value (law of large
-numbers: If the same experiment or study is repeated independently a
-large number of times, the average of the results of the trials must be
-close to the expected value). We can use it to calculate integral based
-on link of the definition of expected value.
+can see, importance sampling is based on the law of large numbers (i.e.,
+If the same experiment or study is repeated independently a large number
+of times, the average of the results of the trials must be close to the
+expected value). We can use it to calculate integral based on link of
+the definition of expected value.
 
 \begin{Shaded}
 \begin{Highlighting}[]
