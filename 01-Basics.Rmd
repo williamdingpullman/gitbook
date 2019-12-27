@@ -36,23 +36,23 @@ In the example above, we are not really trying to estimate a lot of regression c
 
 Suppose that we flip a coin 20 times and observe 8 heads. We can use the R's glm function to esimate the $\rho$. If the result is consistent with what we did above, we should observe that the $cdf$ of the esimate of $\beta_0$ (i.e., intercept) should be equal to $8/20=0.4$.
 
-### Probit
-
 ```{R}
 coins<-c(rep(1,times=8),rep(0,times=12))
 table(coins)
 coins<-as.data.frame(coins)
+```
 
+### Probit
+
+
+```{R}
 probitresults <- glm(coins ~ 1, family = binomial(link = "probit"), data = coins)
 probitresults
-
+pnorm(probitresults$coefficients)
 ```
 
 As we can see the intercept is $-0.2533$, and thus $\Phi(-0.2533471)=0.4$
 
-```{R}
-pnorm(probitresults$coefficients)
-```
 
 ### Logit
 
@@ -139,4 +139,7 @@ mylogit2 = mle.logreg(fmla, mydata) #Estimate coefficients
  print(cbind(coef(mylogit1), mylogit2$beta))
 ```
 
+## References
+
+http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf
 

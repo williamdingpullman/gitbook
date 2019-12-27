@@ -332,8 +332,6 @@ with what we did above, we should observe that the \(cdf\) of the
 esimate of \(\beta_0\) (i.e., intercept) should be equal to
 \(8/20=0.4\).
 
-\subsection{Probit}\label{probit-1}
-
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{coins<-}\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DataTypeTok{times=}\DecValTok{8}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DataTypeTok{times=}\DecValTok{12}\NormalTok{))}
@@ -350,7 +348,13 @@ esimate of \(\beta_0\) (i.e., intercept) should be equal to
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{coins<-}\KeywordTok{as.data.frame}\NormalTok{(coins)}
+\end{Highlighting}
+\end{Shaded}
 
+\subsection{Probit}\label{probit-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{probitresults <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(coins }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"probit"}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ coins)}
 \NormalTok{probitresults}
 \end{Highlighting}
@@ -370,9 +374,6 @@ esimate of \(\beta_0\) (i.e., intercept) should be equal to
 ## Residual Deviance: 26.92     AIC: 28.92
 \end{verbatim}
 
-As we can see the intercept is \(-0.2533\), and thus
-\(\Phi(-0.2533471)=0.4\)
-
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{pnorm}\NormalTok{(probitresults}\OperatorTok{$}\NormalTok{coefficients)}
@@ -383,6 +384,9 @@ As we can see the intercept is \(-0.2533\), and thus
 ## (Intercept) 
 ##         0.4
 \end{verbatim}
+
+As we can see the intercept is \(-0.2533\), and thus
+\(\Phi(-0.2533471)=0.4\)
 
 \subsection{Logit}\label{logit-1}
 
@@ -496,6 +500,10 @@ log-likelihood or the likelihood itself.
 ## as.factor(rank)4 -1.551463677 -1.563396035
 \end{verbatim}
 
+\section{References}\label{references}
+
+\url{http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf}
+
 \chapter{Twitter Example}\label{twitter-example}
 
 The following is part of my course project for Stat 536. It aims to
@@ -558,12 +566,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.0830563
-## 2        2      0.9334548
-## 3        3      0.8780085
-## 4        4      1.1220610
-## 5        5      0.7296087
-## 6        6      0.3745218
+## 1        1      1.6439174
+## 2        2      0.8096186
+## 3        3      1.2077470
+## 4        4      0.4993032
+## 5        5      1.4545000
+## 6        6      0.7519293
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -595,7 +603,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1740870 0.5127564
+## [1] 0.1505753 0.4757379
 \end{verbatim}
 
 \begin{Shaded}
@@ -654,7 +662,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2021011 0.4917459
+## [1] 0.1885943 0.4417209
 \end{verbatim}
 
 \begin{Shaded}
