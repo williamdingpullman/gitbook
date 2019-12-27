@@ -28,7 +28,29 @@ $$\Rightarrow (1-\rho)\sum y_i - \rho \sum(1-y_i) =0$$
 $$\Rightarrow \sum y_i-\rho\sum y_i - n\rho +\rho\sum y_i =0$$
 $$\Rightarrow \sum y_i - n\rho  =0$$
 $$\Rightarrow \rho  = \frac{\sum y_i}{n}=\frac{p}{n}$$
-Thus, we can get that the $\rho$ the maximuzes the likelihood function is equal to the sample mean.
+Thus, we can see that the $\rho$ maximizing the likelihood function is equal to the sample mean.
+
+## Probit regression 
+
+In the example above, we are not really trying to estimate a lot of regression coefficient. What we are doing actually is to calculate the sample mean, or intercept in the regresion sense. What does it mean? Let's use some data to explain it. 
+
+Suppose that we flip a coin 20 times and observe 8 heads. We can use the R's glm function to esimate the $\rho$. If the result is consistent with what we did above, we should observe that the $cdf$ of the esimate of $\beta_0$ (i.e., intercept) should be equal to $8/20=0.4$.
+
+```{R}
+coins<-c(rep(1,times=8),rep(0,times=12))
+table(coins)
+coins<-as.data.frame(coins)
+
+probitresults <- glm(coins ~ 1, family = binomial(link = "probit"), data = coins)
+probitresults
+
+```
+
+As we can see the intercept is $-0.2533$, and thus $\Phi(-0.2533471)=0.4$
+
+```{R}
+pnorm(probitresults$coefficients)
+```
 
 ##Logit 
 

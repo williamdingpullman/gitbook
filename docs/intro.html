@@ -112,8 +112,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> MLE</a><ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#basic-idea-of-mle"><i class="fa fa-check"></i><b>2.1</b> Basic idea of MLE</a></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#logit-1"><i class="fa fa-check"></i><b>2.2</b> Logit</a></li>
-<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#probit-1"><i class="fa fa-check"></i><b>2.3</b> Probit</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#probit-regression"><i class="fa fa-check"></i><b>2.2</b> Probit regression</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#logit-1"><i class="fa fa-check"></i><b>2.3</b> Logit</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#probit-1"><i class="fa fa-check"></i><b>2.4</b> Probit</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>3</b> Twitter Example</a><ul>
 <li class="chapter" data-level="3.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>3.1</b> Model</a></li>
@@ -165,10 +166,39 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[\prod \mathbf{L}(y_i|\rho)=\rho^{\sum y_i}(1-\rho)^{\sum(1-y_i)}\]</span> Further, we can get a log-transformed format.</p>
 <p><span class="math display">\[log (\prod \mathbf{L}(y_i|\rho))=\sum y_i log \rho + \sum(1-y_i) log(1-\rho)\]</span></p>
 <p>To maximize the log-function above, we can calculate the derivative with respect to <span class="math inline">\(\rho\)</span>. <span class="math display">\[\frac{\partial log (\prod \mathbf{L}(y_i|\rho)) }{\partial \rho}=\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}\]</span> Set the derivative to zero and solve for <span class="math inline">\(\rho\)</span>, we can get</p>
-<p><span class="math display">\[\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}=0\]</span> <span class="math display">\[\Rightarrow (1-\rho)\sum y_i - \rho \sum(1-y_i) =0\]</span> <span class="math display">\[\Rightarrow \sum y_i-\rho\sum y_i - n\rho +\rho\sum y_i =0\]</span> <span class="math display">\[\Rightarrow \sum y_i - n\rho  =0\]</span> <span class="math display">\[\Rightarrow \rho  = \frac{\sum y_i}{n}=\frac{p}{n}\]</span> Thus, we can get that the <span class="math inline">\(\rho\)</span> the maximuzes the likelihood function is equal to the sample mean.</p>
+<p><span class="math display">\[\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}=0\]</span> <span class="math display">\[\Rightarrow (1-\rho)\sum y_i - \rho \sum(1-y_i) =0\]</span> <span class="math display">\[\Rightarrow \sum y_i-\rho\sum y_i - n\rho +\rho\sum y_i =0\]</span> <span class="math display">\[\Rightarrow \sum y_i - n\rho  =0\]</span> <span class="math display">\[\Rightarrow \rho  = \frac{\sum y_i}{n}=\frac{p}{n}\]</span> Thus, we can see that the <span class="math inline">\(\rho\)</span> maximizing the likelihood function is equal to the sample mean.</p>
+</div>
+<div id="probit-regression" class="section level2">
+<h2><span class="header-section-number">2.2</span> Probit regression</h2>
+<p>In the example above, we are not really trying to estimate a lot of regression coefficient. What we are doing actually is to calculate the sample mean, or intercept in the regresion sense. What does it mean? Let’s use some data to explain it.</p>
+<p>Suppose that we flip a coin 20 times and observe 8 heads. We can use the R’s glm function to esimate the <span class="math inline">\(\rho\)</span>. If the result is consistent with what we did above, we should observe that the <span class="math inline">\(cdf\)</span> of the esimate of <span class="math inline">\(\beta_0\)</span> (i.e., intercept) should be equal to <span class="math inline">\(8/20=0.4\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coins&lt;-<span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dt">times=</span><span class="dv">8</span>),<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dt">times=</span><span class="dv">12</span>))
+<span class="kw">table</span>(coins)</code></pre></div>
+<pre><code>## coins
+##  0  1 
+## 12  8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coins&lt;-<span class="kw">as.data.frame</span>(coins)
+
+probitresults &lt;-<span class="st"> </span><span class="kw">glm</span>(coins <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;probit&quot;</span>), <span class="dt">data =</span> coins)
+probitresults</code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = coins ~ 1, family = binomial(link = &quot;probit&quot;), 
+##     data = coins)
+## 
+## Coefficients:
+## (Intercept)  
+##     -0.2533  
+## 
+## Degrees of Freedom: 19 Total (i.e. Null);  19 Residual
+## Null Deviance:       26.92 
+## Residual Deviance: 26.92     AIC: 28.92</code></pre>
+<p>As we can see the intercept is <span class="math inline">\(-0.2533\)</span>, and thus <span class="math inline">\(\Phi(-0.2533471)=0.4\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(probitresults<span class="op">$</span>coefficients)</code></pre></div>
+<pre><code>## (Intercept) 
+##         0.4</code></pre>
 </div>
 <div id="logit-1" class="section level2">
-<h2><span class="header-section-number">2.2</span> Logit</h2>
+<h2><span class="header-section-number">2.3</span> Logit</h2>
 <p>The probablity of <span class="math inline">\(y=1\)</span> is as follows:</p>
 <p><span class="math display">\[p=p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]</span></p>
 <p>Thus, the likelihood function is as follows:</p>
@@ -225,7 +255,7 @@ mylogit2 =<span class="st"> </span><span class="kw">mle.logreg</span>(fmla, myda
 ## as.factor(rank)4 -1.551463677 -1.563396035</code></pre>
 </div>
 <div id="probit-1" class="section level2">
-<h2><span class="header-section-number">2.3</span> Probit</h2>
+<h2><span class="header-section-number">2.4</span> Probit</h2>
 
 </div>
 </div>
