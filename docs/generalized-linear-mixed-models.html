@@ -134,8 +134,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>4.5</b> Serial correlations in time and space</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a><ul>
-<li class="chapter" data-level="5.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-1"><i class="fa fa-check"></i><b>5.1</b> Basics</a></li>
-<li class="chapter" data-level="5.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>5.2</b> Some References</a></li>
+<li class="chapter" data-level="5.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#em-algorithm"><i class="fa fa-check"></i><b>5.1</b> EM algorithm</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#importance-sampling"><i class="fa fa-check"></i><b>5.1.1</b> Importance Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>5.2</b> Basics of GLMM</a></li>
+<li class="chapter" data-level="5.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>5.3</b> Some References</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -159,17 +162,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="generalized-linear-mixed-models" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Generalized Linear Mixed Models</h1>
-<div id="basics-1" class="section level2">
-<h2><span class="header-section-number">5.1</span> Basics</h2>
+<div id="em-algorithm" class="section level2">
+<h2><span class="header-section-number">5.1</span> EM algorithm</h2>
+<p>Since GLMM needs EM algorithm in its maximum likelihood calculation, it is practically useful to rehearse EM and other computing techniques.</p>
+<div id="importance-sampling" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Importance Sampling</h3>
+</div>
+</div>
+<div id="basics-of-glmm" class="section level2">
+<h2><span class="header-section-number">5.2</span> Basics of GLMM</h2>
 <p>Recall the formula in the probit model:</p>
 <p><span class="math display">\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)=N(0,I)\]</span> Similar to LMM, binary model with random effect can be written as follows.</p>
 <p><span class="math display">\[Y^*=X\beta+ Z u+\epsilon\]</span> where,</p>
 <p><span class="math display">\[\epsilon \sim N(0,I)\]</span> <span class="math display">\[u \sim N(0, D)\]</span></p>
-<p>We also assume <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(u\)</span> are independent.Thus, we know that <span class="math inline">\(D\)</span> represents the virances of the random effects. If we make <span class="math inline">\(u =1\)</span>, the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit model.</p>
+<p>We also assume <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(u\)</span> are independent.Thus, we know that <span class="math inline">\(D\)</span> represents the virances of the random effects. If we make <span class="math inline">\(u =1\)</span>, the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit models.</p>
 <p>The following is the note from Charle E. McCulloch’s “Maximum likelihood algorithems for Generalized Linear Mixed Models”</p>
 </div>
 <div id="some-references" class="section level2">
-<h2><span class="header-section-number">5.2</span> Some References</h2>
+<h2><span class="header-section-number">5.3</span> Some References</h2>
 <p><a href="http://www.biostat.umn.edu/~baolin/teaching/linmods/glmm.html" class="uri">http://www.biostat.umn.edu/~baolin/teaching/linmods/glmm.html</a></p>
 <p><a href="http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html" class="uri">http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html</a></p>
 <p><a href="https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html" class="uri">https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html</a></p>

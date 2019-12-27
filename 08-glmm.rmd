@@ -1,6 +1,17 @@
 # Generalized Linear Mixed Models
 
-## Basics 
+## EM algorithm 
+
+Since GLMM needs EM algorithm in its maximum likelihood calculation, it is practically useful to rehearse EM and other computing techniques.
+
+### Importance Sampling
+
+
+
+
+
+
+## Basics of GLMM
 
 Recall the formula in the probit model:
 
@@ -13,7 +24,7 @@ where,
 $$\epsilon \sim N(0,I)$$
 $$u \sim N(0, D)$$
 
-We also assume $\epsilon$ and $u$ are independent.Thus, we know that $D$ represents the virances of the random effects. If we make $u =1$, the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit model. 
+We also assume $\epsilon$ and $u$ are independent.Thus, we know that $D$ represents the virances of the random effects. If we make $u =1$, the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit models. 
 
 
 

@@ -573,12 +573,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1       1.228960
-## 2        2       1.632001
-## 3        3       1.093234
-## 4        4       1.251375
-## 5        5       1.066218
-## 6        6       1.205158
+## 1        1     0.83390634
+## 2        2     0.35052393
+## 3        3     1.08718657
+## 4        4    -0.05498902
+## 5        5     0.16331672
+## 6        6     0.10293165
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -610,7 +610,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1965983 0.4372186
+## [1] 0.1580790 0.5877939
 \end{verbatim}
 
 \begin{Shaded}
@@ -669,7 +669,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1915958 0.4452226
+## [1] 0.1620810 0.6148074
 \end{verbatim}
 
 \begin{Shaded}
@@ -1237,7 +1237,14 @@ calculate time serial data.
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}
 
-\section{Basics}\label{basics-1}
+\section{EM algorithm}\label{em-algorithm}
+
+Since GLMM needs EM algorithm in its maximum likelihood calculation, it
+is practically useful to rehearse EM and other computing techniques.
+
+\subsection{Importance Sampling}\label{importance-sampling}
+
+\section{Basics of GLMM}\label{basics-of-glmm}
 
 Recall the formula in the probit model:
 
@@ -1252,7 +1259,7 @@ We also assume \(\epsilon\) and \(u\) are independent.Thus, we know that
 \(D\) represents the virances of the random effects. If we make
 \(u =1\), the model becomes the usual probit model. McCulloch (1994)
 states that there are a few advantages to use probit, rather than logit
-model.
+models.
 
 The following is the note from Charle E. McCulloch's ``Maximum
 likelihood algorithems for Generalized Linear Mixed Models''
