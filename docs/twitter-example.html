@@ -194,12 +194,12 @@ Data_Elites&lt;-<span class="kw">as.data.frame</span>(Data_Elites)
 
 <span class="kw">head</span>(Data_Elites)</code></pre></div>
 <pre><code>##   Elite_No Elite_ideology
-## 1        1      1.1754738
-## 2        2      1.1647718
-## 3        3      0.4081166
-## 4        4      0.2794947
-## 5        5      0.8721485
-## 6        6      0.5304699</code></pre>
+## 1        1      0.3707597
+## 2        2      1.1002784
+## 3        3      0.9177752
+## 4        4      0.6753727
+## 5        5      1.2816346
+## 6        6      1.9485124</code></pre>
 </div>
 <div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
 <h2><span class="header-section-number">3.3</span> Simulating Data of Conservative Users on Twitter and Model Testing</h2>
@@ -214,7 +214,7 @@ Y_data&lt;-Data_combined<span class="op">$</span>R_User
 
 fit_C&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
 fit_C<span class="op">$</span>acceptance_rate</code></pre></div>
-<pre><code>## [1] 0.1550775 0.6798399</code></pre>
+<pre><code>## [1] 0.1785893 0.5027514</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Conservative Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
@@ -239,7 +239,7 @@ Y_data&lt;-Data_combined<span class="op">$</span>L_User
 
 fit_L&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
 fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
-<pre><code>## [1] 0.1640820 0.5597799</code></pre>
+<pre><code>## [1] 0.1465733 0.5732866</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Liberal Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>

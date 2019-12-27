@@ -38,16 +38,42 @@ Rcode+geom_hline(yintercept=1-pnorm(2),color="green",size=0.5)
 
 ### Importance sampling
 
-Importance sampling has samples generated from a different distribution than the distribution of interest. For instance, using the same explane above, we can use exponential distribution to sample normal distribution. The idea is that, we can generate $x_i$ from exponential distribution, and then insert them into the density function of normal distribution.
+Importance sampling has samples generated from a different distribution than the distribution of interest. Specifically, assume that we want to calculate the expectation value of $h(x)$, and $x \sim f(x)$.
 
-More specifically,
-
-Assume that we want to calculate the expectation value of $h(x)$
-
-$$E(h(x))=$$
+$$E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx $$
+We can sample $x_i$ from $g(x)$ and then calculate the mean of $h(x_i) \frac{f(x_i)}{g(x_i)}$.
 
 
 
+Using the same explane above, we can use a shifted exponential distribution to help calculate the intergral for normal distribution. Specifically,
+
+$$\int_2^{\infty} \frac{1}{2 \pi} e^{-\frac{1}{2}x^2}dx = \int_2^{\infty} \frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}} e^{-(x-2)}dx $$
+The idea is that, we can generate $x_i$ from exponential distribution of $e{-(x-2)}$, and then insert them into the density function of $\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}$. Thus, as you can see, importance sampling is based on expetation value (law of large numbers:  If the same experiment or study is repeated independently a large number of times, the average of the results of the trials must be close to the expected value). We can use it to calculate integral based on link of the definition of expected value. 
+
+```{R}
+Nsim=10^4
+normal_density=function(x)
+{y=(1/sqrt(2*pi))*exp(-0.5*(x^2))
+return(y)}
+x=2-log(runif(Nsim))
+ImpS=c(); v=c(); upper=c(); lower=c()
+for (j in 1:Nsim)
+{
+ImpS[j]=mean(normal_density(x[1:j])/exp(-(x[1:j]-2)))
+v[j]=(j^{-1})*var(normal_density(x[1:j])/exp(-(x[1:j]-2)))
+upper[j]=ImpS[j]+1.96*sqrt(v[j])
+lower[j]=ImpS[j]-1.96*sqrt(v[j])
+}
+
+library(ggplot2)
+values=c(ImpS,upper,lower)
+type=c(rep("mc",Nsim),rep("upper",Nsim),rep("lower",Nsim))
+iter=rep(seq(1:Nsim),3)
+data=data.frame(val=values, tp=type, itr=iter)
+ggplot(data,aes(itr,val,col=tp))+geom_line(size=0.5)+
+geom_hline(yintercept=1-pnorm(2),color="green",size=0.5)
+
+```
 
 
 ## Basics of GLMM

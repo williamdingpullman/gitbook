@@ -573,12 +573,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.1817755
-## 2        2      1.0548154
-## 3        3      1.5766644
-## 4        4      0.7722520
-## 5        5      0.6462182
-## 6        6      0.3132936
+## 1        1      1.7021104
+## 2        2      1.5460725
+## 3        3      1.6636975
+## 4        4      0.7403458
+## 5        5      1.0246143
+## 6        6      1.0546108
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -610,7 +610,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1525763 0.5842921
+## [1] 0.1190595 0.7048524
 \end{verbatim}
 
 \begin{Shaded}
@@ -669,7 +669,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1625813 0.4782391
+## [1] 0.1480740 0.5677839
 \end{verbatim}
 
 \begin{Shaded}
@@ -1289,17 +1289,58 @@ the calculation of the integral.
 \subsection{Importance sampling}\label{importance-sampling}
 
 Importance sampling has samples generated from a different distribution
-than the distribution of interest. For instance, using the same explane
-above, we can use exponential distribution to sample normal
-distribution. The idea is that, we can generate \(x_i\) from exponential
-distribution, and then insert them into the density function of normal
-distribution.
+than the distribution of interest. Specifically, assume that we want to
+calculate the expectation value of \(h(x)\), and \(x \sim f(x)\).
 
-More specifically,
+\[E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx \] We
+can sample \(x_i\) from \(g(x)\) and then calculate the mean of
+\(h(x_i) \frac{f(x_i)}{g(x_i)}\).
 
-Assume that we want to calculate the expectation value of \(h(x)\)
+Using the same explane above, we can use a shifted exponential
+distribution to help calculate the intergral for normal distribution.
+Specifically,
 
-\[E(h(x))=\]
+\[\int_2^{\infty} \frac{1}{2 \pi} e^{-\frac{1}{2}x^2}dx = \int_2^{\infty} \frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}} e^{-(x-2)}dx \]
+The idea is that, we can generate \(x_i\) from exponential distribution
+of \(e{-(x-2)}\), and then insert them into the density function of
+\(\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}\). Thus, as you
+can see, importance sampling is based on expetation value (law of large
+numbers: If the same experiment or study is repeated independently a
+large number of times, the average of the results of the trials must be
+close to the expected value). We can use it to calculate integral based
+on link of the definition of expected value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Nsim=}\DecValTok{10}\OperatorTok{^}\DecValTok{4}
+\NormalTok{normal_density=}\ControlFlowTok{function}\NormalTok{(x)}
+\NormalTok{\{y=(}\DecValTok{1}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{pi))}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\FloatTok{0.5}\OperatorTok{*}\NormalTok{(x}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+\KeywordTok{return}\NormalTok{(y)\}}
+\NormalTok{x=}\DecValTok{2}\OperatorTok{-}\KeywordTok{log}\NormalTok{(}\KeywordTok{runif}\NormalTok{(Nsim))}
+\NormalTok{ImpS=}\KeywordTok{c}\NormalTok{(); v=}\KeywordTok{c}\NormalTok{(); upper=}\KeywordTok{c}\NormalTok{(); lower=}\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{Nsim)}
+\NormalTok{\{}
+\NormalTok{ImpS[j]=}\KeywordTok{mean}\NormalTok{(}\KeywordTok{normal_density}\NormalTok{(x[}\DecValTok{1}\OperatorTok{:}\NormalTok{j])}\OperatorTok{/}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(x[}\DecValTok{1}\OperatorTok{:}\NormalTok{j]}\OperatorTok{-}\DecValTok{2}\NormalTok{)))}
+\NormalTok{v[j]=(j}\OperatorTok{^}\NormalTok{\{}\OperatorTok{-}\DecValTok{1}\NormalTok{\})}\OperatorTok{*}\KeywordTok{var}\NormalTok{(}\KeywordTok{normal_density}\NormalTok{(x[}\DecValTok{1}\OperatorTok{:}\NormalTok{j])}\OperatorTok{/}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(x[}\DecValTok{1}\OperatorTok{:}\NormalTok{j]}\OperatorTok{-}\DecValTok{2}\NormalTok{)))}
+\NormalTok{upper[j]=ImpS[j]}\OperatorTok{+}\FloatTok{1.96}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(v[j])}
+\NormalTok{lower[j]=ImpS[j]}\OperatorTok{-}\FloatTok{1.96}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(v[j])}
+\NormalTok{\}}
+
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\NormalTok{values=}\KeywordTok{c}\NormalTok{(ImpS,upper,lower)}
+\NormalTok{type=}\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"mc"}\NormalTok{,Nsim),}\KeywordTok{rep}\NormalTok{(}\StringTok{"upper"}\NormalTok{,Nsim),}\KeywordTok{rep}\NormalTok{(}\StringTok{"lower"}\NormalTok{,Nsim))}
+\NormalTok{iter=}\KeywordTok{rep}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{Nsim),}\DecValTok{3}\NormalTok{)}
+\NormalTok{data=}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{val=}\NormalTok{values, }\DataTypeTok{tp=}\NormalTok{type, }\DataTypeTok{itr=}\NormalTok{iter)}
+\KeywordTok{ggplot}\NormalTok{(data,}\KeywordTok{aes}\NormalTok{(itr,val,}\DataTypeTok{col=}\NormalTok{tp))}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{size=}\FloatTok{0.5}\NormalTok{)}\OperatorTok{+}
+\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept=}\DecValTok{1}\OperatorTok{-}\KeywordTok{pnorm}\NormalTok{(}\DecValTok{2}\NormalTok{),}\DataTypeTok{color=}\StringTok{"green"}\NormalTok{,}\DataTypeTok{size=}\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 2 rows containing missing values (geom_path).
+\end{verbatim}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}
 
 \section{Basics of GLMM}\label{basics-of-glmm}
 
