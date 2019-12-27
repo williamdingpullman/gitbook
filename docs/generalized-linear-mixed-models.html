@@ -161,6 +161,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 5</span> Generalized Linear Mixed Models</h1>
 <div id="basics-1" class="section level2">
 <h2><span class="header-section-number">5.1</span> Basics</h2>
+<p>Recall the formula in the probit model:</p>
+<p><span class="math display">\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)=N(0,I)\]</span> Similar to LMM, binary model with random effect can be written as follows.</p>
+<p><span class="math display">\[Y^*=X\beta+ Z u+\epsilon\]</span> where,</p>
+<p><span class="math display">\[\epsilon \sim N(0,I)\]</span> <span class="math display">\[u \sim N(0, D)\]</span></p>
+<p>We also assume <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(u\)</span> are independent.Thus, we know that <span class="math inline">\(D\)</span> represents the virances of the random effects. If we make <span class="math inline">\(u =1\)</span>, the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit model.</p>
 <p>The following is the note from Charle E. McCulloch’s “Maximum likelihood algorithems for Generalized Linear Mixed Models”</p>
 </div>
 <div id="some-references" class="section level2">

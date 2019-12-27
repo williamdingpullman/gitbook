@@ -2,6 +2,19 @@
 
 ## Basics 
 
+Recall the formula in the probit model:
+
+$$Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)=N(0,I)$$
+Similar to LMM, binary model with random effect can be written as follows.
+
+$$Y^*=X\beta+ Z u+\epsilon$$
+where, 
+
+$$\epsilon \sim N(0,I)$$
+$$u \sim N(0, D)$$
+
+We also assume $\epsilon$ and $u$ are independent.Thus, we know that $D$ represents the virances of the random effects. If we make $u =1$, the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit model. 
+
 
 
 The following is the note from Charle E. McCulloch's "Maximum likelihood algorithems for Generalized Linear Mixed Models"
