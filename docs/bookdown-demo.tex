@@ -318,10 +318,11 @@ Set the derivative to zero and solve for \(\rho\), we can get
 that the \(\rho\) maximizing the likelihood function is equal to the
 sample mean.
 
-\section{Probit regression}\label{probit-regression}
+\section{Coin flip example, probit, and
+logit}\label{coin-flip-example-probit-and-logit}
 
 In the example above, we are not really trying to estimate a lot of
-regression coefficient. What we are doing actually is to calculate the
+regression coefficients. What we are doing actually is to calculate the
 sample mean, or intercept in the regresion sense. What does it mean?
 Let's use some data to explain it.
 
@@ -330,6 +331,8 @@ R's glm function to esimate the \(\rho\). If the result is consistent
 with what we did above, we should observe that the \(cdf\) of the
 esimate of \(\beta_0\) (i.e., intercept) should be equal to
 \(8/20=0.4\).
+
+\subsection{Probit}\label{probit-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -381,7 +384,40 @@ As we can see the intercept is \(-0.2533\), and thus
 ##         0.4
 \end{verbatim}
 
-\section{Logit}\label{logit-1}
+\subsection{Logit}\label{logit-1}
+
+We can also use logit link to calculate the intercept as well. Recall
+that
+
+\[p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]
+Thus,
+
+\[p(y=1)=\frac{e^{\beta_0}}{1+e^{\beta_0}}\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logitresults <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(coins }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ coins)}
+\NormalTok{logitresults}\OperatorTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept) 
+##  -0.4054651
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{exp}\NormalTok{(logitresults}\OperatorTok{$}\NormalTok{coefficients)}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(logitresults}\OperatorTok{$}\NormalTok{coefficients))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept) 
+##         0.4
+\end{verbatim}
+
+\section{Further on logit}\label{further-on-logit}
 
 The probablity of \(y=1\) is as follows:
 
@@ -460,8 +496,6 @@ log-likelihood or the likelihood itself.
 ## as.factor(rank)4 -1.551463677 -1.563396035
 \end{verbatim}
 
-\section{Probit}\label{probit-1}
-
 \chapter{Twitter Example}\label{twitter-example}
 
 The following is part of my course project for Stat 536. It aims to
@@ -524,12 +558,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.3248191
-## 2        2      1.4862067
-## 3        3      1.1562958
-## 4        4      1.1958437
-## 5        5      0.2051463
-## 6        6      1.0009924
+## 1        1      1.0830563
+## 2        2      0.9334548
+## 3        3      0.8780085
+## 4        4      1.1220610
+## 5        5      0.7296087
+## 6        6      0.3745218
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -561,7 +595,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1150575 0.6888444
+## [1] 0.1740870 0.5127564
 \end{verbatim}
 
 \begin{Shaded}
@@ -571,7 +605,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -580,7 +614,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-10-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -589,7 +623,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-10-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -620,7 +654,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1485743 0.5092546
+## [1] 0.2021011 0.4917459
 \end{verbatim}
 
 \begin{Shaded}
@@ -630,7 +664,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-12-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -639,7 +673,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-12-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -648,7 +682,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-12-3.pdf}
 
 \chapter{Linear Mixed Models}\label{linear-mixed-models}
 

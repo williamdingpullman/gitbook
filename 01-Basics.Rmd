@@ -30,11 +30,13 @@ $$\Rightarrow \sum y_i - n\rho  =0$$
 $$\Rightarrow \rho  = \frac{\sum y_i}{n}=\frac{p}{n}$$
 Thus, we can see that the $\rho$ maximizing the likelihood function is equal to the sample mean.
 
-## Probit regression 
+## Coin flip example, probit, and logit 
 
-In the example above, we are not really trying to estimate a lot of regression coefficient. What we are doing actually is to calculate the sample mean, or intercept in the regresion sense. What does it mean? Let's use some data to explain it. 
+In the example above, we are not really trying to estimate a lot of regression coefficients. What we are doing actually is to calculate the sample mean, or intercept in the regresion sense. What does it mean? Let's use some data to explain it. 
 
 Suppose that we flip a coin 20 times and observe 8 heads. We can use the R's glm function to esimate the $\rho$. If the result is consistent with what we did above, we should observe that the $cdf$ of the esimate of $\beta_0$ (i.e., intercept) should be equal to $8/20=0.4$.
+
+### Probit
 
 ```{R}
 coins<-c(rep(1,times=8),rep(0,times=12))
@@ -52,7 +54,24 @@ As we can see the intercept is $-0.2533$, and thus $\Phi(-0.2533471)=0.4$
 pnorm(probitresults$coefficients)
 ```
 
-##Logit 
+### Logit
+
+We can also use logit link to calculate the intercept as well. Recall that
+
+$$p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}$$
+Thus,
+
+$$p(y=1)=\frac{e^{\beta_0}}{1+e^{\beta_0}}$$
+
+```{R}
+logitresults <- glm(coins ~ 1, family = binomial(link = "logit"), data = coins)
+logitresults$coefficients
+exp(logitresults$coefficients)/(1+exp(logitresults$coefficients))
+
+```
+
+
+## Further on logit 
 
 The probablity of $y=1$ is as follows:
 
@@ -120,5 +139,4 @@ mylogit2 = mle.logreg(fmla, mydata) #Estimate coefficients
  print(cbind(coef(mylogit1), mylogit2$beta))
 ```
 
-##Probit
 
