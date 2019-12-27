@@ -110,7 +110,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#logit"><i class="fa fa-check"></i><b>1.1</b> Logit</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#probit"><i class="fa fa-check"></i><b>1.2</b> Probit</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> MLE</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> MLE</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#basic-idea-of-mle"><i class="fa fa-check"></i><b>2.1</b> Basic idea of MLE</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#logit-1"><i class="fa fa-check"></i><b>2.2</b> Logit</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#probit-1"><i class="fa fa-check"></i><b>2.3</b> Probit</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>3</b> Twitter Example</a><ul>
 <li class="chapter" data-level="3.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>3.1</b> Model</a></li>
 <li class="chapter" data-level="3.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>3.2</b> Simulating Data of Senators on Twitter</a></li>
@@ -181,12 +185,12 @@ Data_Elites&lt;-<span class="kw">as.data.frame</span>(Data_Elites)
 
 <span class="kw">head</span>(Data_Elites)</code></pre></div>
 <pre><code>##   Elite_No Elite_ideology
-## 1        1     1.52557962
-## 2        2     1.43890064
-## 3        3    -0.07939586
-## 4        4    -0.43779828
-## 5        5     0.33310053
-## 6        6     1.14623423</code></pre>
+## 1        1      1.1897495
+## 2        2      0.9958366
+## 3        3      2.1730864
+## 4        4      1.4929889
+## 5        5      2.2914145
+## 6        6      0.7441978</code></pre>
 </div>
 <div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
 <h2><span class="header-section-number">3.3</span> Simulating Data of Conservative Users on Twitter and Model Testing</h2>
@@ -201,7 +205,7 @@ Y_data&lt;-Data_combined<span class="op">$</span>R_User
 
 fit_C&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
 fit_C<span class="op">$</span>acceptance_rate</code></pre></div>
-<pre><code>## [1] 0.1440720 0.5162581</code></pre>
+<pre><code>## [1] 0.1705853 0.4497249</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Conservative Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
@@ -226,7 +230,7 @@ Y_data&lt;-Data_combined<span class="op">$</span>L_User
 
 fit_L&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
 fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
-<pre><code>## [1] 0.2011006 0.4952476</code></pre>
+<pre><code>## [1] 0.2471236 0.4292146</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Liberal Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>

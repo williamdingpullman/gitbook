@@ -91,6 +91,6 @@ $$p(y=0|x_i)=1-\Phi(\frac{\beta^{'}X_i}{\sigma})$$
 
 
 For $p(y=1|x_i)=\Phi(\frac{\beta^{'}X_i}{\sigma})$, we can not really estimate both $\beta$ and $\sigma$ as they are in a ratio. We can assume $\sigma =1$, then $\epsilon \sim N(0,1)$.
-We know $y_i$ and $x_i$ since we observe them already. Thus, we can write it as follows. 
+We know $y_i$ and $x_i$ since we observe them. Thus, we can write it as follows. 
 
 $$p(y=1|x_i)=\Phi(\beta^{'}X_i)$$

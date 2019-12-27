@@ -110,7 +110,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#logit"><i class="fa fa-check"></i><b>1.1</b> Logit</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#probit"><i class="fa fa-check"></i><b>1.2</b> Probit</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> MLE</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> MLE</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#basic-idea-of-mle"><i class="fa fa-check"></i><b>2.1</b> Basic idea of MLE</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#logit-1"><i class="fa fa-check"></i><b>2.2</b> Logit</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#probit-1"><i class="fa fa-check"></i><b>2.3</b> Probit</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>3</b> Twitter Example</a><ul>
 <li class="chapter" data-level="3.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>3.1</b> Model</a></li>
 <li class="chapter" data-level="3.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>3.2</b> Simulating Data of Senators on Twitter</a></li>
@@ -216,7 +220,7 @@ Y^*=\begin{cases} 0 \;\;\: if \;  y_i^* \leq 0 \\ 1 \;\;\: if \;  y_i^* &gt; 0 \
 <p>Thus, we can write it as follows. Note that <span class="math inline">\(\frac{ \epsilon_i}{\sigma} \sim N(0,1)\)</span></p>
 <p><span class="math display">\[p(y=1|x_i)= p(y_i^* &gt;0|x_i)=p(\epsilon_i &gt; -\beta^{&#39;}X_i)= p(\frac{ \epsilon_i}{\sigma}&gt;\frac{-\beta^{&#39;}X_i}{\sigma})=\Phi(\frac{\beta^{&#39;}X_i}{\sigma}) \]</span> We thus can get:</p>
 <p><span class="math display">\[p(y=0|x_i)=1-\Phi(\frac{\beta^{&#39;}X_i}{\sigma})\]</span></p>
-<p>For <span class="math inline">\(p(y=1|x_i)=\Phi(\frac{\beta^{&#39;}X_i}{\sigma})\)</span>, we can not really estimate both <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma\)</span> as they are in a ratio. We can assume <span class="math inline">\(\sigma =1\)</span>, then <span class="math inline">\(\epsilon \sim N(0,1)\)</span>. We know <span class="math inline">\(y_i\)</span> and <span class="math inline">\(x_i\)</span> since we observe them already. Thus, we can write it as follows.</p>
+<p>For <span class="math inline">\(p(y=1|x_i)=\Phi(\frac{\beta^{&#39;}X_i}{\sigma})\)</span>, we can not really estimate both <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma\)</span> as they are in a ratio. We can assume <span class="math inline">\(\sigma =1\)</span>, then <span class="math inline">\(\epsilon \sim N(0,1)\)</span>. We know <span class="math inline">\(y_i\)</span> and <span class="math inline">\(x_i\)</span> since we observe them. Thus, we can write it as follows.</p>
 <p><span class="math display">\[p(y=1|x_i)=\Phi(\beta^{&#39;}X_i)\]</span></p>
 
 </div>

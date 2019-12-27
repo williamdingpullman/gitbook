@@ -1,5 +1,36 @@
 # MLE {#intro}
 
+## Basic idea of MLE
+
+Suppose that we flip a coin, $y_i=0$ for tails and $y_i=1$ for heads. If we get $p$ heads from $n$ trials, we can get the proportion of heads is $p/n$, which is the sample mean. If we do not do any further calculation, this is our best guess. 
+
+Suppose that the true proablity is $\rho$, then we can get:
+
+$$
+\mathbf{L}(y_i)=\begin{cases} \rho \;\;\:   y_i = 1 \\ 1-\rho \;\;\:  y_i = 0 \end{cases}
+$$
+Thus, we can also write it as follows.
+$$\mathbf{L}(y_i) = \rho^{y_i}(1-\rho)^{1-y_i}$$
+
+Thus, we can get:
+
+$$\prod \mathbf{L}(y_i|\rho)=\rho^{\sum y_i}(1-\rho)^{\sum(1-y_i)}$$
+Further, we can get a log-transformed format.
+
+$$log (\prod \mathbf{L}(y_i|\rho))=\sum y_i log \rho + \sum(1-y_i) log(1-\rho)$$
+
+To maximize the log-function above, we can calculate the derivative with respect to $\rho$.
+$$\frac{\partial log (\prod \mathbf{L}(y_i|\rho)) }{\partial \rho}=\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}$$
+Set the derivative to zero and solve for $\rho$, we can get
+
+$$\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}=0$$
+$$\Rightarrow (1-\rho)\sum y_i - \rho \sum(1-y_i) =0$$
+$$\Rightarrow \sum y_i-\rho\sum y_i - n\rho +\rho\sum y_i =0$$
+$$\Rightarrow \sum y_i - n\rho  =0$$
+$$\Rightarrow \rho  = \frac{\sum y_i}{n}=\frac{p}{n}$$
+Thus, we can get that the $\rho$ the maximuzes the likelihood function is equal to the sample mean.
+
+##Logit 
 
 The probablity of $y=1$ is as follows:
 
@@ -66,3 +97,6 @@ mylogit2 = mle.logreg(fmla, mydata) #Estimate coefficients
 
  print(cbind(coef(mylogit1), mylogit2$beta))
 ```
+
+##Probit
+
