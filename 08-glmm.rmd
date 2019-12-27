@@ -111,6 +111,31 @@ $$\hat{h} = -\frac{b}{c}=-\frac{f^{'}(x)}{f^{''}(x)}$$
 Thus, we can get that the following can maximize $f$ at $x$:
 
 $$x+\hat{h}=x-\frac{f^{'}(x)}{f^{''}(x)}$$
+Thus, the basic idea of Newton Raphson algorithm is as follows. 
+- set a tolerance (typically a very small number)
+- Check if $|f^{'}(x)|< the tolerance$. If not, $i \leftarrow i+1; x_i\leftarrow x_{i-1}-\frac{f^{'}(x_{i-1})}{f^{''}(x_{i-1})}$
+
+
+Practice:
+
+(1) Solve the $x^3-5=0$
+Note that, this is obviously not a maximization problem. In contrast, it involves a function with zero. As we can see, we can think it as the first order of Taylor approximation. That is, itself is a $f^{'}(x)=x^3-5=0$. As we can see the following plot, it converts pretty quick.
+
+```{R}
+f_firstorder=function(x){x^3-5}
+f_secondorder=function(x){3*x}
+x_old=1;tolerance=1e-3
+max_its=2000;iteration=1;difference=2
+c_iteration<-c() ## to collect numbers generated in the iteration process 
+while(difference>tolerance & iteration<max_its){
+  x_updated=x_old-(f_firstorder(x_old)/f_secondorder(x_old))
+  difference=abs(x_updated-x_old);
+  iteration=iteration+1;
+  x_old=x_updated
+  c_iteration<-c(c_iteration,x_updated)}
+
+plot(c_iteration,type="b")
+``` 
 
 ## Basics of GLMM
 

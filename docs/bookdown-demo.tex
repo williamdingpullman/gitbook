@@ -1192,7 +1192,43 @@ We can calculate the derivative with respect to \(h\), we can get:
 \[\hat{h} = -\frac{b}{c}=-\frac{f^{'}(x)}{f^{''}(x)}\] Thus, we can get
 that the following can maximize \(f\) at \(x\):
 
-\[x+\hat{h}=x-\frac{f^{'}(x)}{f^{''}(x)}\]
+\[x+\hat{h}=x-\frac{f^{'}(x)}{f^{''}(x)}\] Thus, the basic idea of
+Newton Raphson algorithm is as follows. - set a tolerance (typically a
+very small number) - Check if \(|f^{'}(x)|< the tolerance\). If not,
+\(i \leftarrow i+1; x_i\leftarrow x_{i-1}-\frac{f^{'}(x_{i-1})}{f^{''}(x_{i-1})}\)
+
+Practice:
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  Solve the \(x^3-5=0\) Note that, this is obviously not a maximization
+  problem. In contrast, it involves a function with zero. As we can see,
+  we can think it as the first order of Taylor approximation. That is,
+  itself is a \(f^{'}(x)=x^3-5=0\). As we can see the following plot, it
+  converts pretty quick.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f_firstorder=}\ControlFlowTok{function}\NormalTok{(x)\{x}\OperatorTok{^}\DecValTok{3}\OperatorTok{-}\DecValTok{5}\NormalTok{\}}
+\NormalTok{f_secondorder=}\ControlFlowTok{function}\NormalTok{(x)\{}\DecValTok{3}\OperatorTok{*}\NormalTok{x\}}
+\NormalTok{x_old=}\DecValTok{1}\NormalTok{;tolerance=}\FloatTok{1e-3}
+\NormalTok{max_its=}\DecValTok{2000}\NormalTok{;iteration=}\DecValTok{1}\NormalTok{;difference=}\DecValTok{2}
+\NormalTok{c_iteration<-}\KeywordTok{c}\NormalTok{() ## to collect numbers generated in the iteration process }
+\ControlFlowTok{while}\NormalTok{(difference}\OperatorTok{>}\NormalTok{tolerance }\OperatorTok{&}\StringTok{ }\NormalTok{iteration}\OperatorTok{<}\NormalTok{max_its)\{}
+\NormalTok{  x_updated=x_old}\OperatorTok{-}\NormalTok{(}\KeywordTok{f_firstorder}\NormalTok{(x_old)}\OperatorTok{/}\KeywordTok{f_secondorder}\NormalTok{(x_old))}
+\NormalTok{  difference=}\KeywordTok{abs}\NormalTok{(x_updated}\OperatorTok{-}\NormalTok{x_old);}
+\NormalTok{  iteration=iteration}\OperatorTok{+}\DecValTok{1}\NormalTok{;}
+\NormalTok{  x_old=x_updated}
+\NormalTok{  c_iteration<-}\KeywordTok{c}\NormalTok{(c_iteration,x_updated)\}}
+
+\KeywordTok{plot}\NormalTok{(c_iteration,}\DataTypeTok{type=}\StringTok{"b"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 \section{Basics of GLMM}\label{basics-of-glmm}
 
@@ -1331,7 +1367,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1340,7 +1376,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1349,7 +1385,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -1390,7 +1426,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1399,7 +1435,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1408,7 +1444,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-3.pdf}
 
 \bibliography{book.bib,packages.bib}
 

@@ -242,7 +242,25 @@ data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <spa
 <p><span class="math display">\[f^{&#39;}(x+h) \approx b+ch\]</span> We can then set it to zero, and get:</p>
 <p><span class="math display">\[0=b+c \hat{h}\]</span> Thus, we can get,</p>
 <p><span class="math display">\[\hat{h} = -\frac{b}{c}=-\frac{f^{&#39;}(x)}{f^{&#39;&#39;}(x)}\]</span> Thus, we can get that the following can maximize <span class="math inline">\(f\)</span> at <span class="math inline">\(x\)</span>:</p>
-<p><span class="math display">\[x+\hat{h}=x-\frac{f^{&#39;}(x)}{f^{&#39;&#39;}(x)}\]</span></p>
+<p><span class="math display">\[x+\hat{h}=x-\frac{f^{&#39;}(x)}{f^{&#39;&#39;}(x)}\]</span> Thus, the basic idea of Newton Raphson algorithm is as follows. - set a tolerance (typically a very small number) - Check if <span class="math inline">\(|f^{&#39;}(x)|&lt; the tolerance\)</span>. If not, <span class="math inline">\(i \leftarrow i+1; x_i\leftarrow x_{i-1}-\frac{f^{&#39;}(x_{i-1})}{f^{&#39;&#39;}(x_{i-1})}\)</span></p>
+<p>Practice:</p>
+<ol style="list-style-type: decimal">
+<li>Solve the <span class="math inline">\(x^3-5=0\)</span> Note that, this is obviously not a maximization problem. In contrast, it involves a function with zero. As we can see, we can think it as the first order of Taylor approximation. That is, itself is a <span class="math inline">\(f^{&#39;}(x)=x^3-5=0\)</span>. As we can see the following plot, it converts pretty quick.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f_firstorder=<span class="cf">function</span>(x){x<span class="op">^</span><span class="dv">3</span><span class="op">-</span><span class="dv">5</span>}
+f_secondorder=<span class="cf">function</span>(x){<span class="dv">3</span><span class="op">*</span>x}
+x_old=<span class="dv">1</span>;tolerance=<span class="fl">1e-3</span>
+max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
+c_iteration&lt;-<span class="kw">c</span>() ## to collect numbers generated in the iteration process 
+<span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its){
+  x_updated=x_old<span class="op">-</span>(<span class="kw">f_firstorder</span>(x_old)<span class="op">/</span><span class="kw">f_secondorder</span>(x_old))
+  difference=<span class="kw">abs</span>(x_updated<span class="op">-</span>x_old);
+  iteration=iteration<span class="op">+</span><span class="dv">1</span>;
+  x_old=x_updated
+  c_iteration&lt;-<span class="kw">c</span>(c_iteration,x_updated)}
+
+<span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 </div>
 </div>
 <div id="basics-of-glmm" class="section level2">
