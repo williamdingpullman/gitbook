@@ -573,12 +573,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1     0.83390634
-## 2        2     0.35052393
-## 3        3     1.08718657
-## 4        4    -0.05498902
-## 5        5     0.16331672
-## 6        6     0.10293165
+## 1        1      1.1817755
+## 2        2      1.0548154
+## 3        3      1.5766644
+## 4        4      0.7722520
+## 5        5      0.6462182
+## 6        6      0.3132936
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -610,7 +610,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1580790 0.5877939
+## [1] 0.1525763 0.5842921
 \end{verbatim}
 
 \begin{Shaded}
@@ -669,7 +669,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1620810 0.6148074
+## [1] 0.1625813 0.4782391
 \end{verbatim}
 
 \begin{Shaded}
@@ -915,7 +915,7 @@ As we can see that, LLM and paired t-test generate the same t-value.
 \end{Shaded}
 
 \begin{verbatim}
-## The following objects are masked from Dyestuff (pos = 5):
+## The following objects are masked from Dyestuff (pos = 6):
 ## 
 ##     Batch, Yield
 \end{verbatim}
@@ -1010,7 +1010,7 @@ more discussion, you can refer to the following link:
 \end{Shaded}
 
 \begin{verbatim}
-## The following objects are masked from sleepstudy (pos = 5):
+## The following objects are masked from sleepstudy (pos = 6):
 ## 
 ##     Days, Reaction, Subject
 \end{verbatim}
@@ -1239,10 +1239,67 @@ Models}\label{generalized-linear-mixed-models}
 
 \section{EM algorithm}\label{em-algorithm}
 
-Since GLMM needs EM algorithm in its maximum likelihood calculation, it
-is practically useful to rehearse EM and other computing techniques.
+Since GLMM can use EM algorithm in its maximum likelihood calculation
+(see McCulloch, 1994), it is practically useful to rehearse EM and other
+computing techniques.
 
-\subsection{Importance Sampling}\label{importance-sampling}
+\subsection{Monte carlo approximation}\label{monte-carlo-approximation}
+
+Example: calculate the integral of \(p(z>2)\) when \(z \sim N(0,1)\). To
+use Monte Carlo approximation, we can have an indicator function, which
+will determine whether the sample from \(N(0,1)\) will be included into
+the calculation of the integral.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Nsim=}\DecValTok{10}\OperatorTok{^}\DecValTok{4}
+
+\NormalTok{indicator=}\ControlFlowTok{function}\NormalTok{(x)\{}
+\NormalTok{y=}\KeywordTok{ifelse}\NormalTok{((x}\OperatorTok{>}\DecValTok{2}\NormalTok{),}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\KeywordTok{return}\NormalTok{(y)\}}
+
+\NormalTok{newdata<-}\KeywordTok{rnorm}\NormalTok{(Nsim, }\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{ )}
+
+\NormalTok{mc=}\KeywordTok{c}\NormalTok{(); v=}\KeywordTok{c}\NormalTok{(); upper=}\KeywordTok{c}\NormalTok{(); lower=}\KeywordTok{c}\NormalTok{()}
+
+\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{Nsim)}
+\NormalTok{\{}
+\NormalTok{mc[j]=}\KeywordTok{mean}\NormalTok{(}\KeywordTok{indicator}\NormalTok{(newdata[}\DecValTok{1}\OperatorTok{:}\NormalTok{j]))}
+\NormalTok{v[j]=(j}\OperatorTok{^}\NormalTok{\{}\OperatorTok{-}\DecValTok{1}\NormalTok{\})}\OperatorTok{*}\KeywordTok{var}\NormalTok{(}\KeywordTok{indicator}\NormalTok{(newdata[}\DecValTok{1}\OperatorTok{:}\NormalTok{j]))}
+\NormalTok{upper[j]=mc[j]}\OperatorTok{+}\FloatTok{1.96}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(v[j])}
+\NormalTok{lower[j]=mc[j]}\OperatorTok{-}\FloatTok{1.96}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(v[j])}
+\NormalTok{\}}
+
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\NormalTok{values=}\KeywordTok{c}\NormalTok{(mc,upper,lower)}
+\NormalTok{type=}\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"mc"}\NormalTok{,Nsim),}\KeywordTok{rep}\NormalTok{(}\StringTok{"upper"}\NormalTok{,Nsim),}\KeywordTok{rep}\NormalTok{(}\StringTok{"lower"}\NormalTok{,Nsim))}
+\NormalTok{iter=}\KeywordTok{rep}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{Nsim),}\DecValTok{3}\NormalTok{)}
+\NormalTok{data=}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{val=}\NormalTok{values, }\DataTypeTok{tp=}\NormalTok{type, }\DataTypeTok{itr=}\NormalTok{iter)}
+\NormalTok{Rcode<-}\KeywordTok{ggplot}\NormalTok{(data,}\KeywordTok{aes}\NormalTok{(itr,val,}\DataTypeTok{col=}\NormalTok{tp))}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{size=}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{Rcode}\OperatorTok{+}\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept=}\DecValTok{1}\OperatorTok{-}\KeywordTok{pnorm}\NormalTok{(}\DecValTok{2}\NormalTok{),}\DataTypeTok{color=}\StringTok{"green"}\NormalTok{,}\DataTypeTok{size=}\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 2 rows containing missing values (geom_path).
+\end{verbatim}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\subsection{Importance sampling}\label{importance-sampling}
+
+Importance sampling has samples generated from a different distribution
+than the distribution of interest. For instance, using the same explane
+above, we can use exponential distribution to sample normal
+distribution. The idea is that, we can generate \(x_i\) from exponential
+distribution, and then insert them into the density function of normal
+distribution.
+
+More specifically,
+
+Assume that we want to calculate the expectation value of \(h(x)\)
+
+\[E(h(x))=\]
 
 \section{Basics of GLMM}\label{basics-of-glmm}
 

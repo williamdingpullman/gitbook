@@ -135,7 +135,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a><ul>
 <li class="chapter" data-level="5.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#em-algorithm"><i class="fa fa-check"></i><b>5.1</b> EM algorithm</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#importance-sampling"><i class="fa fa-check"></i><b>5.1.1</b> Importance Sampling</a></li>
+<li class="chapter" data-level="5.1.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>5.1.1</b> Monte carlo approximation</a></li>
+<li class="chapter" data-level="5.1.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#importance-sampling"><i class="fa fa-check"></i><b>5.1.2</b> Importance sampling</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>5.2</b> Basics of GLMM</a></li>
 <li class="chapter" data-level="5.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>5.3</b> Some References</a></li>
@@ -164,9 +165,44 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 5</span> Generalized Linear Mixed Models</h1>
 <div id="em-algorithm" class="section level2">
 <h2><span class="header-section-number">5.1</span> EM algorithm</h2>
-<p>Since GLMM needs EM algorithm in its maximum likelihood calculation, it is practically useful to rehearse EM and other computing techniques.</p>
+<p>Since GLMM can use EM algorithm in its maximum likelihood calculation (see McCulloch, 1994), it is practically useful to rehearse EM and other computing techniques.</p>
+<div id="monte-carlo-approximation" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Monte carlo approximation</h3>
+<p>Example: calculate the integral of <span class="math inline">\(p(z&gt;2)\)</span> when <span class="math inline">\(z \sim N(0,1)\)</span>. To use Monte Carlo approximation, we can have an indicator function, which will determine whether the sample from <span class="math inline">\(N(0,1)\)</span> will be included into the calculation of the integral.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Nsim=<span class="dv">10</span><span class="op">^</span><span class="dv">4</span>
+
+indicator=<span class="cf">function</span>(x){
+y=<span class="kw">ifelse</span>((x<span class="op">&gt;</span><span class="dv">2</span>),<span class="dv">1</span>,<span class="dv">0</span>)
+<span class="kw">return</span>(y)}
+
+newdata&lt;-<span class="kw">rnorm</span>(Nsim, <span class="dv">0</span>,<span class="dv">1</span> )
+
+mc=<span class="kw">c</span>(); v=<span class="kw">c</span>(); upper=<span class="kw">c</span>(); lower=<span class="kw">c</span>()
+
+<span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nsim)
+{
+mc[j]=<span class="kw">mean</span>(<span class="kw">indicator</span>(newdata[<span class="dv">1</span><span class="op">:</span>j]))
+v[j]=(j<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>})<span class="op">*</span><span class="kw">var</span>(<span class="kw">indicator</span>(newdata[<span class="dv">1</span><span class="op">:</span>j]))
+upper[j]=mc[j]<span class="op">+</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
+lower[j]=mc[j]<span class="op">-</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
+}
+
+<span class="kw">library</span>(ggplot2)
+values=<span class="kw">c</span>(mc,upper,lower)
+type=<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mc&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;upper&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;lower&quot;</span>,Nsim))
+iter=<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>Nsim),<span class="dv">3</span>)
+data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <span class="dt">tp=</span>type, <span class="dt">itr=</span>iter)
+Rcode&lt;-<span class="kw">ggplot</span>(data,<span class="kw">aes</span>(itr,val,<span class="dt">col=</span>tp))<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">0.5</span>)
+Rcode<span class="op">+</span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>),<span class="dt">color=</span><span class="st">&quot;green&quot;</span>,<span class="dt">size=</span><span class="fl">0.5</span>)</code></pre></div>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_path).</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
 <div id="importance-sampling" class="section level3">
-<h3><span class="header-section-number">5.1.1</span> Importance Sampling</h3>
+<h3><span class="header-section-number">5.1.2</span> Importance sampling</h3>
+<p>Importance sampling has samples generated from a different distribution than the distribution of interest. For instance, using the same explane above, we can use exponential distribution to sample normal distribution. The idea is that, we can generate <span class="math inline">\(x_i\)</span> from exponential distribution, and then insert them into the density function of normal distribution.</p>
+<p>More specifically,</p>
+<p>Assume that we want to calculate the expectation value of <span class="math inline">\(h(x)\)</span></p>
+<p><span class="math display">\[E(h(x))=\]</span></p>
 </div>
 </div>
 <div id="basics-of-glmm" class="section level2">
