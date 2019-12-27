@@ -1,6 +1,6 @@
 # Generalized Linear Mixed Models
 
-## EM algorithm 
+## Computing techniques
 
 Since GLMM can use EM algorithm in its maximum likelihood calculation (see McCulloch, 1994), it is practically useful to rehearse EM and other computing techniques.
 
@@ -74,6 +74,10 @@ ggplot(data,aes(itr,val,col=tp))+geom_line(size=0.5)+
 geom_hline(yintercept=1-pnorm(2),color="green",size=0.5)
 
 ```
+
+###Newton Raphson Algorithm
+
+
 
 
 ## Basics of GLMM

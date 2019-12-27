@@ -511,194 +511,6 @@ log-likelihood or the likelihood itself.
 
 \url{http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf}
 
-\chapter{Twitter Example}\label{twitter-example}
-
-The following is part of my course project for Stat 536. It aims to
-replicate part of the findings from Barbera (2015) Birds of the Same
-Feather Tweet Together: Bayesian Ideal Point Estimation Using Twitter
-Data. Political Analysis 23 (1). Note that, the following model is much
-simpler than that in the original paper.
-
-\section{Model}\label{model}
-
-Suppose that a Twitter user is presented with a choice between following
-or not following another target \(j \in \{ 1, ..., m\}\). Let
-\(y_{j}=1\) if the user decides to follow \(j\), and \(y_{j}=0\)
-otherwise.
-
-\[y_{j}=\begin{cases} 1 & Following \\ 0 & Not Following \end{cases}\]
-
-\[p(y_{j}=1|\theta) = \frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)}\]
-We additionally know the priors of \(\theta\).
-
-\[\theta_i \sim N(0,10^2) (i = 0, 1)\]
-
-The likelihood function is as follows.
-
-\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]
-Thus, the posterior is as follows.
-
-\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]
-\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]
-
-\section{Simulating Data of Senators on
-Twitter}\label{simulating-data-of-senators-on-twitter}
-
-Assume that we have 100 senators, 50 Democrats and 50 Republicans, who
-we know their ideology. Assume that Democrats have negative ideology
-scores to indicate that they are more liberal, whereas Republicans have
-positive scores to indicate that they are more conservative. The
-following is data simulation for senators.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# Republicans are more conservative, and they have positive numbers.}
-\NormalTok{Republicans<-}\KeywordTok{c}\NormalTok{()}
-\NormalTok{Republicans<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
-\NormalTok{No_Republicans<-}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{50}\NormalTok{,}\DecValTok{1}\NormalTok{)}
-\NormalTok{Part_}\DecValTok{1}\NormalTok{<-}\KeywordTok{cbind}\NormalTok{(No_Republicans,Republicans)}
-
-\CommentTok{# Democrats are more liberal, and they have negative numbers.}
-\NormalTok{Democrats<-}\KeywordTok{c}\NormalTok{()}
-\NormalTok{Democrats<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
-\NormalTok{No_Democrats<-}\KeywordTok{rep}\NormalTok{(}\DecValTok{51}\OperatorTok{:}\DecValTok{100}\NormalTok{,}\DecValTok{1}\NormalTok{)}
-\NormalTok{Part_}\DecValTok{2}\NormalTok{<-}\KeywordTok{cbind}\NormalTok{(No_Democrats,Democrats)}
-\NormalTok{Data_Elites<-}\KeywordTok{rbind}\NormalTok{(Part_}\DecValTok{1}\NormalTok{,Part_}\DecValTok{2}\NormalTok{)}
-\NormalTok{Data_Elites<-}\KeywordTok{as.data.frame}\NormalTok{(Data_Elites)}
-\KeywordTok{colnames}\NormalTok{(Data_Elites) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Elite_No"}\NormalTok{,}\StringTok{"Elite_ideology"}\NormalTok{)}
-
-\KeywordTok{head}\NormalTok{(Data_Elites)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   Elite_No Elite_ideology
-## 1        1      1.3493576
-## 2        2      1.0199132
-## 3        3      0.8502367
-## 4        4      1.0082851
-## 5        5      0.8697868
-## 6        6      0.8605332
-\end{verbatim}
-
-\section{Simulating Data of Conservative Users on Twitter and Model
-Testing}\label{simulating-data-of-conservative-users-on-twitter-and-model-testing}
-
-Assume that we observe one Twitter user, who is more conservative. To
-simulate Twitter following data for this user, I assign this user to
-follow more Republican senators. Thus, if the Metropolis Hastings
-algorithm works as intended, we would expect to see a positive estimated
-value for their ideology. Importantly, as we can see in the histogram
-below, the estimated value indeed is positive, providing preliminary
-evidence for the statistical model and the algorithm. In addition, for
-the acceptance rate, we can see that the constant has a lower number
-than ideology, since we only accept a constant when it is positive.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#This user approximately follows 45 Republican Senators and 10 Democrat Senators. }
-\NormalTok{Data_user<-}\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{)}\OperatorTok{<}\NormalTok{.}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{)}\OperatorTok{<}\NormalTok{.}\DecValTok{8}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))), }\DecValTok{100}\NormalTok{, }\DecValTok{1}\NormalTok{)}
-\KeywordTok{colnames}\NormalTok{(Data_user)<-}\KeywordTok{c}\NormalTok{(}\StringTok{"R_User"}\NormalTok{)}
-\NormalTok{Data_combined<-}\KeywordTok{cbind}\NormalTok{(Data_Elites,Data_user)}
-
-\NormalTok{X_data<-Data_combined}\OperatorTok{$}\NormalTok{Elite_ideology}
-\NormalTok{Y_data<-Data_combined}\OperatorTok{$}\NormalTok{R_User}
-
-\NormalTok{fit_C<-}\KeywordTok{Bayes_logit}\NormalTok{(Y_data,X_data)}
-\NormalTok{fit_C}\OperatorTok{$}\NormalTok{acceptance_rate}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.1180590 0.6793397
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(fit_C}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{1}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Constant (Conservative Users)"}\NormalTok{,}
-     \DataTypeTok{xlab=}\StringTok{"Iteration Process"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Estimated Scores"}\NormalTok{,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(fit_C}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Estimated Ideology Scores (Conservative Users)"}\NormalTok{,}
-     \DataTypeTok{xlab=}\StringTok{"Iteration Process"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Ideology Scores"}\NormalTok{,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{hist}\NormalTok{(fit_C}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Estimated Ideology Scores (Conservative Users)"}\NormalTok{,}
-     \DataTypeTok{xlab=}\StringTok{"Ideology Scores"}\NormalTok{,}\DataTypeTok{breaks =} \DecValTok{100}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-3.pdf}
-
-\section{Simulating Data of Liberal Users on Twitter and Model
-Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
-
-To further verify the Metropolis Hastings algorithm, I plan to test the
-opposite estimate. Specifically, assume that we observe another user,
-who is more liberal. To simulate Twitter following data for this user, I
-assign this user to follow more Democrat senators. In this case, we
-would expect to see a negative value for their estimated ideology. As we
-can see in the histogram shown below, as expected, the estimated value
-is negative, providing convergent evidence for the model and the
-algorithm.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#This user approximately follows 10 Republican Senators and 45 Democrat Senators. }
-\NormalTok{Data_user<-}\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{)}\OperatorTok{<}\NormalTok{.}\DecValTok{8}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{)}\OperatorTok{<}\NormalTok{.}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))), }\DecValTok{100}\NormalTok{, }\DecValTok{1}\NormalTok{)}
-\KeywordTok{colnames}\NormalTok{(Data_user)<-}\KeywordTok{c}\NormalTok{(}\StringTok{"L_User"}\NormalTok{)}
-\NormalTok{Data_combined<-}\KeywordTok{cbind}\NormalTok{(Data_Elites,Data_user)}
-
-\NormalTok{X_data<-Data_combined}\OperatorTok{$}\NormalTok{Elite_ideology}
-\NormalTok{Y_data<-Data_combined}\OperatorTok{$}\NormalTok{L_User}
-
-
-\NormalTok{fit_L<-}\KeywordTok{Bayes_logit}\NormalTok{(Y_data,X_data)}
-\NormalTok{fit_L}\OperatorTok{$}\NormalTok{acceptance_rate}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.1005503 0.7418709
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(fit_L}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{1}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Constant (Liberal Users)"}\NormalTok{,}
-     \DataTypeTok{xlab=}\StringTok{"Iteration Process"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Estimated Scores"}\NormalTok{,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-12-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(fit_L}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Estimated Ideology Scores (Liberal Users)"}\NormalTok{,}
-     \DataTypeTok{xlab=}\StringTok{"Iteration Process"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Ideology Scores"}\NormalTok{,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-12-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{hist}\NormalTok{(fit_L}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Estimated Ideology Scores (Liberal Users)"}\NormalTok{,}
-     \DataTypeTok{xlab=}\StringTok{"Ideology Scores"}\NormalTok{,}\DataTypeTok{breaks =} \DecValTok{100}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-12-3.pdf}
-
 \chapter{Linear Mixed Models}\label{linear-mixed-models}
 
 The following is a shortened version of Jonathan Rosenblatt's LMM
@@ -1237,7 +1049,7 @@ calculate time serial data.
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}
 
-\section{EM algorithm}\label{em-algorithm}
+\section{Computing techniques}\label{computing-techniques}
 
 Since GLMM can use EM algorithm in its maximum likelihood calculation
 (see McCulloch, 1994), it is practically useful to rehearse EM and other
@@ -1284,7 +1096,7 @@ the calculation of the integral.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 \subsection{Importance sampling}\label{importance-sampling}
 
@@ -1340,7 +1152,9 @@ the definition of expected value.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\subsection{Newton Raphson Algorithm}\label{newton-raphson-algorithm}
 
 \section{Basics of GLMM}\label{basics-of-glmm}
 
@@ -1369,6 +1183,194 @@ likelihood algorithems for Generalized Linear Mixed Models''
 \url{http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html}
 
 \url{https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html}
+
+\chapter{Twitter Example}\label{twitter-example}
+
+The following is part of my course project for Stat 536. It aims to
+replicate part of the findings from Barbera (2015) Birds of the Same
+Feather Tweet Together: Bayesian Ideal Point Estimation Using Twitter
+Data. Political Analysis 23 (1). Note that, the following model is much
+simpler than that in the original paper.
+
+\section{Model}\label{model}
+
+Suppose that a Twitter user is presented with a choice between following
+or not following another target \(j \in \{ 1, ..., m\}\). Let
+\(y_{j}=1\) if the user decides to follow \(j\), and \(y_{j}=0\)
+otherwise.
+
+\[y_{j}=\begin{cases} 1 & Following \\ 0 & Not Following \end{cases}\]
+
+\[p(y_{j}=1|\theta) = \frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)}\]
+We additionally know the priors of \(\theta\).
+
+\[\theta_i \sim N(0,10^2) (i = 0, 1)\]
+
+The likelihood function is as follows.
+
+\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]
+Thus, the posterior is as follows.
+
+\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]
+\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]
+
+\section{Simulating Data of Senators on
+Twitter}\label{simulating-data-of-senators-on-twitter}
+
+Assume that we have 100 senators, 50 Democrats and 50 Republicans, who
+we know their ideology. Assume that Democrats have negative ideology
+scores to indicate that they are more liberal, whereas Republicans have
+positive scores to indicate that they are more conservative. The
+following is data simulation for senators.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Republicans are more conservative, and they have positive numbers.}
+\NormalTok{Republicans<-}\KeywordTok{c}\NormalTok{()}
+\NormalTok{Republicans<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{No_Republicans<-}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{50}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{Part_}\DecValTok{1}\NormalTok{<-}\KeywordTok{cbind}\NormalTok{(No_Republicans,Republicans)}
+
+\CommentTok{# Democrats are more liberal, and they have negative numbers.}
+\NormalTok{Democrats<-}\KeywordTok{c}\NormalTok{()}
+\NormalTok{Democrats<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{No_Democrats<-}\KeywordTok{rep}\NormalTok{(}\DecValTok{51}\OperatorTok{:}\DecValTok{100}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{Part_}\DecValTok{2}\NormalTok{<-}\KeywordTok{cbind}\NormalTok{(No_Democrats,Democrats)}
+\NormalTok{Data_Elites<-}\KeywordTok{rbind}\NormalTok{(Part_}\DecValTok{1}\NormalTok{,Part_}\DecValTok{2}\NormalTok{)}
+\NormalTok{Data_Elites<-}\KeywordTok{as.data.frame}\NormalTok{(Data_Elites)}
+\KeywordTok{colnames}\NormalTok{(Data_Elites) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Elite_No"}\NormalTok{,}\StringTok{"Elite_ideology"}\NormalTok{)}
+
+\KeywordTok{head}\NormalTok{(Data_Elites)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Elite_No Elite_ideology
+## 1        1      1.2867064
+## 2        2      0.9062610
+## 3        3      1.0801668
+## 4        4      0.8119379
+## 5        5      1.3617461
+## 6        6      1.4802020
+\end{verbatim}
+
+\section{Simulating Data of Conservative Users on Twitter and Model
+Testing}\label{simulating-data-of-conservative-users-on-twitter-and-model-testing}
+
+Assume that we observe one Twitter user, who is more conservative. To
+simulate Twitter following data for this user, I assign this user to
+follow more Republican senators. Thus, if the Metropolis Hastings
+algorithm works as intended, we would expect to see a positive estimated
+value for their ideology. Importantly, as we can see in the histogram
+below, the estimated value indeed is positive, providing preliminary
+evidence for the statistical model and the algorithm. In addition, for
+the acceptance rate, we can see that the constant has a lower number
+than ideology, since we only accept a constant when it is positive.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#This user approximately follows 45 Republican Senators and 10 Democrat Senators. }
+\NormalTok{Data_user<-}\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{)}\OperatorTok{<}\NormalTok{.}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{)}\OperatorTok{<}\NormalTok{.}\DecValTok{8}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))), }\DecValTok{100}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(Data_user)<-}\KeywordTok{c}\NormalTok{(}\StringTok{"R_User"}\NormalTok{)}
+\NormalTok{Data_combined<-}\KeywordTok{cbind}\NormalTok{(Data_Elites,Data_user)}
+
+\NormalTok{X_data<-Data_combined}\OperatorTok{$}\NormalTok{Elite_ideology}
+\NormalTok{Y_data<-Data_combined}\OperatorTok{$}\NormalTok{R_User}
+
+\NormalTok{fit_C<-}\KeywordTok{Bayes_logit}\NormalTok{(Y_data,X_data)}
+\NormalTok{fit_C}\OperatorTok{$}\NormalTok{acceptance_rate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1750875 0.5587794
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(fit_C}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{1}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Constant (Conservative Users)"}\NormalTok{,}
+     \DataTypeTok{xlab=}\StringTok{"Iteration Process"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Estimated Scores"}\NormalTok{,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(fit_C}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Estimated Ideology Scores (Conservative Users)"}\NormalTok{,}
+     \DataTypeTok{xlab=}\StringTok{"Iteration Process"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Ideology Scores"}\NormalTok{,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(fit_C}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Estimated Ideology Scores (Conservative Users)"}\NormalTok{,}
+     \DataTypeTok{xlab=}\StringTok{"Ideology Scores"}\NormalTok{,}\DataTypeTok{breaks =} \DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-3.pdf}
+
+\section{Simulating Data of Liberal Users on Twitter and Model
+Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
+
+To further verify the Metropolis Hastings algorithm, I plan to test the
+opposite estimate. Specifically, assume that we observe another user,
+who is more liberal. To simulate Twitter following data for this user, I
+assign this user to follow more Democrat senators. In this case, we
+would expect to see a negative value for their estimated ideology. As we
+can see in the histogram shown below, as expected, the estimated value
+is negative, providing convergent evidence for the model and the
+algorithm.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#This user approximately follows 10 Republican Senators and 45 Democrat Senators. }
+\NormalTok{Data_user<-}\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{)}\OperatorTok{<}\NormalTok{.}\DecValTok{8}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{)}\OperatorTok{<}\NormalTok{.}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))), }\DecValTok{100}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(Data_user)<-}\KeywordTok{c}\NormalTok{(}\StringTok{"L_User"}\NormalTok{)}
+\NormalTok{Data_combined<-}\KeywordTok{cbind}\NormalTok{(Data_Elites,Data_user)}
+
+\NormalTok{X_data<-Data_combined}\OperatorTok{$}\NormalTok{Elite_ideology}
+\NormalTok{Y_data<-Data_combined}\OperatorTok{$}\NormalTok{L_User}
+
+
+\NormalTok{fit_L<-}\KeywordTok{Bayes_logit}\NormalTok{(Y_data,X_data)}
+\NormalTok{fit_L}\OperatorTok{$}\NormalTok{acceptance_rate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2026013 0.4092046
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(fit_L}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{1}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Constant (Liberal Users)"}\NormalTok{,}
+     \DataTypeTok{xlab=}\StringTok{"Iteration Process"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Estimated Scores"}\NormalTok{,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(fit_L}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Estimated Ideology Scores (Liberal Users)"}\NormalTok{,}
+     \DataTypeTok{xlab=}\StringTok{"Iteration Process"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Ideology Scores"}\NormalTok{,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(fit_L}\OperatorTok{$}\NormalTok{theta[,}\DecValTok{2}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Estimated Ideology Scores (Liberal Users)"}\NormalTok{,}
+     \DataTypeTok{xlab=}\StringTok{"Ideology Scores"}\NormalTok{,}\DataTypeTok{breaks =} \DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-3.pdf}
 
 \bibliography{book.bib,packages.bib}
 
