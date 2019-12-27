@@ -421,6 +421,9 @@ Thus,
 ##         0.4
 \end{verbatim}
 
+Note that, the defaul link for the binomial in the glm function in
+logit.
+
 \section{Further on logit}\label{further-on-logit}
 
 The probablity of \(y=1\) is as follows:
@@ -500,6 +503,10 @@ log-likelihood or the likelihood itself.
 ## as.factor(rank)4 -1.551463677 -1.563396035
 \end{verbatim}
 
+\section{Fisher information}\label{fisher-information}
+
+\url{https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture\%20notes/Fisher_info.pdf}
+
 \section{References}\label{references}
 
 \url{http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf}
@@ -566,12 +573,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.6439174
-## 2        2      0.8096186
-## 3        3      1.2077470
-## 4        4      0.4993032
-## 5        5      1.4545000
-## 6        6      0.7519293
+## 1        1      1.2551540
+## 2        2      1.4624427
+## 3        3      2.6218714
+## 4        4      0.8589813
+## 5        5      0.9204855
+## 6        6      1.2563093
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -603,7 +610,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1505753 0.4757379
+## [1] 0.1945973 0.4707354
 \end{verbatim}
 
 \begin{Shaded}
@@ -662,7 +669,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1885943 0.4417209
+## [1] 0.1750875 0.4647324
 \end{verbatim}
 
 \begin{Shaded}

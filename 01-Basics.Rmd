@@ -70,6 +70,7 @@ exp(logitresults$coefficients)/(1+exp(logitresults$coefficients))
 
 ```
 
+Note that, the defaul link for the binomial in the glm function in logit.
 
 ## Further on logit 
 
@@ -138,6 +139,10 @@ mylogit2 = mle.logreg(fmla, mydata) #Estimate coefficients
 
  print(cbind(coef(mylogit1), mylogit2$beta))
 ```
+
+## Fisher information
+
+https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf
 
 ## References
 

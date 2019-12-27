@@ -117,7 +117,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2.2" data-path="intro.html"><a href="intro.html#logit-1"><i class="fa fa-check"></i><b>2.2.2</b> Logit</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#further-on-logit"><i class="fa fa-check"></i><b>2.3</b> Further on logit</a></li>
-<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#references"><i class="fa fa-check"></i><b>2.4</b> References</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#fisher-information"><i class="fa fa-check"></i><b>2.4</b> Fisher information</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#references"><i class="fa fa-check"></i><b>2.5</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>3</b> Twitter Example</a><ul>
 <li class="chapter" data-level="3.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>3.1</b> Model</a></li>
@@ -213,6 +214,7 @@ logitresults<span class="op">$</span>coefficients</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(logitresults<span class="op">$</span>coefficients)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(logitresults<span class="op">$</span>coefficients))</code></pre></div>
 <pre><code>## (Intercept) 
 ##         0.4</code></pre>
+<p>Note that, the defaul link for the binomial in the glm function in logit.</p>
 </div>
 </div>
 <div id="further-on-logit" class="section level2">
@@ -272,8 +274,12 @@ mylogit2 =<span class="st"> </span><span class="kw">mle.logreg</span>(fmla, myda
 ## as.factor(rank)3 -1.340203916 -1.356554831
 ## as.factor(rank)4 -1.551463677 -1.563396035</code></pre>
 </div>
+<div id="fisher-information" class="section level2">
+<h2><span class="header-section-number">2.4</span> Fisher information</h2>
+<p><a href="https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf">https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf</a></p>
+</div>
 <div id="references" class="section level2">
-<h2><span class="header-section-number">2.4</span> References</h2>
+<h2><span class="header-section-number">2.5</span> References</h2>
 <p><a href="http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf" class="uri">http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf</a></p>
 
 </div>
