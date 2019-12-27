@@ -203,10 +203,10 @@ the same for both home and away teams.
 
 \section{Probit}\label{probit}
 
-As noted above, logit provides \(f(x)=log(\frac{p(y=1)}{1-p(y=1)})\)
-provides the resulting range of \((0,1)\). Another way to provide the
-same rage is through the cdf of normal distribution.The following R code
-is used to illusrate this process.
+As noted above, logit \(f(x)=log(\frac{p(y=1)}{1-p(y=1)})\) provides the
+resulting range of \((0,1)\). Another way to provide the same rage is
+through the cdf of normal distribution.The following R code is used to
+illusrate this process.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -224,7 +224,63 @@ probability of \(p(y=1)\).
 Similar to logit model, we can also write the inverse function of the
 cdf to get the function that can be from \(-\infty\) to \(+\infty\).
 
-\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)\]
+\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p(y=1))\]
+
+Thus, for example, if \(X\beta\) = -2, based on
+\(\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\) we can get that the
+\(p(y=1)=0.023\).
+
+In contrast, if \(X\beta\) = 3, the \(p(y=1)=0.999\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pnorm}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.02275013
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pnorm}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9986501
+\end{verbatim}
+
+Let's assume that there is a latent variable called \(Y^*\) such that
+
+\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)\] You could think of
+\(Y^*\) as a kind of ``proxy'' between \(X\beta+\epsilon\) and the
+observed \(Y (1 or 0)\). Thus, we can get the following. Note that, it
+does not have to be zero, and can be any constant.
+
+\[
+Y^*=\begin{cases} 0 \;\;\: if \;  y_i^* \leq 0 \\ 1 \;\;\: if \;  y_i^* > 0 \end{cases}
+\]
+
+Thus,
+
+\[y_i^* > 0 \Rightarrow \beta^{'}X_i + \epsilon_i >0 \Rightarrow \epsilon_i > -\beta^{'}X_i\]
+
+Thus, we can write it as follows. Note that
+\(\frac{ \epsilon_i}{\sigma} \sim N(0,1)\)
+
+\[p(y=1|x_i)= p(y_i^* >0|x_i)=p(\epsilon_i > -\beta^{'}X_i)= p(\frac{ \epsilon_i}{\sigma}>\frac{-\beta^{'}X_i}{\sigma})=\Phi(\frac{\beta^{'}X_i}{\sigma}) \]
+We thus can get:
+
+\[p(y=0|x_i)=1-\Phi(\frac{\beta^{'}X_i}{\sigma})\]
+
+For \(p(y=1|x_i)=\Phi(\frac{\beta^{'}X_i}{\sigma})\), we can not really
+estimate both \(\beta\) and \(\sigma\) as they are in a ratio. We can
+assume \(\sigma =1\), then \(\epsilon \sim N(0,1)\). We know \(y_i\) and
+\(x_i\) since we observe them already. Thus, we can write it as follows.
+
+\[p(y=1|x_i)=\Phi(\beta^{'}X_i)\]
 
 \chapter{MLE}\label{intro}
 
@@ -367,12 +423,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1     0.41635123
-## 2        2     0.60601935
-## 3        3     0.87327329
-## 4        4    -0.05996508
-## 5        5     0.61617423
-## 6        6     1.05556269
+## 1        1      0.2825324
+## 2        2      0.7895060
+## 3        3      2.0484772
+## 4        4      0.9313475
+## 5        5      0.7536616
+## 6        6      0.8222886
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -404,7 +460,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1965983 0.4792396
+## [1] 0.1540770 0.5397699
 \end{verbatim}
 
 \begin{Shaded}
@@ -414,7 +470,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -423,7 +479,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -432,7 +488,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-7-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -463,7 +519,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1280640 0.7363682
+## [1] 0.1255628 0.6843422
 \end{verbatim}
 
 \begin{Shaded}
@@ -473,7 +529,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -482,7 +538,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -491,7 +547,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-3.pdf}
 
 \chapter{Linear Mixed Models}\label{linear-mixed-models}
 

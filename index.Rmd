@@ -45,7 +45,7 @@ summary(mylogit1)
 
 ## Probit
 
-As noted above, logit provides $f(x)=log(\frac{p(y=1)}{1-p(y=1)})$ provides the resulting range of $(0,1)$. Another way to provide the same rage is through the cdf of normal distribution.The following R code is used to illusrate this process. 
+As noted above, logit $f(x)=log(\frac{p(y=1)}{1-p(y=1)})$ provides the resulting range of $(0,1)$. Another way to provide the same rage is through the cdf of normal distribution.The following R code is used to illusrate this process. 
 
 ```{R}
 data2<-seq(-5,5,1)
@@ -57,5 +57,40 @@ $$\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)$$
 
 Similar to logit model, we can also write the inverse function of the cdf to get the function that can be from $-\infty$ to $+\infty$.
 
-$$\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)$$
+$$\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p(y=1))$$
 
+
+Thus, for example, if $X\beta$ = -2, based on $\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)$ we can get that the $p(y=1)=0.023$. 
+
+In contrast, if $X\beta$ = 3, the $p(y=1)=0.999$.
+
+```{R}
+pnorm(-2)
+pnorm(3)
+```
+
+Let's assume that there is a latent variable called $Y^*$ such that
+
+$$Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)$$
+You could think of $Y^*$ as a kind of "proxy" between $X\beta+\epsilon$ and the observed $Y (1 or 0)$. Thus, we can get the following. Note that, it does not have to be zero, and can be any constant.
+
+$$
+Y^*=\begin{cases} 0 \;\;\: if \;  y_i^* \leq 0 \\ 1 \;\;\: if \;  y_i^* > 0 \end{cases}
+$$
+
+Thus, 
+
+$$y_i^* > 0 \Rightarrow \beta^{'}X_i + \epsilon_i >0 \Rightarrow \epsilon_i > -\beta^{'}X_i$$
+
+Thus, we can write it as follows. Note that $\frac{ \epsilon_i}{\sigma} \sim N(0,1)$
+
+$$p(y=1|x_i)= p(y_i^* >0|x_i)=p(\epsilon_i > -\beta^{'}X_i)= p(\frac{ \epsilon_i}{\sigma}>\frac{-\beta^{'}X_i}{\sigma})=\Phi(\frac{\beta^{'}X_i}{\sigma}) $$
+We thus can get:
+
+$$p(y=0|x_i)=1-\Phi(\frac{\beta^{'}X_i}{\sigma})$$
+
+
+For $p(y=1|x_i)=\Phi(\frac{\beta^{'}X_i}{\sigma})$, we can not really estimate both $\beta$ and $\sigma$ as they are in a ratio. We can assume $\sigma =1$, then $\epsilon \sim N(0,1)$.
+We know $y_i$ and $x_i$ since we observe them already. Thus, we can write it as follows. 
+
+$$p(y=1|x_i)=\Phi(\beta^{'}X_i)$$

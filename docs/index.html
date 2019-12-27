@@ -193,13 +193,31 @@ mydata<span class="op">$</span>result_new&lt;-<span class="kw">ifelse</span>(myd
 </div>
 <div id="probit" class="section level2">
 <h2><span class="header-section-number">1.2</span> Probit</h2>
-<p>As noted above, logit provides <span class="math inline">\(f(x)=log(\frac{p(y=1)}{1-p(y=1)})\)</span> provides the resulting range of <span class="math inline">\((0,1)\)</span>. Another way to provide the same rage is through the cdf of normal distribution.The following R code is used to illusrate this process.</p>
+<p>As noted above, logit <span class="math inline">\(f(x)=log(\frac{p(y=1)}{1-p(y=1)})\)</span> provides the resulting range of <span class="math inline">\((0,1)\)</span>. Another way to provide the same rage is through the cdf of normal distribution.The following R code is used to illusrate this process.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data2&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">1</span>)
 <span class="kw">plot</span>(data2,<span class="kw">pnorm</span>(data2),<span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" width="672" /> Thus, the cdf of normal distribution can be used to indicate the probability of <span class="math inline">\(p(y=1)\)</span>.</p>
 <p><span class="math display">\[\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\]</span></p>
 <p>Similar to logit model, we can also write the inverse function of the cdf to get the function that can be from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>.</p>
-<p><span class="math display">\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)\]</span></p>
+<p><span class="math display">\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p(y=1))\]</span></p>
+<p>Thus, for example, if <span class="math inline">\(X\beta\)</span> = -2, based on <span class="math inline">\(\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\)</span> we can get that the <span class="math inline">\(p(y=1)=0.023\)</span>.</p>
+<p>In contrast, if <span class="math inline">\(X\beta\)</span> = 3, the <span class="math inline">\(p(y=1)=0.999\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 0.02275013</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(<span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] 0.9986501</code></pre>
+<p>Let’s assume that there is a latent variable called <span class="math inline">\(Y^*\)</span> such that</p>
+<p><span class="math display">\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)\]</span> You could think of <span class="math inline">\(Y^*\)</span> as a kind of “proxy” between <span class="math inline">\(X\beta+\epsilon\)</span> and the observed <span class="math inline">\(Y (1 or 0)\)</span>. Thus, we can get the following. Note that, it does not have to be zero, and can be any constant.</p>
+<p><span class="math display">\[
+Y^*=\begin{cases} 0 \;\;\: if \;  y_i^* \leq 0 \\ 1 \;\;\: if \;  y_i^* &gt; 0 \end{cases}
+\]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[y_i^* &gt; 0 \Rightarrow \beta^{&#39;}X_i + \epsilon_i &gt;0 \Rightarrow \epsilon_i &gt; -\beta^{&#39;}X_i\]</span></p>
+<p>Thus, we can write it as follows. Note that <span class="math inline">\(\frac{ \epsilon_i}{\sigma} \sim N(0,1)\)</span></p>
+<p><span class="math display">\[p(y=1|x_i)= p(y_i^* &gt;0|x_i)=p(\epsilon_i &gt; -\beta^{&#39;}X_i)= p(\frac{ \epsilon_i}{\sigma}&gt;\frac{-\beta^{&#39;}X_i}{\sigma})=\Phi(\frac{\beta^{&#39;}X_i}{\sigma}) \]</span> We thus can get:</p>
+<p><span class="math display">\[p(y=0|x_i)=1-\Phi(\frac{\beta^{&#39;}X_i}{\sigma})\]</span></p>
+<p>For <span class="math inline">\(p(y=1|x_i)=\Phi(\frac{\beta^{&#39;}X_i}{\sigma})\)</span>, we can not really estimate both <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma\)</span> as they are in a ratio. We can assume <span class="math inline">\(\sigma =1\)</span>, then <span class="math inline">\(\epsilon \sim N(0,1)\)</span>. We know <span class="math inline">\(y_i\)</span> and <span class="math inline">\(x_i\)</span> since we observe them already. Thus, we can write it as follows.</p>
+<p><span class="math display">\[p(y=1|x_i)=\Phi(\beta^{&#39;}X_i)\]</span></p>
 
 </div>
 </div>
