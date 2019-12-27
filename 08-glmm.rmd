@@ -75,10 +75,42 @@ geom_hline(yintercept=1-pnorm(2),color="green",size=0.5)
 
 ```
 
-###Newton Raphson Algorithm
+###Newton Raphson algorithm
 
+For nonlinear functions, it is sometimes difficult to calculate MLEs. Newton Raphson algorithm is an iterative procedure to calculate MlEs. 
 
+The basic idea of Newton Raphson is to find a approximate function that can be easily maximized analytically. We need some theoretical background from Taylor's Theorem. 
 
+If $f$ has $k+1$ times differentiable on an open interval $I$. For any $x$ and $x+h$ in $I$, there is a point of $w$ between $x$ and $x+h$ where we can get the following:
+
+$$f(x+h)=f(x)+f^{'}h+\frac{1}{2}f^{''}h^2+...+\frac{1}{k!}f^{[k]}(x)h^k+\frac{1}{(k+1)!}f^{[k+1]}(w)h^{k+1}$$
+If $h$ goes to be close to $0$, the higher order terms will go to $0$ as well. Thus, we can get:
+
+$$f(x+h) \approx f(x)+f^{'}(x)h $$
+This is the first order Taylor approximation of $f$ at $x$. In a similar vein, we also have the second order Taylor approximation of $f$ at $x$ as follows. 
+
+$$f(x+h)=f(x)+f^{'}h+\frac{1}{2}f^{''}h^2$$
+For the first order, we can rewrite it as follows. 
+
+$$f(x+h) \approx f(x)+f^{'}(x)h = a+bh$$
+where, 
+
+$$ a = f(x), b=f^{'}(x)$$
+Similarly,
+
+$$f(x+h)\approx f(x)+f^{'}(x)h+\frac{1}{2}f^{''}(x)h^2=a+bh+\frac{1}{2}ch^2$$
+We can calculate the derivative with respect to $h$, we can get:
+
+$$f^{'}(x+h) \approx b+ch$$
+We can then set it to zero, and get:
+
+$$0=b+c \hat{h}$$
+Thus, we can get,
+
+$$\hat{h} = -\frac{b}{c}=-\frac{f^{'}(x)}{f^{''}(x)}$$
+Thus, we can get that the following can maximize $f$ at $x$:
+
+$$x+\hat{h}=x-\frac{f^{'}(x)}{f^{''}(x)}$$
 
 ## Basics of GLMM
 
