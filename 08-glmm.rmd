@@ -2,6 +2,8 @@
 
 ## Basics 
 
+
+
 The following is the note from Charle E. McCulloch's "Maximum likelihood algorithems for Generalized Linear Mixed Models"
 
 ## Some References
