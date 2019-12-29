@@ -38,7 +38,7 @@ Rcode+geom_hline(yintercept=1-pnorm(2),color="green",size=0.5)
 
 ### Importance sampling
 
-Importance sampling has samples generated from a different distribution than the distribution of interest. Specifically, assume that we want to calculate the expectation value of $h(x)$, and $x \sim f(x)$.
+Importance sampling has samples generated from a different distribution than the distribution of interest. Specifically, assume that we want to calculate the expected value of $h(x)$, and $x \sim f(x)$.
 
 $$E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx $$
 We can sample $x_i$ from $g(x)$ and then calculate the mean of $h(x_i) \frac{f(x_i)}{g(x_i)}$.
@@ -48,7 +48,7 @@ We can sample $x_i$ from $g(x)$ and then calculate the mean of $h(x_i) \frac{f(x
 Using the same explane above, we can use a shifted exponential distribution to help calculate the intergral for normal distribution. Specifically,
 
 $$\int_2^{\infty} \frac{1}{2 \pi} e^{-\frac{1}{2}x^2}dx = \int_2^{\infty} \frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}} e^{-(x-2)}dx $$
-The idea is that, we can generate $x_i$ from exponential distribution of $e{-(x-2)}$, and then insert them into the density function of $\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}$. Thus, as you can see, importance sampling is based on the law of large numbers (i.e., If the same experiment or study is repeated independently a large number of times, the average of the results of the trials must be close to the expected value). We can use it to calculate integral based on link of the definition of expected value. 
+The idea is that, we can generate $x_i$ from exponential distribution of $e^{-(x-2)}$, and then insert them into the targeted "expected (value) function" of $\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}$. Thus, as you can see, importance sampling is based on the law of large numbers (i.e., If the same experiment or study is repeated independently a large number of times, the average of the results of the trials must be close to the expected value). We can use it to calculate integral based on link of the definition of expected value. 
 
 ```{R}
 Nsim=10^4
@@ -77,7 +77,7 @@ geom_hline(yintercept=1-pnorm(2),color="green",size=0.5)
 
 ###Newton Raphson algorithm
 
-For nonlinear functions, it is sometimes difficult to calculate MLEs. Newton Raphson algorithm is an iterative procedure to calculate MlEs. 
+For nonlinear functions, it is sometimes difficult to calculate MLEs. Newton Raphson algorithm is an iterative procedure to calculate MLEs. 
 
 The basic idea of Newton Raphson is to find a approximate function that can be easily maximized analytically. We need some theoretical background from Taylor's Theorem. 
 
@@ -119,7 +119,8 @@ Thus, the basic idea of Newton Raphson algorithm is as follows.
 Practice:
 
 (1) Solve the $x^3-5=0$
-Note that, this is obviously not a maximization problem. In contrast, it involves a function with zero. As we can see, we can think it as the first order of Taylor approximation. That is, itself is a $f^{'}(x)=x^3-5=0$. As we can see the following plot, it converts pretty quick.
+
+Note that, this is obviously not a maximization problem. In contrast, it involves a function with zero. As we can see, we can think it as the first order of Taylor approximation. That is, $f^{'}(x)=x^3-5=0$. As we can see the following plot, it converts very quickly. [I will revisit this part later to double check whether such narrative is correct. But, the code is correct, for sure.]
 
 ```{R}
 f_firstorder=function(x){x^3-5}
@@ -136,6 +137,100 @@ while(difference>tolerance & iteration<max_its){
 
 plot(c_iteration,type="b")
 ``` 
+2. Use Newton Raphson to calculate the logistic regression
+
+Suppose we have $n$ observation, and $m$ variables.
+
+$$\begin{bmatrix}
+x_{11} & x_{12} & x_{13} & ... & x_{1m}\\
+x_{21} & x_{22} & x_{23} & ... & x_{2m} \\
+...\\
+x_{n1} & x_{n2} & x_{n3} & ... & x_{nm}
+\end{bmatrix}$$
+
+
+Typically, we add a vector of $1$ being used to estimate the constant.
+
+$$\begin{bmatrix}
+1 & x_{11} & x_{12} & x_{13} & ... & x_{1m}\\
+1 & x_{21} & x_{22} & x_{23} & ... & x_{2m} \\
+...\\
+1 & x_{n1} & x_{n2} & x_{n3} & ... & x_{nm}
+\end{bmatrix}$$
+
+And, we have observe a vector of $n$ $y_i$ as well, which is a binary variable:
+
+$$Y = \begin{bmatrix}1 \\
+0 \\
+1 \\
+0 \\
+0 \\
+0 \\
+...\\
+1 \\
+\end{bmatrix}$$
+
+Using the content from the MLE chapter, we can get:
+
+$$\mathbf{L}=\prod_{i=1}^{n} p_i^{ y_i}(1-p_i)^{(1-y_i)}$$
+
+Further, we can get a log-transformed format.
+
+$$log (\mathbf{L})=\sum_{i=1}^{n}[y_i log (p_i) + (1-y_i) log(1-p_i)]$$
+Given that $p_i=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}=\frac{e^{\beta^Tx}}{1+e^{\beta^Tx}}$, we can rewrite it as follows:
+
+$$log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}})]$$
+Before doing the derivative, we set.
+$$\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}} = p(\beta ^T x_i)$$
+
+$$log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (p(\beta ^T x_i)) + (1-y_i) log(1-p(\beta ^T x_i))]$$
+
+
+Note that, $\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)} = p(\beta ^T x_i)(1-p(\beta ^T x_i))$. We will use it later. 
+
+
+$$\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] $$
+$$= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i] $$
+$$= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i] $$
+$$= \sum_{i=1}^{n} [y_i (1-p(\beta ^T x_i))x_i-(1-y_i) p(\beta ^T x_i)x_i]=\sum_{i=1}^{n} [y_i-y_ip(\beta ^T x_i)-p(\beta ^T x_i)+y_i p(\beta ^T x_i)]x_i$$
+$$=\sum_{i=1}^{n} [y_i-p(\beta ^T x_i)]x_i=\sum_{i=1}^{n} [y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}]x_i$$
+
+I will use probit in the following data simulation (3 IVs and 1 DV) and Newton Raphson analysis. I simulated 500 observations.
+
+$$\Phi(\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3)= p(y=1)$$
+
+```{R}
+# Data generation
+n=500
+x1_norm<-rnorm(n)
+x2_norm<-rnorm(n)
+x3_norm<-rnorm(n)
+x_combined<-cbind(1,x1_norm,x2_norm,x3_norm)
+coefficients_new<-c(2,2,3,3)  #true regression coefficient
+inv_norm<-function(x,b){pnorm(x%*%b)}
+prob_generated<-inv_norm(x_combined,coefficients_new)
+y<-c()
+for (i in 1:n) {y[i]<-rbinom(1,1,prob_generated[i])}
+
+# Newton Raphson
+
+#We need to set random starting values.
+x_old<-c(1,1,1,1)
+tolerance=1e-3
+max_its=2000;iteration=1;difference=2
+
+while(difference>tolerance & iteration<max_its){
+  x_updated=x_old-(f_firstorder(x_old)/f_secondorder(x_old))
+  difference=abs(x_updated-x_old);
+  iteration=iteration+1;
+  x_old=x_updated
+  c_iteration<-c(c_iteration,x_updated)}
+
+plot(c_iteration,type="b")
+
+```
+
+
 
 ## Basics of GLMM
 

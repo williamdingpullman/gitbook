@@ -119,7 +119,7 @@
 
 \title{Logit Models}
 \author{Bill}
-\date{2019-12-27}
+\date{2019-12-28}
 
 \begin{document}
 \maketitle
@@ -1102,7 +1102,7 @@ the calculation of the integral.
 
 Importance sampling has samples generated from a different distribution
 than the distribution of interest. Specifically, assume that we want to
-calculate the expectation value of \(h(x)\), and \(x \sim f(x)\).
+calculate the expected value of \(h(x)\), and \(x \sim f(x)\).
 
 \[E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx \] We
 can sample \(x_i\) from \(g(x)\) and then calculate the mean of
@@ -1114,7 +1114,8 @@ Specifically,
 
 \[\int_2^{\infty} \frac{1}{2 \pi} e^{-\frac{1}{2}x^2}dx = \int_2^{\infty} \frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}} e^{-(x-2)}dx \]
 The idea is that, we can generate \(x_i\) from exponential distribution
-of \(e{-(x-2)}\), and then insert them into the density function of
+of \(e^{-(x-2)}\), and then insert them into the targeted ``expected
+(value) function'' of
 \(\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}\). Thus, as you
 can see, importance sampling is based on the law of large numbers (i.e.,
 If the same experiment or study is repeated independently a large number
@@ -1157,7 +1158,7 @@ the definition of expected value.
 \subsection{Newton Raphson algorithm}\label{newton-raphson-algorithm}
 
 For nonlinear functions, it is sometimes difficult to calculate MLEs.
-Newton Raphson algorithm is an iterative procedure to calculate MlEs.
+Newton Raphson algorithm is an iterative procedure to calculate MLEs.
 
 The basic idea of Newton Raphson is to find a approximate function that
 can be easily maximized analytically. We need some theoretical
@@ -1203,12 +1204,15 @@ Practice:
 \def\labelenumi{(\arabic{enumi})}
 \tightlist
 \item
-  Solve the \(x^3-5=0\) Note that, this is obviously not a maximization
-  problem. In contrast, it involves a function with zero. As we can see,
-  we can think it as the first order of Taylor approximation. That is,
-  itself is a \(f^{'}(x)=x^3-5=0\). As we can see the following plot, it
-  converts pretty quick.
+  Solve the \(x^3-5=0\)
 \end{enumerate}
+
+Note that, this is obviously not a maximization problem. In contrast, it
+involves a function with zero. As we can see, we can think it as the
+first order of Taylor approximation. That is, \(f^{'}(x)=x^3-5=0\). As
+we can see the following plot, it converts very quickly. {[}I will
+revisit this part later to double check whether such narrative is
+correct. But, the code is correct, for sure.{]}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1229,6 +1233,182 @@ Practice:
 \end{Shaded}
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf}
+2. Use Newton Raphson to calculate the logistic regression
+
+Suppose we have \(n\) observation, and \(m\) variables.
+
+\[\begin{bmatrix}
+x_{11} & x_{12} & x_{13} & ... & x_{1m}\\
+x_{21} & x_{22} & x_{23} & ... & x_{2m} \\
+...\\
+x_{n1} & x_{n2} & x_{n3} & ... & x_{nm}
+\end{bmatrix}\]
+
+Typically, we add a vector of \(1\) being used to estimate the constant.
+
+\[\begin{bmatrix}
+1 & x_{11} & x_{12} & x_{13} & ... & x_{1m}\\
+1 & x_{21} & x_{22} & x_{23} & ... & x_{2m} \\
+...\\
+1 & x_{n1} & x_{n2} & x_{n3} & ... & x_{nm}
+\end{bmatrix}\]
+
+And, we have observe a vector of \(n\) \(y_i\) as well, which is a
+binary variable:
+
+\[Y = \begin{bmatrix}1 \\
+0 \\
+1 \\
+0 \\
+0 \\
+0 \\
+...\\
+1 \\
+\end{bmatrix}\]
+
+Using the content from the MLE chapter, we can get:
+
+\[\mathbf{L}=\prod_{i=1}^{n} p_i^{ y_i}(1-p_i)^{(1-y_i)}\]
+
+Further, we can get a log-transformed format.
+
+\[log (\mathbf{L})=\sum_{i=1}^{n}[y_i log (p_i) + (1-y_i) log(1-p_i)]\]
+Given that
+\(p_i=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}=\frac{e^{\beta^Tx}}{1+e^{\beta^Tx}}\),
+we can rewrite it as follows:
+
+\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}})]\]
+Before doing the derivative, we set.
+\[\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}} = p(\beta ^T x_i)\]
+
+\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (p(\beta ^T x_i)) + (1-y_i) log(1-p(\beta ^T x_i))]\]
+
+Note that,
+\(\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)} = p(\beta ^T x_i)(1-p(\beta ^T x_i))\).
+We will use it later.
+
+\[\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] \]
+\[= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i] \]
+\[= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i] \]
+\[= \sum_{i=1}^{n} [y_i (1-p(\beta ^T x_i))x_i-(1-y_i) p(\beta ^T x_i)x_i]=\sum_{i=1}^{n} [y_i-y_ip(\beta ^T x_i)-p(\beta ^T x_i)+y_i p(\beta ^T x_i)]x_i\]
+\[=\sum_{i=1}^{n} [y_i-p(\beta ^T x_i)]x_i=\sum_{i=1}^{n} [y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}]x_i\]
+
+I will use probit in the following data simulation (3 IVs and 1 DV) and
+Newton Raphson analysis. I simulated 500 observations.
+
+\[\Phi(\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3)= p(y=1)\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Data generation}
+\NormalTok{n=}\DecValTok{500}
+\NormalTok{x1_norm<-}\KeywordTok{rnorm}\NormalTok{(n)}
+\NormalTok{x2_norm<-}\KeywordTok{rnorm}\NormalTok{(n)}
+\NormalTok{x3_norm<-}\KeywordTok{rnorm}\NormalTok{(n)}
+\NormalTok{x_combined<-}\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{,x1_norm,x2_norm,x3_norm)}
+\NormalTok{coefficients_new<-}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)  }\CommentTok{#true regression coefficient}
+\NormalTok{inv_norm<-}\ControlFlowTok{function}\NormalTok{(x,b)\{}\KeywordTok{pnorm}\NormalTok{(x}\OperatorTok{%*%}\NormalTok{b)\}}
+\NormalTok{prob_generated<-}\KeywordTok{inv_norm}\NormalTok{(x_combined,coefficients_new)}
+\NormalTok{y<-}\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n) \{y[i]<-}\KeywordTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,prob_generated[i])\}}
+
+\CommentTok{# Newton Raphson}
+
+\CommentTok{#We need to set random starting values.}
+\NormalTok{x_old<-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{tolerance=}\FloatTok{1e-3}
+\NormalTok{max_its=}\DecValTok{2000}\NormalTok{;iteration=}\DecValTok{1}\NormalTok{;difference=}\DecValTok{2}
+
+\ControlFlowTok{while}\NormalTok{(difference}\OperatorTok{>}\NormalTok{tolerance }\OperatorTok{&}\StringTok{ }\NormalTok{iteration}\OperatorTok{<}\NormalTok{max_its)\{}
+\NormalTok{  x_updated=x_old}\OperatorTok{-}\NormalTok{(}\KeywordTok{f_firstorder}\NormalTok{(x_old)}\OperatorTok{/}\KeywordTok{f_secondorder}\NormalTok{(x_old))}
+\NormalTok{  difference=}\KeywordTok{abs}\NormalTok{(x_updated}\OperatorTok{-}\NormalTok{x_old);}
+\NormalTok{  iteration=iteration}\OperatorTok{+}\DecValTok{1}\NormalTok{;}
+\NormalTok{  x_old=x_updated}
+\NormalTok{  c_iteration<-}\KeywordTok{c}\NormalTok{(c_iteration,x_updated)\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+
+## Warning in while (difference > tolerance & iteration < max_its) {: the condition
+## has length > 1 and only the first element will be used
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(c_iteration,}\DataTypeTok{type=}\StringTok{"b"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}
 
 \section{Basics of GLMM}\label{basics-of-glmm}
 
@@ -1320,12 +1500,12 @@ following is data simulation for senators.
 
 \begin{verbatim}
 ##   Elite_No Elite_ideology
-## 1        1      1.2867064
-## 2        2      0.9062610
-## 3        3      1.0801668
-## 4        4      0.8119379
-## 5        5      1.3617461
-## 6        6      1.4802020
+## 1        1      1.2624425
+## 2        2      0.2601665
+## 3        3      0.4698952
+## 4        4      0.5521175
+## 5        5      1.4741966
+## 6        6      2.3663007
 \end{verbatim}
 
 \section{Simulating Data of Conservative Users on Twitter and Model
@@ -1357,7 +1537,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1750875 0.5587794
+## [1] 0.1570785 0.5157579
 \end{verbatim}
 
 \begin{Shaded}
@@ -1367,7 +1547,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1376,7 +1556,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1385,7 +1565,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -1416,7 +1596,7 @@ algorithm.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2026013 0.4092046
+## [1] 0.1480740 0.6313157
 \end{verbatim}
 
 \begin{Shaded}
@@ -1426,7 +1606,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1435,7 +1615,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1444,7 +1624,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-3.pdf}
 
 \bibliography{book.bib,packages.bib}
 
