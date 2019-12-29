@@ -1054,10 +1054,27 @@ The score is the gradient (the vector of partial derivatives) of
 \(log L(\theta)\), with respect to an m-dimensional parameter vector
 \(\theta\).
 
-\[S(\theta) = \frac{\partial (log L(\theta))}{\partial \theta}\]
+\[S(\theta) = \frac{\partial\ell}{\partial \theta}\]
 
-Such differentiation yields a \(m\times 1\) row vector, and indicates
-the sensitivity of the likelihood.
+Such differentiation will generate a \(m\times 1\) row vector, which
+indicates the sensitivity of the likelihood.
+
+Quote from Steffen Lauritzen's slides: ``Generally the solution to this
+equation must be calculated by iterative methods. One of the most common
+methods is the Newton--Raphson method and this is based on successive
+approximations to the solution, using Taylor's theorem to approximate
+the equation.''
+
+For instance, using logit link, we can get the first derivative of log
+likelihood logistic regression as follows. We can not really find
+\(\beta\) easily to make the equation to be 0.
+
+\[\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n}x_i^T[y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}]\]
+
+\section{Canonical link function}\label{canonical-link-function}
+
+References: Steffen Lauritzen's slides:
+\url{http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf}
 
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}

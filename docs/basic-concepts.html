@@ -129,6 +129,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a><ul>
 <li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#score"><i class="fa fa-check"></i><b>4.1</b> Score</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.2</b> Canonical link function</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a><ul>
 <li class="chapter" data-level="5.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#computing-techniques"><i class="fa fa-check"></i><b>5.1</b> Computing techniques</a><ul>
@@ -170,8 +171,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="score" class="section level2">
 <h2><span class="header-section-number">4.1</span> Score</h2>
 <p>The score is the gradient (the vector of partial derivatives) of <span class="math inline">\(log L(\theta)\)</span>, with respect to an m-dimensional parameter vector <span class="math inline">\(\theta\)</span>.</p>
-<p><span class="math display">\[S(\theta) = \frac{\partial (log L(\theta))}{\partial \theta}\]</span></p>
-<p>Such differentiation yields a <span class="math inline">\(m\times 1\)</span> row vector, and indicates the sensitivity of the likelihood.</p>
+<p><span class="math display">\[S(\theta) = \frac{\partial\ell}{\partial \theta}\]</span></p>
+<p>Such differentiation will generate a <span class="math inline">\(m\times 1\)</span> row vector, which indicates the sensitivity of the likelihood.</p>
+<p>Quote from Steffen Lauritzen’s slides: “Generally the solution to this equation must be calculated by iterative methods. One of the most common methods is the Newton–Raphson method and this is based on successive approximations to the solution, using Taylor’s theorem to approximate the equation.”</p>
+<p>For instance, using logit link, we can get the first derivative of log likelihood logistic regression as follows. We can not really find <span class="math inline">\(\beta\)</span> easily to make the equation to be 0.</p>
+<p><span class="math display">\[\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n}x_i^T[y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}]\]</span></p>
+</div>
+<div id="canonical-link-function" class="section level2">
+<h2><span class="header-section-number">4.2</span> Canonical link function</h2>
+<p>References: Steffen Lauritzen’s slides: <a href="http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf" class="uri">http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf</a></p>
 
 </div>
 </div>
