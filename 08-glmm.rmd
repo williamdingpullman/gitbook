@@ -190,16 +190,64 @@ Note that, $\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)} = p(\beta ^
 
 
 $$\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] $$
-$$= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i] $$
-$$= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i] $$
-$$= \sum_{i=1}^{n} [y_i (1-p(\beta ^T x_i))x_i-(1-y_i) p(\beta ^T x_i)x_i]=\sum_{i=1}^{n} [y_i-y_ip(\beta ^T x_i)-p(\beta ^T x_i)+y_i p(\beta ^T x_i)]x_i$$
-$$=\sum_{i=1}^{n} [y_i-p(\beta ^T x_i)]x_i=\sum_{i=1}^{n} [y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}]x_i$$
+$$= \sum_{i=1}^{n} x_i^T[y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)p(\beta ^T x_i)(1-p(\beta ^T x_i))] $$
+$$= \sum_{i=1}^{n} x_i^T[y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}p(\beta ^T x_i)(1-p(\beta ^T x_i))] $$
+$$= \sum_{i=1}^{n} x_i^T[y_i (1-p(\beta ^T x_i))-(1-y_i) p(\beta ^T x_i)]=\sum_{i=1}^{n} x_i^T[y_i-y_ip(\beta ^T x_i)-p(\beta ^T x_i)+y_i p(\beta ^T x_i)]$$
+$$=\sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i)]=\sum_{i=1}^{n} x_i^T[y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}]$$
 
-I will use probit in the following data simulation (3 IVs and 1 DV) and Newton Raphson analysis. I simulated 500 observations.
+As noted, the Newton Raphson algorithm needs the second order.
+
+$$\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i)]}{\partial \beta}= -\sum_{i=1}^{n} x_i \frac{\partial p(\beta ^T x_i) }{\partial \beta}=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i$$
+
+The following are the data simulation (3 IVs and 1 DV) and Newton Raphson analysis. 
+
+
+```{R}
+# Data generation
+set.seed(123)
+n=500
+x1_norm<-rnorm(n)
+x2_norm<-rnorm(n,3,4)
+x3_norm<-rnorm(n,4,6)
+x_combined<-cbind(1,x1_norm,x2_norm,x3_norm) # dimension: n*4
+coefficients_new<-c(1,2,3,4)  #true regression coefficient
+inv_logit<-function(x,b){exp(x%*%b)/(1+exp(x%*%b))}
+prob_generated<-inv_logit(x_combined,coefficients_new)
+y<-c()
+for (i in 1:n) {y[i]<-rbinom(1,1,prob_generated[i])}
+
+# Newton Raphson
+
+#We need to set random starting values.
+beta_old<-c(1,1,1,1)
+tolerance=1e-3
+max_its=2000;iteration=1;difference=2
+W<-matrix(0,n,n)
+
+while(difference>tolerance & iteration<max_its)
+  {
+  # The first order
+  f_firstorder<-t(x_combined)%*%(y-inv_logit(x_combined,beta_old))
+  # The second order
+  diag(W) = inv_logit(x_combined,beta_old)*(1-inv_logit(x_combined,beta_old))
+  f_secondorder<--t(x_combined)%*%W%*%x_combined
+  # Calculate the beta_updated
+  beta_updated=beta_old-(solve(f_secondorder)%*%f_firstorder)
+  difference=max(abs(beta_updated-beta_old));
+  iteration=iteration+1;
+  beta_old=beta_updated}
+
+beta_old
+
+```
+
+$$\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] $$
+$$=\sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \phi (\beta ^T x_i)-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}\phi (\beta ^T x_i)]x_i$$
 
 $$\Phi(\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3)= p(y=1)$$
 
-```{R}
+
+```{R eval = FALSE}
 # Data generation
 n=500
 x1_norm<-rnorm(n)
@@ -230,6 +278,18 @@ plot(c_iteration,type="b")
 
 ```
 
+Some links related to this topic (canonical link function):
+http://www.win-vector.com/blog/2011/09/the-simpler-derivation-of-logistic-regression/
+https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function
+https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function
+https://stats.stackexchange.com/questions/344309/why-using-newtons-method-for-logistic-regression-optimization-is-called-iterati
+https://www.stat.washington.edu/adobra/classes/536/Files/week1/newtonfull.pdf
+https://tomroth.com.au/logistic/
+https://www.stat.cmu.edu/~cshalizi/350/lectures/26/lecture-26.pdf
+
+
+
+http://seankross.com/2019/10/27/R-as-a-First-Programming-Language.html
 
 
 ## Basics of GLMM
