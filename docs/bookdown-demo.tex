@@ -1233,7 +1233,14 @@ correct. But, the code is correct, for sure.{]}
 \end{Shaded}
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf}
-2. Use Newton Raphson to calculate the logistic regression
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Use Newton Raphson to calculate the logistic regression
+\end{enumerate}
 
 Suppose we have \(n\) observation, and \(m\) variables.
 
@@ -1620,6 +1627,19 @@ algorithm.
 \end{Shaded}
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-3.pdf}
+
+\chapter{Basic Concepts}\label{basic-concepts}
+
+\section{Score}\label{score}
+
+The score is the gradient (the vector of partial derivatives) of
+\(log L(\theta)\), with respect to an m-dimensional parameter vector
+\(\theta\).
+
+\[S(\theta) = \frac{\partial (log L(\theta))}{\partial \theta}\]
+
+Such differentiation yields a \(m\times 1\) row vector, and indicates
+the sensitivity of the likelihood.
 
 \bibliography{book.bib,packages.bib}
 

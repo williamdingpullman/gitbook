@@ -1,0 +1,10 @@
+# Basic Concepts
+
+## Score
+
+The score is the gradient (the vector of partial derivatives) of $log L(\theta)$, with respect to an m-dimensional parameter vector $\theta$.
+
+$$S(\theta) = \frac{\partial (log L(\theta))}{\partial \theta}$$
+
+Such differentiation yields a $m\times 1$ row vector, and indicates the sensitivity of the likelihood.
+

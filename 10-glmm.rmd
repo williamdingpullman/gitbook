@@ -137,6 +137,8 @@ while(difference>tolerance & iteration<max_its){
 
 plot(c_iteration,type="b")
 ``` 
+
+
 2. Use Newton Raphson to calculate the logistic regression
 
 Suppose we have $n$ observation, and $m$ variables.
