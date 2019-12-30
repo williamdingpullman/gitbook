@@ -29,7 +29,7 @@ $$ \frac{Paramter}{\theta} \longrightarrow \gamma^{'}(\theta) = \mu \longrightar
 
 For the case of $n$ time Bernoulli (i.e., Binomial), its canonical link function is logit. Specifically, 
 
-$$ \frac{Paramter}{\theta=\beta^Tx_i} \longrightarrow \gamma^{'}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}$$
+$$ \frac{<p style="color:red"> Paramter</p>}{\theta=\beta^Tx_i}  \longrightarrow \gamma^{'}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}$$
 Thus, we can see that,
 
 $$\theta \equiv \eta $$
@@ -37,7 +37,7 @@ The link function $g(\mu)$ relates the linear predictor $\eta = \beta^Tx_i$ to t
 
 __Remarks__:
 
-(1) Parameter is $\theta = \beta ^T x_i$$ (Not $\mu$).
+(1) Parameter is $\theta = \beta ^T x_i$ (Not $\mu$!).  
 
 (2) $\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}$ (NOT logit!).
 
@@ -45,7 +45,7 @@ __Remarks__:
 
 (4) $g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i$. Thus, link function = linear predictor = log odds! 
 
-(5) 
+(5) Quote from the Stack Exchange post "Newton Method and Fisher scoring for finding the ML estimator coincide, these links simplify the derivation of the MLE."
 
 (Recall, we know that $\mu$ or $p(y=1)$ is the mean function. Recall that, $n$ trails of coin flips, and get $p$ heads. Thus $\mu = \frac{p}{n}$.)
 
