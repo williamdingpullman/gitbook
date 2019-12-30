@@ -1084,16 +1084,23 @@ Inspired by a Stack Exchange post, I created the following figure:
 For the case of \(n\) time Bernoulli (i.e., Binomial), its canonical
 link function is logit. Specifically,
 
-\[ \frac{Paramter}{\theta=\beta^TX} \longrightarrow \gamma^{'}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^TX}\]
+\[ \frac{Paramter}{\theta=\beta^Tx_i} \longrightarrow \gamma^{'}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}\]
+Thus, we can see that,
 
-(Side note: logit = log odds = log
-\(\frac{Event - Happened }{Event - Not - Happened}\))
+\[\theta \equiv \eta \] The link function \(g(\mu)\) relates the linear
+predictor \(\eta = \beta^Tx_i\) to the mean \(\mu\).
 
-Where,
+Remarks (from left to right): (1) Parameter is
+\(\theta = \beta ^T x_i\)\$ (Not \(\mu\)) (2)
+\(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\) (NOT logit!)
+(3)link function (i.e., \(g(\mu)\)) = logit = logarithm of odds = log
+\(\frac{Event - Happened }{Event - Not - Happened}\) . (4)
+\(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\). Thus, link function =
+linear predictor = log odds!
 
-\[\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\] Thus, we know
-that \(\mu\) or \(p(y=1)\) is the mean function. Recall that, \(n\)
-trails of coin flips, and get \(p\) heads. Thus \(\mu = \frac{p}{n}\).
+(Recall, we know that \(\mu\) or \(p(y=1)\) is the mean function. Recall
+that, \(n\) trails of coin flips, and get \(p\) heads. Thus
+\(\mu = \frac{p}{n}\).)
 
 References: 1. Steffen Lauritzen's slides:
 \url{http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf} 2.
