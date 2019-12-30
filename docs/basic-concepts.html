@@ -238,7 +238,7 @@ y_n \\
 \end{bmatrix}\]</span></p>
 <p>Since later we need the inverse of <span class="math inline">\(X\)</span>, we need to make it into a square matrix.</p>
 <p><span class="math display">\[X^Ty=X^TX \hat{\beta} \Rightarrow \hat{\beta} = (X^TX)^{-1} X^Ty\]</span></p>
-<p>We can use R to implement this calculation. As we can see, there is no need to do any iteration at all, pure just matrix calculation.</p>
+<p>We can use R to implement this calculation. As we can see, there is no need to do any iterations at all, but rather just pure just matrix calculation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">X&lt;-<span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>),<span class="dt">ncol=</span><span class="dv">2</span>) <span class="co"># we define a 2 column matrix, with 500 rows</span>
 X&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,X) <span class="co"># add a 1 constant</span>
 beta_true&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>) <span class="co"># True regression coefficients</span>

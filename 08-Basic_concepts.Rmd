@@ -107,7 +107,7 @@ Since later we need the inverse of $X$, we need to make it into a square matrix.
 
 $$X^Ty=X^TX \hat{\beta} \Rightarrow \hat{\beta} = (X^TX)^{-1} X^Ty$$
 
-We can use R to implement this calculation. As we can see, there is no need to do any iteration at all, pure just matrix calculation. 
+We can use R to implement this calculation. As we can see, there is no need to do any iterations at all, but rather just pure just matrix calculation. 
 
 ```{R}
 X<-matrix(rnorm(1000),ncol=2) # we define a 2 column matrix, with 500 rows
