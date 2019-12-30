@@ -1084,7 +1084,7 @@ Inspired by a Stack Exchange post, I created the following figure:
 For the case of \(n\) time Bernoulli (i.e., Binomial), its canonical
 link function is logit. Specifically,
 
-\[ \frac{<p style="color:red"> Paramter</p>}{\theta=\beta^Tx_i}  \longrightarrow \gamma^{'}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}\]
+\[ \frac{Paramter}{\theta=\beta^Tx_i}  \longrightarrow \gamma^{'}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}\]
 Thus, we can see that,
 
 \[\theta \equiv \eta \] The link function \(g(\mu)\) relates the linear
@@ -1099,7 +1099,7 @@ predictor \(\eta = \beta^Tx_i\) to the mean \(\mu\).
 \item
   \(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\) (NOT logit!).
 \item
-  link function (i.e., \(g(\mu)\)) = logit = logarithm of odds = log
+  Link function (i.e., \(g(\mu)\)) = logit = logarithm of odds = log
   \(\frac{Event - Happened }{Event - Not - Happened}\).
 \item
   \(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\). Thus, link function =
@@ -1113,6 +1113,61 @@ predictor \(\eta = \beta^Tx_i\) to the mean \(\mu\).
 (Recall, we know that \(\mu\) or \(p(y=1)\) is the mean function. Recall
 that, \(n\) trails of coin flips, and get \(p\) heads. Thus
 \(\mu = \frac{p}{n}\).)
+
+\section{Ordinary Least Squares (OLS)}\label{ordinary-least-squares-ols}
+
+Suppose we have \(n\) observation, and \(m\) variables.
+
+\[\begin{bmatrix}
+x_{11} & x_{12} & x_{13} & ... & x_{1m}\\
+x_{21} & x_{22} & x_{23} & ... & x_{2m} \\
+...\\
+x_{n1} & x_{n2} & x_{n3} & ... & x_{nm}
+\end{bmatrix}\]
+
+Thus, we can write it as the following \(n\) equations.
+
+\[y_1=\beta_0+\beta_1 x_{11}+\beta_2 x_{12}+...+ \beta_m x_{1m}\]
+\[y_2=\beta_0+\beta_1 x_{21}+\beta_2 x_{22}+...+ \beta_m x_{2m}\]
+\[y_3=\beta_0+\beta_1 x_{31}+\beta_2 x_{32}+...+ \beta_m x_{3m}\]
+\ldots{}
+
+\[y_n=\beta_0+\beta_1 x_{n1}+\beta_2 x_{n2}+...+ \beta_m x_{nm}\]
+
+We can combine all the \(n\) equations as the following one:
+
+\[y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+...+ \beta_m x_{im}  (i \in [1,n])\]
+
+We can further rewrite it as a matrix format as follows.
+
+\[y=X\beta+\epsilon\] Where,
+
+\[y = \begin{bmatrix}y_1 \\
+y_2 \\
+y_3 \\
+y_4 \\
+...\\
+y_n \\
+\end{bmatrix}\]
+
+\[X=\begin{bmatrix}
+1 & x_{11} & x_{12} & x_{13} & ... & x_{1m}\\
+1 & x_{21} & x_{22} & x_{23} & ... & x_{2m} \\
+...\\
+1 & x_{n1} & x_{n2} & x_{n3} & ... & x_{nm}
+\end{bmatrix}\]
+
+\[\beta = \begin{bmatrix}\beta_0 \\
+\beta_1 \\
+\beta_2 \\
+\beta_3 \\
+...\\
+\beta_m \\
+\end{bmatrix}\]
+
+\section{Fisher Scoring}\label{fisher-scoring}
+
+\url{https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression}
 
 \textbf{References}:
 
@@ -1134,6 +1189,16 @@ that, \(n\) trails of coin flips, and get \(p\) heads. Thus
 \end{enumerate}
 
 \url{https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Wilipedia for OLS
+\end{enumerate}
+
+\url{https://en.wikipedia.org/wiki/Ordinary_least_squares}
 
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}
