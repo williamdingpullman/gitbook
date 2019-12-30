@@ -1125,7 +1125,40 @@ derivatives of a scalar-valued function, or scalar field.
 \frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \frac{\partial^2 f}{\partial x_n \partial x_3} & ... & \frac{\partial^2 f}{\partial x_n^2}
 \end{bmatrix}\]
 
-As
+As a special case, in the context of logit:
+
+Suppose that the log likelihood function is \(\ell (\theta)\).
+\(\theta\) is a \(m\) demension vector.
+
+\[ \theta = \begin{bmatrix}\theta_1 \\
+\theta_2 \\
+\theta_3 \\
+\theta_4 \\
+...\\
+\theta_m \\
+\end{bmatrix}\]
+
+\[Hessian=\nabla ^2(\ell) =\begin{bmatrix}
+\frac{\partial^2 \ell}{\partial \theta_1^2} & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_2} & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_3} & ... & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_m}\\
+\frac{\partial^2 \ell}{\partial \theta_2 \partial \theta_1} & \frac{\partial^2 \ell}{\partial \theta_2^2 } & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_3} & ... & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_m} \\
+\frac{\partial^2 \ell}{\partial \theta_3 \partial \theta_1} & \frac{\partial^2 \ell}{\partial \theta_3 \theta_2 } & \frac{\partial^2 \ell}{\partial \theta_3^2} & ... & \frac{\partial^2 \ell}{\partial \theta_3 \partial \theta_m} \\
+...\\
+\frac{\partial^2 \ell}{\partial \theta_m \partial \theta_1} & \frac{\partial^2 \ell}{\partial \theta_m \theta_2 } & \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_3} & ... & \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_m} 
+\end{bmatrix}\]
+
+``In statistics, the observed information, or observed Fisher
+information, is the negative of the second derivative (the Hessian
+matrix) of the''log-likelihood" (the logarithm of the likelihood
+function). It is a sample-based version of the Fisher information."
+(Direct quote from Wikipedia.)
+
+Thus, the observed information matrix:
+
+\[-Hessian=-\nabla ^2(\ell) \]
+
+Expected (Fisher) information matrix:
+
+\[E[-\nabla ^2(\ell)] \]
 
 \section{Canonical link function}\label{canonical-link-function}
 
@@ -1149,7 +1182,7 @@ predictor \(\eta = \beta^Tx_i\) to the mean \(\mu\).
 \item
   Parameter is \(\theta = \beta ^T x_i\) (Not \(\mu\)!).
 \item
-  \(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\) (NOT logit!).
+  \(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\) (Not logit!).
 \item
   Link function (i.e., \(g(\mu)\)) = logit = logarithm of odds = log
   \(\frac{Event - Happened }{Event - Not - Happened}\).
@@ -1251,7 +1284,7 @@ calculation.
 c(2,1,2) become the dimension of \(3 \times 1\), you do not need to
 transpose the \(\beta\).
 
-\section{References:}\label{references-1}
+\section{References}\label{references-1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1307,6 +1340,16 @@ transpose the \(\beta\).
 \url{https://en.wikipedia.org/wiki/Hessian_matrix}
 
 \url{http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Observed information
+\end{enumerate}
+
+\url{https://en.wikipedia.org/wiki/Observed_information}
 
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}

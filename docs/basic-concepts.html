@@ -133,7 +133,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#hessian-and-fisher-scoring"><i class="fa fa-check"></i><b>4.3</b> Hessian and Fisher Scoring</a></li>
 <li class="chapter" data-level="4.4" data-path="basic-concepts.html"><a href="basic-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.4</b> Canonical link function</a></li>
 <li class="chapter" data-level="4.5" data-path="basic-concepts.html"><a href="basic-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.5</b> Ordinary Least Squares (OLS)</a></li>
-<li class="chapter" data-level="4.6" data-path="basic-concepts.html"><a href="basic-concepts.html#references-1"><i class="fa fa-check"></i><b>4.6</b> References:</a></li>
+<li class="chapter" data-level="4.6" data-path="basic-concepts.html"><a href="basic-concepts.html#references-1"><i class="fa fa-check"></i><b>4.6</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a><ul>
 <li class="chapter" data-level="5.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#computing-techniques"><i class="fa fa-check"></i><b>5.1</b> Computing techniques</a><ul>
@@ -217,7 +217,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ...\\
 \frac{\partial^2 f}{\partial x_n \partial x_1} &amp; \frac{\partial^2 f}{\partial x_n \partial x_2} &amp; \frac{\partial^2 f}{\partial x_n \partial x_3} &amp; ... &amp; \frac{\partial^2 f}{\partial x_n^2}
 \end{bmatrix}\]</span></p>
-<p>As</p>
+<p>As a special case, in the context of logit:</p>
+<p>Suppose that the log likelihood function is <span class="math inline">\(\ell (\theta)\)</span>. <span class="math inline">\(\theta\)</span> is a <span class="math inline">\(m\)</span> demension vector.</p>
+<p><span class="math display">\[ \theta = \begin{bmatrix}\theta_1 \\
+\theta_2 \\
+\theta_3 \\
+\theta_4 \\
+...\\
+\theta_m \\
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[Hessian=\nabla ^2(\ell) =\begin{bmatrix}
+\frac{\partial^2 \ell}{\partial \theta_1^2} &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_2} &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_3} &amp; ... &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_m}\\
+\frac{\partial^2 \ell}{\partial \theta_2 \partial \theta_1} &amp; \frac{\partial^2 \ell}{\partial \theta_2^2 } &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_3} &amp; ... &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_m} \\
+\frac{\partial^2 \ell}{\partial \theta_3 \partial \theta_1} &amp; \frac{\partial^2 \ell}{\partial \theta_3 \theta_2 } &amp; \frac{\partial^2 \ell}{\partial \theta_3^2} &amp; ... &amp; \frac{\partial^2 \ell}{\partial \theta_3 \partial \theta_m} \\
+...\\
+\frac{\partial^2 \ell}{\partial \theta_m \partial \theta_1} &amp; \frac{\partial^2 \ell}{\partial \theta_m \theta_2 } &amp; \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_3} &amp; ... &amp; \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_m} 
+\end{bmatrix}\]</span></p>
+<p>“In statistics, the observed information, or observed Fisher information, is the negative of the second derivative (the Hessian matrix) of the”log-likelihood&quot; (the logarithm of the likelihood function). It is a sample-based version of the Fisher information.&quot; (Direct quote from Wikipedia.)</p>
+<p>Thus, the observed information matrix:</p>
+<p><span class="math display">\[-Hessian=-\nabla ^2(\ell) \]</span></p>
+<p>Expected (Fisher) information matrix:</p>
+<p><span class="math display">\[E[-\nabla ^2(\ell)] \]</span></p>
 </div>
 <div id="canonical-link-function" class="section level2">
 <h2><span class="header-section-number">4.4</span> Canonical link function</h2>
@@ -229,7 +249,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><strong>Remarks</strong>:</p>
 <ol style="list-style-type: decimal">
 <li><p>Parameter is <span class="math inline">\(\theta = \beta ^T x_i\)</span> (Not <span class="math inline">\(\mu\)</span>!).</p></li>
-<li><p><span class="math inline">\(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\)</span> (NOT logit!).</p></li>
+<li><p><span class="math inline">\(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\)</span> (Not logit!).</p></li>
 <li><p>Link function (i.e., <span class="math inline">\(g(\mu)\)</span>) = logit = logarithm of odds = log <span class="math inline">\(\frac{Event - Happened }{Event - Not - Happened}\)</span>.</p></li>
 <li><p><span class="math inline">\(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\)</span>. Thus, link function = linear predictor = log odds!</p></li>
 <li><p>Quote from the Stack Exchange post “Newton Method and Fisher scoring for finding the ML estimator coincide, these links simplify the derivation of the MLE.”</p></li>
@@ -291,7 +311,7 @@ beta_hat</code></pre></div>
 <p><strong>Side Notes</strong> The function of as.matrix will automatically make c(2,1,2) become the dimension of <span class="math inline">\(3 \times 1\)</span>, you do not need to transpose the <span class="math inline">\(\beta\)</span>.</p>
 </div>
 <div id="references-1" class="section level2">
-<h2><span class="header-section-number">4.6</span> References:</h2>
+<h2><span class="header-section-number">4.6</span> References</h2>
 <ol style="list-style-type: decimal">
 <li>Steffen Lauritzen’s slides:</li>
 </ol>
@@ -315,6 +335,10 @@ beta_hat</code></pre></div>
 </ol>
 <p><a href="https://en.wikipedia.org/wiki/Hessian_matrix" class="uri">https://en.wikipedia.org/wiki/Hessian_matrix</a></p>
 <p><a href="http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html" class="uri">http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html</a></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Observed information</li>
+</ol>
+<p><a href="https://en.wikipedia.org/wiki/Observed_information" class="uri">https://en.wikipedia.org/wiki/Observed_information</a></p>
 
 </div>
 </div>
