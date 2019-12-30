@@ -36,9 +36,13 @@ $$\theta \equiv \eta $$
 The link function $g(\mu)$ relates the linear predictor $\eta = \beta^Tx_i$ to the mean $\mu$.
 
 Remarks (from left to right):
-(1) Parameter is $\theta = \beta ^T x_i$$ (Not $\mu$)
-(2) $\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}$ (NOT logit!)
-(3)link function (i.e., $g(\mu)$) = logit = logarithm of odds = log $\frac{Event - Happened }{Event - Not - Happened}$ .
+
+(1) Parameter is $\theta = \beta ^T x_i$$ (Not $\mu$).
+
+(2) $\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}$ (NOT logit!).
+
+(3)link function (i.e., $g(\mu)$) = logit = logarithm of odds = log $\frac{Event - Happened }{Event - Not - Happened}$.
+
 (4) $g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i$. Thus, link function = linear predictor = log odds! 
 
 
@@ -47,9 +51,12 @@ Remarks (from left to right):
 
 
 References:
+
 1. Steffen Lauritzen's slides:
+
 http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf
 2. The Stack Exchange post:
+
 https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function
 
 

@@ -188,9 +188,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>For the case of <span class="math inline">\(n\)</span> time Bernoulli (i.e., Binomial), its canonical link function is logit. Specifically,</p>
 <p><span class="math display">\[ \frac{Paramter}{\theta=\beta^Tx_i} \longrightarrow \gamma^{&#39;}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}\]</span> Thus, we can see that,</p>
 <p><span class="math display">\[\theta \equiv \eta \]</span> The link function <span class="math inline">\(g(\mu)\)</span> relates the linear predictor <span class="math inline">\(\eta = \beta^Tx_i\)</span> to the mean <span class="math inline">\(\mu\)</span>.</p>
-<p>Remarks (from left to right): (1) Parameter is <span class="math inline">\(\theta = \beta ^T x_i\)</span>$ (Not <span class="math inline">\(\mu\)</span>) (2) <span class="math inline">\(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\)</span> (NOT logit!) (3)link function (i.e., <span class="math inline">\(g(\mu)\)</span>) = logit = logarithm of odds = log <span class="math inline">\(\frac{Event - Happened }{Event - Not - Happened}\)</span> . (4) <span class="math inline">\(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\)</span>. Thus, link function = linear predictor = log odds!</p>
+<p>Remarks (from left to right):</p>
+<ol style="list-style-type: decimal">
+<li><p>Parameter is <span class="math inline">\(\theta = \beta ^T x_i\)</span>$ (Not <span class="math inline">\(\mu\)</span>).</p></li>
+<li><p><span class="math inline">\(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\)</span> (NOT logit!).</p></li>
+</ol>
+<p>(3)link function (i.e., <span class="math inline">\(g(\mu)\)</span>) = logit = logarithm of odds = log <span class="math inline">\(\frac{Event - Happened }{Event - Not - Happened}\)</span>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><span class="math inline">\(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\)</span>. Thus, link function = linear predictor = log odds!</li>
+</ol>
 <p>(Recall, we know that <span class="math inline">\(\mu\)</span> or <span class="math inline">\(p(y=1)\)</span> is the mean function. Recall that, <span class="math inline">\(n\)</span> trails of coin flips, and get <span class="math inline">\(p\)</span> heads. Thus <span class="math inline">\(\mu = \frac{p}{n}\)</span>.)</p>
-<p>References: 1. Steffen Lauritzen’s slides: <a href="http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf" class="uri">http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf</a> 2. The Stack Exchange post: <a href="https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function" class="uri">https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function</a></p>
+<p>References:</p>
+<ol style="list-style-type: decimal">
+<li>Steffen Lauritzen’s slides:</li>
+</ol>
+<p><a href="http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf" class="uri">http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf</a> 2. The Stack Exchange post:</p>
+<p><a href="https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function" class="uri">https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function</a></p>
 
 </div>
 </div>
