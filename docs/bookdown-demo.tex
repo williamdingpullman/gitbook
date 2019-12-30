@@ -1140,7 +1140,7 @@ We can combine all the \(n\) equations as the following one:
 
 We can further rewrite it as a matrix format as follows.
 
-\[y=X\beta+\epsilon\] Where,
+\[y= X \beta\] Where,
 
 \[y = \begin{bmatrix}y_1 \\
 y_2 \\
@@ -1165,7 +1165,38 @@ y_n \\
 \beta_m \\
 \end{bmatrix}\]
 
-Since later
+Since later we need the inverse of \(X\), we need to make it into a
+square matrix.
+
+\[X^Ty=X^TX \hat{\beta} \Rightarrow \hat{\beta} = (X^TX)^{-1} X^Ty\]
+
+We can use R to implement this calculation. As we can see, there is no
+need to do any iteration at all, pure just matrix calculation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X<-}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{),}\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{) }\CommentTok{# we define a 2 column matrix, with 500 rows}
+\NormalTok{X<-}\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{,X) }\CommentTok{# add a 1 constant}
+\NormalTok{beta_true<-}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{) }\CommentTok{# True regression coefficients}
+\NormalTok{beta_true<-}\KeywordTok{as.matrix}\NormalTok{(beta_true)}
+\NormalTok{y=X}\OperatorTok{%*%}\NormalTok{beta_true}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{500}\NormalTok{)}
+
+\NormalTok{transposed_X<-}\KeywordTok{t}\NormalTok{(X)}
+\NormalTok{beta_hat<-}\KeywordTok{solve}\NormalTok{(transposed_X}\OperatorTok{%*%}\NormalTok{X)}\OperatorTok{%*%}\NormalTok{transposed_X}\OperatorTok{%*%}\NormalTok{y}
+\NormalTok{beta_hat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 2.017690
+## [2,] 1.054682
+## [3,] 2.037671
+\end{verbatim}
+
+\textbf{Side Notes} The function of as.matrix will automatically make
+c(2,1,2) become the dimension of \(3 \time 1\), you do not need to
+transpose the \(\beta\).
 
 \section{Fisher Scoring}\label{fisher-scoring}
 
@@ -1252,7 +1283,7 @@ the calculation of the integral.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-16-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \subsection{Importance sampling}\label{importance-sampling}
 
@@ -1309,7 +1340,7 @@ the definition of expected value.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 \subsection{Newton Raphson algorithm}\label{newton-raphson-algorithm}
 
@@ -1388,7 +1419,7 @@ correct. But, the code is correct, for sure.{]}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1705,7 +1736,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1714,7 +1745,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1723,7 +1754,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -1764,7 +1795,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1773,7 +1804,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1782,7 +1813,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-3.pdf}
 
 \bibliography{book.bib,packages.bib}
 

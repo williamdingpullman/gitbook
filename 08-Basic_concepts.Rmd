@@ -76,7 +76,7 @@ $$y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+...+ \beta_m x_{im}  (i \in [1,n])$$
 
 We can further rewrite it as a matrix format as follows. 
 
-$$y=X\beta+\epsilon$$
+$$y= X \beta$$
 Where,
 
 $$y = \begin{bmatrix}y_1 \\
@@ -103,7 +103,28 @@ $$\beta = \begin{bmatrix}\beta_0 \\
 \beta_m \\
 \end{bmatrix}$$
 
-Since later 
+Since later we need the inverse of $X$, we need to make it into a square matrix. 
+
+$$X^Ty=X^TX \hat{\beta} \Rightarrow \hat{\beta} = (X^TX)^{-1} X^Ty$$
+
+We can use R to implement this calculation. As we can see, there is no need to do any iteration at all, pure just matrix calculation. 
+
+```{R}
+X<-matrix(rnorm(1000),ncol=2) # we define a 2 column matrix, with 500 rows
+X<-cbind(1,X) # add a 1 constant
+beta_true<-c(2,1,2) # True regression coefficients
+beta_true<-as.matrix(beta_true)
+y=X%*%beta_true+rnorm(500)
+
+transposed_X<-t(X)
+beta_hat<-solve(transposed_X%*%X)%*%transposed_X%*%y
+beta_hat
+```
+
+
+__Side Notes__
+The function of as.matrix will automatically make c(2,1,2) become the dimension of $3 \time 1$, you do not need to transpose the $\beta$. 
+
 
 ## Fisher Scoring 
 
