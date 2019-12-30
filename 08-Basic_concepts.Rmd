@@ -26,6 +26,33 @@ $$\begin{aligned}
 
 ## Gradient, Jacobian, and Hessian
 
+__Remarks__: This part discusses gradient in a more general sense. 
+
+When $f(x)$ is only in a single dimension space:
+
+$\mathbb{R}^n \rightarrow \mathbb{R}$
+
+$$\nabla f(x)=[\frac{\partial f}{\partial x_1},\frac{\partial f}{\partial x_2},...,\frac{\partial f}{\partial x_n}]$$
+When $f(x)$ is only in a m-dimension space (i.e., Jacobian):
+$\mathbb{R}^n \rightarrow \mathbb{R^m}$
+
+$$Jac(f)=\begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \frac{\partial f_1}{\partial x_3} & ... & \frac{\partial f_1}{\partial x_n}\\
+\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \frac{\partial f_2}{\partial x_3} & ... & \frac{\partial f_2}{\partial x_n} \\
+...\\
+\frac{\partial f_m}{\partial x_1} & \frac{\partial f_m}{\partial x_2} & \frac{\partial f_n}{\partial x_3} & ... & \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}$$
+
+
+For instance,
+
+$\mathbb{R}^n \rightarrow \mathbb{R}$:
+
+$$f(x,y)=x^2+2y$$
+$$\nabla f(x,y)=[\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}]=[2x,2]$$
+$\mathbb{R}^n \rightarrow \mathbb{R^m}$
+
+$$f(x,y)=(x^2+2y,x^3)$$
 
 
 ## Canonical link function
@@ -115,7 +142,7 @@ Since later we need the inverse of $X$, we need to make it into a square matrix.
 
 $$X^Ty=X^TX \hat{\beta} \Rightarrow \hat{\beta} = (X^TX)^{-1} X^Ty$$
 
-We can use R to implement this calculation. As we can see, there is no need to do any iterations at all, but rather just pure just matrix calculation. 
+We can use R to implement this calculation. As we can see, there is no need to do any iterations at all, but rather just pure matrix calculation. 
 
 ```{R}
 X<-matrix(rnorm(1000),ncol=2) # we define a 2 column matrix, with 500 rows
