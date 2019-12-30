@@ -175,10 +175,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Such differentiation will generate a <span class="math inline">\(m\times 1\)</span> row vector, which indicates the sensitivity of the likelihood.</p>
 <p>Quote from Steffen Lauritzen’s slides: “Generally the solution to this equation must be calculated by iterative methods. One of the most common methods is the Newton–Raphson method and this is based on successive approximations to the solution, using Taylor’s theorem to approximate the equation.”</p>
 <p>For instance, using logit link, we can get the first derivative of log likelihood logistic regression as follows. We can not really find <span class="math inline">\(\beta\)</span> easily to make the equation to be 0.</p>
-<p><span class="math display">\[\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n}x_i^T[y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}]\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+\frac{\partial \ell} {\partial \beta} 
+&amp;= \sum_{i=1}^{n}x_i^T[y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}] \\
+&amp;=\sum_{i=1}^{n} x_i^T[y_i-\hat{y_i}]
+\end{aligned}\]</span></p>
 </div>
 <div id="canonical-link-function" class="section level2">
 <h2><span class="header-section-number">4.2</span> Canonical link function</h2>
+<p>For <span class="math inline">\(n\)</span> time Bernoulli (i.e., Binomial), its canonical link function is logit.</p>
+<p><span class="math display">\[log \frac{p(y_i=1)}{1-p(y_i=1)}=\beta^Tx_i\]</span> Where,</p>
+<p><span class="math display">\[p(y_i=1)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\]</span></p>
+<p>We can rewrite it as follows.</p>
+<p><span class="math display">\[\beta^Tx_i=log\frac{\mu}{1-\mu}=g(\mu)\]</span> (Side note: logit = log odds = log <span class="math inline">\(\frac{Event - Happened }{Event - Not - Happened}\)</span>)</p>
+<p>Where,</p>
+<p><span class="math display">\[\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\]</span> Thus, we know that <span class="math inline">\(\mu\)</span> or <span class="math inline">\(p(y=1)\)</span> is the mean function. Recall that, <span class="math inline">\(n\)</span> trails of coin flips, and get <span class="math inline">\(p\)</span> heads. Thus <span class="math inline">\(\mu = \frac{p}{n}\)</span>.</p>
 <p>References: Steffen Lauritzen’s slides: <a href="http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf" class="uri">http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf</a></p>
 
 </div>
