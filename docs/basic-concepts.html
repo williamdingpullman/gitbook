@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Basic Concepts | Logit Models</title>
+  <title>Chapter 4 Basic Concepts | Generalized Linear Mixed Models &amp; R</title>
   <meta name="description" content="The webpages are mainly about logit models." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Basic Concepts | Logit Models" />
+  <meta property="og:title" content="Chapter 4 Basic Concepts | Generalized Linear Mixed Models &amp; R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Basic Concepts | Logit Models" />
+  <meta name="twitter:title" content="Chapter 4 Basic Concepts | Generalized Linear Mixed Models &amp; R" />
   
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
@@ -129,10 +129,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a><ul>
 <li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#score"><i class="fa fa-check"></i><b>4.1</b> Score</a></li>
-<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#gradient-jacobian-and-hessian"><i class="fa fa-check"></i><b>4.2</b> Gradient, Jacobian, and Hessian</a></li>
-<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.3</b> Canonical link function</a></li>
-<li class="chapter" data-level="4.4" data-path="basic-concepts.html"><a href="basic-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.4</b> Ordinary Least Squares (OLS)</a></li>
-<li class="chapter" data-level="4.5" data-path="basic-concepts.html"><a href="basic-concepts.html#fisher-scoring"><i class="fa fa-check"></i><b>4.5</b> Fisher Scoring</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#gradient-and-jacobian"><i class="fa fa-check"></i><b>4.2</b> Gradient and Jacobian</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#hessian-and-fisher-scoring"><i class="fa fa-check"></i><b>4.3</b> Hessian and Fisher Scoring</a></li>
+<li class="chapter" data-level="4.4" data-path="basic-concepts.html"><a href="basic-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.4</b> Canonical link function</a></li>
+<li class="chapter" data-level="4.5" data-path="basic-concepts.html"><a href="basic-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.5</b> Ordinary Least Squares (OLS)</a></li>
+<li class="chapter" data-level="4.6" data-path="basic-concepts.html"><a href="basic-concepts.html#references-1"><i class="fa fa-check"></i><b>4.6</b> References:</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a><ul>
 <li class="chapter" data-level="5.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#computing-techniques"><i class="fa fa-check"></i><b>5.1</b> Computing techniques</a><ul>
@@ -161,7 +162,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Logit Models</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Generalized Linear Mixed Models &amp; R</a>
           </h1>
         </div>
 
@@ -185,8 +186,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 &amp;=\sum_{i=1}^{n} x_i^T[y_i-\hat{y_i}]
 \end{aligned}\]</span></p>
 </div>
-<div id="gradient-jacobian-and-hessian" class="section level2">
-<h2><span class="header-section-number">4.2</span> Gradient, Jacobian, and Hessian</h2>
+<div id="gradient-and-jacobian" class="section level2">
+<h2><span class="header-section-number">4.2</span> Gradient and Jacobian</h2>
 <p><strong>Remarks</strong>: This part discusses gradient in a more general sense.</p>
 <p>When <span class="math inline">\(f(x)\)</span> is only in a single dimension space:</p>
 <p><span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R}\)</span></p>
@@ -200,10 +201,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>For instance,</p>
 <p><span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R}\)</span>:</p>
 <p><span class="math display">\[f(x,y)=x^2+2y\]</span> <span class="math display">\[\nabla f(x,y)=[\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}]=[2x,2]\]</span> <span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R^m}\)</span></p>
-<p><span class="math display">\[f(x,y)=(x^2+2y,x^3)\]</span></p>
+<p><span class="math display">\[f(x,y)=(x^2+2y,x^3)\]</span> <span class="math display">\[Jac(f)=\begin{bmatrix}
+2x &amp; 2\\
+2x^2 &amp; 0 
+\end{bmatrix}\]</span></p>
+</div>
+<div id="hessian-and-fisher-scoring" class="section level2">
+<h2><span class="header-section-number">4.3</span> Hessian and Fisher Scoring</h2>
+<p>Hessian matrix or Hessian is a square matrix of second-order partial derivatives of a scalar-valued function, or scalar field.</p>
+<p><span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R}\)</span></p>
+<p><span class="math display">\[Hessian=\nabla ^2(f) =\begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} &amp; \frac{\partial^2 f}{\partial x_1 \partial x_2} &amp; \frac{\partial^2 f}{\partial x_1 \partial x_3} &amp; ... &amp; \frac{\partial^2 f}{\partial x_1 \partial x_n}\\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} &amp; \frac{\partial^2 f}{\partial x_2^2} &amp; \frac{\partial^2 f}{\partial x_2 \partial x_3} &amp; ... &amp; \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\frac{\partial^2 f}{\partial x_3 \partial x_1} &amp; \frac{\partial^2 f}{\partial x_3 \partial x_2} &amp; \frac{\partial^2 f}{\partial x_3^2} &amp; ... &amp; \frac{\partial^2 f}{\partial x_3 \partial x_n} \\
+...\\
+\frac{\partial^2 f}{\partial x_n \partial x_1} &amp; \frac{\partial^2 f}{\partial x_n \partial x_2} &amp; \frac{\partial^2 f}{\partial x_n \partial x_3} &amp; ... &amp; \frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}\]</span></p>
+<p>As</p>
 </div>
 <div id="canonical-link-function" class="section level2">
-<h2><span class="header-section-number">4.3</span> Canonical link function</h2>
+<h2><span class="header-section-number">4.4</span> Canonical link function</h2>
 <p>Inspired by a Stack Exchange post, I created the following figure:</p>
 <p><span class="math display">\[ \frac{Paramter}{\theta} \longrightarrow \gamma^{&#39;}(\theta) = \mu \longrightarrow \frac{Mean}{\mu} \longrightarrow g(\mu) = \eta \longrightarrow \frac{ Linear predictor}{\eta} \]</span></p>
 <p>For the case of <span class="math inline">\(n\)</span> time Bernoulli (i.e., Binomial), its canonical link function is logit. Specifically,</p>
@@ -220,7 +237,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>(Recall, we know that <span class="math inline">\(\mu\)</span> or <span class="math inline">\(p(y=1)\)</span> is the mean function. Recall that, <span class="math inline">\(n\)</span> trails of coin flips, and get <span class="math inline">\(p\)</span> heads. Thus <span class="math inline">\(\mu = \frac{p}{n}\)</span>.)</p>
 </div>
 <div id="ordinary-least-squares-ols" class="section level2">
-<h2><span class="header-section-number">4.4</span> Ordinary Least Squares (OLS)</h2>
+<h2><span class="header-section-number">4.5</span> Ordinary Least Squares (OLS)</h2>
 <p>Suppose we have <span class="math inline">\(n\)</span> observation, and <span class="math inline">\(m\)</span> variables.</p>
 <p><span class="math display">\[\begin{bmatrix}
 x_{11} &amp; x_{12} &amp; x_{13} &amp; ... &amp; x_{1m}\\
@@ -273,10 +290,8 @@ beta_hat</code></pre></div>
 ## [3,] 2.037671</code></pre>
 <p><strong>Side Notes</strong> The function of as.matrix will automatically make c(2,1,2) become the dimension of <span class="math inline">\(3 \times 1\)</span>, you do not need to transpose the <span class="math inline">\(\beta\)</span>.</p>
 </div>
-<div id="fisher-scoring" class="section level2">
-<h2><span class="header-section-number">4.5</span> Fisher Scoring</h2>
-<p><a href="https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression" class="uri">https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression</a></p>
-<p><strong>References</strong>:</p>
+<div id="references-1" class="section level2">
+<h2><span class="header-section-number">4.6</span> References:</h2>
 <ol style="list-style-type: decimal">
 <li>Steffen Lauritzen’s slides:</li>
 </ol>
@@ -289,6 +304,17 @@ beta_hat</code></pre></div>
 <li>Wilipedia for OLS</li>
 </ol>
 <p><a href="https://en.wikipedia.org/wiki/Ordinary_least_squares" class="uri">https://en.wikipedia.org/wiki/Ordinary_least_squares</a></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Gradient and Jacobian</li>
+</ol>
+<p><a href="https://math.stackexchange.com/questions/1519367/difference-between-gradient-and-jacobian" class="uri">https://math.stackexchange.com/questions/1519367/difference-between-gradient-and-jacobian</a></p>
+<p><a href="https://www.youtube.com/watch?v=3xVMVT-2_t4" class="uri">https://www.youtube.com/watch?v=3xVMVT-2_t4</a></p>
+<p><a href="https://math.stackexchange.com/questions/661195/what-is-the-difference-between-the-gradient-and-the-directional-derivative" class="uri">https://math.stackexchange.com/questions/661195/what-is-the-difference-between-the-gradient-and-the-directional-derivative</a></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Newton’s Method and Fisher Scoring</li>
+</ol>
+<p><a href="https://en.wikipedia.org/wiki/Hessian_matrix" class="uri">https://en.wikipedia.org/wiki/Hessian_matrix</a></p>
+<p><a href="http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html" class="uri">http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html</a></p>
 
 </div>
 </div>

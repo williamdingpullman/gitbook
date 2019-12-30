@@ -24,7 +24,7 @@
 \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
 \usepackage[unicode=true]{hyperref}
 \hypersetup{
-            pdftitle={Logit Models},
+            pdftitle={Generalized Linear Mixed Models \& R},
             pdfauthor={Bill},
             pdfborder={0 0 0},
             breaklinks=true}
@@ -117,7 +117,7 @@
 }
 \makeatother
 
-\title{Logit Models}
+\title{Generalized Linear Mixed Models \& R}
 \author{Bill}
 \date{2019-12-30}
 
@@ -1078,8 +1078,7 @@ likelihood logistic regression as follows. We can not really find
 &=\sum_{i=1}^{n} x_i^T[y_i-\hat{y_i}]
 \end{aligned}\]
 
-\section{Gradient, Jacobian, and
-Hessian}\label{gradient-jacobian-and-hessian}
+\section{Gradient and Jacobian}\label{gradient-and-jacobian}
 
 \textbf{Remarks}: This part discusses gradient in a more general sense.
 
@@ -1106,7 +1105,27 @@ For instance,
 \[\nabla f(x,y)=[\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}]=[2x,2]\]
 \(\mathbb{R}^n \rightarrow \mathbb{R^m}\)
 
-\[f(x,y)=(x^2+2y,x^3)\]
+\[f(x,y)=(x^2+2y,x^3)\] \[Jac(f)=\begin{bmatrix}
+2x & 2\\
+2x^2 & 0 
+\end{bmatrix}\]
+
+\section{Hessian and Fisher Scoring}\label{hessian-and-fisher-scoring}
+
+Hessian matrix or Hessian is a square matrix of second-order partial
+derivatives of a scalar-valued function, or scalar field.
+
+\(\mathbb{R}^n \rightarrow \mathbb{R}\)
+
+\[Hessian=\nabla ^2(f) =\begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \frac{\partial^2 f}{\partial x_1 \partial x_3} & ... & \frac{\partial^2 f}{\partial x_1 \partial x_n}\\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \frac{\partial^2 f}{\partial x_2 \partial x_3} & ... & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\frac{\partial^2 f}{\partial x_3 \partial x_1} & \frac{\partial^2 f}{\partial x_3 \partial x_2} & \frac{\partial^2 f}{\partial x_3^2} & ... & \frac{\partial^2 f}{\partial x_3 \partial x_n} \\
+...\\
+\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \frac{\partial^2 f}{\partial x_n \partial x_3} & ... & \frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}\]
+
+As
 
 \section{Canonical link function}\label{canonical-link-function}
 
@@ -1232,11 +1251,7 @@ calculation.
 c(2,1,2) become the dimension of \(3 \times 1\), you do not need to
 transpose the \(\beta\).
 
-\section{Fisher Scoring}\label{fisher-scoring}
-
-\url{https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression}
-
-\textbf{References}:
+\section{References:}\label{references-1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1266,6 +1281,32 @@ transpose the \(\beta\).
 \end{enumerate}
 
 \url{https://en.wikipedia.org/wiki/Ordinary_least_squares}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Gradient and Jacobian
+\end{enumerate}
+
+\url{https://math.stackexchange.com/questions/1519367/difference-between-gradient-and-jacobian}
+
+\url{https://www.youtube.com/watch?v=3xVMVT-2_t4}
+
+\url{https://math.stackexchange.com/questions/661195/what-is-the-difference-between-the-gradient-and-the-directional-derivative}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Newton's Method and Fisher Scoring
+\end{enumerate}
+
+\url{https://en.wikipedia.org/wiki/Hessian_matrix}
+
+\url{http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html}
 
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}
