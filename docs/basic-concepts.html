@@ -129,9 +129,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a><ul>
 <li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#score"><i class="fa fa-check"></i><b>4.1</b> Score</a></li>
-<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.2</b> Canonical link function</a></li>
-<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.3</b> Ordinary Least Squares (OLS)</a></li>
-<li class="chapter" data-level="4.4" data-path="basic-concepts.html"><a href="basic-concepts.html#fisher-scoring"><i class="fa fa-check"></i><b>4.4</b> Fisher Scoring</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#gradient-jacobian-and-hessian"><i class="fa fa-check"></i><b>4.2</b> Gradient, Jacobian, and Hessian</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.3</b> Canonical link function</a></li>
+<li class="chapter" data-level="4.4" data-path="basic-concepts.html"><a href="basic-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.4</b> Ordinary Least Squares (OLS)</a></li>
+<li class="chapter" data-level="4.5" data-path="basic-concepts.html"><a href="basic-concepts.html#fisher-scoring"><i class="fa fa-check"></i><b>4.5</b> Fisher Scoring</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a><ul>
 <li class="chapter" data-level="5.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#computing-techniques"><i class="fa fa-check"></i><b>5.1</b> Computing techniques</a><ul>
@@ -173,8 +174,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="score" class="section level2">
 <h2><span class="header-section-number">4.1</span> Score</h2>
 <p>The score is the gradient (the vector of partial derivatives) of <span class="math inline">\(log L(\theta)\)</span>, with respect to an m-dimensional parameter vector <span class="math inline">\(\theta\)</span>.</p>
-<p><span class="math display">\[S(\theta) = \frac{\partial\ell}{\partial \theta}\]</span></p>
-<p>Such differentiation will generate a <span class="math inline">\(m\times 1\)</span> row vector, which indicates the sensitivity of the likelihood.</p>
+<p><span class="math display">\[S(\theta) = \frac{\partial\ell}{\partial \theta}\]</span> Typically, they use <span class="math inline">\(\nabla\)</span> to note the partical derivative.</p>
+<p><span class="math display">\[\nabla \ell\]</span></p>
+<p>Such differentiation will generate a <span class="math inline">\(m \times 1\)</span> row vector, which indicates the sensitivity of the likelihood.</p>
 <p>Quote from Steffen Lauritzen’s slides: “Generally the solution to this equation must be calculated by iterative methods. One of the most common methods is the Newton–Raphson method and this is based on successive approximations to the solution, using Taylor’s theorem to approximate the equation.”</p>
 <p>For instance, using logit link, we can get the first derivative of log likelihood logistic regression as follows. We can not really find <span class="math inline">\(\beta\)</span> easily to make the equation to be 0.</p>
 <p><span class="math display">\[\begin{aligned}
@@ -183,8 +185,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 &amp;=\sum_{i=1}^{n} x_i^T[y_i-\hat{y_i}]
 \end{aligned}\]</span></p>
 </div>
+<div id="gradient-jacobian-and-hessian" class="section level2">
+<h2><span class="header-section-number">4.2</span> Gradient, Jacobian, and Hessian</h2>
+</div>
 <div id="canonical-link-function" class="section level2">
-<h2><span class="header-section-number">4.2</span> Canonical link function</h2>
+<h2><span class="header-section-number">4.3</span> Canonical link function</h2>
 <p>Inspired by a Stack Exchange post, I created the following figure:</p>
 <p><span class="math display">\[ \frac{Paramter}{\theta} \longrightarrow \gamma^{&#39;}(\theta) = \mu \longrightarrow \frac{Mean}{\mu} \longrightarrow g(\mu) = \eta \longrightarrow \frac{ Linear predictor}{\eta} \]</span></p>
 <p>For the case of <span class="math inline">\(n\)</span> time Bernoulli (i.e., Binomial), its canonical link function is logit. Specifically,</p>
@@ -201,7 +206,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>(Recall, we know that <span class="math inline">\(\mu\)</span> or <span class="math inline">\(p(y=1)\)</span> is the mean function. Recall that, <span class="math inline">\(n\)</span> trails of coin flips, and get <span class="math inline">\(p\)</span> heads. Thus <span class="math inline">\(\mu = \frac{p}{n}\)</span>.)</p>
 </div>
 <div id="ordinary-least-squares-ols" class="section level2">
-<h2><span class="header-section-number">4.3</span> Ordinary Least Squares (OLS)</h2>
+<h2><span class="header-section-number">4.4</span> Ordinary Least Squares (OLS)</h2>
 <p>Suppose we have <span class="math inline">\(n\)</span> observation, and <span class="math inline">\(m\)</span> variables.</p>
 <p><span class="math display">\[\begin{bmatrix}
 x_{11} &amp; x_{12} &amp; x_{13} &amp; ... &amp; x_{1m}\\
@@ -252,10 +257,10 @@ beta_hat</code></pre></div>
 ## [1,] 2.017690
 ## [2,] 1.054682
 ## [3,] 2.037671</code></pre>
-<p><strong>Side Notes</strong> The function of as.matrix will automatically make c(2,1,2) become the dimension of <span class="math inline">\(3 \time 1\)</span>, you do not need to transpose the <span class="math inline">\(\beta\)</span>.</p>
+<p><strong>Side Notes</strong> The function of as.matrix will automatically make c(2,1,2) become the dimension of <span class="math inline">\(3 \times 1\)</span>, you do not need to transpose the <span class="math inline">\(\beta\)</span>.</p>
 </div>
 <div id="fisher-scoring" class="section level2">
-<h2><span class="header-section-number">4.4</span> Fisher Scoring</h2>
+<h2><span class="header-section-number">4.5</span> Fisher Scoring</h2>
 <p><a href="https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression" class="uri">https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression</a></p>
 <p><strong>References</strong>:</p>
 <ol style="list-style-type: decimal">

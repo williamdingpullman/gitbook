@@ -5,8 +5,11 @@
 The score is the gradient (the vector of partial derivatives) of $log L(\theta)$, with respect to an m-dimensional parameter vector $\theta$.
 
 $$S(\theta) = \frac{\partial\ell}{\partial \theta}$$
+Typically, they use $\nabla$ to note the partical derivative. 
 
-Such differentiation will generate a $m\times 1$ row vector, which indicates the sensitivity of the likelihood.
+$$\nabla \ell$$
+
+Such differentiation will generate a $m \times 1$ row vector, which indicates the sensitivity of the likelihood.
 
 Quote from Steffen Lauritzen's slides: "Generally the solution to this equation must be calculated by iterative methods. One of the most common methods is the Newton–Raphson
 method and this is based on successive approximations to the solution, using Taylor’s theorem to approximate the equation."
@@ -19,6 +22,11 @@ $$\begin{aligned}
 &= \sum_{i=1}^{n}x_i^T[y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}] \\
 &=\sum_{i=1}^{n} x_i^T[y_i-\hat{y_i}]
 \end{aligned}$$
+
+
+## Gradient, Jacobian, and Hessian
+
+
 
 ## Canonical link function
 
@@ -123,7 +131,7 @@ beta_hat
 
 
 __Side Notes__
-The function of as.matrix will automatically make c(2,1,2) become the dimension of $3 \time 1$, you do not need to transpose the $\beta$. 
+The function of as.matrix will automatically make c(2,1,2) become the dimension of $3 \times 1$, you do not need to transpose the $\beta$. 
 
 
 ## Fisher Scoring 
