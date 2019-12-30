@@ -1077,17 +1077,17 @@ likelihood logistic regression as follows. We can not really find
 
 \section{Canonical link function}\label{canonical-link-function}
 
-For \(n\) time Bernoulli (i.e., Binomial), its canonical link function
-is logit.
+Inspired by a Stack Exchange post, I created the following figure:
 
-\[log \frac{p(y_i=1)}{1-p(y_i=1)}=\beta^Tx_i\] Where,
+\[ \frac{Paramter}{\theta} \longrightarrow \gamma^{'}(\theta) = \mu \longrightarrow \frac{Mean}{\mu} \longrightarrow g(\mu) = \eta \longrightarrow \frac{ Linear predictor}{\eta} \]
 
-\[p(y_i=1)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\]
+For the case of \(n\) time Bernoulli (i.e., Binomial), its canonical
+link function is logit. Specifically,
 
-We can rewrite it as follows.
+\[ \frac{Paramter}{\theta=\beta^TX} \longrightarrow \gamma^{'}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^TX}\]
 
-\[\beta^Tx_i=log\frac{\mu}{1-\mu}=g(\mu)\] (Side note: logit = log odds
-= log \(\frac{Event - Happened }{Event - Not - Happened}\))
+(Side note: logit = log odds = log
+\(\frac{Event - Happened }{Event - Not - Happened}\))
 
 Where,
 
@@ -1095,8 +1095,10 @@ Where,
 that \(\mu\) or \(p(y=1)\) is the mean function. Recall that, \(n\)
 trails of coin flips, and get \(p\) heads. Thus \(\mu = \frac{p}{n}\).
 
-References: Steffen Lauritzen's slides:
-\url{http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf}
+References: 1. Steffen Lauritzen's slides:
+\url{http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf} 2.
+The Stack Exchange post:
+\url{https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function}
 
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}
