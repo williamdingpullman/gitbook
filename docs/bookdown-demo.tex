@@ -1090,7 +1090,7 @@ Thus, we can see that,
 \[\theta \equiv \eta \] The link function \(g(\mu)\) relates the linear
 predictor \(\eta = \beta^Tx_i\) to the mean \(\mu\).
 
-Remarks (from left to right):
+\textbf{Remarks}:
 
 \begin{enumerate}
 \def\labelenumi{(\arabic{enumi})}
@@ -1098,25 +1098,20 @@ Remarks (from left to right):
   Parameter is \(\theta = \beta ^T x_i\)\$ (Not \(\mu\)).
 \item
   \(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\) (NOT logit!).
-\end{enumerate}
-
-(3)link function (i.e., \(g(\mu)\)) = logit = logarithm of odds = log
-\(\frac{Event - Happened }{Event - Not - Happened}\).
-
-\begin{enumerate}
-\def\labelenumi{(\arabic{enumi})}
-\setcounter{enumi}{3}
-\tightlist
+\item
+  link function (i.e., \(g(\mu)\)) = logit = logarithm of odds = log
+  \(\frac{Event - Happened }{Event - Not - Happened}\).
 \item
   \(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\). Thus, link function =
   linear predictor = log odds!
+\item
 \end{enumerate}
 
 (Recall, we know that \(\mu\) or \(p(y=1)\) is the mean function. Recall
 that, \(n\) trails of coin flips, and get \(p\) heads. Thus
 \(\mu = \frac{p}{n}\).)
 
-References:
+\textbf{References}:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1125,8 +1120,15 @@ References:
   Steffen Lauritzen's slides:
 \end{enumerate}
 
-\url{http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf} 2.
-The Stack Exchange post:
+\url{http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  The Stack Exchange post:
+\end{enumerate}
 
 \url{https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function}
 
