@@ -66,7 +66,7 @@ Thus, we can write it as the following $n$ equations.
 $$y_1=\beta_0+\beta_1 x_{11}+\beta_2 x_{12}+...+ \beta_m x_{1m}$$
 $$y_2=\beta_0+\beta_1 x_{21}+\beta_2 x_{22}+...+ \beta_m x_{2m}$$
 $$y_3=\beta_0+\beta_1 x_{31}+\beta_2 x_{32}+...+ \beta_m x_{3m}$$
-...
+$$...$$
 
 $$y_n=\beta_0+\beta_1 x_{n1}+\beta_2 x_{n2}+...+ \beta_m x_{nm}$$
 
@@ -102,6 +102,8 @@ $$\beta = \begin{bmatrix}\beta_0 \\
 ...\\
 \beta_m \\
 \end{bmatrix}$$
+
+Since later 
 
 ## Fisher Scoring 
 
