@@ -262,17 +262,21 @@ https://www.youtube.com/watch?v=3xVMVT-2_t4
 
 https://math.stackexchange.com/questions/661195/what-is-the-difference-between-the-gradient-and-the-directional-derivative
 
-5. Newton's Method and Fisher Scoring
+5. Hessian
 
 https://en.wikipedia.org/wiki/Hessian_matrix
 
-http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html
 
 6. Observed information
 
 https://en.wikipedia.org/wiki/Observed_information
 
-7. Link function
+
+7. Fisher information
+
+https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf
+
+8. Link function
 
 https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function
 
