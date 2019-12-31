@@ -187,11 +187,29 @@ e^x |_{a=0} &amp;= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}
 &amp;=  1+ \frac{1}{1!}x+\frac{1}{2!}x^2+...+\frac{1}{n!}x^n
 \end{aligned}\]</span></p>
 <p>if <span class="math inline">\(x=2\)</span></p>
-<p><span class="math display">\[e^2 = 7.389056\]</span> <span class="math display">\[e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\]</span> <span class="math display">\[e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\]</span> … <span class="math display">\[e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\]</span></p>
+<p><span class="math inline">\(e^2 = 7.389056\)</span> <span class="math inline">\(e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\)</span> <span class="math display">\[e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\]</span> … <span class="math inline">\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\)</span></p>
 </div>
 <div id="newton-raphson-1" class="section level2">
 <h2><span class="header-section-number">5.2</span> Newton Raphson</h2>
-<p>Following the logic of Taylor series, we can write the following:</p>
+<p>Following the logic of Taylor series, we can write the following (2 term Taylor polynomial):</p>
+<p><span class="math display">\[f(x)|_{x_0} \approx f(x_0) + f^{&#39;}(x_0)(x-x_0)\]</span></p>
+<p>if we set <span class="math inline">\(f(x)=0\)</span>, we can get,</p>
+<p><span class="math display">\[f(x_0) + f^{&#39;}(x_0)(x-x_0)=0 \Rightarrow x= x_0 - \frac{f(x_0)}{f^{&#39;}(x_0)}\]</span> Practice:Solve the <span class="math inline">\(x^3-5=0\)</span></p>
+<p>Note that, this is obviously not a maximization problem. In contrast, it involves a function with zero. As we can see, we can think it as the first order of Taylor approximation. That is, <span class="math inline">\(f^{&#39;}(x)=x^3-5=0\)</span>. As we can see the following plot, it converts very quickly. [I will revisit this part later to double check whether such narrative is correct. But, the code is correct, for sure.]</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f_firstorder=<span class="cf">function</span>(x){x<span class="op">^</span><span class="dv">3</span><span class="op">-</span><span class="dv">5</span>}
+f_secondorder=<span class="cf">function</span>(x){<span class="dv">3</span><span class="op">*</span>x}
+x_old=<span class="dv">1</span>;tolerance=<span class="fl">1e-3</span>
+max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
+c_iteration&lt;-<span class="kw">c</span>() ## to collect numbers generated in the iteration process 
+<span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its){
+  x_updated=x_old<span class="op">-</span>(<span class="kw">f_firstorder</span>(x_old)<span class="op">/</span><span class="kw">f_secondorder</span>(x_old))
+  difference=<span class="kw">abs</span>(x_updated<span class="op">-</span>x_old);
+  iteration=iteration<span class="op">+</span><span class="dv">1</span>;
+  x_old=x_updated
+  c_iteration&lt;-<span class="kw">c</span>(c_iteration,x_updated)}
+
+<span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 
 </div>
 </div>
