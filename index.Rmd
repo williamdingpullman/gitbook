@@ -11,6 +11,9 @@ link-citations: yes
 github-repo: rstudio/bookdown-demo
 description: "The webpages are mainly about logit models."
 ---
+# Explain Motivation
+
+All the notes I have done here are for the preparation of my stat master project, which will be about Generalized Linear Mixed Models. While I have tried my best, probably there are still some typos and erros. Please feel free to let me know if you find ones. Thank you!
 
 # Basics
 
