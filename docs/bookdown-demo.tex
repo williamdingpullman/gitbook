@@ -1798,7 +1798,8 @@ We also assume \(\epsilon\) and \(u\) are independent.Thus, we know that
 \(D\) represents the virances of the random effects. If we make
 \(u =1\), the model becomes the usual probit model. McCulloch (1994)
 states that there are a few advantages to use probit, rather than logit
-models.
+models. (Note that, however, probit is not canonical link function, but
+logit is!)
 
 The following is the note from Charle E. McCulloch's ``Maximum
 likelihood algorithems for Generalized Linear Mixed Models''
@@ -1998,6 +1999,286 @@ algorithm.
 \end{Shaded}
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-3.pdf}
+
+\chapter{Practice: Football Play}\label{practice-football-play}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#https://fivethirtyeight.com/contributors/josh-hermsmeyer/}
+\CommentTok{# https://github.com/ryurko/nflscrapR-data/blob/master/legacy_data/README.md}
+
+\CommentTok{#mydata1 = read.csv('plays.txt')}
+\CommentTok{#unique(mydata1$gameId)}
+
+\CommentTok{#unique(mydata1$PassLength)}
+\CommentTok{#table(mydata1$PassLength)}
+\CommentTok{#table(mydata1$PassResult)}
+\CommentTok{#table(mydata1$numberOfPassRushers)}
+
+
+\NormalTok{##mydata3 = read.csv(url('https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_play_by_play/pbp_2017.csv'))}
+\NormalTok{##write.csv(mydata3,'2017playbyplay.csv')}
+
+\NormalTok{mydata3<-}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'2017playbyplay.csv'}\NormalTok{)}
+\KeywordTok{nrow}\NormalTok{(mydata3)}
+\KeywordTok{table}\NormalTok{(mydata3}\OperatorTok{$}\NormalTok{Passer)}
+\KeywordTok{table}\NormalTok{(mydata3}\OperatorTok{$}\NormalTok{PlayType)}
+
+\CommentTok{#mydata5<-mydata3[!duplicated(mydata3[,c('GameID','Passer')]),]}
+\CommentTok{#unique(mydata3$GameID)}
+\NormalTok{mydata6<-}\KeywordTok{subset}\NormalTok{(mydata3,down}\OperatorTok{==}\DecValTok{1}\NormalTok{)}
+
+
+\NormalTok{mydata7<-}\KeywordTok{subset}\NormalTok{(mydata6,PlayType}\OperatorTok{==}\StringTok{'Pass'}\OperatorTok{|}\NormalTok{PlayType}\OperatorTok{==}\StringTok{'Run'}\NormalTok{)}
+\CommentTok{#table(mydata7$PlayType)}
+\CommentTok{#table(droplevels(mydata7$PlayType))}
+
+\NormalTok{mydata7}\OperatorTok{$}\NormalTok{PlayType<-}\KeywordTok{droplevels}\NormalTok{(mydata7}\OperatorTok{$}\NormalTok{PlayType)}
+\KeywordTok{table}\NormalTok{(mydata7}\OperatorTok{$}\NormalTok{PlayType)}
+
+\CommentTok{#http://rstudio-pubs-static.s3.amazonaws.com/6975_c4943349b6174f448104a5513fed59a9.html}
+\KeywordTok{source}\NormalTok{(}\StringTok{"http://pcwww.liv.ac.uk/~william/R/crosstab.r"}\NormalTok{)}
+\NormalTok{mydata8<-mydata7[,}\KeywordTok{c}\NormalTok{(}\StringTok{'Passer'}\NormalTok{,}\StringTok{'PlayType'}\NormalTok{,}\StringTok{'GameID'}\NormalTok{,}\StringTok{'posteam'}\NormalTok{,}\StringTok{'DefensiveTeam'}\NormalTok{,}\StringTok{'Yards.Gained'}\NormalTok{,}\StringTok{'FirstDown'}\NormalTok{,}\StringTok{'TimeSecs'}\NormalTok{)]}
+\CommentTok{#results<-crosstab(mydata8, row.vars = "GameID", col.vars = "PlayType", type = "r")}
+\CommentTok{#p1<-results$crosstab}
+\CommentTok{#hist(p1[,1],20)}
+
+
+
+\KeywordTok{library}\NormalTok{(plyr)}
+\NormalTok{count_vector<-}\KeywordTok{count}\NormalTok{(mydata8, }\StringTok{"GameID"}\NormalTok{)}
+
+\NormalTok{l_new<-}\KeywordTok{length}\NormalTok{(count_vector}\OperatorTok{$}\NormalTok{freq)}
+\NormalTok{time<-}\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{l_new)}
+\NormalTok{\{time<-}\KeywordTok{append}\NormalTok{(time,}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{count_vector}\OperatorTok{$}\NormalTok{freq[i]))\}}
+\KeywordTok{nrow}\NormalTok{(time)}
+\NormalTok{mydata8}\OperatorTok{$}\NormalTok{time<-time}
+\NormalTok{mydata8}\OperatorTok{$}\NormalTok{play_new<-}\KeywordTok{ifelse}\NormalTok{(mydata8}\OperatorTok{$}\NormalTok{PlayType}\OperatorTok{==}\StringTok{'Pass'}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+
+\NormalTok{n_counting<-}\DecValTok{0}  \CommentTok{# help counting the number of pairs}
+
+\NormalTok{## The following code collects all the rows of each pair. However, it is difficult to analyze data}
+\CommentTok{# in such a format. }
+
+\CommentTok{#empty_df = mydata8[FALSE,]}
+\CommentTok{#for (i in 1:l_new) # level of different game}
+\CommentTok{#\{}
+\CommentTok{#   for(j in 1:((count_vector$freq[i])-1)) # within the same game}
+\CommentTok{#   \{}
+\CommentTok{#      if(i==1)}
+\CommentTok{#      \{row_id<-j\}}
+\CommentTok{#      else \{row_id<-sum(count_vector$freq[1:(i-1)])+j\}}
+\CommentTok{#}
+\CommentTok{#      #print(row_id)}
+\CommentTok{#      if(as.character(mydata8[row_id,]$posteam)!=as.character(mydata8[row_id+1,]$posteam))}
+\CommentTok{#      \{}
+\CommentTok{#        print("not same team")}
+\CommentTok{#        if (nrow(empty_df)==0)}
+\CommentTok{#           \{empty_df<-mydata8[row_id:(row_id+1),]\}}
+\CommentTok{#        else}
+\CommentTok{#           \{}
+\CommentTok{#             if(row.names(mydata8[row_id,])!=row.names(tail(empty_df,1)))}
+\CommentTok{#               \{empty_df<-rbind(empty_df,mydata8[row_id,])\}}
+\CommentTok{#             empty_df<-rbind(empty_df,mydata8[row_id+1,])}
+\CommentTok{#           \}}
+\CommentTok{#       n_counting<-n_counting+1}
+\CommentTok{#      \}}
+\CommentTok{#   \}}
+\CommentTok{#\}}
+
+
+\CommentTok{# The following code only collects the second row of the pair, but adds data of }
+\NormalTok{### PT_L: type of play in the last first down from the other team}
+\NormalTok{### TG_L: Yards.Gained in the last play}
+\NormalTok{### FirstDown: did they get first down or not. Note that, if yes, it means it was a fumble.}
+
+\NormalTok{PT_L=}\StringTok{"Pass"}
+\NormalTok{TG_L=}\DecValTok{0}
+\NormalTok{FD_L=}\DecValTok{0}
+
+\NormalTok{pari_data=}\StringTok{ }\NormalTok{mydata8[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{pari_data<-}\KeywordTok{cbind}\NormalTok{(pari_data,PT_L,TG_L,FD_L)}
+\NormalTok{pari_data<-pari_data[}\OtherTok{FALSE}\NormalTok{,]}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{l_new) }\CommentTok{# level of different game}
+\NormalTok{\{}
+  \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{((count_vector}\OperatorTok{$}\NormalTok{freq[i])}\OperatorTok{-}\DecValTok{1}\NormalTok{)) }\CommentTok{# within the same game}
+\NormalTok{  \{}
+
+    \ControlFlowTok{if}\NormalTok{(i}\OperatorTok{==}\DecValTok{1}\NormalTok{)}
+\NormalTok{    \{row_id<-j\}}
+    \ControlFlowTok{else}\NormalTok{ \{row_id<-}\KeywordTok{sum}\NormalTok{(count_vector}\OperatorTok{$}\NormalTok{freq[}\DecValTok{1}\OperatorTok{:}\NormalTok{(i}\OperatorTok{-}\DecValTok{1}\NormalTok{)])}\OperatorTok{+}\NormalTok{j\}}
+
+    \KeywordTok{print}\NormalTok{(row_id)}
+    \ControlFlowTok{if}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(mydata8[row_id,]}\OperatorTok{$}\NormalTok{posteam)}\OperatorTok{!=}\KeywordTok{as.character}\NormalTok{(mydata8[row_id}\OperatorTok{+}\DecValTok{1}\NormalTok{,]}\OperatorTok{$}\NormalTok{posteam))}
+\NormalTok{    \{}
+      \KeywordTok{print}\NormalTok{(}\StringTok{"not same team"}\NormalTok{)}
+\NormalTok{      PT_L<-}\KeywordTok{as.character}\NormalTok{(mydata8[row_id,]}\OperatorTok{$}\NormalTok{PlayType)}
+\NormalTok{      TG_L<-mydata8[row_id,]}\OperatorTok{$}\NormalTok{Yards.Gained}
+\NormalTok{      FD_L<-mydata8[row_id,]}\OperatorTok{$}\NormalTok{FirstDown}
+
+\NormalTok{      new_row<-}\KeywordTok{cbind}\NormalTok{(mydata8[(row_id}\OperatorTok{+}\DecValTok{1}\NormalTok{),],PT_L,TG_L,FD_L)}
+\NormalTok{      pari_data<-}\KeywordTok{rbind}\NormalTok{(pari_data,new_row)}
+\NormalTok{     \}}
+
+\NormalTok{      n_counting<-n_counting}\OperatorTok{+}\DecValTok{1}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{pari_data}\OperatorTok{$}\NormalTok{same<-}\KeywordTok{ifelse}\NormalTok{(pari_data}\OperatorTok{$}\NormalTok{PlayType}\OperatorTok{==}\NormalTok{pari_data}\OperatorTok{$}\NormalTok{PT_L,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+
+\CommentTok{#write.csv(pari_data,'pari_data.csv')}
+
+\KeywordTok{write.table}\NormalTok{(pari_data, }\DataTypeTok{file =} \StringTok{"pari_data.csv"}\NormalTok{,}\DataTypeTok{row.names=}\OtherTok{FALSE}\NormalTok{,}\DataTypeTok{na =} \StringTok{""}\NormalTok{, }\DataTypeTok{sep=}\StringTok{","}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Remarks}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  mylogit1: in general, a team has a different play in their first down,
+  compared to the other team in the last first down.
+\item
+  mylogit2: If the defence team passed in the last first down, the
+  offence team is less likely to use pass. If the defence team gained
+  more yards, the offence team is more likely to pass in the next first
+  down. If the defence team fumbled, it will reduce the chance the
+  offence team to do the pass.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pari_data2<-}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'pari_data.csv'}\NormalTok{)}
+
+\NormalTok{mylogit1 =}\StringTok{ }\KeywordTok{glm}\NormalTok{(same}\OperatorTok{~}\DecValTok{1}\NormalTok{, }\DataTypeTok{family=}\NormalTok{binomial, }\DataTypeTok{data=}\NormalTok{pari_data2)}
+\KeywordTok{summary}\NormalTok{(mylogit1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = same ~ 1, family = binomial, data = pari_data2)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.117  -1.117  -1.117   1.239   1.239  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -0.14395    0.02809  -5.124    3e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 7035.5  on 5093  degrees of freedom
+## Residual deviance: 7035.5  on 5093  degrees of freedom
+## AIC: 7037.5
+## 
+## Number of Fisher Scoring iterations: 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mylogit2 =}\StringTok{ }\KeywordTok{glm}\NormalTok{(play_new}\OperatorTok{~}\NormalTok{same}\OperatorTok{+}\NormalTok{TG_L}\OperatorTok{+}\NormalTok{FD_L, }\DataTypeTok{family=}\NormalTok{binomial, }\DataTypeTok{data=}\NormalTok{pari_data2)}
+\KeywordTok{summary}\NormalTok{(mylogit2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = play_new ~ same + TG_L + FD_L, family = binomial, 
+##     data = pari_data2)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.6114  -0.9783  -0.9382   1.0995   1.5672  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  0.175629   0.040712   4.314  1.6e-05 ***
+## same        -0.757822   0.057618 -13.152  < 2e-16 ***
+## TG_L         0.010439   0.003873   2.695  0.00704 ** 
+## FD_L        -0.268115   0.148835  -1.801  0.07164 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 7034.3  on 5093  degrees of freedom
+## Residual deviance: 6850.1  on 5090  degrees of freedom
+## AIC: 6858.1
+## 
+## Number of Fisher Scoring iterations: 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(lme4)}
+\NormalTok{mylogit3 =}\StringTok{ }\KeywordTok{glmer}\NormalTok{(same}\OperatorTok{~}\NormalTok{play_new}\OperatorTok{+}\NormalTok{TG_L}\OperatorTok{+}\NormalTok{FD_L}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{GameID), }\DataTypeTok{family=} \KeywordTok{binomial}\NormalTok{(}\StringTok{"logit"}\NormalTok{), }\DataTypeTok{data=}\NormalTok{pari_data2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## boundary (singular) fit: see ?isSingular
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mylogit3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: same ~ play_new + TG_L + FD_L + (1 | GameID)
+##    Data: pari_data2
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##   6862.4   6895.1  -3426.2   6852.4     5089 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.3918 -0.7763 -0.7532  0.9061  1.6255 
+## 
+## Random effects:
+##  Groups Name        Variance  Std.Dev. 
+##  GameID (Intercept) 1.562e-15 3.953e-08
+## Number of obs: 5094, groups:  GameID, 256
+## 
+## Fixed effects:
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  0.197140   0.040513   4.866 1.14e-06 ***
+## play_new    -0.757838   0.057619 -13.153  < 2e-16 ***
+## TG_L         0.006027   0.003824   1.576  0.11502    
+## FD_L        -0.392792   0.150715  -2.606  0.00916 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##          (Intr) ply_nw TG_L  
+## play_new -0.627              
+## TG_L     -0.270 -0.043       
+## FD_L     -0.147  0.031 -0.041
+## convergence code: 0
+## boundary (singular) fit: see ?isSingular
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Bill_1<- bild(play_new ~ TG_L+FD_L, data = mydata8, id="GameID",start = NULL, dependence = "MC1R")}
+\CommentTok{#summary(Bill_1)}
+
+\CommentTok{#locust2 <- bild(as.factor(PlayType) ~ time + I(time^2), data = mydata8,id="GameID",start = NULL, dependence = "MC2")}
+\end{Highlighting}
+\end{Shaded}
 
 \chapter{Project Draft}\label{project-draft}
 

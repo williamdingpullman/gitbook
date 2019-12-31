@@ -1,3 +1,6 @@
+# Practice: Football Play
+
+```{R eval = FALSE}
 #https://fivethirtyeight.com/contributors/josh-hermsmeyer/
 # https://github.com/ryurko/nflscrapR-data/blob/master/legacy_data/README.md
 
@@ -53,7 +56,7 @@ mydata8$play_new<-ifelse(mydata8$PlayType=='Pass',1,0)
 n_counting<-0  # help counting the number of pairs
 
 ## The following code collects all the rows of each pair. However, it is difficult to analyze data
-# in such a format.
+# in such a format. 
 
 #empty_df = mydata8[FALSE,]
 #for (i in 1:l_new) # level of different game
@@ -82,7 +85,7 @@ n_counting<-0  # help counting the number of pairs
 #}
 
 
-# The following code only collects the second row of the pair, but adds data of
+# The following code only collects the second row of the pair, but adds data of 
 ### PT_L: type of play in the last first down from the other team
 ### TG_L: Yards.Gained in the last play
 ### FirstDown: did they get first down or not. Note that, if yes, it means it was a fumble.
@@ -125,27 +128,35 @@ pari_data$same<-ifelse(pari_data$PlayType==pari_data$PT_L,1,0)
 #write.csv(pari_data,'pari_data.csv')
 
 write.table(pari_data, file = "pari_data.csv",row.names=FALSE,na = "", sep=",")
+```
+
+
+__Remarks__
+
+1. mylogit1: in general, a team has a different play in their first down, compared to the other team in the last first down. 
+
+2. mylogit2: If the defence team passed in the last first down, the offence team is less likely to use pass. If the defence team gained more yards, the offence team is more likely to pass in the next first down. If the defence team fumbled, it will reduce the chance the offence team to do the pass.
+
+
+```{R}
 
 pari_data2<-read.csv('pari_data.csv')
 
-
-
-
-mylogit1 = glm(same~1, family=binomial, data=pari_data)
+mylogit1 = glm(same~1, family=binomial, data=pari_data2)
 summary(mylogit1)
 
-mylogit2 = glm(same~TG_L+FD_L, family=binomial, data=pari_data)
+mylogit2 = glm(play_new~same+TG_L+FD_L, family=binomial, data=pari_data2)
 summary(mylogit2)
 
-mylogit2 = glmer(same~play_new+TG_L+FD_L+(1|GameID), family= binomial("logit"), data=pari_data)
-summary(mylogit2)
-
-
-
-
+library(lme4)
+mylogit3 = glmer(same~play_new+TG_L+FD_L+(1|GameID), family= binomial("logit"), data=pari_data2)
+summary(mylogit3)
 
 
 #Bill_1<- bild(play_new ~ TG_L+FD_L, data = mydata8, id="GameID",start = NULL, dependence = "MC1R")
 #summary(Bill_1)
 
 #locust2 <- bild(as.factor(PlayType) ~ time + I(time^2), data = mydata8,id="GameID",start = NULL, dependence = "MC2")
+
+
+```
