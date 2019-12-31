@@ -143,7 +143,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>6.1</b> Monte carlo approximation</a></li>
 <li class="chapter" data-level="6.2" data-path="computing-techniques.html"><a href="computing-techniques.html#importance-sampling"><i class="fa fa-check"></i><b>6.2</b> Importance sampling</a></li>
 <li class="chapter" data-level="6.3" data-path="computing-techniques.html"><a href="computing-techniques.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>6.3</b> Newton Raphson algorithm</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="computing-techniques.html"><a href="computing-techniques.html#logistic-regression"><i class="fa fa-check"></i><b>6.3.1</b> Logistic regression</a></li>
+<li class="chapter" data-level="6.3.1" data-path="computing-techniques.html"><a href="computing-techniques.html#calculate-the-root"><i class="fa fa-check"></i><b>6.3.1</b> Calculate the root</a></li>
+<li class="chapter" data-level="6.3.2" data-path="computing-techniques.html"><a href="computing-techniques.html#logistic-regression"><i class="fa fa-check"></i><b>6.3.2</b> Logistic regression</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="computing-techniques.html"><a href="computing-techniques.html#references-2"><i class="fa fa-check"></i><b>6.4</b> References</a></li>
 </ul></li>
@@ -254,7 +255,9 @@ data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <spa
 <p><span class="math display">\[-f(a)=f^{&#39;}(a)(x-a) \Rightarrow x (or, b)= a-\frac{f(a)}{f^{&#39;}(a)}\]</span> If there significant difference of <span class="math inline">\(|a-b|\)</span>, we know that our orginal guess of <span class="math inline">\(a\)</span> is not good. We better use <span class="math inline">\(b\)</span> as the next guess, and calculate its tangent line again. To generate, we can write it as follows. <span class="math display">\[x_{t+1}=x_{t}-\frac{f(x_t)}{f^{&#39;}(x_t)}\]</span></p>
 <p>Okay, this method above is to calculate the root. For MLE, we can also use this method to calculate the root for the <span class="math inline">\(\ell ^{&#39;}=0\)</span>. We can write it as follows.</p>
 <p><span class="math display">\[x_{t+1}=x_{t}-\frac{\ell^{&#39;}(x_t)}{\ell^{&#39;&#39;}(x_t)}\]</span> Often, <span class="math inline">\(x\)</span> is not just a single unknow parameter, but a vector. We can write it as follows.</p>
-<p><span class="math display">\[\beta_{t+1}=\beta_{t}-\frac{\ell^{&#39;}(\beta_t)}{\ell^{&#39;&#39;}(\beta_t)}\]</span> ### Calculate the root</p>
+<p><span class="math display">\[\beta_{t+1}=\beta_{t}-\frac{\ell^{&#39;}(\beta_t)}{\ell^{&#39;&#39;}(\beta_t)}\]</span></p>
+<div id="calculate-the-root" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Calculate the root</h3>
 <p><span class="math inline">\(x^3-5=0\)</span></p>
 <p>Note that, this is obviously not a maximization problem. In contrast, it involves a function with zero. As we can see, we can think it as the first order of Taylor approximation. That is, <span class="math inline">\(f^{&#39;}(x)=x^3-5=0\)</span>. As we can see the following plot, it converts very quickly.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f_firstorder=<span class="cf">function</span>(x){x<span class="op">^</span><span class="dv">3</span><span class="op">-</span><span class="dv">5</span>}
@@ -271,8 +274,9 @@ c_iteration&lt;-<span class="kw">c</span>() ## to collect numbers generated in t
 
 <span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
 <div id="logistic-regression" class="section level3">
-<h3><span class="header-section-number">6.3.1</span> Logistic regression</h3>
+<h3><span class="header-section-number">6.3.2</span> Logistic regression</h3>
 <p>Suppose we have <span class="math inline">\(n\)</span> observation, and <span class="math inline">\(m\)</span> variables.</p>
 <p><span class="math display">\[\begin{bmatrix}
 x_{11} &amp; x_{12} &amp; x_{13} &amp; ... &amp; x_{1m}\\

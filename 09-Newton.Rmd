@@ -97,7 +97,9 @@ $$x_{t+1}=x_{t}-\frac{\ell^{'}(x_t)}{\ell^{''}(x_t)}$$
 Often, $x$ is not just a single unknow parameter, but a vector. We can write it as follows.
 
 $$\beta_{t+1}=\beta_{t}-\frac{\ell^{'}(\beta_t)}{\ell^{''}(\beta_t)}$$
+
 ### Calculate the root
+
 
 $x^3-5=0$
 
