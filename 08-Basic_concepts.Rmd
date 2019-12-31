@@ -213,6 +213,32 @@ __Side Notes__
 The function of as.matrix will automatically make c(2,1,2) become the dimension of $3 \times 1$, you do not need to transpose the $\beta$. 
 
 
+## Taylor series
+
+$$\begin{aligned}
+f(x)|_{a} &=f(a)+\frac{f^{'}(a)}{1!}(x-a)+\frac{f^{'}(a)}{2!}(x-a)^2+\frac{f^{''}(a)}{3!}(x-a)^{3}+...\\&=\sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n 
+\end{aligned}$$  
+
+
+For example:
+
+$$\begin{aligned} 
+e^x |_{a=0} &= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}{n!}(x-a)^n \\ 
+&=  1+ \frac{1}{1!}x+\frac{1}{2!}x^2+...+\frac{1}{n!}x^n
+\end{aligned}$$
+
+if $x=2$
+
+$e^2 = 7.389056$
+
+$e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3$
+
+$$e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5$$
+...
+
+$e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...$
+
+
 
 ## References
 

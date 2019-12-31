@@ -119,7 +119,7 @@
 
 \title{Generalized Linear Mixed Models \& R}
 \author{Bill}
-\date{2019-12-30}
+\date{2019-12-31}
 
 \begin{document}
 \maketitle
@@ -1284,6 +1284,30 @@ calculation.
 c(2,1,2) become the dimension of \(3 \times 1\), you do not need to
 transpose the \(\beta\).
 
+\section{Taylor series}\label{taylor-series}
+
+\[\begin{aligned}
+f(x)|_{a} &=f(a)+\frac{f^{'}(a)}{1!}(x-a)+\frac{f^{'}(a)}{2!}(x-a)^2+\frac{f^{''}(a)}{3!}(x-a)^{3}+...\\&=\sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n 
+\end{aligned}\]
+
+For example:
+
+\[\begin{aligned} 
+e^x |_{a=0} &= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}{n!}(x-a)^n \\ 
+&=  1+ \frac{1}{1!}x+\frac{1}{2!}x^2+...+\frac{1}{n!}x^n
+\end{aligned}\]
+
+if \(x=2\)
+
+\(e^2 = 7.389056\)
+
+\(e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\)
+
+\[e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\]
+\ldots{}
+
+\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\)
+
 \section{References}\label{references-1}
 
 \begin{enumerate}
@@ -1351,98 +1375,7 @@ transpose the \(\beta\).
 
 \url{https://en.wikipedia.org/wiki/Observed_information}
 
-\chapter{Newton Raphson}\label{newton-raphson}
-
-\section{Taylor series}\label{taylor-series}
-
-\[\begin{aligned}
-f(x)|_{a} &=f(a)+\frac{f^{'}(a)}{1!}(x-a)+\frac{f^{'}(a)}{2!}(x-a)^2+\frac{f^{''}(a)}{3!}(x-a)^{3}+...\\&=\sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n 
-\end{aligned}\]
-
-For example:
-
-\[\begin{aligned} 
-e^x |_{a=0} &= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}{n!}(x-a)^n \\ 
-&=  1+ \frac{1}{1!}x+\frac{1}{2!}x^2+...+\frac{1}{n!}x^n
-\end{aligned}\]
-
-if \(x=2\)
-
-\(e^2 = 7.389056\)
-
-\(e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\)
-
-\[e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\]
-\ldots{}
-
-\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\)
-
-\section{Newton Raphson}\label{newton-raphson-1}
-
-Following the logic of Taylor series, we can write the following (2 term
-Taylor polynomial):
-
-\[f(x)|_{x_0} \approx f(x_0) + f^{'}(x_0)(x-x_0)\]
-
-if we set \(f(x)=0\), we can get,
-
-\[f(x_0) + f^{'}(x_0)(x-x_0)=0 \Rightarrow x= x_0 - \frac{f(x_0)}{f^{'}(x_0)}\]
-Following the same logic of \(e^2\) example, we can increase the
-approximity by adding higher order terms.
-
-\[f(x)|_{x_0} \approx f(x_0) + f^{'}(x_0)(x-x_0)+\frac{f^{''}(x_0)}{2}(x-x_0)^2\]
-
-To optimize it (which can either maximize or minimize it), we can
-calculate the derivative with respect to \(x\).
-
-\[f^{'}(x)|_{x_0} \approx  f^{'}(x_0)+f^{''}(x_0)(x-x_0)\] Again,to
-optimize it, we can set it to zero, and get:
-
-\[f^{'}(x_0)+f^{''}(x_0)(x-x_0)=0 \Rightarrow x=x_0 - \frac{f^{'}(x_0)}{f^{''}(x_0)}\]
-
-Practice:Solve the \(x^3-5=0\)
-
-Note that, this is obviously not a maximization problem. In contrast, it
-involves a function with zero. As we can see, we can think it as the
-first order of Taylor approximation. That is, \(f^{'}(x)=x^3-5=0\). As
-we can see the following plot, it converts very quickly. {[}I will
-revisit this part later to double check whether such narrative is
-correct. But, the code is correct, for sure.{]}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{f_firstorder=}\ControlFlowTok{function}\NormalTok{(x)\{x}\OperatorTok{^}\DecValTok{3}\OperatorTok{-}\DecValTok{5}\NormalTok{\}}
-\NormalTok{f_secondorder=}\ControlFlowTok{function}\NormalTok{(x)\{}\DecValTok{3}\OperatorTok{*}\NormalTok{x\}}
-\NormalTok{x_old=}\DecValTok{1}\NormalTok{;tolerance=}\FloatTok{1e-3}
-\NormalTok{max_its=}\DecValTok{2000}\NormalTok{;iteration=}\DecValTok{1}\NormalTok{;difference=}\DecValTok{2}
-\NormalTok{c_iteration<-}\KeywordTok{c}\NormalTok{() ## to collect numbers generated in the iteration process }
-\ControlFlowTok{while}\NormalTok{(difference}\OperatorTok{>}\NormalTok{tolerance }\OperatorTok{&}\StringTok{ }\NormalTok{iteration}\OperatorTok{<}\NormalTok{max_its)\{}
-\NormalTok{  x_updated=x_old}\OperatorTok{-}\NormalTok{(}\KeywordTok{f_firstorder}\NormalTok{(x_old)}\OperatorTok{/}\KeywordTok{f_secondorder}\NormalTok{(x_old))}
-\NormalTok{  difference=}\KeywordTok{abs}\NormalTok{(x_updated}\OperatorTok{-}\NormalTok{x_old);}
-\NormalTok{  iteration=iteration}\OperatorTok{+}\DecValTok{1}\NormalTok{;}
-\NormalTok{  x_old=x_updated}
-\NormalTok{  c_iteration<-}\KeywordTok{c}\NormalTok{(c_iteration,x_updated)\}}
-
-\KeywordTok{plot}\NormalTok{(c_iteration,}\DataTypeTok{type=}\StringTok{"b"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}
-
-\section{References}\label{references-2}
-
-\url{http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html}
-
-\url{https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf}
-
-\url{https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression}
-
-\url{https://www.stat.cmu.edu/~cshalizi/402/lectures/14-logistic-regression/lecture-14.pdf}
-
-\chapter{Generalized Linear Mixed
-Models}\label{generalized-linear-mixed-models}
-
-\section{Computing techniques}\label{computing-techniques}
+\chapter{Computing techniques}\label{computing-techniques}
 
 Since GLMM can use EM algorithm in its maximum likelihood calculation
 (see McCulloch, 1994), it is practically useful to rehearse EM and other
@@ -1489,7 +1422,7 @@ the calculation of the integral.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \subsection{Importance sampling}\label{importance-sampling}
 
@@ -1546,7 +1479,7 @@ the definition of expected value.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 \subsection{Newton Raphson algorithm}\label{newton-raphson-algorithm}
 
@@ -1768,6 +1701,71 @@ Some links related to this topic (canonical link function):
 \url{https://www.stat.cmu.edu/~cshalizi/350/lectures/26/lecture-26.pdf}
 
 \url{http://seankross.com/2019/10/27/R-as-a-First-Programming-Language.html}
+
+\section{Newton Raphson}\label{newton-raphson}
+
+Following the logic of Taylor series, we can write the following (2 term
+Taylor polynomial):
+
+\[f(x)|_{x_0} \approx f(x_0) + f^{'}(x_0)(x-x_0)\]
+
+if we set \(f(x)=0\), we can get,
+
+\[f(x_0) + f^{'}(x_0)(x-x_0)=0 \Rightarrow x= x_0 - \frac{f(x_0)}{f^{'}(x_0)}\]
+Following the same logic of \(e^2\) example, we can increase the
+approximity by adding higher order terms.
+
+\[f(x)|_{x_0} \approx f(x_0) + f^{'}(x_0)(x-x_0)+\frac{f^{''}(x_0)}{2}(x-x_0)^2\]
+
+To optimize it (which can either maximize or minimize it), we can
+calculate the derivative with respect to \(x\).
+
+\[f^{'}(x)|_{x_0} \approx  f^{'}(x_0)+f^{''}(x_0)(x-x_0)\] Again,to
+optimize it, we can set it to zero, and get:
+
+\[f^{'}(x_0)+f^{''}(x_0)(x-x_0)=0 \Rightarrow x=x_0 - \frac{f^{'}(x_0)}{f^{''}(x_0)}\]
+
+Practice:Solve the \(x^3-5=0\)
+
+Note that, this is obviously not a maximization problem. In contrast, it
+involves a function with zero. As we can see, we can think it as the
+first order of Taylor approximation. That is, \(f^{'}(x)=x^3-5=0\). As
+we can see the following plot, it converts very quickly. {[}I will
+revisit this part later to double check whether such narrative is
+correct. But, the code is correct, for sure.{]}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f_firstorder=}\ControlFlowTok{function}\NormalTok{(x)\{x}\OperatorTok{^}\DecValTok{3}\OperatorTok{-}\DecValTok{5}\NormalTok{\}}
+\NormalTok{f_secondorder=}\ControlFlowTok{function}\NormalTok{(x)\{}\DecValTok{3}\OperatorTok{*}\NormalTok{x\}}
+\NormalTok{x_old=}\DecValTok{1}\NormalTok{;tolerance=}\FloatTok{1e-3}
+\NormalTok{max_its=}\DecValTok{2000}\NormalTok{;iteration=}\DecValTok{1}\NormalTok{;difference=}\DecValTok{2}
+\NormalTok{c_iteration<-}\KeywordTok{c}\NormalTok{() ## to collect numbers generated in the iteration process }
+\ControlFlowTok{while}\NormalTok{(difference}\OperatorTok{>}\NormalTok{tolerance }\OperatorTok{&}\StringTok{ }\NormalTok{iteration}\OperatorTok{<}\NormalTok{max_its)\{}
+\NormalTok{  x_updated=x_old}\OperatorTok{-}\NormalTok{(}\KeywordTok{f_firstorder}\NormalTok{(x_old)}\OperatorTok{/}\KeywordTok{f_secondorder}\NormalTok{(x_old))}
+\NormalTok{  difference=}\KeywordTok{abs}\NormalTok{(x_updated}\OperatorTok{-}\NormalTok{x_old);}
+\NormalTok{  iteration=iteration}\OperatorTok{+}\DecValTok{1}\NormalTok{;}
+\NormalTok{  x_old=x_updated}
+\NormalTok{  c_iteration<-}\KeywordTok{c}\NormalTok{(c_iteration,x_updated)\}}
+
+\KeywordTok{plot}\NormalTok{(c_iteration,}\DataTypeTok{type=}\StringTok{"b"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\section{References}\label{references-2}
+
+\url{http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html}
+
+\url{https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf}
+
+\url{https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression}
+
+\url{https://www.stat.cmu.edu/~cshalizi/402/lectures/14-logistic-regression/lecture-14.pdf}
+
+\chapter{Generalized Linear Mixed
+Models}\label{generalized-linear-mixed-models}
 
 \section{Basics of GLMM}\label{basics-of-glmm}
 

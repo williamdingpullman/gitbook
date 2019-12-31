@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Computing techniques | Generalized Linear Mixed Models &amp; R</title>
+  <meta name="description" content="The webpages are mainly about logit models." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Computing techniques | Generalized Linear Mixed Models &amp; R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="The webpages are mainly about logit models." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Computing techniques | Generalized Linear Mixed Models &amp; R" />
+  
+  <meta name="twitter:description" content="The webpages are mainly about logit models." />
+  
+
+<meta name="author" content="Bill" />
+
+
+<meta name="date" content="2019-12-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-concepts.html"/>
+<link rel="next" href="generalized-linear-mixed-models.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bill's Stat Project</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Basics</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#logit"><i class="fa fa-check"></i><b>1.1</b> Logit</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#probit"><i class="fa fa-check"></i><b>1.2</b> Probit</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> MLE</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#basic-idea-of-mle"><i class="fa fa-check"></i><b>2.1</b> Basic idea of MLE</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#coin-flip-example-probit-and-logit"><i class="fa fa-check"></i><b>2.2</b> Coin flip example, probit, and logit</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="intro.html"><a href="intro.html#probit-1"><i class="fa fa-check"></i><b>2.2.1</b> Probit</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro.html"><a href="intro.html#logit-1"><i class="fa fa-check"></i><b>2.2.2</b> Logit</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#further-on-logit"><i class="fa fa-check"></i><b>2.3</b> Further on logit</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#fisher-information"><i class="fa fa-check"></i><b>2.4</b> Fisher information</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#references"><i class="fa fa-check"></i><b>2.5</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>3</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.1</b> Calculate mean</a></li>
+<li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>3.2</b> Test the treatment effect</a></li>
+<li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>3.3</b> Another example</a></li>
+<li class="chapter" data-level="3.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>3.4</b> Full LMM model</a></li>
+<li class="chapter" data-level="3.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>3.5</b> Serial correlations in time and space</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#score"><i class="fa fa-check"></i><b>4.1</b> Score</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#gradient-and-jacobian"><i class="fa fa-check"></i><b>4.2</b> Gradient and Jacobian</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#hessian-and-fisher-scoring"><i class="fa fa-check"></i><b>4.3</b> Hessian and Fisher Scoring</a></li>
+<li class="chapter" data-level="4.4" data-path="basic-concepts.html"><a href="basic-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.4</b> Canonical link function</a></li>
+<li class="chapter" data-level="4.5" data-path="basic-concepts.html"><a href="basic-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.5</b> Ordinary Least Squares (OLS)</a></li>
+<li class="chapter" data-level="4.6" data-path="basic-concepts.html"><a href="basic-concepts.html#taylor-series"><i class="fa fa-check"></i><b>4.6</b> Taylor series</a></li>
+<li class="chapter" data-level="4.7" data-path="basic-concepts.html"><a href="basic-concepts.html#references-1"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>5</b> Computing techniques</a><ul>
+<li class="chapter" data-level="5.0.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>5.0.1</b> Monte carlo approximation</a></li>
+<li class="chapter" data-level="5.0.2" data-path="computing-techniques.html"><a href="computing-techniques.html#importance-sampling"><i class="fa fa-check"></i><b>5.0.2</b> Importance sampling</a></li>
+<li class="chapter" data-level="5.0.3" data-path="computing-techniques.html"><a href="computing-techniques.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>5.0.3</b> Newton Raphson algorithm</a></li>
+<li class="chapter" data-level="5.1" data-path="computing-techniques.html"><a href="computing-techniques.html#newton-raphson"><i class="fa fa-check"></i><b>5.1</b> Newton Raphson</a></li>
+<li class="chapter" data-level="5.2" data-path="computing-techniques.html"><a href="computing-techniques.html#references-2"><i class="fa fa-check"></i><b>5.2</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Mixed Models</a><ul>
+<li class="chapter" data-level="6.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>6.1</b> Basics of GLMM</a></li>
+<li class="chapter" data-level="6.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>6.2</b> Some References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>7</b> Twitter Example</a><ul>
+<li class="chapter" data-level="7.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
+<li class="chapter" data-level="7.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>7.2</b> Simulating Data of Senators on Twitter</a></li>
+<li class="chapter" data-level="7.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="7.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Generalized Linear Mixed Models &amp; R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="computing-techniques" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Computing techniques</h1>
+<p>Since GLMM can use EM algorithm in its maximum likelihood calculation (see McCulloch, 1994), it is practically useful to rehearse EM and other computing techniques.</p>
+<div id="monte-carlo-approximation" class="section level3">
+<h3><span class="header-section-number">5.0.1</span> Monte carlo approximation</h3>
+<p>Example: calculate the integral of <span class="math inline">\(p(z&gt;2)\)</span> when <span class="math inline">\(z \sim N(0,1)\)</span>. To use Monte Carlo approximation, we can have an indicator function, which will determine whether the sample from <span class="math inline">\(N(0,1)\)</span> will be included into the calculation of the integral.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Nsim=<span class="dv">10</span><span class="op">^</span><span class="dv">4</span>
+
+indicator=<span class="cf">function</span>(x){
+y=<span class="kw">ifelse</span>((x<span class="op">&gt;</span><span class="dv">2</span>),<span class="dv">1</span>,<span class="dv">0</span>)
+<span class="kw">return</span>(y)}
+
+newdata&lt;-<span class="kw">rnorm</span>(Nsim, <span class="dv">0</span>,<span class="dv">1</span> )
+
+mc=<span class="kw">c</span>(); v=<span class="kw">c</span>(); upper=<span class="kw">c</span>(); lower=<span class="kw">c</span>()
+
+<span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nsim)
+{
+mc[j]=<span class="kw">mean</span>(<span class="kw">indicator</span>(newdata[<span class="dv">1</span><span class="op">:</span>j]))
+v[j]=(j<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>})<span class="op">*</span><span class="kw">var</span>(<span class="kw">indicator</span>(newdata[<span class="dv">1</span><span class="op">:</span>j]))
+upper[j]=mc[j]<span class="op">+</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
+lower[j]=mc[j]<span class="op">-</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
+}
+
+<span class="kw">library</span>(ggplot2)
+values=<span class="kw">c</span>(mc,upper,lower)
+type=<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mc&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;upper&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;lower&quot;</span>,Nsim))
+iter=<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>Nsim),<span class="dv">3</span>)
+data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <span class="dt">tp=</span>type, <span class="dt">itr=</span>iter)
+Rcode&lt;-<span class="kw">ggplot</span>(data,<span class="kw">aes</span>(itr,val,<span class="dt">col=</span>tp))<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">0.5</span>)
+Rcode<span class="op">+</span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>),<span class="dt">color=</span><span class="st">&quot;green&quot;</span>,<span class="dt">size=</span><span class="fl">0.5</span>)</code></pre></div>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_path).</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div id="importance-sampling" class="section level3">
+<h3><span class="header-section-number">5.0.2</span> Importance sampling</h3>
+<p>Importance sampling has samples generated from a different distribution than the distribution of interest. Specifically, assume that we want to calculate the expected value of <span class="math inline">\(h(x)\)</span>, and <span class="math inline">\(x \sim f(x)\)</span>.</p>
+<p><span class="math display">\[E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx \]</span> We can sample <span class="math inline">\(x_i\)</span> from <span class="math inline">\(g(x)\)</span> and then calculate the mean of <span class="math inline">\(h(x_i) \frac{f(x_i)}{g(x_i)}\)</span>.</p>
+<p>Using the same explane above, we can use a shifted exponential distribution to help calculate the intergral for normal distribution. Specifically,</p>
+<p><span class="math display">\[\int_2^{\infty} \frac{1}{2 \pi} e^{-\frac{1}{2}x^2}dx = \int_2^{\infty} \frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}} e^{-(x-2)}dx \]</span> The idea is that, we can generate <span class="math inline">\(x_i\)</span> from exponential distribution of <span class="math inline">\(e^{-(x-2)}\)</span>, and then insert them into the targeted “expected (value) function” of <span class="math inline">\(\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}\)</span>. Thus, as you can see, importance sampling is based on the law of large numbers (i.e., If the same experiment or study is repeated independently a large number of times, the average of the results of the trials must be close to the expected value). We can use it to calculate integral based on link of the definition of expected value.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Nsim=<span class="dv">10</span><span class="op">^</span><span class="dv">4</span>
+normal_density=<span class="cf">function</span>(x)
+{y=(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi))<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>(x<span class="op">^</span><span class="dv">2</span>))
+<span class="kw">return</span>(y)}
+x=<span class="dv">2</span><span class="op">-</span><span class="kw">log</span>(<span class="kw">runif</span>(Nsim))
+ImpS=<span class="kw">c</span>(); v=<span class="kw">c</span>(); upper=<span class="kw">c</span>(); lower=<span class="kw">c</span>()
+<span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nsim)
+{
+ImpS[j]=<span class="kw">mean</span>(<span class="kw">normal_density</span>(x[<span class="dv">1</span><span class="op">:</span>j])<span class="op">/</span><span class="kw">exp</span>(<span class="op">-</span>(x[<span class="dv">1</span><span class="op">:</span>j]<span class="op">-</span><span class="dv">2</span>)))
+v[j]=(j<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>})<span class="op">*</span><span class="kw">var</span>(<span class="kw">normal_density</span>(x[<span class="dv">1</span><span class="op">:</span>j])<span class="op">/</span><span class="kw">exp</span>(<span class="op">-</span>(x[<span class="dv">1</span><span class="op">:</span>j]<span class="op">-</span><span class="dv">2</span>)))
+upper[j]=ImpS[j]<span class="op">+</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
+lower[j]=ImpS[j]<span class="op">-</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
+}
+
+<span class="kw">library</span>(ggplot2)
+values=<span class="kw">c</span>(ImpS,upper,lower)
+type=<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mc&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;upper&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;lower&quot;</span>,Nsim))
+iter=<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>Nsim),<span class="dv">3</span>)
+data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <span class="dt">tp=</span>type, <span class="dt">itr=</span>iter)
+<span class="kw">ggplot</span>(data,<span class="kw">aes</span>(itr,val,<span class="dt">col=</span>tp))<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span>
+<span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>),<span class="dt">color=</span><span class="st">&quot;green&quot;</span>,<span class="dt">size=</span><span class="fl">0.5</span>)</code></pre></div>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_path).</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="newton-raphson-algorithm" class="section level3">
+<h3><span class="header-section-number">5.0.3</span> Newton Raphson algorithm</h3>
+<p>For nonlinear functions, it is sometimes difficult to calculate MLEs. Newton Raphson algorithm is an iterative procedure to calculate MLEs.</p>
+<p>The basic idea of Newton Raphson is to find a approximate function that can be easily maximized analytically. We need some theoretical background from Taylor’s Theorem.</p>
+<p>If <span class="math inline">\(f\)</span> has <span class="math inline">\(k+1\)</span> times differentiable on an open interval <span class="math inline">\(I\)</span>. For any <span class="math inline">\(x\)</span> and <span class="math inline">\(x+h\)</span> in <span class="math inline">\(I\)</span>, there is a point of <span class="math inline">\(w\)</span> between <span class="math inline">\(x\)</span> and <span class="math inline">\(x+h\)</span> where we can get the following:</p>
+<p><span class="math display">\[f(x+h)=f(x)+f^{&#39;}h+\frac{1}{2}f^{&#39;&#39;}h^2+...+\frac{1}{k!}f^{[k]}(x)h^k+\frac{1}{(k+1)!}f^{[k+1]}(w)h^{k+1}\]</span> If <span class="math inline">\(h\)</span> goes to be close to <span class="math inline">\(0\)</span>, the higher order terms will go to <span class="math inline">\(0\)</span> as well. Thus, we can get:</p>
+<p><span class="math display">\[f(x+h) \approx f(x)+f^{&#39;}(x)h \]</span> This is the first order Taylor approximation of <span class="math inline">\(f\)</span> at <span class="math inline">\(x\)</span>. In a similar vein, we also have the second order Taylor approximation of <span class="math inline">\(f\)</span> at <span class="math inline">\(x\)</span> as follows.</p>
+<p><span class="math display">\[f(x+h)=f(x)+f^{&#39;}h+\frac{1}{2}f^{&#39;&#39;}h^2\]</span> For the first order, we can rewrite it as follows.</p>
+<p><span class="math display">\[f(x+h) \approx f(x)+f^{&#39;}(x)h = a+bh\]</span> where,</p>
+<p><span class="math display">\[ a = f(x), b=f^{&#39;}(x)\]</span> Similarly,</p>
+<p><span class="math display">\[f(x+h)\approx f(x)+f^{&#39;}(x)h+\frac{1}{2}f^{&#39;&#39;}(x)h^2=a+bh+\frac{1}{2}ch^2\]</span> We can calculate the derivative with respect to <span class="math inline">\(h\)</span>, we can get:</p>
+<p><span class="math display">\[f^{&#39;}(x+h) \approx b+ch\]</span> We can then set it to zero, and get:</p>
+<p><span class="math display">\[0=b+c \hat{h}\]</span> Thus, we can get,</p>
+<p><span class="math display">\[\hat{h} = -\frac{b}{c}=-\frac{f^{&#39;}(x)}{f^{&#39;&#39;}(x)}\]</span> Thus, we can get that the following can maximize <span class="math inline">\(f\)</span> at <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[x+\hat{h}=x-\frac{f^{&#39;}(x)}{f^{&#39;&#39;}(x)}\]</span> Thus, the basic idea of Newton Raphson algorithm is as follows. - set a tolerance (typically a very small number) - Check if <span class="math inline">\(|f^{&#39;}(x)|&lt; the tolerance\)</span>. If not, <span class="math inline">\(i \leftarrow i+1; x_i\leftarrow x_{i-1}-\frac{f^{&#39;}(x_{i-1})}{f^{&#39;&#39;}(x_{i-1})}\)</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Use Newton Raphson to calculate the logistic regression</li>
+</ol>
+<p>Suppose we have <span class="math inline">\(n\)</span> observation, and <span class="math inline">\(m\)</span> variables.</p>
+<p><span class="math display">\[\begin{bmatrix}
+x_{11} &amp; x_{12} &amp; x_{13} &amp; ... &amp; x_{1m}\\
+x_{21} &amp; x_{22} &amp; x_{23} &amp; ... &amp; x_{2m} \\
+...\\
+x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; ... &amp; x_{nm}
+\end{bmatrix}\]</span></p>
+<p>Typically, we add a vector of <span class="math inline">\(1\)</span> being used to estimate the constant.</p>
+<p><span class="math display">\[\begin{bmatrix}
+1 &amp; x_{11} &amp; x_{12} &amp; x_{13} &amp; ... &amp; x_{1m}\\
+1 &amp; x_{21} &amp; x_{22} &amp; x_{23} &amp; ... &amp; x_{2m} \\
+...\\
+1 &amp; x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; ... &amp; x_{nm}
+\end{bmatrix}\]</span></p>
+<p>And, we have observe a vector of <span class="math inline">\(n\)</span> <span class="math inline">\(y_i\)</span> as well, which is a binary variable:</p>
+<p><span class="math display">\[Y = \begin{bmatrix}1 \\
+0 \\
+1 \\
+0 \\
+0 \\
+0 \\
+...\\
+1 \\
+\end{bmatrix}\]</span></p>
+<p>Using the content from the MLE chapter, we can get:</p>
+<p><span class="math display">\[\mathbf{L}=\prod_{i=1}^{n} p_i^{ y_i}(1-p_i)^{(1-y_i)}\]</span></p>
+<p>Further, we can get a log-transformed format.</p>
+<p><span class="math display">\[log (\mathbf{L})=\sum_{i=1}^{n}[y_i log (p_i) + (1-y_i) log(1-p_i)]\]</span> Given that <span class="math inline">\(p_i=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}=\frac{e^{\beta^Tx}}{1+e^{\beta^Tx}}\)</span>, we can rewrite it as follows:</p>
+<p><span class="math display">\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}})]\]</span> Before doing the derivative, we set. <span class="math display">\[\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}} = p(\beta ^T x_i)\]</span></p>
+<p><span class="math display">\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (p(\beta ^T x_i)) + (1-y_i) log(1-p(\beta ^T x_i))]\]</span></p>
+<p>Note that, <span class="math inline">\(\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)} = p(\beta ^T x_i)(1-p(\beta ^T x_i))\)</span>. We will use it later.</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{\partial \ell} {\partial \beta} &amp;= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] \\
+&amp;= \sum_{i=1}^{n} x_i^T[y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)p(\beta ^T x_i)(1-p(\beta ^T x_i))] \\
+&amp;= \sum_{i=1}^{n} x_i^T[y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}p(\beta ^T x_i)(1-p(\beta ^T x_i))] \\
+&amp;= \sum_{i=1}^{n} x_i^T[y_i (1-p(\beta ^T x_i))-(1-y_i) p(\beta ^T x_i)] \\
+&amp;=\sum_{i=1}^{n} x_i^T[y_i-y_ip(\beta ^T x_i)-p(\beta ^T x_i)+y_i p(\beta ^T x_i)] \\
+&amp;=\sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i)] \\
+&amp;= \sum_{i=1}^{n} x_i^T[y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}]
+\end{aligned}\]</span></p>
+<p>As noted, the Newton Raphson algorithm needs the second order.</p>
+<p><span class="math display">\[\begin{aligned}
+Second order &amp;=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i)]}{\partial \beta} \\
+&amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i) }{\partial \beta}\\
+&amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i) }{\partial (\beta^Tx_i)} \frac{\partial (\beta^Tx_i)}{\partial \beta}\\
+&amp;=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i
+\end{aligned}\]</span></p>
+<p>The following are the data simulation (3 IVs and 1 DV) and Newton Raphson analysis.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data generation</span>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+n=<span class="dv">500</span>
+x1_norm&lt;-<span class="kw">rnorm</span>(n)
+x2_norm&lt;-<span class="kw">rnorm</span>(n,<span class="dv">3</span>,<span class="dv">4</span>)
+x3_norm&lt;-<span class="kw">rnorm</span>(n,<span class="dv">4</span>,<span class="dv">6</span>)
+x_combined&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,x1_norm,x2_norm,x3_norm) <span class="co"># dimension: n*4</span>
+coefficients_new&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)  <span class="co">#true regression coefficient</span>
+inv_logit&lt;-<span class="cf">function</span>(x,b){<span class="kw">exp</span>(x<span class="op">%*%</span>b)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x<span class="op">%*%</span>b))}
+prob_generated&lt;-<span class="kw">inv_logit</span>(x_combined,coefficients_new)
+y&lt;-<span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {y[i]&lt;-<span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,prob_generated[i])}
+
+<span class="co"># Newton Raphson</span>
+
+<span class="co">#We need to set random starting values.</span>
+beta_old&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)
+tolerance=<span class="fl">1e-3</span>
+max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
+W&lt;-<span class="kw">matrix</span>(<span class="dv">0</span>,n,n)
+
+<span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its)
+  {
+  <span class="co"># The first order</span>
+  f_firstorder&lt;-<span class="kw">t</span>(x_combined)<span class="op">%*%</span>(y<span class="op">-</span><span class="kw">inv_logit</span>(x_combined,beta_old))
+  <span class="co"># The second order</span>
+  <span class="kw">diag</span>(W) =<span class="st"> </span><span class="kw">inv_logit</span>(x_combined,beta_old)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">inv_logit</span>(x_combined,beta_old))
+  f_secondorder&lt;-<span class="op">-</span><span class="kw">t</span>(x_combined)<span class="op">%*%</span>W<span class="op">%*%</span>x_combined
+  <span class="co"># Calculate the beta_updated</span>
+  beta_updated=beta_old<span class="op">-</span>(<span class="kw">solve</span>(f_secondorder)<span class="op">%*%</span>f_firstorder)
+  difference=<span class="kw">max</span>(<span class="kw">abs</span>(beta_updated<span class="op">-</span>beta_old));
+  iteration=iteration<span class="op">+</span><span class="dv">1</span>;
+  beta_old=beta_updated}
+
+beta_old</code></pre></div>
+<pre><code>##              [,1]
+##         0.9590207
+## x1_norm 1.7974165
+## x2_norm 3.0072303
+## x3_norm 3.9578107</code></pre>
+<p><span class="math display">\[\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] \]</span> <span class="math display">\[=\sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \phi (\beta ^T x_i)-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}\phi (\beta ^T x_i)]x_i\]</span></p>
+<p><span class="math display">\[\Phi(\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3)= p(y=1)\]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data generation</span>
+n=<span class="dv">500</span>
+x1_norm&lt;-<span class="kw">rnorm</span>(n)
+x2_norm&lt;-<span class="kw">rnorm</span>(n)
+x3_norm&lt;-<span class="kw">rnorm</span>(n)
+x_combined&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,x1_norm,x2_norm,x3_norm)
+coefficients_new&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>)  <span class="co">#true regression coefficient</span>
+inv_norm&lt;-<span class="cf">function</span>(x,b){<span class="kw">pnorm</span>(x<span class="op">%*%</span>b)}
+prob_generated&lt;-<span class="kw">inv_norm</span>(x_combined,coefficients_new)
+y&lt;-<span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {y[i]&lt;-<span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,prob_generated[i])}
+
+<span class="co"># Newton Raphson</span>
+
+<span class="co">#We need to set random starting values.</span>
+x_old&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)
+tolerance=<span class="fl">1e-3</span>
+max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
+
+<span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its){
+  x_updated=x_old<span class="op">-</span>(<span class="kw">f_firstorder</span>(x_old)<span class="op">/</span><span class="kw">f_secondorder</span>(x_old))
+  difference=<span class="kw">abs</span>(x_updated<span class="op">-</span>x_old);
+  iteration=iteration<span class="op">+</span><span class="dv">1</span>;
+  x_old=x_updated
+  c_iteration&lt;-<span class="kw">c</span>(c_iteration,x_updated)}
+
+<span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p>Some links related to this topic (canonical link function): <a href="http://www.win-vector.com/blog/2011/09/the-simpler-derivation-of-logistic-regression/" class="uri">http://www.win-vector.com/blog/2011/09/the-simpler-derivation-of-logistic-regression/</a> <a href="https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function" class="uri">https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function</a> <a href="https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function" class="uri">https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function</a> <a href="https://stats.stackexchange.com/questions/344309/why-using-newtons-method-for-logistic-regression-optimization-is-called-iterati" class="uri">https://stats.stackexchange.com/questions/344309/why-using-newtons-method-for-logistic-regression-optimization-is-called-iterati</a> <a href="https://www.stat.washington.edu/adobra/classes/536/Files/week1/newtonfull.pdf" class="uri">https://www.stat.washington.edu/adobra/classes/536/Files/week1/newtonfull.pdf</a> <a href="https://tomroth.com.au/logistic/" class="uri">https://tomroth.com.au/logistic/</a> <a href="https://www.stat.cmu.edu/~cshalizi/350/lectures/26/lecture-26.pdf" class="uri">https://www.stat.cmu.edu/~cshalizi/350/lectures/26/lecture-26.pdf</a></p>
+<p><a href="http://seankross.com/2019/10/27/R-as-a-First-Programming-Language.html" class="uri">http://seankross.com/2019/10/27/R-as-a-First-Programming-Language.html</a></p>
+</div>
+<div id="newton-raphson" class="section level2">
+<h2><span class="header-section-number">5.1</span> Newton Raphson</h2>
+<p>Following the logic of Taylor series, we can write the following (2 term Taylor polynomial):</p>
+<p><span class="math display">\[f(x)|_{x_0} \approx f(x_0) + f^{&#39;}(x_0)(x-x_0)\]</span></p>
+<p>if we set <span class="math inline">\(f(x)=0\)</span>, we can get,</p>
+<p><span class="math display">\[f(x_0) + f^{&#39;}(x_0)(x-x_0)=0 \Rightarrow x= x_0 - \frac{f(x_0)}{f^{&#39;}(x_0)}\]</span> Following the same logic of <span class="math inline">\(e^2\)</span> example, we can increase the approximity by adding higher order terms.</p>
+<p><span class="math display">\[f(x)|_{x_0} \approx f(x_0) + f^{&#39;}(x_0)(x-x_0)+\frac{f^{&#39;&#39;}(x_0)}{2}(x-x_0)^2\]</span></p>
+<p>To optimize it (which can either maximize or minimize it), we can calculate the derivative with respect to <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[f^{&#39;}(x)|_{x_0} \approx  f^{&#39;}(x_0)+f^{&#39;&#39;}(x_0)(x-x_0)\]</span> Again,to optimize it, we can set it to zero, and get:</p>
+<p><span class="math display">\[f^{&#39;}(x_0)+f^{&#39;&#39;}(x_0)(x-x_0)=0 \Rightarrow x=x_0 - \frac{f^{&#39;}(x_0)}{f^{&#39;&#39;}(x_0)}\]</span></p>
+<p>Practice:Solve the <span class="math inline">\(x^3-5=0\)</span></p>
+<p>Note that, this is obviously not a maximization problem. In contrast, it involves a function with zero. As we can see, we can think it as the first order of Taylor approximation. That is, <span class="math inline">\(f^{&#39;}(x)=x^3-5=0\)</span>. As we can see the following plot, it converts very quickly. [I will revisit this part later to double check whether such narrative is correct. But, the code is correct, for sure.]</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f_firstorder=<span class="cf">function</span>(x){x<span class="op">^</span><span class="dv">3</span><span class="op">-</span><span class="dv">5</span>}
+f_secondorder=<span class="cf">function</span>(x){<span class="dv">3</span><span class="op">*</span>x}
+x_old=<span class="dv">1</span>;tolerance=<span class="fl">1e-3</span>
+max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
+c_iteration&lt;-<span class="kw">c</span>() ## to collect numbers generated in the iteration process 
+<span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its){
+  x_updated=x_old<span class="op">-</span>(<span class="kw">f_firstorder</span>(x_old)<span class="op">/</span><span class="kw">f_secondorder</span>(x_old))
+  difference=<span class="kw">abs</span>(x_updated<span class="op">-</span>x_old);
+  iteration=iteration<span class="op">+</span><span class="dv">1</span>;
+  x_old=x_updated
+  c_iteration&lt;-<span class="kw">c</span>(c_iteration,x_updated)}
+
+<span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="references-2" class="section level2">
+<h2><span class="header-section-number">5.2</span> References</h2>
+<p><a href="http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html" class="uri">http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html</a></p>
+<p><a href="https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf" class="uri">https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf</a></p>
+<p><a href="https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression" class="uri">https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression</a></p>
+<p><a href="https://www.stat.cmu.edu/~cshalizi/402/lectures/14-logistic-regression/lecture-14.pdf" class="uri">https://www.stat.cmu.edu/~cshalizi/402/lectures/14-logistic-regression/lecture-14.pdf</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-concepts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="generalized-linear-mixed-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/09-Newton.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
