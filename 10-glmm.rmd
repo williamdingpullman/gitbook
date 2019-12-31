@@ -13,7 +13,7 @@ where,
 $$\epsilon \sim N(0,I)$$
 $$u \sim N(0, D)$$
 
-We also assume $\epsilon$ and $u$ are independent.Thus, we know that $D$ represents the virances of the random effects. If we make $u =1$, the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit models. 
+We also assume $\epsilon$ and $u$ are independent.Thus, we know that $D$ represents the virances of the random effects. If we make $u =1$, the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit models. (Note that, however, probit is not canonical link function, but logit is!)
 
 
 
