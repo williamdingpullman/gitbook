@@ -77,24 +77,24 @@ geom_hline(yintercept=1-pnorm(2),color="green",size=0.5)
 
 The main purpose of Newton Raphson algorithm is to calculate the root of a function (e.g., $x^2-3=0$). We know that in order to maximize the MLE, we need to calculate the first derivatice of the function and then set it to zero $\ell^{'}(x)=0$. Thus, we can use the same Newton Raphson method to help calculate the MLE maximization as well. 
 
-There are different ways to understand Newton Raphson method, but I found the method fo geometric the most easy way to explain. I use the following figure from a online PDF from UBC (see the reference for the source.) 
+There are different ways to understand Newton Raphson method, but I found the method fo geometric the most easy way to explain. I use the following figure from an online PDF from UBC (see the reference for the source.) 
 
-![THe illustration figure](Newton.jpg) 
+![The illustration figure](Newton.jpg) 
 
 
-Specifically, suppose that you want to calculate the root of a function $f(x)=0$. We assume the root is $r$. However, we do not that, and we randomly guess a point of $a$. Thus, we can get a tangent line with slope of $f^{'}(a)$ and a point of $(a,f(a))$. Since we know the slope and one of its point, we can write the function for this tangent line. 
+Specifically, suppose that you want to calculate the root of a function $f(x)=0$. We assume the root is $r$. However, we do not that, and we randomly guess a point of $a$. Thus, we can get a tangent line with slope of $f^{'}(a)$ and a point of $(a,f(a))$. Since we know the slope and one of its points, we can write the function for this tangent line. 
 
 $$y-f(a)=f^{'}(a)(x-a)$$
-To calculate the $x-intercept$, namely the $b$, we can set $y=0$, and get the following:
+To calculate the $x-intercept$, namely $b$ in the figure, we can set $y=0$, and get the following:
 
 $$-f(a)=f^{'}(a)(x-a) \Rightarrow x (or, b)= a-\frac{f(a)}{f^{'}(a)}$$
-If there significant difference of $|a-b|$, we know that our orginal guess of $a$ is not good. We better use $b$ as the next guess, and calculate its tangent line again. To generate, we can write it as follows.
+If there is significant difference of $|a-b|$, we know that our orginal guess of $a$ is not good. We better use $b$ as the next guess, and calculate its tangent line again. To generalize, we can write it as follows.
 $$x_{t+1}=x_{t}-\frac{f(x_t)}{f^{'}(x_t)}$$
 
 Okay, this method above is to calculate the root. For MLE, we can also use this method to calculate the root for the $\ell ^{'}=0$. We can write it as follows.
 
 $$x_{t+1}=x_{t}-\frac{\ell^{'}(x_t)}{\ell^{''}(x_t)}$$
-Often, $x$ is not just a single unknow parameter, but a vector. We can write it as follows.
+Often, $x$ is not just a single unknow parameter, but a vector. For this case, we can write it as follows.
 
 $$\beta_{t+1}=\beta_{t}-\frac{\ell^{'}(\beta_t)}{\ell^{''}(\beta_t)}$$
 
@@ -174,7 +174,7 @@ $$log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (p(\beta ^T x_i)) + (1-y_i) log(1
 Note that, $\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)} = p(\beta ^T x_i)(1-p(\beta ^T x_i))$. We will use it later. 
 
 $$\begin{aligned}
-\frac{\partial \ell} {\partial \beta} &= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] \\
+\nabla \ell &= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] \\
 &= \sum_{i=1}^{n} x_i^T[y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)p(\beta ^T x_i)(1-p(\beta ^T x_i))] \\
 &= \sum_{i=1}^{n} x_i^T[y_i \frac{1}{p(\beta ^T x_i)} p(\beta ^T x_i)(1-p(\beta ^T x_i))-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}p(\beta ^T x_i)(1-p(\beta ^T x_i))] \\
 &= \sum_{i=1}^{n} x_i^T[y_i (1-p(\beta ^T x_i))-(1-y_i) p(\beta ^T x_i)] \\
@@ -187,7 +187,7 @@ $$\begin{aligned}
 As noted, the Newton Raphson algorithm needs the second order.
 
 $$\begin{aligned}
-Second order &=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i)]}{\partial \beta} \\
+\nabla^2 \ell &=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i)]}{\partial \beta} \\
 &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i) }{\partial \beta}\\
 &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i) }{\partial (\beta^Tx_i)} \frac{\partial (\beta^Tx_i)}{\partial \beta}\\
 &=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i
