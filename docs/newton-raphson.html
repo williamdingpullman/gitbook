@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Twitter Example | Generalized Linear Mixed Models &amp; R</title>
+  <title>Chapter 5 Newton Raphson | Generalized Linear Mixed Models &amp; R</title>
   <meta name="description" content="The webpages are mainly about logit models." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Twitter Example | Generalized Linear Mixed Models &amp; R" />
+  <meta property="og:title" content="Chapter 5 Newton Raphson | Generalized Linear Mixed Models &amp; R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Twitter Example | Generalized Linear Mixed Models &amp; R" />
+  <meta name="twitter:title" content="Chapter 5 Newton Raphson | Generalized Linear Mixed Models &amp; R" />
   
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="generalized-linear-mixed-models.html"/>
-
+<link rel="prev" href="basic-concepts.html"/>
+<link rel="next" href="generalized-linear-mixed-models.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -174,94 +174,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="twitter-example" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Twitter Example</h1>
-<p>The following is part of my course project for Stat 536. It aims to replicate part of the findings from Barbera (2015) Birds of the Same Feather Tweet Together: Bayesian Ideal Point Estimation Using Twitter Data. Political Analysis 23 (1). Note that, the following model is much simpler than that in the original paper.</p>
-<div id="model" class="section level2">
-<h2><span class="header-section-number">7.1</span> Model</h2>
-<p>Suppose that a Twitter user is presented with a choice between following or not following another target <span class="math inline">\(j \in \{ 1, ..., m\}\)</span>. Let <span class="math inline">\(y_{j}=1\)</span> if the user decides to follow <span class="math inline">\(j\)</span>, and <span class="math inline">\(y_{j}=0\)</span> otherwise.</p>
-<p><span class="math display">\[y_{j}=\begin{cases} 1 &amp; Following \\ 0 &amp; Not Following \end{cases}\]</span></p>
-<p><span class="math display">\[p(y_{j}=1|\theta) = \frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)}\]</span> We additionally know the priors of <span class="math inline">\(\theta\)</span>.</p>
-<p><span class="math display">\[\theta_i \sim N(0,10^2) (i = 0, 1)\]</span></p>
-<p>The likelihood function is as follows.</p>
-<p><span class="math display">\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]</span> Thus, the posterior is as follows.</p>
-<p><span class="math display">\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]</span> <span class="math display">\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]</span></p>
+<div id="newton-raphson" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Newton Raphson</h1>
+<div id="taylor-series" class="section level2">
+<h2><span class="header-section-number">5.1</span> Taylor series</h2>
+<p><span class="math display">\[\begin{aligned}
+f(x)|_{a} &amp;=f(a)+\frac{f^{&#39;}(a)}{1!}(x-a)+\frac{f^{&#39;}(a)}{2!}(x-a)^2+\frac{f^{&#39;&#39;}(a)}{3!}(x-a)^{3}+...\\&amp;=\sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n 
+\end{aligned}\]</span></p>
+<p>For example:</p>
+<p><span class="math display">\[\begin{aligned} 
+e^x |_{a=0} &amp;= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}{n!}(x-a)^n \\ 
+&amp;=  1+ \frac{1}{1!}x+\frac{1}{2!}x^2+...+\frac{1}{n!}x^n
+\end{aligned}\]</span></p>
+<p>if <span class="math inline">\(x=2\)</span></p>
+<p><span class="math display">\[e^2 = 7.389056\]</span> <span class="math display">\[e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\]</span> <span class="math display">\[e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\]</span> … <span class="math display">\[e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\]</span></p>
 </div>
-<div id="simulating-data-of-senators-on-twitter" class="section level2">
-<h2><span class="header-section-number">7.2</span> Simulating Data of Senators on Twitter</h2>
-<p>Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know their ideology. Assume that Democrats have negative ideology scores to indicate that they are more liberal, whereas Republicans have positive scores to indicate that they are more conservative. The following is data simulation for senators.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Republicans are more conservative, and they have positive numbers.</span>
-Republicans&lt;-<span class="kw">c</span>()
-Republicans&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="dv">1</span>,<span class="fl">0.5</span>)
-No_Republicans&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,<span class="dv">1</span>)
-Part_<span class="dv">1</span>&lt;-<span class="kw">cbind</span>(No_Republicans,Republicans)
-
-<span class="co"># Democrats are more liberal, and they have negative numbers.</span>
-Democrats&lt;-<span class="kw">c</span>()
-Democrats&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="op">-</span><span class="dv">1</span>,<span class="fl">0.5</span>)
-No_Democrats&lt;-<span class="kw">rep</span>(<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">1</span>)
-Part_<span class="dv">2</span>&lt;-<span class="kw">cbind</span>(No_Democrats,Democrats)
-Data_Elites&lt;-<span class="kw">rbind</span>(Part_<span class="dv">1</span>,Part_<span class="dv">2</span>)
-Data_Elites&lt;-<span class="kw">as.data.frame</span>(Data_Elites)
-<span class="kw">colnames</span>(Data_Elites) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Elite_No&quot;</span>,<span class="st">&quot;Elite_ideology&quot;</span>)
-
-<span class="kw">head</span>(Data_Elites)</code></pre></div>
-<pre><code>##   Elite_No Elite_ideology
-## 1        1      1.2848895
-## 2        2      0.1733722
-## 3        3      0.6666728
-## 4        4      0.7758829
-## 5        5      1.5219457
-## 6        6      1.5140870</code></pre>
-</div>
-<div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
-<h2><span class="header-section-number">7.3</span> Simulating Data of Conservative Users on Twitter and Model Testing</h2>
-<p>Assume that we observe one Twitter user, who is more conservative. To simulate Twitter following data for this user, I assign this user to follow more Republican senators. Thus, if the Metropolis Hastings algorithm works as intended, we would expect to see a positive estimated value for their ideology. Importantly, as we can see in the histogram below, the estimated value indeed is positive, providing preliminary evidence for the statistical model and the algorithm. In addition, for the acceptance rate, we can see that the constant has a lower number than ideology, since we only accept a constant when it is positive.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This user approximately follows 45 Republican Senators and 10 Democrat Senators. </span>
-Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)
-<span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;R_User&quot;</span>)
-Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)
-
-X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology
-Y_data&lt;-Data_combined<span class="op">$</span>R_User
-
-fit_C&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
-fit_C<span class="op">$</span>acceptance_rate</code></pre></div>
-<pre><code>## [1] 0.1590795 0.4817409</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Conservative Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-3.png" width="672" /></p>
-</div>
-<div id="simulating-data-of-liberal-users-on-twitter-and-model-testing" class="section level2">
-<h2><span class="header-section-number">7.4</span> Simulating Data of Liberal Users on Twitter and Model Testing</h2>
-<p>To further verify the Metropolis Hastings algorithm, I plan to test the opposite estimate. Specifically, assume that we observe another user, who is more liberal. To simulate Twitter following data for this user, I assign this user to follow more Democrat senators. In this case, we would expect to see a negative value for their estimated ideology. As we can see in the histogram shown below, as expected, the estimated value is negative, providing convergent evidence for the model and the algorithm.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This user approximately follows 10 Republican Senators and 45 Democrat Senators. </span>
-Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)
-<span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;L_User&quot;</span>)
-Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)
-
-X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology
-Y_data&lt;-Data_combined<span class="op">$</span>L_User
-
-
-fit_L&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
-fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
-<pre><code>## [1] 0.2081041 0.4337169</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Liberal Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-24-3.png" width="672" /></p>
+<div id="newton-raphson-1" class="section level2">
+<h2><span class="header-section-number">5.2</span> Newton Raphson</h2>
+<p>Following the logic of Taylor series, we can write the following:</p>
 
 </div>
 </div>
@@ -270,8 +200,8 @@ fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
           </div>
         </div>
       </div>
-<a href="generalized-linear-mixed-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="basic-concepts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="generalized-linear-mixed-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -302,7 +232,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/20-mh-algorithm-and-data.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/09-Newton.Rmd",
 "text": "Edit"
 },
 "history": {

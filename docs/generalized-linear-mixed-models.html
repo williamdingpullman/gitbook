@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Generalized Linear Mixed Models | Generalized Linear Mixed Models &amp; R</title>
+  <title>Chapter 6 Generalized Linear Mixed Models | Generalized Linear Mixed Models &amp; R</title>
   <meta name="description" content="The webpages are mainly about logit models." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Generalized Linear Mixed Models | Generalized Linear Mixed Models &amp; R" />
+  <meta property="og:title" content="Chapter 6 Generalized Linear Mixed Models | Generalized Linear Mixed Models &amp; R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Generalized Linear Mixed Models | Generalized Linear Mixed Models &amp; R" />
+  <meta name="twitter:title" content="Chapter 6 Generalized Linear Mixed Models | Generalized Linear Mixed Models &amp; R" />
   
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="basic-concepts.html"/>
+<link rel="prev" href="newton-raphson.html"/>
 <link rel="next" href="twitter-example.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -135,20 +135,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.5" data-path="basic-concepts.html"><a href="basic-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.5</b> Ordinary Least Squares (OLS)</a></li>
 <li class="chapter" data-level="4.6" data-path="basic-concepts.html"><a href="basic-concepts.html#references-1"><i class="fa fa-check"></i><b>4.6</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>5</b> Generalized Linear Mixed Models</a><ul>
-<li class="chapter" data-level="5.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#computing-techniques"><i class="fa fa-check"></i><b>5.1</b> Computing techniques</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>5.1.1</b> Monte carlo approximation</a></li>
-<li class="chapter" data-level="5.1.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#importance-sampling"><i class="fa fa-check"></i><b>5.1.2</b> Importance sampling</a></li>
-<li class="chapter" data-level="5.1.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>5.1.3</b> Newton Raphson algorithm</a></li>
+<li class="chapter" data-level="5" data-path="newton-raphson.html"><a href="newton-raphson.html"><i class="fa fa-check"></i><b>5</b> Newton Raphson</a><ul>
+<li class="chapter" data-level="5.1" data-path="newton-raphson.html"><a href="newton-raphson.html#taylor-series"><i class="fa fa-check"></i><b>5.1</b> Taylor series</a></li>
+<li class="chapter" data-level="5.2" data-path="newton-raphson.html"><a href="newton-raphson.html#newton-raphson-1"><i class="fa fa-check"></i><b>5.2</b> Newton Raphson</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>5.2</b> Basics of GLMM</a></li>
-<li class="chapter" data-level="5.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>5.3</b> Some References</a></li>
+<li class="chapter" data-level="6" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Mixed Models</a><ul>
+<li class="chapter" data-level="6.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#computing-techniques"><i class="fa fa-check"></i><b>6.1</b> Computing techniques</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>6.1.1</b> Monte carlo approximation</a></li>
+<li class="chapter" data-level="6.1.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#importance-sampling"><i class="fa fa-check"></i><b>6.1.2</b> Importance sampling</a></li>
+<li class="chapter" data-level="6.1.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>6.1.3</b> Newton Raphson algorithm</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>6</b> Twitter Example</a><ul>
-<li class="chapter" data-level="6.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>6.1</b> Model</a></li>
-<li class="chapter" data-level="6.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>6.2</b> Simulating Data of Senators on Twitter</a></li>
-<li class="chapter" data-level="6.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>6.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
-<li class="chapter" data-level="6.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>6.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="6.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>6.2</b> Basics of GLMM</a></li>
+<li class="chapter" data-level="6.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>6.3</b> Some References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>7</b> Twitter Example</a><ul>
+<li class="chapter" data-level="7.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
+<li class="chapter" data-level="7.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>7.2</b> Simulating Data of Senators on Twitter</a></li>
+<li class="chapter" data-level="7.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="7.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -171,12 +175,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="generalized-linear-mixed-models" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Generalized Linear Mixed Models</h1>
+<h1><span class="header-section-number">Chapter 6</span> Generalized Linear Mixed Models</h1>
 <div id="computing-techniques" class="section level2">
-<h2><span class="header-section-number">5.1</span> Computing techniques</h2>
+<h2><span class="header-section-number">6.1</span> Computing techniques</h2>
 <p>Since GLMM can use EM algorithm in its maximum likelihood calculation (see McCulloch, 1994), it is practically useful to rehearse EM and other computing techniques.</p>
 <div id="monte-carlo-approximation" class="section level3">
-<h3><span class="header-section-number">5.1.1</span> Monte carlo approximation</h3>
+<h3><span class="header-section-number">6.1.1</span> Monte carlo approximation</h3>
 <p>Example: calculate the integral of <span class="math inline">\(p(z&gt;2)\)</span> when <span class="math inline">\(z \sim N(0,1)\)</span>. To use Monte Carlo approximation, we can have an indicator function, which will determine whether the sample from <span class="math inline">\(N(0,1)\)</span> will be included into the calculation of the integral.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Nsim=<span class="dv">10</span><span class="op">^</span><span class="dv">4</span>
 
@@ -207,7 +211,7 @@ Rcode<span class="op">+</span><span class="kw">geom_hline</span>(<span class="dt
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 <div id="importance-sampling" class="section level3">
-<h3><span class="header-section-number">5.1.2</span> Importance sampling</h3>
+<h3><span class="header-section-number">6.1.2</span> Importance sampling</h3>
 <p>Importance sampling has samples generated from a different distribution than the distribution of interest. Specifically, assume that we want to calculate the expected value of <span class="math inline">\(h(x)\)</span>, and <span class="math inline">\(x \sim f(x)\)</span>.</p>
 <p><span class="math display">\[E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx \]</span> We can sample <span class="math inline">\(x_i\)</span> from <span class="math inline">\(g(x)\)</span> and then calculate the mean of <span class="math inline">\(h(x_i) \frac{f(x_i)}{g(x_i)}\)</span>.</p>
 <p>Using the same explane above, we can use a shifted exponential distribution to help calculate the intergral for normal distribution. Specifically,</p>
@@ -237,7 +241,7 @@ data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <spa
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 </div>
 <div id="newton-raphson-algorithm" class="section level3">
-<h3><span class="header-section-number">5.1.3</span> Newton Raphson algorithm</h3>
+<h3><span class="header-section-number">6.1.3</span> Newton Raphson algorithm</h3>
 <p>For nonlinear functions, it is sometimes difficult to calculate MLEs. Newton Raphson algorithm is an iterative procedure to calculate MLEs.</p>
 <p>The basic idea of Newton Raphson is to find a approximate function that can be easily maximized analytically. We need some theoretical background from Taylor’s Theorem.</p>
 <p>If <span class="math inline">\(f\)</span> has <span class="math inline">\(k+1\)</span> times differentiable on an open interval <span class="math inline">\(I\)</span>. For any <span class="math inline">\(x\)</span> and <span class="math inline">\(x+h\)</span> in <span class="math inline">\(I\)</span>, there is a point of <span class="math inline">\(w\)</span> between <span class="math inline">\(x\)</span> and <span class="math inline">\(x+h\)</span> where we can get the following:</p>
@@ -395,7 +399,7 @@ max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;differe
 </div>
 </div>
 <div id="basics-of-glmm" class="section level2">
-<h2><span class="header-section-number">5.2</span> Basics of GLMM</h2>
+<h2><span class="header-section-number">6.2</span> Basics of GLMM</h2>
 <p>Recall the formula in the probit model:</p>
 <p><span class="math display">\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)=N(0,I)\]</span> Similar to LMM, binary model with random effect can be written as follows.</p>
 <p><span class="math display">\[Y^*=X\beta+ Z u+\epsilon\]</span> where,</p>
@@ -404,7 +408,7 @@ max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;differe
 <p>The following is the note from Charle E. McCulloch’s “Maximum likelihood algorithems for Generalized Linear Mixed Models”</p>
 </div>
 <div id="some-references" class="section level2">
-<h2><span class="header-section-number">5.3</span> Some References</h2>
+<h2><span class="header-section-number">6.3</span> Some References</h2>
 <p><a href="http://www.biostat.umn.edu/~baolin/teaching/linmods/glmm.html" class="uri">http://www.biostat.umn.edu/~baolin/teaching/linmods/glmm.html</a></p>
 <p><a href="http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html" class="uri">http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html</a></p>
 <p><a href="https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html" class="uri">https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html</a></p>
@@ -416,7 +420,7 @@ max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;differe
           </div>
         </div>
       </div>
-<a href="basic-concepts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="newton-raphson.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="twitter-example.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
