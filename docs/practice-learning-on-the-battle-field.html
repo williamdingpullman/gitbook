@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>GLMM, Concepts, &amp; R</title>
+  <title>Chapter 9 Practice: Learning on the Battle Field | GLMM, Concepts, &amp; R</title>
   <meta name="description" content="The webpages are mainly about logit models." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="GLMM, Concepts, &amp; R" />
+  <meta property="og:title" content="Chapter 9 Practice: Learning on the Battle Field | GLMM, Concepts, &amp; R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="GLMM, Concepts, &amp; R" />
+  <meta name="twitter:title" content="Chapter 9 Practice: Learning on the Battle Field | GLMM, Concepts, &amp; R" />
   
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="basics.html"/>
+<link rel="prev" href="twitter-example.html"/>
+<link rel="next" href="project-draft.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -181,22 +181,243 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">GLMM, Concepts, &amp; R</h1>
-<p class="author"><em>Bill</em></p>
-<p class="date"><em>31 December, 2019</em></p>
-</div>
-<div id="my-section" class="section level1 unnumbered">
-<h1>Preface: Motivation</h1>
-<p>All the notes I have done here are the preparation for my stat master project, which will be about Generalized Linear Mixed Models. While I have tried my best, probably there are still some typos and erros. Please feel free to let me know in case you find one. Thank you!</p>
+<div id="practice-learning-on-the-battle-field" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Practice: Learning on the Battle Field</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#https://fivethirtyeight.com/contributors/josh-hermsmeyer/</span>
+<span class="co"># https://github.com/ryurko/nflscrapR-data/blob/master/legacy_data/README.md</span>
+
+<span class="co">#mydata1 = read.csv(&#39;plays.txt&#39;)</span>
+<span class="co">#unique(mydata1$gameId)</span>
+
+<span class="co">#unique(mydata1$PassLength)</span>
+<span class="co">#table(mydata1$PassLength)</span>
+<span class="co">#table(mydata1$PassResult)</span>
+<span class="co">#table(mydata1$numberOfPassRushers)</span>
+
+
+##mydata3 = read.csv(url(&#39;https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_play_by_play/pbp_2017.csv&#39;))
+##write.csv(mydata3,&#39;2017playbyplay.csv&#39;)
+
+mydata3&lt;-<span class="kw">read.csv</span>(<span class="st">&#39;2017playbyplay.csv&#39;</span>)
+<span class="kw">nrow</span>(mydata3)
+<span class="kw">table</span>(mydata3<span class="op">$</span>Passer)
+<span class="kw">table</span>(mydata3<span class="op">$</span>PlayType)
+
+<span class="co">#mydata5&lt;-mydata3[!duplicated(mydata3[,c(&#39;GameID&#39;,&#39;Passer&#39;)]),]</span>
+<span class="co">#unique(mydata3$GameID)</span>
+mydata6&lt;-<span class="kw">subset</span>(mydata3,down<span class="op">==</span><span class="dv">1</span>)
+
+
+mydata7&lt;-<span class="kw">subset</span>(mydata6,PlayType<span class="op">==</span><span class="st">&#39;Pass&#39;</span><span class="op">|</span>PlayType<span class="op">==</span><span class="st">&#39;Run&#39;</span>)
+<span class="co">#table(mydata7$PlayType)</span>
+<span class="co">#table(droplevels(mydata7$PlayType))</span>
+
+mydata7<span class="op">$</span>PlayType&lt;-<span class="kw">droplevels</span>(mydata7<span class="op">$</span>PlayType)
+<span class="kw">table</span>(mydata7<span class="op">$</span>PlayType)
+
+<span class="co">#http://rstudio-pubs-static.s3.amazonaws.com/6975_c4943349b6174f448104a5513fed59a9.html</span>
+<span class="kw">source</span>(<span class="st">&quot;http://pcwww.liv.ac.uk/~william/R/crosstab.r&quot;</span>)
+mydata8&lt;-mydata7[,<span class="kw">c</span>(<span class="st">&#39;Passer&#39;</span>,<span class="st">&#39;PlayType&#39;</span>,<span class="st">&#39;GameID&#39;</span>,<span class="st">&#39;posteam&#39;</span>,<span class="st">&#39;DefensiveTeam&#39;</span>,<span class="st">&#39;Yards.Gained&#39;</span>,<span class="st">&#39;FirstDown&#39;</span>,<span class="st">&#39;TimeSecs&#39;</span>)]
+<span class="co">#results&lt;-crosstab(mydata8, row.vars = &quot;GameID&quot;, col.vars = &quot;PlayType&quot;, type = &quot;r&quot;)</span>
+<span class="co">#p1&lt;-results$crosstab</span>
+<span class="co">#hist(p1[,1],20)</span>
+
+
+
+<span class="kw">library</span>(plyr)
+count_vector&lt;-<span class="kw">count</span>(mydata8, <span class="st">&quot;GameID&quot;</span>)
+
+l_new&lt;-<span class="kw">length</span>(count_vector<span class="op">$</span>freq)
+time&lt;-<span class="kw">c</span>()
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>l_new)
+{time&lt;-<span class="kw">append</span>(time,<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>count_vector<span class="op">$</span>freq[i]))}
+<span class="kw">nrow</span>(time)
+mydata8<span class="op">$</span>time&lt;-time
+mydata8<span class="op">$</span>play_new&lt;-<span class="kw">ifelse</span>(mydata8<span class="op">$</span>PlayType<span class="op">==</span><span class="st">&#39;Pass&#39;</span>,<span class="dv">1</span>,<span class="dv">0</span>)
+
+n_counting&lt;-<span class="dv">0</span>  <span class="co"># help counting the number of pairs</span>
+
+## The following code collects all the rows of each pair. However, it is difficult to analyze data
+<span class="co"># in such a format. </span>
+
+<span class="co">#empty_df = mydata8[FALSE,]</span>
+<span class="co">#for (i in 1:l_new) # level of different game</span>
+<span class="co">#{</span>
+<span class="co">#   for(j in 1:((count_vector$freq[i])-1)) # within the same game</span>
+<span class="co">#   {</span>
+<span class="co">#      if(i==1)</span>
+<span class="co">#      {row_id&lt;-j}</span>
+<span class="co">#      else {row_id&lt;-sum(count_vector$freq[1:(i-1)])+j}</span>
+<span class="co">#</span>
+<span class="co">#      #print(row_id)</span>
+<span class="co">#      if(as.character(mydata8[row_id,]$posteam)!=as.character(mydata8[row_id+1,]$posteam))</span>
+<span class="co">#      {</span>
+<span class="co">#        print(&quot;not same team&quot;)</span>
+<span class="co">#        if (nrow(empty_df)==0)</span>
+<span class="co">#           {empty_df&lt;-mydata8[row_id:(row_id+1),]}</span>
+<span class="co">#        else</span>
+<span class="co">#           {</span>
+<span class="co">#             if(row.names(mydata8[row_id,])!=row.names(tail(empty_df,1)))</span>
+<span class="co">#               {empty_df&lt;-rbind(empty_df,mydata8[row_id,])}</span>
+<span class="co">#             empty_df&lt;-rbind(empty_df,mydata8[row_id+1,])</span>
+<span class="co">#           }</span>
+<span class="co">#       n_counting&lt;-n_counting+1</span>
+<span class="co">#      }</span>
+<span class="co">#   }</span>
+<span class="co">#}</span>
+
+
+<span class="co"># The following code only collects the second row of the pair, but adds data of </span>
+### PT_L: type of play in the last first down from the other team
+### TG_L: Yards.Gained in the last play
+### FirstDown: did they get first down or not. Note that, if yes, it means it was a fumble.
+
+PT_L=<span class="st">&quot;Pass&quot;</span>
+TG_L=<span class="dv">0</span>
+FD_L=<span class="dv">0</span>
+
+pari_data=<span class="st"> </span>mydata8[<span class="dv">1</span>,]
+pari_data&lt;-<span class="kw">cbind</span>(pari_data,PT_L,TG_L,FD_L)
+pari_data&lt;-pari_data[<span class="ot">FALSE</span>,]
+
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>l_new) <span class="co"># level of different game</span>
+{
+  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>((count_vector<span class="op">$</span>freq[i])<span class="op">-</span><span class="dv">1</span>)) <span class="co"># within the same game</span>
+  {
+
+    <span class="cf">if</span>(i<span class="op">==</span><span class="dv">1</span>)
+    {row_id&lt;-j}
+    <span class="cf">else</span> {row_id&lt;-<span class="kw">sum</span>(count_vector<span class="op">$</span>freq[<span class="dv">1</span><span class="op">:</span>(i<span class="op">-</span><span class="dv">1</span>)])<span class="op">+</span>j}
+
+    <span class="kw">print</span>(row_id)
+    <span class="cf">if</span>(<span class="kw">as.character</span>(mydata8[row_id,]<span class="op">$</span>posteam)<span class="op">!=</span><span class="kw">as.character</span>(mydata8[row_id<span class="op">+</span><span class="dv">1</span>,]<span class="op">$</span>posteam))
+    {
+      <span class="kw">print</span>(<span class="st">&quot;not same team&quot;</span>)
+      PT_L&lt;-<span class="kw">as.character</span>(mydata8[row_id,]<span class="op">$</span>PlayType)
+      TG_L&lt;-mydata8[row_id,]<span class="op">$</span>Yards.Gained
+      FD_L&lt;-mydata8[row_id,]<span class="op">$</span>FirstDown
+
+      new_row&lt;-<span class="kw">cbind</span>(mydata8[(row_id<span class="op">+</span><span class="dv">1</span>),],PT_L,TG_L,FD_L)
+      pari_data&lt;-<span class="kw">rbind</span>(pari_data,new_row)
+     }
+
+      n_counting&lt;-n_counting<span class="op">+</span><span class="dv">1</span>
+  }
+}
+
+pari_data<span class="op">$</span>same&lt;-<span class="kw">ifelse</span>(pari_data<span class="op">$</span>PlayType<span class="op">==</span>pari_data<span class="op">$</span>PT_L,<span class="dv">1</span>,<span class="dv">0</span>)
+
+<span class="co">#write.csv(pari_data,&#39;pari_data.csv&#39;)</span>
+
+<span class="kw">write.table</span>(pari_data, <span class="dt">file =</span> <span class="st">&quot;pari_data.csv&quot;</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>,<span class="dt">na =</span> <span class="st">&quot;&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>)</code></pre></div>
+<p><strong>Remarks</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>mylogit1: in general, a team has a different play in their first down, compared to the other team in the last first down.</p></li>
+<li><p>mylogit2: If the defence team passed in the last first down, the offence team is less likely to use pass. If the defence team gained more yards, the offence team is more likely to pass in the next first down. If the defence team fumbled, it will reduce the chance the offence team to do the pass.</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pari_data2&lt;-<span class="kw">read.csv</span>(<span class="st">&#39;pari_data.csv&#39;</span>)
+
+mylogit1 =<span class="st"> </span><span class="kw">glm</span>(same<span class="op">~</span><span class="dv">1</span>, <span class="dt">family=</span>binomial, <span class="dt">data=</span>pari_data2)
+<span class="kw">summary</span>(mylogit1)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = same ~ 1, family = binomial, data = pari_data2)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.117  -1.117  -1.117   1.239   1.239  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -0.14395    0.02809  -5.124    3e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 7035.5  on 5093  degrees of freedom
+## Residual deviance: 7035.5  on 5093  degrees of freedom
+## AIC: 7037.5
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylogit2 =<span class="st"> </span><span class="kw">glm</span>(play_new<span class="op">~</span>same<span class="op">+</span>TG_L<span class="op">+</span>FD_L, <span class="dt">family=</span>binomial, <span class="dt">data=</span>pari_data2)
+<span class="kw">summary</span>(mylogit2)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = play_new ~ same + TG_L + FD_L, family = binomial, 
+##     data = pari_data2)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.6114  -0.9783  -0.9382   1.0995   1.5672  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.175629   0.040712   4.314  1.6e-05 ***
+## same        -0.757822   0.057618 -13.152  &lt; 2e-16 ***
+## TG_L         0.010439   0.003873   2.695  0.00704 ** 
+## FD_L        -0.268115   0.148835  -1.801  0.07164 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 7034.3  on 5093  degrees of freedom
+## Residual deviance: 6850.1  on 5090  degrees of freedom
+## AIC: 6858.1
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lme4)
+mylogit3 =<span class="st"> </span><span class="kw">glmer</span>(same<span class="op">~</span>play_new<span class="op">+</span>TG_L<span class="op">+</span>FD_L<span class="op">+</span>(<span class="dv">1</span><span class="op">|</span>GameID), <span class="dt">family=</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>), <span class="dt">data=</span>pari_data2)</code></pre></div>
+<pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mylogit3)</code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: same ~ play_new + TG_L + FD_L + (1 | GameID)
+##    Data: pari_data2
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##   6862.4   6895.1  -3426.2   6852.4     5089 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.3918 -0.7763 -0.7532  0.9061  1.6255 
+## 
+## Random effects:
+##  Groups Name        Variance  Std.Dev. 
+##  GameID (Intercept) 1.562e-15 3.953e-08
+## Number of obs: 5094, groups:  GameID, 256
+## 
+## Fixed effects:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.197140   0.040513   4.866 1.14e-06 ***
+## play_new    -0.757838   0.057619 -13.153  &lt; 2e-16 ***
+## TG_L         0.006027   0.003824   1.576  0.11502    
+## FD_L        -0.392792   0.150715  -2.606  0.00916 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##          (Intr) ply_nw TG_L  
+## play_new -0.627              
+## TG_L     -0.270 -0.043       
+## FD_L     -0.147  0.031 -0.041
+## convergence code: 0
+## boundary (singular) fit: see ?isSingular</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Bill_1&lt;- bild(play_new ~ TG_L+FD_L, data = mydata8, id=&quot;GameID&quot;,start = NULL, dependence = &quot;MC1R&quot;)</span>
+<span class="co">#summary(Bill_1)</span>
+
+<span class="co">#locust2 &lt;- bild(as.factor(PlayType) ~ time + I(time^2), data = mydata8,id=&quot;GameID&quot;,start = NULL, dependence = &quot;MC2&quot;)</span></code></pre></div>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="basics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="twitter-example.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="project-draft.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -227,7 +448,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/21-Football.Rmd",
 "text": "Edit"
 },
 "history": {

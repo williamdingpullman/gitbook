@@ -1,4 +1,6 @@
-# Practice: Football Play
+# Practice: Learning on the Battle Field
+
+
 
 ```{R eval = FALSE}
 #https://fivethirtyeight.com/contributors/josh-hermsmeyer/
