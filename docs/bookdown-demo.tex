@@ -1368,9 +1368,13 @@ e^x |_{a=0} &= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}{n!}
 
 if \(x=2\)
 
-\(e^2 = 7.389056\) \(e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\)
+\(e^2 = 7.389056\)
+
+\(e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\)
+
 \[e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\]
 \ldots{}
+
 \(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\)
 
 \section{Newton Raphson}\label{newton-raphson-1}
@@ -1383,6 +1387,19 @@ Taylor polynomial):
 if we set \(f(x)=0\), we can get,
 
 \[f(x_0) + f^{'}(x_0)(x-x_0)=0 \Rightarrow x= x_0 - \frac{f(x_0)}{f^{'}(x_0)}\]
+Following the same logic of \(e^2\) example, we can increase the
+approximity by adding higher order terms.
+
+\[f(x)|_{x_0} \approx f(x_0) + f^{'}(x_0)(x-x_0)+\frac{f^{''}(x_0)}{2}(x-x_0)^2\]
+
+To optimize it (which can either maximize or minimize it), we can
+calculate the derivative with respect to \(x\).
+
+\[f^{'}(x)|_{x_0} \approx  f^{'}(x_0)+f^{''}(x_0)(x-x_0)\] Again,to
+optimize it, we can set it to zero, and get:
+
+\[f^{'}(x_0)+f^{''}(x_0)(x-x_0)=0 \Rightarrow x=x_0 - \frac{f^{'}(x_0)}{f^{''}(x_0)}\]
+
 Practice:Solve the \(x^3-5=0\)
 
 Note that, this is obviously not a maximization problem. In contrast, it
@@ -1411,6 +1428,16 @@ correct. But, the code is correct, for sure.{]}
 \end{Shaded}
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\section{References}\label{references-2}
+
+\url{http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html}
+
+\url{https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf}
+
+\url{https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression}
+
+\url{https://www.stat.cmu.edu/~cshalizi/402/lectures/14-logistic-regression/lecture-14.pdf}
 
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}
