@@ -5,7 +5,7 @@
 The score is the gradient (the vector of partial derivatives) of $log L(\theta)$, with respect to an m-dimensional parameter vector $\theta$.
 
 $$S(\theta) = \frac{\partial\ell}{\partial \theta}$$
-Typically, they use $\nabla$ to note the partical derivative. 
+Typically, they use $\nabla$ to denote the partical derivative. 
 
 $$\nabla \ell$$
 
@@ -233,7 +233,7 @@ $e^2 = 7.389056$
 
 $e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3$
 
-$$e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5$$
+$e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5$
 ...
 
 $e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...$
