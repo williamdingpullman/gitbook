@@ -1,7 +1,7 @@
 --- 
 title: "GLMM, Concepts, & R"
 author: "Bill"
-date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -14,6 +14,7 @@ description: "The webpages are mainly about logit models."
 # Preface: Motivation {-#my-section}
 
 All the notes I have done here are the preparation for my stat master project, which will be about Generalized Linear Mixed Models. While I have tried my best, probably there are still some typos and erros. Please feel free to let me know in case you find one. Thank you!
+
 
 # Basics
 
