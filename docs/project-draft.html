@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Basic Concepts (2) | GLMM, Concepts, &amp; R</title>
+  <title>Chapter 9 Project Draft | GLMM, Concepts, &amp; R</title>
   <meta name="description" content="The webpages are mainly about logit models." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Basic Concepts (2) | GLMM, Concepts, &amp; R" />
+  <meta property="og:title" content="Chapter 9 Project Draft | GLMM, Concepts, &amp; R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Basic Concepts (2) | GLMM, Concepts, &amp; R" />
+  <meta name="twitter:title" content="Chapter 9 Project Draft | GLMM, Concepts, &amp; R" />
   
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="basic-concepts-1.html"/>
-<link rel="next" href="computing-techniques.html"/>
+<link rel="prev" href="twitter-example.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -180,12 +180,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="basic-concepts-2" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Basic Concepts (2)</h1>
-<div id="fisher-scoring" class="section level2">
-<h2><span class="header-section-number">5.1</span> Fisher scoring</h2>
-<p><a href="https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf" class="uri">https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf</a></p>
-<p><a href="https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression" class="uri">https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression</a></p>
+<div id="project-draft" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Project Draft</h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">9.1</span> Introduction</h2>
+
+<p>If <span class="math inline">\(f\)</span> has <span class="math inline">\(k+1\)</span> times differentiable on an open interval <span class="math inline">\(I\)</span>. For any <span class="math inline">\(x\)</span> and <span class="math inline">\(x+h\)</span> in <span class="math inline">\(I\)</span>, there is a point of <span class="math inline">\(w\)</span> between <span class="math inline">\(x\)</span> and <span class="math inline">\(x+h\)</span> where we can get the following:</p>
+<p><span class="math display">\[f(x+h)=f(x)+f^{&#39;}h+\frac{1}{2}f^{&#39;&#39;}h^2+...+\frac{1}{k!}f^{[k]}(x)h^k+\frac{1}{(k+1)!}f^{[k+1]}(w)h^{k+1}\]</span> If <span class="math inline">\(h\)</span> goes to be close to <span class="math inline">\(0\)</span>, the higher order terms will go to <span class="math inline">\(0\)</span> as well. Thus, we can get:</p>
+<p><span class="math display">\[f(x+h) \approx f(x)+f^{&#39;}(x)h \]</span> This is the first order Taylor approximation of <span class="math inline">\(f\)</span> at <span class="math inline">\(x\)</span>. In a similar vein, we also have the second order Taylor approximation of <span class="math inline">\(f\)</span> at <span class="math inline">\(x\)</span> as follows.</p>
+<p><span class="math display">\[f(x+h)=f(x)+f^{&#39;}h+\frac{1}{2}f^{&#39;&#39;}h^2\]</span> For the first order, we can rewrite it as follows.</p>
+<p><span class="math display">\[f(x+h) \approx f(x)+f^{&#39;}(x)h = a+bh\]</span> where,</p>
+<p><span class="math display">\[ a = f(x), b=f^{&#39;}(x)\]</span> Similarly,</p>
+<p><span class="math display">\[f(x+h)\approx f(x)+f^{&#39;}(x)h+\frac{1}{2}f^{&#39;&#39;}(x)h^2=a+bh+\frac{1}{2}ch^2\]</span> We can calculate the derivative with respect to <span class="math inline">\(h\)</span>, we can get:</p>
+<p><span class="math display">\[f^{&#39;}(x+h) \approx b+ch\]</span> We can then set it to zero, and get:</p>
+<p><span class="math display">\[0=b+c \hat{h}\]</span> Thus, we can get,</p>
+<p><span class="math display">\[\hat{h} = -\frac{b}{c}=-\frac{f^{&#39;}(x)}{f^{&#39;&#39;}(x)}\]</span> Thus, we can get that the following can maximize <span class="math inline">\(f\)</span> at <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[x+\hat{h}=x-\frac{f^{&#39;}(x)}{f^{&#39;&#39;}(x)}\]</span> Thus, the basic idea of Newton Raphson algorithm is as follows. - set a tolerance (typically a very small number) - Check if <span class="math inline">\(|f^{&#39;}(x)|&lt; the tolerance\)</span>. If not, <span class="math inline">\(i \leftarrow i+1; x_i\leftarrow x_{i-1}-\frac{f^{&#39;}(x_{i-1})}{f^{&#39;&#39;}(x_{i-1})}\)</span></p>
+<p>Following the logic of Taylor series, we can write the following (2 term Taylor polynomial):</p>
+<p><span class="math display">\[f(x)|_{x_0} \approx f(x_0) + f^{&#39;}(x_0)(x-x_0)\]</span></p>
+<p>if we set <span class="math inline">\(f(x)=0\)</span>, we can get,</p>
+<p><span class="math display">\[f(x_0) + f^{&#39;}(x_0)(x-x_0)=0 \Rightarrow x= x_0 - \frac{f(x_0)}{f^{&#39;}(x_0)}\]</span> Following the same logic of <span class="math inline">\(e^2\)</span> example, we can increase the approximity by adding higher order terms.</p>
+<p><span class="math display">\[f(x)|_{x_0} \approx f(x_0) + f^{&#39;}(x_0)(x-x_0)+\frac{f^{&#39;&#39;}(x_0)}{2}(x-x_0)^2\]</span></p>
+<p>To optimize it (which can either maximize or minimize it), we can calculate the derivative with respect to <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[f^{&#39;}(x)|_{x_0} \approx  f^{&#39;}(x_0)+f^{&#39;&#39;}(x_0)(x-x_0)\]</span> Again,to optimize it, we can set it to zero, and get:</p>
+<p><span class="math display">\[f^{&#39;}(x_0)+f^{&#39;&#39;}(x_0)(x-x_0)=0 \Rightarrow x=x_0 - \frac{f^{&#39;}(x_0)}{f^{&#39;&#39;}(x_0)}\]</span></p>
 
 </div>
 </div>
@@ -194,8 +212,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="basic-concepts-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="computing-techniques.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="twitter-example.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -226,7 +244,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/082-Basicconcepts2.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/30-projectdraft.Rmd",
 "text": "Edit"
 },
 "history": {
