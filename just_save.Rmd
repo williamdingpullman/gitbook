@@ -1,0 +1,59 @@
+---
+title: "for save"
+author: "Will Ding"
+date: "December 31, 2019"
+output: html_document
+---
+If $f$ has $k+1$ times differentiable on an open interval $I$. For any $x$ and $x+h$ in $I$, there is a point of $w$ between $x$ and $x+h$ where we can get the following:
+
+$$f(x+h)=f(x)+f^{'}h+\frac{1}{2}f^{''}h^2+...+\frac{1}{k!}f^{[k]}(x)h^k+\frac{1}{(k+1)!}f^{[k+1]}(w)h^{k+1}$$
+If $h$ goes to be close to $0$, the higher order terms will go to $0$ as well. Thus, we can get:
+
+$$f(x+h) \approx f(x)+f^{'}(x)h $$
+This is the first order Taylor approximation of $f$ at $x$. In a similar vein, we also have the second order Taylor approximation of $f$ at $x$ as follows. 
+
+$$f(x+h)=f(x)+f^{'}h+\frac{1}{2}f^{''}h^2$$
+For the first order, we can rewrite it as follows. 
+
+$$f(x+h) \approx f(x)+f^{'}(x)h = a+bh$$
+where, 
+
+$$ a = f(x), b=f^{'}(x)$$
+Similarly,
+
+$$f(x+h)\approx f(x)+f^{'}(x)h+\frac{1}{2}f^{''}(x)h^2=a+bh+\frac{1}{2}ch^2$$
+We can calculate the derivative with respect to $h$, we can get:
+
+$$f^{'}(x+h) \approx b+ch$$
+We can then set it to zero, and get:
+
+$$0=b+c \hat{h}$$
+Thus, we can get,
+
+$$\hat{h} = -\frac{b}{c}=-\frac{f^{'}(x)}{f^{''}(x)}$$
+Thus, we can get that the following can maximize $f$ at $x$:
+
+$$x+\hat{h}=x-\frac{f^{'}(x)}{f^{''}(x)}$$
+Thus, the basic idea of Newton Raphson algorithm is as follows. 
+- set a tolerance (typically a very small number)
+- Check if $|f^{'}(x)|< the tolerance$. If not, $i \leftarrow i+1; x_i\leftarrow x_{i-1}-\frac{f^{'}(x_{i-1})}{f^{''}(x_{i-1})}$
+
+Following the logic of Taylor series, we can write the following (2 term Taylor polynomial):
+
+$$f(x)|_{x_0} \approx f(x_0) + f^{'}(x_0)(x-x_0)$$
+
+if we set $f(x)=0$, we can get,
+
+$$f(x_0) + f^{'}(x_0)(x-x_0)=0 \Rightarrow x= x_0 - \frac{f(x_0)}{f^{'}(x_0)}$$
+Following the same logic of $e^2$ example, we can increase the approximity by adding higher order terms.
+
+$$f(x)|_{x_0} \approx f(x_0) + f^{'}(x_0)(x-x_0)+\frac{f^{''}(x_0)}{2}(x-x_0)^2$$
+
+To optimize it (which can either maximize or minimize it), we can calculate the derivative with respect to $x$.
+
+$$f^{'}(x)|_{x_0} \approx  f^{'}(x_0)+f^{''}(x_0)(x-x_0)$$
+Again,to optimize it, we can set it to zero, and get:
+
+$$f^{'}(x_0)+f^{''}(x_0)(x-x_0)=0 \Rightarrow x=x_0 - \frac{f^{'}(x_0)}{f^{''}(x_0)}$$
+
+

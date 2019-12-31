@@ -1,6 +1,5 @@
 # Generalized Linear Mixed Models
 
-
 ## Basics of GLMM
 
 Recall the formula in the probit model:

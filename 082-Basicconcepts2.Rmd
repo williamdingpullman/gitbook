@@ -1,0 +1,7 @@
+# Basic Concepts (2)
+
+## Fisher scoring
+
+https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf
+
+https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression

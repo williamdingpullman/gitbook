@@ -1,4 +1,4 @@
-# Basic Concepts
+# Basic Concepts (1)
 
 ## Score
 
@@ -60,7 +60,7 @@ $$Jac(f)=\begin{bmatrix}
 \end{bmatrix}$$
 
 
-## Hessian and Fisher Scoring
+## Hessian and Fisher Information
 
 Hessian matrix or Hessian is a square matrix of second-order partial derivatives of a scalar-valued function, or scalar field.
 
@@ -271,3 +271,9 @@ http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newto
 6. Observed information
 
 https://en.wikipedia.org/wiki/Observed_information
+
+7. Link function
+
+https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function
+
+https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function

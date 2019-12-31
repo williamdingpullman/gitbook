@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 MLE | Generalized Linear Mixed Models &amp; R</title>
+  <title>Chapter 5 Basic Concepts (2) | Generalized Linear Mixed Models &amp; R</title>
   <meta name="description" content="The webpages are mainly about logit models." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 MLE | Generalized Linear Mixed Models &amp; R" />
+  <meta property="og:title" content="Chapter 5 Basic Concepts (2) | Generalized Linear Mixed Models &amp; R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 MLE | Generalized Linear Mixed Models &amp; R" />
+  <meta name="twitter:title" content="Chapter 5 Basic Concepts (2) | Generalized Linear Mixed Models &amp; R" />
   
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="linear-mixed-models.html"/>
+<link rel="prev" href="basic-concepts-1.html"/>
+<link rel="next" href="computing-techniques.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -177,130 +177,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> MLE</h1>
-<div id="basic-idea-of-mle" class="section level2">
-<h2><span class="header-section-number">2.1</span> Basic idea of MLE</h2>
-<p>Suppose that we flip a coin, <span class="math inline">\(y_i=0\)</span> for tails and <span class="math inline">\(y_i=1\)</span> for heads. If we get <span class="math inline">\(p\)</span> heads from <span class="math inline">\(n\)</span> trials, we can get the proportion of heads is <span class="math inline">\(p/n\)</span>, which is the sample mean. If we do not do any further calculation, this is our best guess.</p>
-<p>Suppose that the true proablity is <span class="math inline">\(\rho\)</span>, then we can get:</p>
-<p><span class="math display">\[
-\mathbf{L}(y_i)=\begin{cases} \rho \;\;\:   y_i = 1 \\ 1-\rho \;\;\:  y_i = 0 \end{cases}
-\]</span> Thus, we can also write it as follows. <span class="math display">\[\mathbf{L}(y_i) = \rho^{y_i}(1-\rho)^{1-y_i}\]</span></p>
-<p>Thus, we can get:</p>
-<p><span class="math display">\[\prod \mathbf{L}(y_i|\rho)=\rho^{\sum y_i}(1-\rho)^{\sum(1-y_i)}\]</span> Further, we can get a log-transformed format.</p>
-<p><span class="math display">\[log (\prod \mathbf{L}(y_i|\rho))=\sum y_i log \rho + \sum(1-y_i) log(1-\rho)\]</span></p>
-<p>To maximize the log-function above, we can calculate the derivative with respect to <span class="math inline">\(\rho\)</span>. <span class="math display">\[\frac{\partial log (\prod \mathbf{L}(y_i|\rho)) }{\partial \rho}=\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}\]</span> Set the derivative to zero and solve for <span class="math inline">\(\rho\)</span>, we can get</p>
-<p><span class="math display">\[\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}=0\]</span> <span class="math display">\[\Rightarrow (1-\rho)\sum y_i - \rho \sum(1-y_i) =0\]</span> <span class="math display">\[\Rightarrow \sum y_i-\rho\sum y_i - n\rho +\rho\sum y_i =0\]</span> <span class="math display">\[\Rightarrow \sum y_i - n\rho  =0\]</span> <span class="math display">\[\Rightarrow \rho  = \frac{\sum y_i}{n}=\frac{p}{n}\]</span> Thus, we can see that the <span class="math inline">\(\rho\)</span> maximizing the likelihood function is equal to the sample mean.</p>
-</div>
-<div id="coin-flip-example-probit-and-logit" class="section level2">
-<h2><span class="header-section-number">2.2</span> Coin flip example, probit, and logit</h2>
-<p>In the example above, we are not really trying to estimate a lot of regression coefficients. What we are doing actually is to calculate the sample mean, or intercept in the regresion sense. What does it mean? Let’s use some data to explain it.</p>
-<p>Suppose that we flip a coin 20 times and observe 8 heads. We can use the R’s glm function to esimate the <span class="math inline">\(\rho\)</span>. If the result is consistent with what we did above, we should observe that the <span class="math inline">\(cdf\)</span> of the esimate of <span class="math inline">\(\beta_0\)</span> (i.e., intercept) should be equal to <span class="math inline">\(8/20=0.4\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coins&lt;-<span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dt">times=</span><span class="dv">8</span>),<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dt">times=</span><span class="dv">12</span>))
-<span class="kw">table</span>(coins)</code></pre></div>
-<pre><code>## coins
-##  0  1 
-## 12  8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coins&lt;-<span class="kw">as.data.frame</span>(coins)</code></pre></div>
-<div id="probit-1" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Probit</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">probitresults &lt;-<span class="st"> </span><span class="kw">glm</span>(coins <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;probit&quot;</span>), <span class="dt">data =</span> coins)
-probitresults</code></pre></div>
-<pre><code>## 
-## Call:  glm(formula = coins ~ 1, family = binomial(link = &quot;probit&quot;), 
-##     data = coins)
-## 
-## Coefficients:
-## (Intercept)  
-##     -0.2533  
-## 
-## Degrees of Freedom: 19 Total (i.e. Null);  19 Residual
-## Null Deviance:       26.92 
-## Residual Deviance: 26.92     AIC: 28.92</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(probitresults<span class="op">$</span>coefficients)</code></pre></div>
-<pre><code>## (Intercept) 
-##         0.4</code></pre>
-<p>As we can see the intercept is <span class="math inline">\(-0.2533\)</span>, and thus <span class="math inline">\(\Phi(-0.2533471)=0.4\)</span></p>
-</div>
-<div id="logit-1" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> Logit</h3>
-<p>We can also use logit link to calculate the intercept as well. Recall that</p>
-<p><span class="math display">\[p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]</span> Thus,</p>
-<p><span class="math display">\[p(y=1)=\frac{e^{\beta_0}}{1+e^{\beta_0}}\]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logitresults &lt;-<span class="st"> </span><span class="kw">glm</span>(coins <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="dt">data =</span> coins)
-logitresults<span class="op">$</span>coefficients</code></pre></div>
-<pre><code>## (Intercept) 
-##  -0.4054651</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(logitresults<span class="op">$</span>coefficients)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(logitresults<span class="op">$</span>coefficients))</code></pre></div>
-<pre><code>## (Intercept) 
-##         0.4</code></pre>
-<p>Note that, the defaul link for the binomial in the glm function in logit.</p>
-</div>
-</div>
-<div id="further-on-logit" class="section level2">
-<h2><span class="header-section-number">2.3</span> Further on logit</h2>
-<p>The probablity of <span class="math inline">\(y=1\)</span> is as follows:</p>
-<p><span class="math display">\[p=p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]</span></p>
-<p>Thus, the likelihood function is as follows:</p>
-<p><span class="math display">\[L=\prod p^{y_i}(1-p)^{1-y_i}=\prod (\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}})^{y_i}(\frac{1}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}})^{1-y_i}\]</span></p>
-<p><span class="math display">\[=\prod (1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)})^{-y_i}(1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n})^{-(1-y_i)}\]</span></p>
-<p>Thus, the log-likelihood is as follows: <span class="math display">\[logL=\sum (-y_i \cdot log(1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)})-(1-y_i)\cdot log(1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}))\]</span></p>
-<p>Typically, optimisers minimize a function, so we use negative log-likelihood as minimising that is equivalent to maximising the log-likelihood or the likelihood itself.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Source of R code: https://www.r-bloggers.com/logistic-regression/</span>
-
-mle.logreg =<span class="st"> </span><span class="cf">function</span>(fmla, data)
-{
-  <span class="co"># Define the negative log likelihood function</span>
-  logl &lt;-<span class="st"> </span><span class="cf">function</span>(theta,x,y){
-    y &lt;-<span class="st"> </span>y
-    x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(x)
-    beta &lt;-<span class="st"> </span>theta[<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(x)]
-    
-    <span class="co"># Use the log-likelihood of the Bernouilli distribution, where p is</span>
-    <span class="co"># defined as the logistic transformation of a linear combination</span>
-    <span class="co"># of predictors, according to logit(p)=(x%*%beta)</span>
-    loglik &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">-</span>y<span class="op">*</span><span class="kw">log</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(x<span class="op">%*%</span>beta))) <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>y)<span class="op">*</span><span class="kw">log</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(x<span class="op">%*%</span>beta)))
-    <span class="kw">return</span>(<span class="op">-</span>loglik)
-  }
-  
-  <span class="co"># Prepare the data</span>
-  outcome =<span class="st"> </span><span class="kw">rownames</span>(<span class="kw">attr</span>(<span class="kw">terms</span>(fmla),<span class="st">&quot;factors&quot;</span>))[<span class="dv">1</span>]
-  dfrTmp =<span class="st"> </span><span class="kw">model.frame</span>(data)
-  x =<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">model.matrix</span>(fmla, <span class="dt">data=</span>dfrTmp))
-  y =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">as.matrix</span>(data[,<span class="kw">match</span>(outcome,<span class="kw">colnames</span>(data))]))
-  
-  <span class="co"># Define initial values for the parameters</span>
-  theta.start =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,(<span class="kw">dim</span>(x)[<span class="dv">2</span>]))
-  <span class="kw">names</span>(theta.start) =<span class="st"> </span><span class="kw">colnames</span>(x)
-  
-  <span class="co"># Calculate the maximum likelihood</span>
-  mle =<span class="st"> </span><span class="kw">optim</span>(theta.start,logl,<span class="dt">x=</span>x,<span class="dt">y=</span>y, <span class="dt">method =</span> <span class="st">&#39;BFGS&#39;</span>, <span class="dt">hessian=</span>T)
-  out =<span class="st"> </span><span class="kw">list</span>(<span class="dt">beta=</span>mle<span class="op">$</span>par,<span class="dt">vcov=</span><span class="kw">solve</span>(mle<span class="op">$</span>hessian),<span class="dt">ll=</span><span class="dv">2</span><span class="op">*</span>mle<span class="op">$</span>value)
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata =<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">url</span>(<span class="st">&#39;https://stats.idre.ucla.edu/stat/data/binary.csv&#39;</span>))
-mylogit1 =<span class="st"> </span><span class="kw">glm</span>(admit<span class="op">~</span>gre<span class="op">+</span>gpa<span class="op">+</span><span class="kw">as.factor</span>(rank), <span class="dt">family=</span>binomial, <span class="dt">data=</span>mydata)
-
-mydata<span class="op">$</span>rank =<span class="st"> </span><span class="kw">factor</span>(mydata<span class="op">$</span>rank) <span class="co">#Treat rank as a categorical variable</span>
-fmla =<span class="st"> </span><span class="kw">as.formula</span>(<span class="st">&quot;admit~gre+gpa+rank&quot;</span>) <span class="co">#Create model formula</span>
-mylogit2 =<span class="st"> </span><span class="kw">mle.logreg</span>(fmla, mydata) <span class="co">#Estimate coefficients</span>
-
-
- <span class="kw">print</span>(<span class="kw">cbind</span>(<span class="kw">coef</span>(mylogit1), mylogit2<span class="op">$</span>beta))</code></pre></div>
-<pre><code>##                          [,1]         [,2]
-## (Intercept)      -3.989979073 -3.772676422
-## gre               0.002264426  0.001375522
-## gpa               0.804037549  0.898201239
-## as.factor(rank)2 -0.675442928 -0.675543009
-## as.factor(rank)3 -1.340203916 -1.356554831
-## as.factor(rank)4 -1.551463677 -1.563396035</code></pre>
-</div>
-<div id="fisher-information" class="section level2">
-<h2><span class="header-section-number">2.4</span> Fisher information</h2>
-<p><a href="https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf">https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf</a></p>
-</div>
-<div id="references" class="section level2">
-<h2><span class="header-section-number">2.5</span> References</h2>
-<p><a href="http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf" class="uri">http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf</a></p>
+<div id="basic-concepts-2" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Basic Concepts (2)</h1>
+<div id="fisher-scoring" class="section level2">
+<h2><span class="header-section-number">5.1</span> Fisher scoring</h2>
+<p><a href="https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf" class="uri">https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf</a></p>
+<p><a href="https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression" class="uri">https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression</a></p>
 
 </div>
 </div>
@@ -309,8 +191,8 @@ mylogit2 =<span class="st"> </span><span class="kw">mle.logreg</span>(fmla, myda
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="linear-mixed-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="basic-concepts-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="computing-techniques.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -341,7 +223,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-MLE.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/082-Basicconcepts2.Rmd",
 "text": "Edit"
 },
 "history": {
