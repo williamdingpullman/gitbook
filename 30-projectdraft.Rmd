@@ -15,12 +15,14 @@ set.seed(123)
 
 ## time varying covariates
 Xl = vector('list', K)
-for(k in 1:K) Xl[[k]] = matrix(rnorm(n*p), n,p)
+# 4 list, each 1000 individuals
+for(i in 1:K) Xl[[i]] = matrix(rnorm(n*p), n,p)
 
 ## constant covariate
 Z = rbinom(n, 2,0.2)
 
 ## random effects
+# Not sure about this 
 U = rnorm(n)*sig
 
 ## fixed effects
@@ -45,7 +47,65 @@ a1
 
 ```
 
+```{R}
+## MH sampling of random effects | data
+## logit\Pr(D_i|eta_i,U) = eta_i+U; U \sim N(0,Vu)
+## proposal dist: N(Uc,Vc)
 
+U.mh <- function(Di,eta, Vu, Uc,Vc, B=100){
+  ub = rep(0, B)
+  ub[1] = rnorm(1)*sqrt(Vc)+Uc
+  prb = 1/(1+exp(-eta-ub[1]))
+  llk0 = dnorm(ub[1],sd=sqrt(Vu), log=TRUE) + sum(log(Di*prb+(1-Di)*(1-prb))) - dnorm(ub[1],Uc,sqrt(Vc), log=TRUE)
+  for(k in 2:B){
+    ub[k] = ub[k-1]
+    uk = rnorm(1)*sqrt(Vc)+Uc
+    prb = 1/(1+exp(-eta-uk))
+    llk1 = dnorm(uk,sd=sqrt(Vu), log=TRUE) + sum(log(Di*prb+(1-Di)*(1-prb))) - dnorm(uk,Uc,sqrt(Vc), log=TRUE)
+    alpha = exp( llk1 - llk0  )
+    if(alpha>=1){
+      ub[k] = uk
+      llk0 = llk1
+    } else{
+      aa = runif(1)
+      if(aa<alpha){
+        ub[k] = uk
+        llk0 = llk1
+      }
+    }
+  }
+  return(ub)
+}
+
+library(numDeriv)
+UV.est <- function(Di,eta,Vu,Uc){
+  llk0 = function(xpar){
+    Uc = xpar
+    prb = 1/(1+exp(-eta-Uc))
+    res = dnorm(Uc,sd=sqrt(Vu), log=TRUE) + sum(log(Di*prb+(1-Di)*(1-prb)))
+    -res
+  }
+  tmp = try(optim(Uc, llk0, method='Brent', lower=Uc-10,upper=Uc+10) )
+  if(class(tmp)=='try-error') tmp = optim(Uc, llk0)
+  Uc = tmp$par
+  Vc = 1/hessian(llk0, Uc)
+  c(Uc,Vc)
+}
+UV.mh <- function(Vu,beta,Uc, D,X,subj){
+  ## Cov matrix
+  sid = unique(subj);  n = length(sid)
+  Uc = Vc = rep(0,n)
+  for(i in 1:n){
+    ij = which(subj==sid[i]);  ni = length(ij)
+    Xi = X[ij,,drop=FALSE]
+    eta = Xi%*%beta
+    zi = UV.est(D[ij],eta,Vu,Uc[i])
+    Uc[i] = zi[1]; Vc[i] = zi[2]
+  }
+  return(list(Uc=Uc,Vc=Vc) )
+}
+
+```
 
 
 

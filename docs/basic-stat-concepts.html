@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Basic Stat Concepts | GLMM, Concepts, &amp; R</title>
+  <meta name="description" content="The webpages are mainly about logit models." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Basic Stat Concepts | GLMM, Concepts, &amp; R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="The webpages are mainly about logit models." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Basic Stat Concepts | GLMM, Concepts, &amp; R" />
+  
+  <meta name="twitter:description" content="The webpages are mainly about logit models." />
+  
+
+<meta name="author" content="Bill" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="linear-mixed-models.html"/>
+<link rel="next" href="basic-r.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bill's Stat Project</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface: Motivation</a></li>
+<li class="chapter" data-level="1" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>1</b> Basics</a><ul>
+<li class="chapter" data-level="1.1" data-path="basics.html"><a href="basics.html#logit"><i class="fa fa-check"></i><b>1.1</b> Logit</a></li>
+<li class="chapter" data-level="1.2" data-path="basics.html"><a href="basics.html#probit"><i class="fa fa-check"></i><b>1.2</b> Probit</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> MLE</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#basic-idea-of-mle"><i class="fa fa-check"></i><b>2.1</b> Basic idea of MLE</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#coin-flip-example-probit-and-logit"><i class="fa fa-check"></i><b>2.2</b> Coin flip example, probit, and logit</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="intro.html"><a href="intro.html#probit-1"><i class="fa fa-check"></i><b>2.2.1</b> Probit</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro.html"><a href="intro.html#logit-1"><i class="fa fa-check"></i><b>2.2.2</b> Logit</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#further-on-logit"><i class="fa fa-check"></i><b>2.3</b> Further on logit</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#references"><i class="fa fa-check"></i><b>2.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>3</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.1</b> Calculate mean</a></li>
+<li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>3.2</b> Test the treatment effect</a></li>
+<li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>3.3</b> Another example</a></li>
+<li class="chapter" data-level="3.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>3.4</b> Full LMM model</a></li>
+<li class="chapter" data-level="3.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>3.5</b> Serial correlations in time and space</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Stat Concepts</a><ul>
+<li class="chapter" data-level="4.1" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#score"><i class="fa fa-check"></i><b>4.1</b> Score</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#gradient-and-jacobian"><i class="fa fa-check"></i><b>4.2</b> Gradient and Jacobian</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#hessian-and-fisher-information"><i class="fa fa-check"></i><b>4.3</b> Hessian and Fisher Information</a></li>
+<li class="chapter" data-level="4.4" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.4</b> Canonical link function</a></li>
+<li class="chapter" data-level="4.5" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.5</b> Ordinary Least Squares (OLS)</a></li>
+<li class="chapter" data-level="4.6" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#taylor-series"><i class="fa fa-check"></i><b>4.6</b> Taylor series</a></li>
+<li class="chapter" data-level="4.7" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#fisher-scoring"><i class="fa fa-check"></i><b>4.7</b> Fisher scoring</a></li>
+<li class="chapter" data-level="4.8" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#references-1"><i class="fa fa-check"></i><b>4.8</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="basic-r.html"><a href="basic-r.html"><i class="fa fa-check"></i><b>5</b> Basic R</a><ul>
+<li class="chapter" data-level="5.1" data-path="basic-r.html"><a href="basic-r.html#apply-lapply-sapply"><i class="fa fa-check"></i><b>5.1</b> apply, lapply, sapply</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="basic-r.html"><a href="basic-r.html#apply"><i class="fa fa-check"></i><b>5.1.1</b> apply</a></li>
+<li class="chapter" data-level="5.1.2" data-path="basic-r.html"><a href="basic-r.html#lapply"><i class="fa fa-check"></i><b>5.1.2</b> lapply</a></li>
+<li class="chapter" data-level="5.1.3" data-path="basic-r.html"><a href="basic-r.html#sapply"><i class="fa fa-check"></i><b>5.1.3</b> sapply</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>6</b> Computing Techniques</a><ul>
+<li class="chapter" data-level="6.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>6.1</b> Monte carlo approximation</a></li>
+<li class="chapter" data-level="6.2" data-path="computing-techniques.html"><a href="computing-techniques.html#importance-sampling"><i class="fa fa-check"></i><b>6.2</b> Importance sampling</a></li>
+<li class="chapter" data-level="6.3" data-path="computing-techniques.html"><a href="computing-techniques.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>6.3</b> Newton Raphson algorithm</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="computing-techniques.html"><a href="computing-techniques.html#calculate-the-root"><i class="fa fa-check"></i><b>6.3.1</b> Calculate the root</a></li>
+<li class="chapter" data-level="6.3.2" data-path="computing-techniques.html"><a href="computing-techniques.html#logistic-regression"><i class="fa fa-check"></i><b>6.3.2</b> Logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="computing-techniques.html"><a href="computing-techniques.html#metropolis-hastings"><i class="fa fa-check"></i><b>6.4</b> Metropolis Hastings</a></li>
+<li class="chapter" data-level="6.5" data-path="computing-techniques.html"><a href="computing-techniques.html#em"><i class="fa fa-check"></i><b>6.5</b> EM</a></li>
+<li class="chapter" data-level="6.6" data-path="computing-techniques.html"><a href="computing-techniques.html#references-2"><i class="fa fa-check"></i><b>6.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Mixed Models</a><ul>
+<li class="chapter" data-level="7.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>7.1</b> Basics of GLMM</a></li>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>7.2</b> Some References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>8</b> Twitter Example</a><ul>
+<li class="chapter" data-level="8.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>8.1</b> Model</a></li>
+<li class="chapter" data-level="8.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>8.2</b> Simulating Data of Senators on Twitter</a></li>
+<li class="chapter" data-level="8.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="8.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html"><i class="fa fa-check"></i><b>9</b> Practice: Learning on the Battle Field</a></li>
+<li class="chapter" data-level="10" data-path="project-draft.html"><a href="project-draft.html"><i class="fa fa-check"></i><b>10</b> Project Draft</a><ul>
+<li class="chapter" data-level="10.1" data-path="project-draft.html"><a href="project-draft.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="project-draft.html"><a href="project-draft.html#reference"><i class="fa fa-check"></i><b>10.2</b> Reference</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">GLMM, Concepts, &amp; R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basic-stat-concepts" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Basic Stat Concepts</h1>
+<div id="score" class="section level2">
+<h2><span class="header-section-number">4.1</span> Score</h2>
+<p>The score is the gradient (the vector of partial derivatives) of <span class="math inline">\(log L(\theta)\)</span>, with respect to an m-dimensional parameter vector <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[S(\theta) = \frac{\partial\ell}{\partial \theta}\]</span> Typically, they use <span class="math inline">\(\nabla\)</span> to denote the partical derivative.</p>
+<p><span class="math display">\[\nabla \ell\]</span></p>
+<p>Such differentiation will generate a <span class="math inline">\(m \times 1\)</span> row vector, which indicates the sensitivity of the likelihood.</p>
+<p>Quote from Steffen Lauritzen’s slides: “Generally the solution to this equation must be calculated by iterative methods. One of the most common methods is the Newton–Raphson method and this is based on successive approximations to the solution, using Taylor’s theorem to approximate the equation.”</p>
+<p>For instance, using logit link, we can get the first derivative of log likelihood logistic regression as follows. We can not really find <span class="math inline">\(\beta\)</span> easily to make the equation to be 0.</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{\partial \ell} {\partial \beta} 
+&amp;= \sum_{i=1}^{n}x_i^T[y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}] \\
+&amp;=\sum_{i=1}^{n} x_i^T[y_i-\hat{y_i}]
+\end{aligned}\]</span></p>
+</div>
+<div id="gradient-and-jacobian" class="section level2">
+<h2><span class="header-section-number">4.2</span> Gradient and Jacobian</h2>
+<p><strong>Remarks</strong>: This part discusses gradient in a more general sense.</p>
+<p>When <span class="math inline">\(f(x)\)</span> is only in a single dimension space:</p>
+<p><span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R}\)</span></p>
+<p><span class="math display">\[\nabla f(x)=[\frac{\partial f}{\partial x_1},\frac{\partial f}{\partial x_2},...,\frac{\partial f}{\partial x_n}]\]</span> When <span class="math inline">\(f(x)\)</span> is only in a m-dimension space (i.e., Jacobian): <span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R^m}\)</span></p>
+<p><span class="math display">\[Jac(f)=\begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_1}{\partial x_2} &amp; \frac{\partial f_1}{\partial x_3} &amp; ... &amp; \frac{\partial f_1}{\partial x_n}\\
+\frac{\partial f_2}{\partial x_1} &amp; \frac{\partial f_2}{\partial x_2} &amp; \frac{\partial f_2}{\partial x_3} &amp; ... &amp; \frac{\partial f_2}{\partial x_n} \\
+...\\
+\frac{\partial f_m}{\partial x_1} &amp; \frac{\partial f_m}{\partial x_2} &amp; \frac{\partial f_n}{\partial x_3} &amp; ... &amp; \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}\]</span></p>
+<p>For instance,</p>
+<p><span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R}\)</span>:</p>
+<p><span class="math display">\[f(x,y)=x^2+2y\]</span> <span class="math display">\[\nabla f(x,y)=[\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}]=[2x,2]\]</span> <span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R^m}\)</span></p>
+<p><span class="math display">\[f(x,y)=(x^2+2y,x^3)\]</span> <span class="math display">\[Jac(f)=\begin{bmatrix}
+2x &amp; 2\\
+2x^2 &amp; 0 
+\end{bmatrix}\]</span></p>
+</div>
+<div id="hessian-and-fisher-information" class="section level2">
+<h2><span class="header-section-number">4.3</span> Hessian and Fisher Information</h2>
+<p>Hessian matrix or Hessian is a square matrix of second-order partial derivatives of a scalar-valued function, or scalar field.</p>
+<p><span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R}\)</span></p>
+<p><span class="math display">\[Hessian=\nabla ^2(f) =\begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} &amp; \frac{\partial^2 f}{\partial x_1 \partial x_2} &amp; \frac{\partial^2 f}{\partial x_1 \partial x_3} &amp; ... &amp; \frac{\partial^2 f}{\partial x_1 \partial x_n}\\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} &amp; \frac{\partial^2 f}{\partial x_2^2} &amp; \frac{\partial^2 f}{\partial x_2 \partial x_3} &amp; ... &amp; \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\frac{\partial^2 f}{\partial x_3 \partial x_1} &amp; \frac{\partial^2 f}{\partial x_3 \partial x_2} &amp; \frac{\partial^2 f}{\partial x_3^2} &amp; ... &amp; \frac{\partial^2 f}{\partial x_3 \partial x_n} \\
+...\\
+\frac{\partial^2 f}{\partial x_n \partial x_1} &amp; \frac{\partial^2 f}{\partial x_n \partial x_2} &amp; \frac{\partial^2 f}{\partial x_n \partial x_3} &amp; ... &amp; \frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}\]</span></p>
+<p>As a special case, in the context of logit:</p>
+<p>Suppose that the log likelihood function is <span class="math inline">\(\ell (\theta)\)</span>. <span class="math inline">\(\theta\)</span> is a <span class="math inline">\(m\)</span> demension vector.</p>
+<p><span class="math display">\[ \theta = \begin{bmatrix}\theta_1 \\
+\theta_2 \\
+\theta_3 \\
+\theta_4 \\
+...\\
+\theta_m \\
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[Hessian=\nabla ^2(\ell) =\begin{bmatrix}
+\frac{\partial^2 \ell}{\partial \theta_1^2} &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_2} &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_3} &amp; ... &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_m}\\
+\frac{\partial^2 \ell}{\partial \theta_2 \partial \theta_1} &amp; \frac{\partial^2 \ell}{\partial \theta_2^2 } &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_3} &amp; ... &amp; \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_m} \\
+\frac{\partial^2 \ell}{\partial \theta_3 \partial \theta_1} &amp; \frac{\partial^2 \ell}{\partial \theta_3 \theta_2 } &amp; \frac{\partial^2 \ell}{\partial \theta_3^2} &amp; ... &amp; \frac{\partial^2 \ell}{\partial \theta_3 \partial \theta_m} \\
+...\\
+\frac{\partial^2 \ell}{\partial \theta_m \partial \theta_1} &amp; \frac{\partial^2 \ell}{\partial \theta_m \theta_2 } &amp; \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_3} &amp; ... &amp; \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_m} 
+\end{bmatrix}\]</span></p>
+<p>“In statistics, the observed information, or observed Fisher information, is the negative of the second derivative (the Hessian matrix) of the”log-likelihood&quot; (the logarithm of the likelihood function). It is a sample-based version of the Fisher information.&quot; (Direct quote from Wikipedia.)</p>
+<p>Thus, the observed information matrix:</p>
+<p><span class="math display">\[-Hessian=-\nabla ^2(\ell) \]</span></p>
+<p>Expected (Fisher) information matrix:</p>
+<p><span class="math display">\[E[-\nabla ^2(\ell)] \]</span></p>
+</div>
+<div id="canonical-link-function" class="section level2">
+<h2><span class="header-section-number">4.4</span> Canonical link function</h2>
+<p>Inspired by a Stack Exchange post, I created the following figure:</p>
+<p><span class="math display">\[ \frac{Paramter}{\theta} \longrightarrow \gamma^{&#39;}(\theta) = \mu \longrightarrow \frac{Mean}{\mu} \longrightarrow g(\mu) = \eta \longrightarrow \frac{ Linear predictor}{\eta} \]</span></p>
+<p>For the case of <span class="math inline">\(n\)</span> time Bernoulli (i.e., Binomial), its canonical link function is logit. Specifically,</p>
+<p><span class="math display">\[ \frac{Paramter}{\theta=\beta^Tx_i}  \longrightarrow \gamma^{&#39;}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}\]</span> Thus, we can see that,</p>
+<p><span class="math display">\[\theta \equiv \eta \]</span> The link function <span class="math inline">\(g(\mu)\)</span> relates the linear predictor <span class="math inline">\(\eta = \beta^Tx_i\)</span> to the mean <span class="math inline">\(\mu\)</span>.</p>
+<p><strong>Remarks</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Parameter is <span class="math inline">\(\theta = \beta ^T x_i\)</span> (Not <span class="math inline">\(\mu\)</span>!).</p></li>
+<li><p><span class="math inline">\(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\)</span> (Not logit!).</p></li>
+<li><p>Link function (i.e., <span class="math inline">\(g(\mu)\)</span>) = logit = logarithm of odds = log <span class="math inline">\(\frac{Event - Happened }{Event - Not - Happened}\)</span>.</p></li>
+<li><p><span class="math inline">\(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\)</span>. Thus, link function = linear predictor = log odds!</p></li>
+<li><p>Quote from the Stack Exchange post “Newton Method and Fisher scoring for finding the ML estimator coincide, these links simplify the derivation of the MLE.”</p></li>
+</ol>
+<p>(Recall, we know that <span class="math inline">\(\mu\)</span> or <span class="math inline">\(p(y=1)\)</span> is the mean function. Recall that, <span class="math inline">\(n\)</span> trails of coin flips, and get <span class="math inline">\(p\)</span> heads. Thus <span class="math inline">\(\mu = \frac{p}{n}\)</span>.)</p>
+</div>
+<div id="ordinary-least-squares-ols" class="section level2">
+<h2><span class="header-section-number">4.5</span> Ordinary Least Squares (OLS)</h2>
+<p>Suppose we have <span class="math inline">\(n\)</span> observation, and <span class="math inline">\(m\)</span> variables.</p>
+<p><span class="math display">\[\begin{bmatrix}
+x_{11} &amp; x_{12} &amp; x_{13} &amp; ... &amp; x_{1m}\\
+x_{21} &amp; x_{22} &amp; x_{23} &amp; ... &amp; x_{2m} \\
+...\\
+x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; ... &amp; x_{nm}
+\end{bmatrix}\]</span></p>
+<p>Thus, we can write it as the following <span class="math inline">\(n\)</span> equations.</p>
+<p><span class="math display">\[y_1=\beta_0+\beta_1 x_{11}+\beta_2 x_{12}+...+ \beta_m x_{1m}\]</span> <span class="math display">\[y_2=\beta_0+\beta_1 x_{21}+\beta_2 x_{22}+...+ \beta_m x_{2m}\]</span> <span class="math display">\[y_3=\beta_0+\beta_1 x_{31}+\beta_2 x_{32}+...+ \beta_m x_{3m}\]</span> <span class="math display">\[...\]</span></p>
+<p><span class="math display">\[y_n=\beta_0+\beta_1 x_{n1}+\beta_2 x_{n2}+...+ \beta_m x_{nm}\]</span></p>
+<p>We can combine all the <span class="math inline">\(n\)</span> equations as the following one:</p>
+<p><span class="math display">\[y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+...+ \beta_m x_{im}  (i \in [1,n])\]</span></p>
+<p>We can further rewrite it as a matrix format as follows.</p>
+<p><span class="math display">\[y= X \beta\]</span> Where,</p>
+<p><span class="math display">\[y = \begin{bmatrix}y_1 \\
+y_2 \\
+y_3 \\
+y_4 \\
+...\\
+y_n \\
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[X=\begin{bmatrix}
+1 &amp; x_{11} &amp; x_{12} &amp; x_{13} &amp; ... &amp; x_{1m}\\
+1 &amp; x_{21} &amp; x_{22} &amp; x_{23} &amp; ... &amp; x_{2m} \\
+...\\
+1 &amp; x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; ... &amp; x_{nm}
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[\beta = \begin{bmatrix}\beta_0 \\
+\beta_1 \\
+\beta_2 \\
+\beta_3 \\
+...\\
+\beta_m \\
+\end{bmatrix}\]</span></p>
+<p>Since later we need the inverse of <span class="math inline">\(X\)</span>, we need to make it into a square matrix.</p>
+<p><span class="math display">\[X^Ty=X^TX \hat{\beta} \Rightarrow \hat{\beta} = (X^TX)^{-1} X^Ty\]</span></p>
+<p>We can use R to implement this calculation. As we can see, there is no need to do any iterations at all, but rather just pure matrix calculation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">X&lt;-<span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>),<span class="dt">ncol=</span><span class="dv">2</span>) <span class="co"># we define a 2 column matrix, with 500 rows</span>
+X&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,X) <span class="co"># add a 1 constant</span>
+beta_true&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>) <span class="co"># True regression coefficients</span>
+beta_true&lt;-<span class="kw">as.matrix</span>(beta_true)
+y=X<span class="op">%*%</span>beta_true<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">500</span>)
+
+transposed_X&lt;-<span class="kw">t</span>(X)
+beta_hat&lt;-<span class="kw">solve</span>(transposed_X<span class="op">%*%</span>X)<span class="op">%*%</span>transposed_X<span class="op">%*%</span>y
+beta_hat</code></pre></div>
+<pre><code>##          [,1]
+## [1,] 2.017690
+## [2,] 1.054682
+## [3,] 2.037671</code></pre>
+<p><strong>Side Notes</strong> The function of as.matrix will automatically make c(2,1,2) become the dimension of <span class="math inline">\(3 \times 1\)</span>, you do not need to transpose the <span class="math inline">\(\beta\)</span>.</p>
+</div>
+<div id="taylor-series" class="section level2">
+<h2><span class="header-section-number">4.6</span> Taylor series</h2>
+<p><span class="math display">\[\begin{aligned}
+f(x)|_{a} &amp;=f(a)+\frac{f^{&#39;}(a)}{1!}(x-a)+\frac{f^{&#39;}(a)}{2!}(x-a)^2+\frac{f^{&#39;&#39;}(a)}{3!}(x-a)^{3}+...\\&amp;=\sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n 
+\end{aligned}\]</span></p>
+<p>For example:</p>
+<p><span class="math display">\[\begin{aligned} 
+e^x |_{a=0} &amp;= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}{n!}(x-a)^n \\ 
+&amp;=  1+ \frac{1}{1!}x+\frac{1}{2!}x^2+...+\frac{1}{n!}x^n
+\end{aligned}\]</span></p>
+<p>if <span class="math inline">\(x=2\)</span></p>
+<p><span class="math inline">\(e^2 = 7.389056\)</span></p>
+<p><span class="math inline">\(e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\)</span></p>
+<p><span class="math inline">\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\)</span> …</p>
+<p><span class="math inline">\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\)</span></p>
+</div>
+<div id="fisher-scoring" class="section level2">
+<h2><span class="header-section-number">4.7</span> Fisher scoring</h2>
+<p>[I will come back to this later.]</p>
+<p><a href="https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf" class="uri">https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf</a></p>
+<p><a href="https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression" class="uri">https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression</a></p>
+</div>
+<div id="references-1" class="section level2">
+<h2><span class="header-section-number">4.8</span> References</h2>
+<ol style="list-style-type: decimal">
+<li>Steffen Lauritzen’s slides:</li>
+</ol>
+<p><a href="http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf" class="uri">http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf</a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>The Stack Exchange post:</li>
+</ol>
+<p><a href="https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function" class="uri">https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function</a></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Wilipedia for OLS</li>
+</ol>
+<p><a href="https://en.wikipedia.org/wiki/Ordinary_least_squares" class="uri">https://en.wikipedia.org/wiki/Ordinary_least_squares</a></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Gradient and Jacobian</li>
+</ol>
+<p><a href="https://math.stackexchange.com/questions/1519367/difference-between-gradient-and-jacobian" class="uri">https://math.stackexchange.com/questions/1519367/difference-between-gradient-and-jacobian</a></p>
+<p><a href="https://www.youtube.com/watch?v=3xVMVT-2_t4" class="uri">https://www.youtube.com/watch?v=3xVMVT-2_t4</a></p>
+<p><a href="https://math.stackexchange.com/questions/661195/what-is-the-difference-between-the-gradient-and-the-directional-derivative" class="uri">https://math.stackexchange.com/questions/661195/what-is-the-difference-between-the-gradient-and-the-directional-derivative</a></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Hessian</li>
+</ol>
+<p><a href="https://en.wikipedia.org/wiki/Hessian_matrix" class="uri">https://en.wikipedia.org/wiki/Hessian_matrix</a></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Observed information</li>
+</ol>
+<p><a href="https://en.wikipedia.org/wiki/Observed_information" class="uri">https://en.wikipedia.org/wiki/Observed_information</a></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Fisher information</li>
+</ol>
+<p><a href="https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf">https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf</a></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Link function</li>
+</ol>
+<p><a href="https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function" class="uri">https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function</a></p>
+<p><a href="https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function" class="uri">https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="linear-mixed-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basic-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/081-BasicStat.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

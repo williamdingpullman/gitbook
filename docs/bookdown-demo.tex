@@ -119,7 +119,7 @@
 
 \title{GLMM, Concepts, \& R}
 \author{Bill}
-\date{31 December, 2019}
+\date{01 January, 2020}
 
 \begin{document}
 \maketitle
@@ -731,7 +731,7 @@ As we can see that, LLM and paired t-test generate the same t-value.
 \end{Shaded}
 
 \begin{verbatim}
-## The following objects are masked from Dyestuff (pos = 6):
+## The following objects are masked from Dyestuff (pos = 7):
 ## 
 ##     Batch, Yield
 \end{verbatim}
@@ -826,7 +826,7 @@ more discussion, you can refer to the following link:
 \end{Shaded}
 
 \begin{verbatim}
-## The following objects are masked from sleepstudy (pos = 6):
+## The following objects are masked from sleepstudy (pos = 7):
 ## 
 ##     Days, Reaction, Subject
 \end{verbatim}
@@ -1050,7 +1050,7 @@ calculate time serial data.
 ## Number of Groups: 11
 \end{verbatim}
 
-\chapter{Basic Concepts (1)}\label{basic-concepts-1}
+\chapter{Basic Stat Concepts}\label{basic-stat-concepts}
 
 \section{Score}\label{score}
 
@@ -1408,7 +1408,7 @@ if \(x=2\)
 
 \url{https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function}
 
-\chapter{Basic Concepts (2)}\label{basic-concepts-2}
+\chapter{Basic R}\label{basic-r}
 
 This section is about R coding.
 
@@ -1886,6 +1886,10 @@ Raphson analysis.
 \KeywordTok{plot}\NormalTok{(c_iteration,}\DataTypeTok{type=}\StringTok{"b"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\section{Metropolis Hastings}\label{metropolis-hastings}
+
+\section{EM}\label{em}
 
 \section{References}\label{references-2}
 
@@ -2441,12 +2445,14 @@ package.
 
 \NormalTok{## time varying covariates}
 \NormalTok{Xl =}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\StringTok{'list'}\NormalTok{, K)}
-\ControlFlowTok{for}\NormalTok{(k }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{K) Xl[[k]] =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{p), n,p)}
+\CommentTok{# 4 list, each 1000 individuals}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{K) Xl[[i]] =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{p), n,p)}
 
 \NormalTok{## constant covariate}
 \NormalTok{Z =}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(n, }\DecValTok{2}\NormalTok{,}\FloatTok{0.2}\NormalTok{)}
 
 \NormalTok{## random effects}
+\CommentTok{# Not sure about this }
 \NormalTok{U =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n)}\OperatorTok{*}\NormalTok{sig}
 
 \NormalTok{## fixed effects}
@@ -2486,6 +2492,67 @@ package.
 ## (Intercept)          Xs1          Xs2          Xs3       Z[sid]  
 ##      0.1537       0.6650       0.6429       0.6074       0.0199
 \end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## MH sampling of random effects | data}
+\NormalTok{## logit\textbackslash{}Pr(D_i|eta_i,U) = eta_i+U; U \textbackslash{}sim N(0,Vu)}
+\NormalTok{## proposal dist: N(Uc,Vc)}
+
+\NormalTok{U.mh <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(Di,eta, Vu, Uc,Vc, }\DataTypeTok{B=}\DecValTok{100}\NormalTok{)\{}
+\NormalTok{  ub =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, B)}
+\NormalTok{  ub[}\DecValTok{1}\NormalTok{] =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{)}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(Vc)}\OperatorTok{+}\NormalTok{Uc}
+\NormalTok{  prb =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{eta}\OperatorTok{-}\NormalTok{ub[}\DecValTok{1}\NormalTok{]))}
+\NormalTok{  llk0 =}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(ub[}\DecValTok{1}\NormalTok{],}\DataTypeTok{sd=}\KeywordTok{sqrt}\NormalTok{(Vu), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(Di}\OperatorTok{*}\NormalTok{prb}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{Di)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{prb))) }\OperatorTok{-}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(ub[}\DecValTok{1}\NormalTok{],Uc,}\KeywordTok{sqrt}\NormalTok{(Vc), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{(k }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\NormalTok{B)\{}
+\NormalTok{    ub[k] =}\StringTok{ }\NormalTok{ub[k}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\NormalTok{    uk =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{)}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(Vc)}\OperatorTok{+}\NormalTok{Uc}
+\NormalTok{    prb =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{eta}\OperatorTok{-}\NormalTok{uk))}
+\NormalTok{    llk1 =}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(uk,}\DataTypeTok{sd=}\KeywordTok{sqrt}\NormalTok{(Vu), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(Di}\OperatorTok{*}\NormalTok{prb}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{Di)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{prb))) }\OperatorTok{-}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(uk,Uc,}\KeywordTok{sqrt}\NormalTok{(Vc), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{    alpha =}\StringTok{ }\KeywordTok{exp}\NormalTok{( llk1 }\OperatorTok{-}\StringTok{ }\NormalTok{llk0  )}
+    \ControlFlowTok{if}\NormalTok{(alpha}\OperatorTok{>=}\DecValTok{1}\NormalTok{)\{}
+\NormalTok{      ub[k] =}\StringTok{ }\NormalTok{uk}
+\NormalTok{      llk0 =}\StringTok{ }\NormalTok{llk1}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{      aa =}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+      \ControlFlowTok{if}\NormalTok{(aa}\OperatorTok{<}\NormalTok{alpha)\{}
+\NormalTok{        ub[k] =}\StringTok{ }\NormalTok{uk}
+\NormalTok{        llk0 =}\StringTok{ }\NormalTok{llk1}
+\NormalTok{      \}}
+\NormalTok{    \}}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{(ub)}
+\NormalTok{\}}
+
+\KeywordTok{library}\NormalTok{(numDeriv)}
+\NormalTok{UV.est <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(Di,eta,Vu,Uc)\{}
+\NormalTok{  llk0 =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(xpar)\{}
+\NormalTok{    Uc =}\StringTok{ }\NormalTok{xpar}
+\NormalTok{    prb =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{eta}\OperatorTok{-}\NormalTok{Uc))}
+\NormalTok{    res =}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(Uc,}\DataTypeTok{sd=}\KeywordTok{sqrt}\NormalTok{(Vu), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(Di}\OperatorTok{*}\NormalTok{prb}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{Di)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{prb)))}
+    \OperatorTok{-}\NormalTok{res}
+\NormalTok{  \}}
+\NormalTok{  tmp =}\StringTok{ }\KeywordTok{try}\NormalTok{(}\KeywordTok{optim}\NormalTok{(Uc, llk0, }\DataTypeTok{method=}\StringTok{'Brent'}\NormalTok{, }\DataTypeTok{lower=}\NormalTok{Uc}\OperatorTok{-}\DecValTok{10}\NormalTok{,}\DataTypeTok{upper=}\NormalTok{Uc}\OperatorTok{+}\DecValTok{10}\NormalTok{) )}
+  \ControlFlowTok{if}\NormalTok{(}\KeywordTok{class}\NormalTok{(tmp)}\OperatorTok{==}\StringTok{'try-error'}\NormalTok{) tmp =}\StringTok{ }\KeywordTok{optim}\NormalTok{(Uc, llk0)}
+\NormalTok{  Uc =}\StringTok{ }\NormalTok{tmp}\OperatorTok{$}\NormalTok{par}
+\NormalTok{  Vc =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\KeywordTok{hessian}\NormalTok{(llk0, Uc)}
+  \KeywordTok{c}\NormalTok{(Uc,Vc)}
+\NormalTok{\}}
+\NormalTok{UV.mh <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(Vu,beta,Uc, D,X,subj)\{}
+\NormalTok{  ## Cov matrix}
+\NormalTok{  sid =}\StringTok{ }\KeywordTok{unique}\NormalTok{(subj);  n =}\StringTok{ }\KeywordTok{length}\NormalTok{(sid)}
+\NormalTok{  Uc =}\StringTok{ }\NormalTok{Vc =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,n)}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n)\{}
+\NormalTok{    ij =}\StringTok{ }\KeywordTok{which}\NormalTok{(subj}\OperatorTok{==}\NormalTok{sid[i]);  ni =}\StringTok{ }\KeywordTok{length}\NormalTok{(ij)}
+\NormalTok{    Xi =}\StringTok{ }\NormalTok{X[ij,,drop=}\OtherTok{FALSE}\NormalTok{]}
+\NormalTok{    eta =}\StringTok{ }\NormalTok{Xi}\OperatorTok{%*%}\NormalTok{beta}
+\NormalTok{    zi =}\StringTok{ }\KeywordTok{UV.est}\NormalTok{(D[ij],eta,Vu,Uc[i])}
+\NormalTok{    Uc[i] =}\StringTok{ }\NormalTok{zi[}\DecValTok{1}\NormalTok{]; Vc[i] =}\StringTok{ }\NormalTok{zi[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{Uc=}\NormalTok{Uc,}\DataTypeTok{Vc=}\NormalTok{Vc) )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Reference}\label{reference}
 

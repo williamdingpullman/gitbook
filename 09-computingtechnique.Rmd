@@ -274,6 +274,12 @@ plot(c_iteration,type="b")
 
 ```
 
+## Metropolis Hastings
+
+
+## EM
+
+
 ## References
 
 1. The UBC PDF about Newton
