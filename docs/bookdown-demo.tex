@@ -1984,6 +1984,69 @@ Thus, the posterior is as follows.
 \[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]
 \[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Establish the function for logistic regression}
+\NormalTok{Expit<-}\ControlFlowTok{function}\NormalTok{(x)\{}\KeywordTok{exp}\NormalTok{(x)}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(x))\}}
+
+\CommentTok{#Construct the posterior - in a log-format}
+\CommentTok{#To make sure that the estimate of theta_1 is stable, }
+\CommentTok{#the following code wants to make sure that theta_0 is always greater than zero.}
+
+\NormalTok{log_post<-}\ControlFlowTok{function}\NormalTok{(Y, X, theta)}
+\NormalTok{  \{}
+  \ControlFlowTok{if}\NormalTok{(theta[}\DecValTok{1}\NormalTok{]}\OperatorTok{<=}\DecValTok{0}\NormalTok{)\{post=}\OperatorTok{-}\OtherTok{Inf}\NormalTok{\}}
+  \ControlFlowTok{if}\NormalTok{(theta[}\DecValTok{1}\NormalTok{]}\OperatorTok{>}\DecValTok{0}\NormalTok{)\{}
+\NormalTok{  prob1<-}\KeywordTok{Expit}\NormalTok{(}\OperatorTok{-}\NormalTok{theta[}\DecValTok{1}\NormalTok{]}\OperatorTok{*}\NormalTok{((theta[}\DecValTok{2}\NormalTok{]}\OperatorTok{-}\NormalTok{X)}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+\NormalTok{  likelihood<-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{dbinom}\NormalTok{(Y,}\DecValTok{1}\NormalTok{,prob1,}\DataTypeTok{log =} \OtherTok{TRUE}\NormalTok{))}
+\NormalTok{  priors<-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{dnorm}\NormalTok{(theta,}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{))}
+\NormalTok{  post=likelihood}\OperatorTok{+}\NormalTok{priors\}}
+  \KeywordTok{return}\NormalTok{(post)}
+\NormalTok{   \}}
+
+\NormalTok{Bayes_logit<-}\ControlFlowTok{function}\NormalTok{ (Y,X,}\DataTypeTok{n_samples=}\DecValTok{2000}\NormalTok{)}
+\NormalTok{\{}
+\CommentTok{#Initial values}
+\NormalTok{  theta<-}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\CommentTok{#store data}
+\NormalTok{  keep.theta<-}\KeywordTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,n_samples,}\DecValTok{2}\NormalTok{)}
+\NormalTok{  keep.theta[}\DecValTok{1}\NormalTok{,]<-theta}
+  
+\CommentTok{#acceptance and rejection  }
+\NormalTok{  acc<-att<-}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\CommentTok{#current log posterior}
+\NormalTok{  current_lp<-}\KeywordTok{log_post}\NormalTok{(Y,X,theta)}
+
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\NormalTok{n_samples)  }
+\NormalTok{  \{}
+    
+    \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
+\NormalTok{    \{}
+      \CommentTok{#attempt + 1}
+\NormalTok{      att[j]<-att[j]}\OperatorTok{+}\DecValTok{1}
+\NormalTok{      can_theta<-theta}
+\NormalTok{      can_theta[j]<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,theta[j],}\FloatTok{0.5}\NormalTok{)}
+      \CommentTok{#candidate of log posterior}
+\NormalTok{      candidate_lp<-}\KeywordTok{log_post}\NormalTok{(Y,X,can_theta)}
+\NormalTok{      Rho<-}\KeywordTok{min}\NormalTok{(}\KeywordTok{exp}\NormalTok{(candidate_lp}\OperatorTok{-}\NormalTok{current_lp),}\DecValTok{1}\NormalTok{)}
+\NormalTok{      Random_probability<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+      \ControlFlowTok{if}\NormalTok{ (Random_probability}\OperatorTok{<}\NormalTok{Rho)}
+\NormalTok{      \{}
+\NormalTok{        theta<-can_theta}
+\NormalTok{        current_lp<-candidate_lp}
+        \CommentTok{#acceptance + 1, as long as Random_probability<Rho}
+\NormalTok{        acc[j]<-acc[j]}\OperatorTok{+}\DecValTok{1}
+\NormalTok{      \}}
+\NormalTok{    \}}
+    \CommentTok{#save theta}
+\NormalTok{    keep.theta[i,]<-theta}
+\NormalTok{  \}}
+\CommentTok{#Return: including theta and acceptance rate}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{theta=}\NormalTok{keep.theta,}\DataTypeTok{acceptance_rate=}\NormalTok{acc}\OperatorTok{/}\NormalTok{att)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
 \section{Simulating Data of Senators on
 Twitter}\label{simulating-data-of-senators-on-twitter}
 
@@ -2063,7 +2126,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2072,7 +2135,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2081,7 +2144,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -2122,7 +2185,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-28-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2131,7 +2194,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-28-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2140,7 +2203,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-28-3.pdf}
 
 \chapter{Practice: Learning on the Battle
 Field}\label{practice-learning-on-the-battle-field}

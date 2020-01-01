@@ -201,6 +201,64 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The likelihood function is as follows.</p>
 <p><span class="math display">\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]</span> Thus, the posterior is as follows.</p>
 <p><span class="math display">\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]</span> <span class="math display">\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Establish the function for logistic regression</span>
+Expit&lt;-<span class="cf">function</span>(x){<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))}
+
+<span class="co">#Construct the posterior - in a log-format</span>
+<span class="co">#To make sure that the estimate of theta_1 is stable, </span>
+<span class="co">#the following code wants to make sure that theta_0 is always greater than zero.</span>
+
+log_post&lt;-<span class="cf">function</span>(Y, X, theta)
+  {
+  <span class="cf">if</span>(theta[<span class="dv">1</span>]<span class="op">&lt;=</span><span class="dv">0</span>){post=<span class="op">-</span><span class="ot">Inf</span>}
+  <span class="cf">if</span>(theta[<span class="dv">1</span>]<span class="op">&gt;</span><span class="dv">0</span>){
+  prob1&lt;-<span class="kw">Expit</span>(<span class="op">-</span>theta[<span class="dv">1</span>]<span class="op">*</span>((theta[<span class="dv">2</span>]<span class="op">-</span>X)<span class="op">^</span><span class="dv">2</span>))
+  likelihood&lt;-<span class="kw">sum</span>(<span class="kw">dbinom</span>(Y,<span class="dv">1</span>,prob1,<span class="dt">log =</span> <span class="ot">TRUE</span>))
+  priors&lt;-<span class="kw">sum</span>(<span class="kw">dnorm</span>(theta,<span class="dv">0</span>,<span class="dv">10</span>,<span class="dt">log=</span><span class="ot">TRUE</span>))
+  post=likelihood<span class="op">+</span>priors}
+  <span class="kw">return</span>(post)
+   }
+
+Bayes_logit&lt;-<span class="cf">function</span> (Y,X,<span class="dt">n_samples=</span><span class="dv">2000</span>)
+{
+<span class="co">#Initial values</span>
+  theta&lt;-<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">5</span>)
+<span class="co">#store data</span>
+  keep.theta&lt;-<span class="kw">matrix</span>(<span class="dv">0</span>,n_samples,<span class="dv">2</span>)
+  keep.theta[<span class="dv">1</span>,]&lt;-theta
+  
+<span class="co">#acceptance and rejection  </span>
+  acc&lt;-att&lt;-<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">2</span>)
+<span class="co">#current log posterior</span>
+  current_lp&lt;-<span class="kw">log_post</span>(Y,X,theta)
+
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>n_samples)  
+  {
+    
+    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)
+    {
+      <span class="co">#attempt + 1</span>
+      att[j]&lt;-att[j]<span class="op">+</span><span class="dv">1</span>
+      can_theta&lt;-theta
+      can_theta[j]&lt;-<span class="kw">rnorm</span>(<span class="dv">1</span>,theta[j],<span class="fl">0.5</span>)
+      <span class="co">#candidate of log posterior</span>
+      candidate_lp&lt;-<span class="kw">log_post</span>(Y,X,can_theta)
+      Rho&lt;-<span class="kw">min</span>(<span class="kw">exp</span>(candidate_lp<span class="op">-</span>current_lp),<span class="dv">1</span>)
+      Random_probability&lt;-<span class="kw">runif</span>(<span class="dv">1</span>)
+      <span class="cf">if</span> (Random_probability<span class="op">&lt;</span>Rho)
+      {
+        theta&lt;-can_theta
+        current_lp&lt;-candidate_lp
+        <span class="co">#acceptance + 1, as long as Random_probability&lt;Rho</span>
+        acc[j]&lt;-acc[j]<span class="op">+</span><span class="dv">1</span>
+      }
+    }
+    <span class="co">#save theta</span>
+    keep.theta[i,]&lt;-theta
+  }
+<span class="co">#Return: including theta and acceptance rate</span>
+  <span class="kw">list</span>(<span class="dt">theta=</span>keep.theta,<span class="dt">acceptance_rate=</span>acc<span class="op">/</span>att)
+}</code></pre></div>
 </div>
 <div id="simulating-data-of-senators-on-twitter" class="section level2">
 <h2><span class="header-section-number">8.2</span> Simulating Data of Senators on Twitter</h2>
@@ -245,13 +303,13 @@ fit_C<span class="op">$</span>acceptance_rate</code></pre></div>
 <pre><code>## [1] 0.1590795 0.4817409</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Conservative Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-2.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-3.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-3.png" width="672" /></p>
 </div>
 <div id="simulating-data-of-liberal-users-on-twitter-and-model-testing" class="section level2">
 <h2><span class="header-section-number">8.4</span> Simulating Data of Liberal Users on Twitter and Model Testing</h2>
@@ -270,13 +328,13 @@ fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
 <pre><code>## [1] 0.2081041 0.4337169</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Liberal Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-2.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-3.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-3.png" width="672" /></p>
 
 </div>
 </div>
