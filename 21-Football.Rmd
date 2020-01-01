@@ -1,7 +1,5 @@
 # Practice: Learning on the Battle Field
 
-
-
 ```{R eval = FALSE}
 #https://fivethirtyeight.com/contributors/josh-hermsmeyer/
 # https://github.com/ryurko/nflscrapR-data/blob/master/legacy_data/README.md

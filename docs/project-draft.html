@@ -133,10 +133,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.4" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#canonical-link-function"><i class="fa fa-check"></i><b>4.4</b> Canonical link function</a></li>
 <li class="chapter" data-level="4.5" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.5</b> Ordinary Least Squares (OLS)</a></li>
 <li class="chapter" data-level="4.6" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#taylor-series"><i class="fa fa-check"></i><b>4.6</b> Taylor series</a></li>
-<li class="chapter" data-level="4.7" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#references-1"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+<li class="chapter" data-level="4.7" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#fisher-scoring"><i class="fa fa-check"></i><b>4.7</b> Fisher scoring</a></li>
+<li class="chapter" data-level="4.8" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#references-1"><i class="fa fa-check"></i><b>4.8</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html"><i class="fa fa-check"></i><b>5</b> Basic Concepts (2)</a><ul>
-<li class="chapter" data-level="5.1" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#fisher-scoring"><i class="fa fa-check"></i><b>5.1</b> Fisher scoring</a></li>
+<li class="chapter" data-level="5.1" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#apply-lapply-sapply"><i class="fa fa-check"></i><b>5.1</b> apply, lapply, sapply</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#apply"><i class="fa fa-check"></i><b>5.1.1</b> apply</a></li>
+<li class="chapter" data-level="5.1.2" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#lapply"><i class="fa fa-check"></i><b>5.1.2</b> lapply</a></li>
+<li class="chapter" data-level="5.1.3" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#sapply"><i class="fa fa-check"></i><b>5.1.3</b> sapply</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>6</b> Computing Techniques</a><ul>
 <li class="chapter" data-level="6.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>6.1</b> Monte carlo approximation</a></li>
@@ -160,6 +165,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html"><i class="fa fa-check"></i><b>9</b> Practice: Learning on the Battle Field</a></li>
 <li class="chapter" data-level="10" data-path="project-draft.html"><a href="project-draft.html"><i class="fa fa-check"></i><b>10</b> Project Draft</a><ul>
 <li class="chapter" data-level="10.1" data-path="project-draft.html"><a href="project-draft.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="project-draft.html"><a href="project-draft.html#reference"><i class="fa fa-check"></i><b>10.2</b> Reference</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -185,7 +191,60 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 10</span> Project Draft</h1>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">10.1</span> Introduction</h2>
-<p>In this example,</p>
+<p>The following code is from this website: <a href="http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html" class="uri">http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html</a>. I will remove it on this page after I complete my practice and learning.</p>
+<p>In this example, it simulates a longitudinal data with 4 variables for each of 1000 separate individuals. Specifically, there are three continuous covariates (varying over time) and one ordinal covariate (constant over time). We will consider a random intercept model (mean zero and variance 100), and fit the data with glmer() from lme4 R package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="dv">1000</span>; p =<span class="st"> </span><span class="dv">3</span>; K =<span class="st"> </span><span class="dv">4</span>; sig =<span class="st"> </span><span class="dv">10</span>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+
+## time varying covariates
+Xl =<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;list&#39;</span>, K)
+<span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K) Xl[[k]] =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p), n,p)
+
+## constant covariate
+Z =<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dv">2</span>,<span class="fl">0.2</span>)
+
+## random effects
+U =<span class="st"> </span><span class="kw">rnorm</span>(n)<span class="op">*</span>sig
+
+## fixed effects
+etaX =<span class="st"> </span><span class="kw">sapply</span>(Xl, rowSums)
+
+## random errors
+eps =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>K), n,K)
+
+## logit model
+eta =<span class="st"> </span>etaX <span class="op">+</span><span class="st"> </span>U <span class="op">+</span><span class="st"> </span>eps
+prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta))
+D =<span class="st"> </span><span class="dv">1</span><span class="op">*</span>(<span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>K),n,K)<span class="op">&lt;</span>prb)
+Xs =<span class="st"> </span>Xl[[<span class="dv">1</span>]]
+<span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>K) Xs =<span class="st"> </span><span class="kw">rbind</span>(Xs, Xl[[k]])
+## GLMM model
+<span class="kw">library</span>(lme4)
+sid =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, K)
+## model fit with GLMMM (default to Laplace approximation)
+a1 =<span class="st"> </span><span class="kw">glmer</span>(<span class="kw">c</span>(D) <span class="op">~</span><span class="st"> </span>Xs <span class="op">+</span><span class="st"> </span>Z[sid] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>sid), <span class="dt">family=</span>binomial)
+
+a1</code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: c(D) ~ Xs + Z[sid] + (1 | sid)
+##       AIC       BIC    logLik  deviance  df.resid 
+##  3213.666  3251.430 -1600.833  3201.666      3994 
+## Random effects:
+##  Groups Name        Std.Dev.
+##  sid    (Intercept) 5.816   
+## Number of obs: 4000, groups:  sid, 1000
+## Fixed Effects:
+## (Intercept)          Xs1          Xs2          Xs3       Z[sid]  
+##      0.1537       0.6650       0.6429       0.6074       0.0199</code></pre>
+</div>
+<div id="reference" class="section level2">
+<h2><span class="header-section-number">10.2</span> Reference</h2>
+<ol style="list-style-type: decimal">
+<li>Data</li>
+</ol>
+<p><a href="http://www.michelecoscia.com/?page_id=379" class="uri">http://www.michelecoscia.com/?page_id=379</a></p>
 
 </div>
 </div>

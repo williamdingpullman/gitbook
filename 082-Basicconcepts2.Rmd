@@ -1,7 +1,43 @@
 # Basic Concepts (2)
 
-## Fisher scoring
+This section is about R coding.
 
-https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf
+## apply, lapply, sapply
 
-https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression
+### apply
+```{R}
+m_trying <- matrix(C<-(1:10),nrow=2, ncol=5)
+m_trying
+
+## Operating on the columns
+apply(m_trying, 2, sum)
+
+## Operating on the rows
+apply(m_trying, 1, sum)
+
+```
+
+### lapply
+
+"lapply returns a list of the same length as X, each element of which is the result of applying FUN to the corresponding element of X."
+
+lapply operates on lists. Thus, as we can see below, even if m_trying is not a list, each cell becomes a list. 
+
+```{R}
+results1<-lapply(m_trying,sum)
+str(results1)
+is.list(results1)
+```
+
+
+### sapply
+"sapply() function takes list, vector or data frame as input and gives output in vector or matrix."
+
+```{R}
+results2<-sapply(m_trying, sum)
+str(results2)
+is.list(results2)
+is.matrix(results2)
+is.data.frame(results2)
+is.vector(results2)
+```

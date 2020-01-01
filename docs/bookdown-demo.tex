@@ -1313,6 +1313,14 @@ if \(x=2\)
 
 \(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\)
 
+\section{Fisher scoring}\label{fisher-scoring}
+
+{[}I will come back to this later.{]}
+
+\url{https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf}
+
+\url{https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression}
+
 \section{References}\label{references-1}
 
 \begin{enumerate}
@@ -1402,11 +1410,141 @@ if \(x=2\)
 
 \chapter{Basic Concepts (2)}\label{basic-concepts-2}
 
-\section{Fisher scoring}\label{fisher-scoring}
+This section is about R coding.
 
-\url{https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf}
+\section{apply, lapply, sapply}\label{apply-lapply-sapply}
 
-\url{https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression}
+\subsection{apply}\label{apply}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m_trying <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(C<-(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{),}\DataTypeTok{nrow=}\DecValTok{2}\NormalTok{, }\DataTypeTok{ncol=}\DecValTok{5}\NormalTok{)}
+\NormalTok{m_trying}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Operating on the columns}
+\KeywordTok{apply}\NormalTok{(m_trying, }\DecValTok{2}\NormalTok{, sum)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  3  7 11 15 19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Operating on the rows}
+\KeywordTok{apply}\NormalTok{(m_trying, }\DecValTok{1}\NormalTok{, sum)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 25 30
+\end{verbatim}
+
+\subsection{lapply}\label{lapply}
+
+``lapply returns a list of the same length as X, each element of which
+is the result of applying FUN to the corresponding element of X.''
+
+lapply operates on lists. Thus, as we can see below, even if m\_trying
+is not a list, each cell becomes a list.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{results1<-}\KeywordTok{lapply}\NormalTok{(m_trying,sum)}
+\KeywordTok{str}\NormalTok{(results1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## List of 10
+##  $ : int 1
+##  $ : int 2
+##  $ : int 3
+##  $ : int 4
+##  $ : int 5
+##  $ : int 6
+##  $ : int 7
+##  $ : int 8
+##  $ : int 9
+##  $ : int 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.list}\NormalTok{(results1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\subsection{sapply}\label{sapply}
+
+``sapply() function takes list, vector or data frame as input and gives
+output in vector or matrix.''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{results2<-}\KeywordTok{sapply}\NormalTok{(m_trying, sum)}
+\KeywordTok{str}\NormalTok{(results2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  int [1:10] 1 2 3 4 5 6 7 8 9 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.list}\NormalTok{(results2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.matrix}\NormalTok{(results2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.data.frame}\NormalTok{(results2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.vector}\NormalTok{(results2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
 
 \chapter{Computing Techniques}\label{computing-techniques}
 
@@ -1455,7 +1593,7 @@ the calculation of the integral.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}
 
 \section{Importance sampling}\label{importance-sampling}
 
@@ -1512,7 +1650,7 @@ the definition of expected value.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf}
 
 \section{Newton Raphson algorithm}\label{newton-raphson-algorithm}
 
@@ -1586,7 +1724,7 @@ we can see the following plot, it converts very quickly.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}
 
 \subsection{Logistic regression}\label{logistic-regression}
 
@@ -1921,7 +2059,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1930,7 +2068,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1939,7 +2077,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -1980,7 +2118,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1989,7 +2127,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1998,7 +2136,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-3.pdf}
 
 \chapter{Practice: Learning on the Battle
 Field}\label{practice-learning-on-the-battle-field}
@@ -2285,7 +2423,80 @@ Field}\label{practice-learning-on-the-battle-field}
 
 \section{Introduction}\label{introduction}
 
-In this example,
+The following code is from this website:
+\url{http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html}.
+I will remove it on this page after I complete my practice and learning.
+
+In this example, it simulates a longitudinal data with 4 variables for
+each of 1000 separate individuals. Specifically, there are three
+continuous covariates (varying over time) and one ordinal covariate
+(constant over time). We will consider a random intercept model (mean
+zero and variance 100), and fit the data with glmer() from lme4 R
+package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n =}\StringTok{ }\DecValTok{1000}\NormalTok{; p =}\StringTok{ }\DecValTok{3}\NormalTok{; K =}\StringTok{ }\DecValTok{4}\NormalTok{; sig =}\StringTok{ }\DecValTok{10}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{## time varying covariates}
+\NormalTok{Xl =}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\StringTok{'list'}\NormalTok{, K)}
+\ControlFlowTok{for}\NormalTok{(k }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{K) Xl[[k]] =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{p), n,p)}
+
+\NormalTok{## constant covariate}
+\NormalTok{Z =}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(n, }\DecValTok{2}\NormalTok{,}\FloatTok{0.2}\NormalTok{)}
+
+\NormalTok{## random effects}
+\NormalTok{U =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n)}\OperatorTok{*}\NormalTok{sig}
+
+\NormalTok{## fixed effects}
+\NormalTok{etaX =}\StringTok{ }\KeywordTok{sapply}\NormalTok{(Xl, rowSums)}
+
+\NormalTok{## random errors}
+\NormalTok{eps =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{K), n,K)}
+
+\NormalTok{## logit model}
+\NormalTok{eta =}\StringTok{ }\NormalTok{etaX }\OperatorTok{+}\StringTok{ }\NormalTok{U }\OperatorTok{+}\StringTok{ }\NormalTok{eps}
+\NormalTok{prb =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{eta))}
+\NormalTok{D =}\StringTok{ }\DecValTok{1}\OperatorTok{*}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{runif}\NormalTok{(n}\OperatorTok{*}\NormalTok{K),n,K)}\OperatorTok{<}\NormalTok{prb)}
+\NormalTok{Xs =}\StringTok{ }\NormalTok{Xl[[}\DecValTok{1}\NormalTok{]]}
+\ControlFlowTok{for}\NormalTok{(k }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\NormalTok{K) Xs =}\StringTok{ }\KeywordTok{rbind}\NormalTok{(Xs, Xl[[k]])}
+\NormalTok{## GLMM model}
+\KeywordTok{library}\NormalTok{(lme4)}
+\NormalTok{sid =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, K)}
+\NormalTok{## model fit with GLMMM (default to Laplace approximation)}
+\NormalTok{a1 =}\StringTok{ }\KeywordTok{glmer}\NormalTok{(}\KeywordTok{c}\NormalTok{(D) }\OperatorTok{~}\StringTok{ }\NormalTok{Xs }\OperatorTok{+}\StringTok{ }\NormalTok{Z[sid] }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{sid), }\DataTypeTok{family=}\NormalTok{binomial)}
+
+\NormalTok{a1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: c(D) ~ Xs + Z[sid] + (1 | sid)
+##       AIC       BIC    logLik  deviance  df.resid 
+##  3213.666  3251.430 -1600.833  3201.666      3994 
+## Random effects:
+##  Groups Name        Std.Dev.
+##  sid    (Intercept) 5.816   
+## Number of obs: 4000, groups:  sid, 1000
+## Fixed Effects:
+## (Intercept)          Xs1          Xs2          Xs3       Z[sid]  
+##      0.1537       0.6650       0.6429       0.6074       0.0199
+\end{verbatim}
+
+\section{Reference}\label{reference}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Data
+\end{enumerate}
+
+\url{http://www.michelecoscia.com/?page_id=379}
 
 \bibliography{book.bib,packages.bib}
 

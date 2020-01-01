@@ -238,6 +238,13 @@ $e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5
 
 $e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...$
 
+## Fisher scoring
+
+[I will come back to this later.]
+
+https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf
+
+https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression
 
 
 ## References

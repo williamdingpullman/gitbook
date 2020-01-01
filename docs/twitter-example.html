@@ -133,10 +133,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.4" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#canonical-link-function"><i class="fa fa-check"></i><b>4.4</b> Canonical link function</a></li>
 <li class="chapter" data-level="4.5" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.5</b> Ordinary Least Squares (OLS)</a></li>
 <li class="chapter" data-level="4.6" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#taylor-series"><i class="fa fa-check"></i><b>4.6</b> Taylor series</a></li>
-<li class="chapter" data-level="4.7" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#references-1"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+<li class="chapter" data-level="4.7" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#fisher-scoring"><i class="fa fa-check"></i><b>4.7</b> Fisher scoring</a></li>
+<li class="chapter" data-level="4.8" data-path="basic-concepts-1.html"><a href="basic-concepts-1.html#references-1"><i class="fa fa-check"></i><b>4.8</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html"><i class="fa fa-check"></i><b>5</b> Basic Concepts (2)</a><ul>
-<li class="chapter" data-level="5.1" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#fisher-scoring"><i class="fa fa-check"></i><b>5.1</b> Fisher scoring</a></li>
+<li class="chapter" data-level="5.1" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#apply-lapply-sapply"><i class="fa fa-check"></i><b>5.1</b> apply, lapply, sapply</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#apply"><i class="fa fa-check"></i><b>5.1.1</b> apply</a></li>
+<li class="chapter" data-level="5.1.2" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#lapply"><i class="fa fa-check"></i><b>5.1.2</b> lapply</a></li>
+<li class="chapter" data-level="5.1.3" data-path="basic-concepts-2.html"><a href="basic-concepts-2.html#sapply"><i class="fa fa-check"></i><b>5.1.3</b> sapply</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>6</b> Computing Techniques</a><ul>
 <li class="chapter" data-level="6.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>6.1</b> Monte carlo approximation</a></li>
@@ -160,6 +165,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html"><i class="fa fa-check"></i><b>9</b> Practice: Learning on the Battle Field</a></li>
 <li class="chapter" data-level="10" data-path="project-draft.html"><a href="project-draft.html"><i class="fa fa-check"></i><b>10</b> Project Draft</a><ul>
 <li class="chapter" data-level="10.1" data-path="project-draft.html"><a href="project-draft.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="project-draft.html"><a href="project-draft.html#reference"><i class="fa fa-check"></i><b>10.2</b> Reference</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -237,13 +243,13 @@ fit_C<span class="op">$</span>acceptance_rate</code></pre></div>
 <pre><code>## [1] 0.1590795 0.4817409</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Conservative Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-2.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-3.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-3.png" width="672" /></p>
 </div>
 <div id="simulating-data-of-liberal-users-on-twitter-and-model-testing" class="section level2">
 <h2><span class="header-section-number">8.4</span> Simulating Data of Liberal Users on Twitter and Model Testing</h2>
@@ -262,13 +268,13 @@ fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
 <pre><code>## [1] 0.2081041 0.4337169</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Liberal Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-2.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
      <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-24-3.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-3.png" width="672" /></p>
 
 </div>
 </div>
