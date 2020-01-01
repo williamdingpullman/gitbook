@@ -1,5 +1,7 @@
 # Practice: Learning on the Battle Field
 
+## R code
+
 ```{R eval = FALSE}
 #https://fivethirtyeight.com/contributors/josh-hermsmeyer/
 # https://github.com/ryurko/nflscrapR-data/blob/master/legacy_data/README.md
@@ -160,3 +162,12 @@ summary(mylogit3)
 
 
 ```
+
+
+## References
+
+https://arxiv.org/pdf/1403.7993.pdf
+
+http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/Chapter11.pdf
+
+https://rpubs.com/JanpuHou/326048

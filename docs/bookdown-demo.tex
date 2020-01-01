@@ -25,7 +25,7 @@
 \usepackage[unicode=true]{hyperref}
 \hypersetup{
             pdftitle={GLMM, Concepts, \& R},
-            pdfauthor={Bill},
+            pdfauthor={Bill; Last Updated:},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -118,7 +118,7 @@
 \makeatother
 
 \title{GLMM, Concepts, \& R}
-\author{Bill}
+\author{Bill; Last Updated:}
 \date{01 January, 2020}
 
 \begin{document}
@@ -1889,6 +1889,18 @@ Raphson analysis.
 
 \section{Metropolis Hastings}\label{metropolis-hastings}
 
+Metropolis--Hastings is a MCMC method for obtaining a sequence of random
+samples from a probability distribution from which direct sampling is
+difficult. By using the samples, we can plot the distribution (through
+histgram), or we can calculate the integral (e.g., you need to calculate
+the expected value).
+
+(Side note: does this remind you the importance sampling? Very
+similiar!)
+
+\(x^{j} \rightarrow X\) where \(X \sim f(x)\) The sequence of \(x^{j}\)
+is not independent.
+
 \section{EM}\label{em}
 
 \section{References}\label{references-2}
@@ -2208,6 +2220,8 @@ algorithm.
 \chapter{Practice: Learning on the Battle
 Field}\label{practice-learning-on-the-battle-field}
 
+\section{R code}\label{r-code}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#https://fivethirtyeight.com/contributors/josh-hermsmeyer/}
@@ -2485,6 +2499,14 @@ Field}\label{practice-learning-on-the-battle-field}
 \CommentTok{#locust2 <- bild(as.factor(PlayType) ~ time + I(time^2), data = mydata8,id="GameID",start = NULL, dependence = "MC2")}
 \end{Highlighting}
 \end{Shaded}
+
+\section{References}\label{references-3}
+
+\url{https://arxiv.org/pdf/1403.7993.pdf}
+
+\url{http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/Chapter11.pdf}
+
+\url{https://rpubs.com/JanpuHou/326048}
 
 \chapter{Project Draft}\label{project-draft}
 
