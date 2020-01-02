@@ -142,6 +142,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.1.2" data-path="basic-r.html"><a href="basic-r.html#lapply"><i class="fa fa-check"></i><b>5.1.2</b> lapply</a></li>
 <li class="chapter" data-level="5.1.3" data-path="basic-r.html"><a href="basic-r.html#sapply"><i class="fa fa-check"></i><b>5.1.3</b> sapply</a></li>
 </ul></li>
+<li class="chapter" data-level="5.2" data-path="basic-r.html"><a href="basic-r.html#c"><i class="fa fa-check"></i><b>5.2</b> C</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>6</b> Computing Techniques</a><ul>
 <li class="chapter" data-level="6.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>6.1</b> Monte carlo approximation</a></li>
@@ -210,10 +211,11 @@ Xl =<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#3
 Z =<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dv">2</span>,<span class="fl">0.2</span>)
 
 ## random effects
-<span class="co"># Not sure about this </span>
+<span class="co">#just 1000 random numubers?</span>
 U =<span class="st"> </span><span class="kw">rnorm</span>(n)<span class="op">*</span>sig
 
 ## fixed effects
+<span class="co"># It ends a 1000*4 matrix</span>
 etaX =<span class="st"> </span><span class="kw">sapply</span>(Xl, rowSums)
 
 ## random errors
@@ -221,14 +223,18 @@ eps =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rn
 
 ## logit model
 eta =<span class="st"> </span>etaX <span class="op">+</span><span class="st"> </span>U <span class="op">+</span><span class="st"> </span>eps
+<span class="co"># calculate probability</span>
 prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta))
-D =<span class="st"> </span><span class="dv">1</span><span class="op">*</span>(<span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>K),n,K)<span class="op">&lt;</span>prb)
+D =<span class="st"> </span><span class="dv">1</span><span class="op">*</span>(<span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>K),n,K)<span class="op">&lt;</span>prb) <span class="co"># comparing it to prb, and change to 1 and 0; 1000*4</span>
+<span class="co"># Select the first list from &quot;Xl&quot;, and then add other 3 lists--&gt; 4000 * 3</span>
 Xs =<span class="st"> </span>Xl[[<span class="dv">1</span>]]
 <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>K) Xs =<span class="st"> </span><span class="kw">rbind</span>(Xs, Xl[[k]])
+
 ## GLMM model
 <span class="kw">library</span>(lme4)
-sid =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, K)
+sid =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, K) <span class="co"># a vector of 1-1000, 4 repetitions</span>
 ## model fit with GLMMM (default to Laplace approximation)
+<span class="co"># subjects as the random effect</span>
 a1 =<span class="st"> </span><span class="kw">glmer</span>(<span class="kw">c</span>(D) <span class="op">~</span><span class="st"> </span>Xs <span class="op">+</span><span class="st"> </span>Z[sid] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>sid), <span class="dt">family=</span>binomial)
 
 a1</code></pre></div>
@@ -251,9 +257,9 @@ a1</code></pre></div>
 
 U.mh &lt;-<span class="st"> </span><span class="cf">function</span>(Di,eta, Vu, Uc,Vc, <span class="dt">B=</span><span class="dv">100</span>){
   ub =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, B)
-  ub[<span class="dv">1</span>] =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)<span class="op">*</span><span class="kw">sqrt</span>(Vc)<span class="op">+</span>Uc
+  ub[<span class="dv">1</span>] =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)<span class="op">*</span><span class="kw">sqrt</span>(Vc)<span class="op">+</span>Uc <span class="co"># random starting value</span>
   prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta<span class="op">-</span>ub[<span class="dv">1</span>]))
-  llk0 =<span class="st"> </span><span class="kw">dnorm</span>(ub[<span class="dv">1</span>],<span class="dt">sd=</span><span class="kw">sqrt</span>(Vu), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(Di<span class="op">*</span>prb<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>Di)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>prb))) <span class="op">-</span><span class="st"> </span><span class="kw">dnorm</span>(ub[<span class="dv">1</span>],Uc,<span class="kw">sqrt</span>(Vc), <span class="dt">log=</span><span class="ot">TRUE</span>)
+  llk0 =<span class="st"> </span><span class="kw">dnorm</span>(ub[<span class="dv">1</span>],<span class="dt">sd=</span><span class="kw">sqrt</span>(Vu), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(Di<span class="op">*</span>prb<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>Di)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>prb))) <span class="op">-</span><span class="st"> </span><span class="kw">dnorm</span>(ub[<span class="dv">1</span>],Uc,<span class="kw">sqrt</span>(Vc), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="co"># likelihood function? </span>
   <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>B){
     ub[k] =<span class="st"> </span>ub[k<span class="op">-</span><span class="dv">1</span>]
     uk =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)<span class="op">*</span><span class="kw">sqrt</span>(Vc)<span class="op">+</span>Uc
@@ -300,6 +306,50 @@ UV.mh &lt;-<span class="st"> </span><span class="cf">function</span>(Vu,beta,Uc,
     Uc[i] =<span class="st"> </span>zi[<span class="dv">1</span>]; Vc[i] =<span class="st"> </span>zi[<span class="dv">2</span>]
   }
   <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">Uc=</span>Uc,<span class="dt">Vc=</span>Vc) )
+}
+
+<span class="co">#Newton Raphson update</span>
+<span class="co"># Compute first/second derives of complete data log likelihood</span>
+## score and fisher information
+SF.mh &lt;-<span class="st"> </span><span class="cf">function</span>(Vu,beta,Uc,Vc, D,X,subj){
+  ## S/hessian matrix
+  sid =<span class="st"> </span><span class="kw">unique</span>(subj);  n =<span class="st"> </span><span class="kw">length</span>(sid)
+  p =<span class="st"> </span><span class="kw">dim</span>(X)[<span class="dv">2</span>]
+  S =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, p)
+  FI =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, p,p)
+  sig2 =<span class="st"> </span><span class="dv">0</span>
+  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)
+    {
+    ij =<span class="st"> </span><span class="kw">which</span>(subj<span class="op">==</span>sid[i]);  ni =<span class="st"> </span><span class="kw">length</span>(ij)
+    Xi =<span class="st"> </span>X[ij,,drop=<span class="ot">FALSE</span>]
+    eta =<span class="st"> </span>Xi<span class="op">%*%</span>beta
+    zi =<span class="st"> </span><span class="kw">U.mh</span>(D[ij],eta,Vu,Uc[i],Vc[i], <span class="dt">B=</span><span class="fl">5e3</span>)[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="fl">1e3</span>)]
+    theta =<span class="st"> </span><span class="kw">sapply</span>(eta, <span class="cf">function</span>(b0)  <span class="kw">mean</span>(<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>b0<span class="op">-</span>zi))) )
+    theta2 =<span class="st"> </span><span class="kw">sapply</span>(eta, <span class="cf">function</span>(b0) <span class="kw">mean</span>(<span class="kw">exp</span>(b0<span class="op">+</span>zi)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(b0<span class="op">+</span>zi))<span class="op">^</span><span class="dv">2</span>) )
+    FI =<span class="st"> </span>FI <span class="op">+</span><span class="st"> </span><span class="kw">t</span>(Xi)<span class="op">%*%</span>(theta2<span class="op">*</span>Xi)
+    S =<span class="st"> </span>S<span class="op">+</span><span class="kw">colSums</span>((D[ij]<span class="op">-</span>theta)<span class="op">*</span>Xi)
+    sig2 =<span class="st"> </span>sig2 <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(zi<span class="op">^</span><span class="dv">2</span>)
+    }
+  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">S=</span>S, <span class="dt">FI=</span>FI, <span class="dt">sig2=</span>sig2<span class="op">/</span>n) )
+}
+
+<span class="kw">library</span>(lme4)
+sid =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, K)
+a1 =<span class="st"> </span><span class="kw">glmer</span>(<span class="kw">c</span>(D) <span class="op">~</span><span class="st"> </span>Xs <span class="op">+</span><span class="st"> </span>Z[sid] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>sid), <span class="dt">family=</span>binomial)
+## extract variance and fixed effects parameters; + mode/variance of (random effects|data)
+Vu =<span class="st"> </span>(<span class="kw">getME</span>(a1,<span class="st">&#39;theta&#39;</span>))<span class="op">^</span><span class="dv">2</span>; beta =<span class="st"> </span><span class="kw">fixef</span>(a1); Um =<span class="st"> </span><span class="kw">ranef</span>(a1,<span class="dt">condVar=</span><span class="ot">TRUE</span>)
+D =<span class="st"> </span><span class="kw">c</span>(D); X =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>,Xs,Z[sid]); subj =<span class="st"> </span>sid
+Uc =<span class="st"> </span><span class="kw">unlist</span>(Um[[<span class="dv">1</span>]]); Vc =<span class="st"> </span><span class="kw">c</span>( <span class="kw">attr</span>(Um[[<span class="dv">1</span>]], <span class="st">&#39;postVar&#39;</span>) )
+<span class="cf">for</span>(b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){
+  ## NR updates with MH sampling
+  obj =<span class="st"> </span><span class="kw">SF.mh</span>(Vu,beta,Uc,Vc, D,X,subj)
+  Vu =<span class="st"> </span>obj<span class="op">$</span>sig2
+  tmp =<span class="st"> </span><span class="kw">solve</span>(obj<span class="op">$</span>FI,obj<span class="op">$</span>S)
+  beta =<span class="st"> </span>beta <span class="op">+</span><span class="st"> </span>tmp
+  ## Proposal dist update
+  tmp1 =<span class="st"> </span><span class="kw">UV.mh</span>(Vu,beta,Uc, D,X,subj)
+  Uc =<span class="st"> </span>tmp1<span class="op">$</span>Uc; Vc =<span class="st"> </span>tmp1<span class="op">$</span>Vc
+  <span class="kw">cat</span>(b, <span class="st">&#39;:&#39;</span>, tmp, <span class="st">&#39;;&#39;</span>, obj<span class="op">$</span>S<span class="op">/</span>n, <span class="st">&#39;</span><span class="ch">\n\t</span><span class="st">&#39;</span>, <span class="kw">sqrt</span>(Vu), beta, <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)
 }</code></pre></div>
 </div>
 <div id="reference" class="section level2">

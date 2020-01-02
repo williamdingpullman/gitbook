@@ -142,6 +142,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.1.2" data-path="basic-r.html"><a href="basic-r.html#lapply"><i class="fa fa-check"></i><b>5.1.2</b> lapply</a></li>
 <li class="chapter" data-level="5.1.3" data-path="basic-r.html"><a href="basic-r.html#sapply"><i class="fa fa-check"></i><b>5.1.3</b> sapply</a></li>
 </ul></li>
+<li class="chapter" data-level="5.2" data-path="basic-r.html"><a href="basic-r.html#c"><i class="fa fa-check"></i><b>5.2</b> C</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>6</b> Computing Techniques</a><ul>
 <li class="chapter" data-level="6.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>6.1</b> Monte carlo approximation</a></li>
@@ -224,7 +225,7 @@ data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <spa
 Rcode&lt;-<span class="kw">ggplot</span>(data,<span class="kw">aes</span>(itr,val,<span class="dt">col=</span>tp))<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">0.5</span>)
 Rcode<span class="op">+</span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>),<span class="dt">color=</span><span class="st">&quot;green&quot;</span>,<span class="dt">size=</span><span class="fl">0.5</span>)</code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_path).</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 <div id="importance-sampling" class="section level2">
 <h2><span class="header-section-number">6.2</span> Importance sampling</h2>
@@ -254,15 +255,15 @@ data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <spa
 <span class="kw">ggplot</span>(data,<span class="kw">aes</span>(itr,val,<span class="dt">col=</span>tp))<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span>
 <span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>),<span class="dt">color=</span><span class="st">&quot;green&quot;</span>,<span class="dt">size=</span><span class="fl">0.5</span>)</code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_path).</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
 <div id="newton-raphson-algorithm" class="section level2">
 <h2><span class="header-section-number">6.3</span> Newton Raphson algorithm</h2>
 <p>The main purpose of Newton Raphson algorithm is to calculate the root of a function (e.g., <span class="math inline">\(x^2-3=0\)</span>). We know that in order to maximize the MLE, we need to calculate the first derivatice of the function and then set it to zero <span class="math inline">\(\ell^{&#39;}(x)=0\)</span>. Thus, we can use the same Newton Raphson method to help calculate the MLE maximization as well.</p>
-<p>There are different ways to understand Newton Raphson method, but I found the method fo geometric the most easy way to explain. I use the following figure from an online PDF from UBC (see the reference for the source.)</p>
+<p>There are different ways to understand Newton Raphson method, but I found the method fo geometric the most easy way to explain.</p>
 <div class="figure">
-<img src="Newton.JPG" alt="The illustration figure" />
-<p class="caption">The illustration figure</p>
+<img src="Newton.JPG" alt="Credit of this picture: https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf" />
+<p class="caption">Credit of this picture: <a href="https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf" class="uri">https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf</a></p>
 </div>
 <p>Specifically, suppose that you want to calculate the root of a function <span class="math inline">\(f(x)=0\)</span>. We assume the root is <span class="math inline">\(r\)</span>. However, we do not that, and we randomly guess a point of <span class="math inline">\(a\)</span>. Thus, we can get a tangent line with slope of <span class="math inline">\(f^{&#39;}(a)\)</span> and a point of <span class="math inline">\((a,f(a))\)</span>. Since we know the slope and one of its points, we can write the function for this tangent line.</p>
 <p><span class="math display">\[y-f(a)=f^{&#39;}(a)(x-a)\]</span> To calculate the <span class="math inline">\(x-intercept\)</span>, namely <span class="math inline">\(b\)</span> in the figure, we can set <span class="math inline">\(y=0\)</span>, and get the following:</p>
@@ -287,7 +288,7 @@ c_iteration&lt;-<span class="kw">c</span>() ## to collect numbers generated in t
   c_iteration&lt;-<span class="kw">c</span>(c_iteration,x_updated)}
 
 <span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
 <div id="logistic-regression" class="section level3">
 <h3><span class="header-section-number">6.3.2</span> Logistic regression</h3>
@@ -442,7 +443,7 @@ X
 }
 
 <span class="kw">hist</span>(<span class="kw">mygamma</span>(Nsim,alpha,beta), <span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 </div>
 <div id="em" class="section level2">
 <h2><span class="header-section-number">6.5</span> EM</h2>

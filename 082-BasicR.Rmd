@@ -41,3 +41,17 @@ is.matrix(results2)
 is.data.frame(results2)
 is.vector(results2)
 ```
+
+
+## C
+
+```{R}
+mydata1<-matrix(runif(4*2),4,2)
+mydata1
+str(mydata1)
+
+mydata2<-c(mydata1)
+mydata2
+str(mydata2)
+
+```

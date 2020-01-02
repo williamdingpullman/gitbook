@@ -77,9 +77,9 @@ geom_hline(yintercept=1-pnorm(2),color="green",size=0.5)
 
 The main purpose of Newton Raphson algorithm is to calculate the root of a function (e.g., $x^2-3=0$). We know that in order to maximize the MLE, we need to calculate the first derivatice of the function and then set it to zero $\ell^{'}(x)=0$. Thus, we can use the same Newton Raphson method to help calculate the MLE maximization as well. 
 
-There are different ways to understand Newton Raphson method, but I found the method fo geometric the most easy way to explain. I use the following figure from an online PDF from UBC (see the reference for the source.) 
+There are different ways to understand Newton Raphson method, but I found the method fo geometric the most easy way to explain.  
 
-![The illustration figure](Newton.jpg) 
+![Credit of this picture: https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf](Newton.jpg) 
 
 
 Specifically, suppose that you want to calculate the root of a function $f(x)=0$. We assume the root is $r$. However, we do not that, and we randomly guess a point of $a$. Thus, we can get a tangent line with slope of $f^{'}(a)$ and a point of $(a,f(a))$. Since we know the slope and one of its points, we can write the function for this tangent line. 

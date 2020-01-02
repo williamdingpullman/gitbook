@@ -22,10 +22,11 @@ for(i in 1:K) Xl[[i]] = matrix(rnorm(n*p), n,p)
 Z = rbinom(n, 2,0.2)
 
 ## random effects
-# Not sure about this 
+#just 1000 random numubers?
 U = rnorm(n)*sig
 
 ## fixed effects
+# It ends a 1000*4 matrix
 etaX = sapply(Xl, rowSums)
 
 ## random errors
@@ -33,30 +34,34 @@ eps = matrix(rnorm(n*K), n,K)
 
 ## logit model
 eta = etaX + U + eps
+# calculate probability
 prb = 1/(1+exp(-eta))
-D = 1*(matrix(runif(n*K),n,K)<prb)
+D = 1*(matrix(runif(n*K),n,K)<prb) # comparing it to prb, and change to 1 and 0; 1000*4
+# Select the first list from "Xl", and then add other 3 lists--> 4000 * 3
 Xs = Xl[[1]]
 for(k in 2:K) Xs = rbind(Xs, Xl[[k]])
+
 ## GLMM model
 library(lme4)
-sid = rep(1:n, K)
+sid = rep(1:n, K) # a vector of 1-1000, 4 repetitions
 ## model fit with GLMMM (default to Laplace approximation)
+# subjects as the random effect
 a1 = glmer(c(D) ~ Xs + Z[sid] + (1|sid), family=binomial)
 
 a1
 
 ```
 
-```{R}
+```{R eval = FALSE}
 ## MH sampling of random effects | data
 ## logit\Pr(D_i|eta_i,U) = eta_i+U; U \sim N(0,Vu)
 ## proposal dist: N(Uc,Vc)
 
 U.mh <- function(Di,eta, Vu, Uc,Vc, B=100){
   ub = rep(0, B)
-  ub[1] = rnorm(1)*sqrt(Vc)+Uc
+  ub[1] = rnorm(1)*sqrt(Vc)+Uc # random starting value
   prb = 1/(1+exp(-eta-ub[1]))
-  llk0 = dnorm(ub[1],sd=sqrt(Vu), log=TRUE) + sum(log(Di*prb+(1-Di)*(1-prb))) - dnorm(ub[1],Uc,sqrt(Vc), log=TRUE)
+  llk0 = dnorm(ub[1],sd=sqrt(Vu), log=TRUE) + sum(log(Di*prb+(1-Di)*(1-prb))) - dnorm(ub[1],Uc,sqrt(Vc), log=TRUE) # likelihood function? 
   for(k in 2:B){
     ub[k] = ub[k-1]
     uk = rnorm(1)*sqrt(Vc)+Uc
@@ -105,6 +110,49 @@ UV.mh <- function(Vu,beta,Uc, D,X,subj){
   return(list(Uc=Uc,Vc=Vc) )
 }
 
+#Newton Raphson update
+# Compute first/second derives of complete data log likelihood
+## score and fisher information
+SF.mh <- function(Vu,beta,Uc,Vc, D,X,subj){
+  ## S/hessian matrix
+  sid = unique(subj);  n = length(sid)
+  p = dim(X)[2]
+  S = rep(0, p)
+  FI = matrix(0, p,p)
+  sig2 = 0
+  for(i in 1:n)
+    {
+    ij = which(subj==sid[i]);  ni = length(ij)
+    Xi = X[ij,,drop=FALSE]
+    eta = Xi%*%beta
+    zi = U.mh(D[ij],eta,Vu,Uc[i],Vc[i], B=5e3)[-(1:1e3)]
+    theta = sapply(eta, function(b0)  mean(1/(1+exp(-b0-zi))) )
+    theta2 = sapply(eta, function(b0) mean(exp(b0+zi)/(1+exp(b0+zi))^2) )
+    FI = FI + t(Xi)%*%(theta2*Xi)
+    S = S+colSums((D[ij]-theta)*Xi)
+    sig2 = sig2 + mean(zi^2)
+    }
+  return(list(S=S, FI=FI, sig2=sig2/n) )
+}
+
+library(lme4)
+sid = rep(1:n, K)
+a1 = glmer(c(D) ~ Xs + Z[sid] + (1|sid), family=binomial)
+## extract variance and fixed effects parameters; + mode/variance of (random effects|data)
+Vu = (getME(a1,'theta'))^2; beta = fixef(a1); Um = ranef(a1,condVar=TRUE)
+D = c(D); X = cbind(1,Xs,Z[sid]); subj = sid
+Uc = unlist(Um[[1]]); Vc = c( attr(Um[[1]], 'postVar') )
+for(b in 1:100){
+  ## NR updates with MH sampling
+  obj = SF.mh(Vu,beta,Uc,Vc, D,X,subj)
+  Vu = obj$sig2
+  tmp = solve(obj$FI,obj$S)
+  beta = beta + tmp
+  ## Proposal dist update
+  tmp1 = UV.mh(Vu,beta,Uc, D,X,subj)
+  Uc = tmp1$Uc; Vc = tmp1$Vc
+  cat(b, ':', tmp, ';', obj$S/n, '\n\t', sqrt(Vu), beta, '\n')
+}
 ```
 
 
