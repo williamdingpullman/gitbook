@@ -280,10 +280,35 @@ Metropolis–Hastings is a MCMC method for obtaining a sequence of random sample
 
 (Side note: does this remind you the importance sampling? Very similiar!)
 
-$x^{j} \rightarrow X$ where $X \sim f(x)$
-The sequence of $x^{j}$ is not independent.
+Basic logic:
+(1)Set up a random starting value of $x_0$.
+(2)Sample a $y_0$ from the instrumental function of $q(x)$.
+(3)Calculate the following:
+$p =\frac{f(y_0)}{f(x_0)}\frac{q(x_0)}{q(y_0)}$
+(4)$\rho=min(p, 1)$
+(5)$x_{1}=\begin{cases} y_0 & p \\ x_0 & 1-p \end{cases}$
+(6) Repeat $n$ times ($n$ is set subjectively.)
 
 
+Use normal pdf to sample gamma distribution
+
+```{r}
+alpha=2.7; beta=6.3 # I randomly chose alpha and beta values for the target gamma function
+
+Nsim=5000  ## define the number of iteration 
+
+X=c(rgamma(1,1)) # initialize the chain from random starting numbers
+mygamma<-function(Nsim,alpha,beta){
+for (i in 2:Nsim){
+  Y=rnorm(1)
+  rho=dgamma(Y,alpha,beta)*dnorm(X[i-1])/(dgamma(X[i-1],alpha,beta)*dnorm(Y))
+  X[i]=X[i-1] + (Y-X[i-1])*(runif(1)<rho)
+}
+X
+}
+
+hist(mygamma(Nsim,alpha,beta), breaks = 100)
+```
 
 
 ## EM

@@ -1,6 +1,6 @@
 --- 
 title: "GLMM, Concepts, & R"
-author: "Bill; Last Updated:"
+author: "Bill Last Updated:"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook

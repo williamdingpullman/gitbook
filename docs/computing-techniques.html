@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
 
-<meta name="author" content="Bill; Last Updated:" />
+<meta name="author" content="Bill Last Updated:" />
 
 
 
@@ -414,7 +414,24 @@ max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;differe
 <h2><span class="header-section-number">6.4</span> Metropolis Hastings</h2>
 <p>Metropolis–Hastings is a MCMC method for obtaining a sequence of random samples from a probability distribution from which direct sampling is difficult. By using the samples, we can plot the distribution (through histgram), or we can calculate the integral (e.g., you need to calculate the expected value).</p>
 <p>(Side note: does this remind you the importance sampling? Very similiar!)</p>
-<p><span class="math inline">\(x^{j} \rightarrow X\)</span> where <span class="math inline">\(X \sim f(x)\)</span> The sequence of <span class="math inline">\(x^{j}\)</span> is not independent.</p>
+<p>Basic logic: (1)Set up a random starting value of <span class="math inline">\(x_0\)</span>. (2)Sample a <span class="math inline">\(y_0\)</span> from the instrumental function of <span class="math inline">\(q(x)\)</span>. (3)Calculate the following: <span class="math inline">\(p =\frac{f(y_0)}{f(x_0)}\frac{q(x_0)}{q(y_0)}\)</span> (4)<span class="math inline">\(\rho=min(p, 1)\)</span> (5)<span class="math inline">\(x_{1}=\begin{cases} y_0 &amp; p \\ x_0 &amp; 1-p \end{cases}\)</span> (6) Repeat <span class="math inline">\(n\)</span> times (<span class="math inline">\(n\)</span> is set subjectively.)</p>
+<p>Use normal pdf to sample gamma distribution</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha=<span class="fl">2.7</span>; beta=<span class="fl">6.3</span> <span class="co"># I randomly chose alpha and beta values for the target gamma function</span>
+
+Nsim=<span class="dv">5000</span>  ## define the number of iteration 
+
+X=<span class="kw">c</span>(<span class="kw">rgamma</span>(<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># initialize the chain from random starting numbers</span>
+mygamma&lt;-<span class="cf">function</span>(Nsim,alpha,beta){
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>Nsim){
+  Y=<span class="kw">rnorm</span>(<span class="dv">1</span>)
+  rho=<span class="kw">dgamma</span>(Y,alpha,beta)<span class="op">*</span><span class="kw">dnorm</span>(X[i<span class="op">-</span><span class="dv">1</span>])<span class="op">/</span>(<span class="kw">dgamma</span>(X[i<span class="op">-</span><span class="dv">1</span>],alpha,beta)<span class="op">*</span><span class="kw">dnorm</span>(Y))
+  X[i]=X[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>(Y<span class="op">-</span>X[i<span class="op">-</span><span class="dv">1</span>])<span class="op">*</span>(<span class="kw">runif</span>(<span class="dv">1</span>)<span class="op">&lt;</span>rho)
+}
+X
+}
+
+<span class="kw">hist</span>(<span class="kw">mygamma</span>(Nsim,alpha,beta), <span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 </div>
 <div id="em" class="section level2">
 <h2><span class="header-section-number">6.5</span> EM</h2>
