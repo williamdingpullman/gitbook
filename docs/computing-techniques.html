@@ -414,7 +414,18 @@ max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;differe
 <h2><span class="header-section-number">6.4</span> Metropolis Hastings</h2>
 <p>Metropolis–Hastings is a MCMC method for obtaining a sequence of random samples from a probability distribution from which direct sampling is difficult. By using the samples, we can plot the distribution (through histgram), or we can calculate the integral (e.g., you need to calculate the expected value).</p>
 <p>(Side note: does this remind you the importance sampling? Very similiar!)</p>
-<p>Basic logic: (1)Set up a random starting value of <span class="math inline">\(x_0\)</span>. (2)Sample a <span class="math inline">\(y_0\)</span> from the instrumental function of <span class="math inline">\(q(x)\)</span>. (3)Calculate the following: <span class="math inline">\(p =\frac{f(y_0)}{f(x_0)}\frac{q(x_0)}{q(y_0)}\)</span> (4)<span class="math inline">\(\rho=min(p, 1)\)</span> (5)<span class="math inline">\(x_{1}=\begin{cases} y_0 &amp; p \\ x_0 &amp; 1-p \end{cases}\)</span> (6) Repeat <span class="math inline">\(n\)</span> times (<span class="math inline">\(n\)</span> is set subjectively.)</p>
+<p>Basic logic:</p>
+<ol style="list-style-type: decimal">
+<li><p>Set up a random starting value of <span class="math inline">\(x_0\)</span>.</p></li>
+<li><p>Sample a <span class="math inline">\(y_0\)</span> from the instrumental function of <span class="math inline">\(q(x)\)</span>.</p></li>
+<li><p>Calculate the following:</p></li>
+</ol>
+<p><span class="math inline">\(p =\frac{f(y_0)}{f(x_0)}\frac{q(x_0)}{q(y_0)}\)</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p><span class="math inline">\(\rho=min(p, 1)\)</span></p></li>
+<li><p><span class="math inline">\(x_{1}=\begin{cases} y_0 &amp; p \\ x_0 &amp; 1-p \end{cases}\)</span></p></li>
+<li><p>Repeat <span class="math inline">\(n\)</span> times (<span class="math inline">\(n\)</span> is set subjectively.)</p></li>
+</ol>
 <p>Use normal pdf to sample gamma distribution</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha=<span class="fl">2.7</span>; beta=<span class="fl">6.3</span> <span class="co"># I randomly chose alpha and beta values for the target gamma function</span>
 

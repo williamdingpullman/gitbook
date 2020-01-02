@@ -281,12 +281,19 @@ Metropolis–Hastings is a MCMC method for obtaining a sequence of random sample
 (Side note: does this remind you the importance sampling? Very similiar!)
 
 Basic logic:
-(1)Set up a random starting value of $x_0$.
-(2)Sample a $y_0$ from the instrumental function of $q(x)$.
-(3)Calculate the following:
+
+(1) Set up a random starting value of $x_0$.
+
+(2) Sample a $y_0$ from the instrumental function of $q(x)$.
+
+(3) Calculate the following:
+
 $p =\frac{f(y_0)}{f(x_0)}\frac{q(x_0)}{q(y_0)}$
-(4)$\rho=min(p, 1)$
-(5)$x_{1}=\begin{cases} y_0 & p \\ x_0 & 1-p \end{cases}$
+
+(4) $\rho=min(p, 1)$
+
+(5) $x_{1}=\begin{cases} y_0 & p \\ x_0 & 1-p \end{cases}$
+
 (6) Repeat $n$ times ($n$ is set subjectively.)
 
 
