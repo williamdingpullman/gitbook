@@ -1958,11 +1958,13 @@ Suppose that we only observe \(X\), and do not know \(Z\). We thus need
 to construct the posterior \(p(Z|X,\theta)\). Given \(p(Z|X,\theta)\),
 we can compute the likelihood of the complete dataset:
 
-\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\] The EM algorithm: (0) We got
-\(X\) and \(p(Z|X,\theta)\)
+\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\] The EM algorithm:
 
 \begin{enumerate}
 \def\labelenumi{(\arabic{enumi})}
+\setcounter{enumi}{-1}
+\item
+  We got \(X\) and \(p(Z|X,\theta)\)
 \item
   Random assign a \(\theta_0\), since we do not know any of them.
 \item
@@ -1977,7 +1979,8 @@ we can compute the likelihood of the complete dataset:
 For examples, you can refer to the following link:
 \url{http://www.di.fc.ul.pt/~jpn/r/EM/EM.html}
 
-(Personally, I can also refer to Quiz 2 in 536.)
+(It is em\_R.r in R\_codes folder. Personally, I can also refer to Quiz
+2 in 536.)
 
 \section{References}\label{references-2}
 

@@ -328,6 +328,7 @@ Suppose that we only observe $X$, and do not know $Z$. We thus need to construct
 
 $$p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)$$
 The EM algorithm:
+
 (0) We got $X$ and $p(Z|X,\theta)$
 
 (1) Random assign a $\theta_0$, since we do not know any of them.
@@ -341,7 +342,7 @@ The EM algorithm:
 
 For examples, you can refer to the following link: http://www.di.fc.ul.pt/~jpn/r/EM/EM.html
 
-(Personally, I can also refer to Quiz 2 in 536.)
+(It is em_R.r in R_codes folder. Personally, I can also refer to Quiz 2 in 536.)
 
 
 ## References

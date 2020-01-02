@@ -449,15 +449,16 @@ X
 <p>EM algorithm is an iterative method to find ML or maximum a posteriori (MAP) estimates of parameters.</p>
 <p>Direct Ref: <a href="http://www.di.fc.ul.pt/~jpn/r/EM/EM.html" class="uri">http://www.di.fc.ul.pt/~jpn/r/EM/EM.html</a></p>
 <p>Suppose that we only observe <span class="math inline">\(X\)</span>, and do not know <span class="math inline">\(Z\)</span>. We thus need to construct the posterior <span class="math inline">\(p(Z|X,\theta)\)</span>. Given <span class="math inline">\(p(Z|X,\theta)\)</span>, we can compute the likelihood of the complete dataset:</p>
-<p><span class="math display">\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\]</span> The EM algorithm: (0) We got <span class="math inline">\(X\)</span> and <span class="math inline">\(p(Z|X,\theta)\)</span></p>
-<ol style="list-style-type: decimal">
+<p><span class="math display">\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\]</span> The EM algorithm:</p>
+<ol start="0" style="list-style-type: decimal">
+<li><p>We got <span class="math inline">\(X\)</span> and <span class="math inline">\(p(Z|X,\theta)\)</span></p></li>
 <li><p>Random assign a <span class="math inline">\(\theta_0\)</span>, since we do not know any of them.</p></li>
 <li><p>E-step: <span class="math inline">\(Q_{\theta_i} = E_{Z|X,\theta_i}[log p(X,Z|\theta)]\)</span></p></li>
 <li><p>M-step: compute <span class="math inline">\(\theta_{i+1} \leftarrow argmax Q_{\theta_i}\)</span></p></li>
 <li><p>If <span class="math inline">\(\theta_i\)</span> and <span class="math inline">\(\theta_{i+1}\)</span> are not close enough, <span class="math inline">\(\theta_i \leftarrow \theta_{i+1}\)</span>. Goto step 2.</p></li>
 </ol>
 <p>For examples, you can refer to the following link: <a href="http://www.di.fc.ul.pt/~jpn/r/EM/EM.html" class="uri">http://www.di.fc.ul.pt/~jpn/r/EM/EM.html</a></p>
-<p>(Personally, I can also refer to Quiz 2 in 536.)</p>
+<p>(It is em_R.r in R_codes folder. Personally, I can also refer to Quiz 2 in 536.)</p>
 </div>
 <div id="references-2" class="section level2">
 <h2><span class="header-section-number">6.6</span> References</h2>
