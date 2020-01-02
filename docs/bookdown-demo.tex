@@ -1898,7 +1898,7 @@ the expected value).
 (Side note: does this remind you the importance sampling? Very
 similiar!)
 
-Basic logic:
+Basic logic (my own summary):
 
 \begin{enumerate}
 \def\labelenumi{(\arabic{enumi})}
@@ -1949,6 +1949,36 @@ Use normal pdf to sample gamma distribution
 
 \section{EM}\label{em}
 
+EM algorithm is an iterative method to find ML or maximum a posteriori
+(MAP) estimates of parameters.
+
+Direct Ref: \url{http://www.di.fc.ul.pt/~jpn/r/EM/EM.html}
+
+Suppose that we only observe \(X\), and do not know \(Z\). We thus need
+to construct the posterior \(p(Z|X,\theta)\). Given \(p(Z|X,\theta)\),
+we can compute the likelihood of the complete dataset:
+
+\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\] The EM algorithm: (0) We got
+\(X\) and \(p(Z|X,\theta)\)
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  Random assign a \(\theta_0\), since we do not know any of them.
+\item
+  E-step: \(Q_{\theta_i} = E_{Z|X,\theta_i}[log p(X,Z|\theta)]\)
+\item
+  M-step: compute \(\theta_{i+1} \leftarrow argmax Q_{\theta_i}\)
+\item
+  If \(\theta_i\) and \(\theta_{i+1}\) are not close enough,
+  \(\theta_i \leftarrow \theta_{i+1}\). Goto step 2.
+\end{enumerate}
+
+For examples, you can refer to the following link:
+\url{http://www.di.fc.ul.pt/~jpn/r/EM/EM.html}
+
+(Personally, I can also refer to Quiz 2 in 536.)
+
 \section{References}\label{references-2}
 
 \begin{enumerate}
@@ -1979,6 +2009,16 @@ Use normal pdf to sample gamma distribution
 \url{https://www.stat.cmu.edu/~cshalizi/402/lectures/14-logistic-regression/lecture-14.pdf}
 
 \url{http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  MH
+\end{enumerate}
+
+\url{https://www.youtube.com/watch?v=VGRVRjr0vyw}
 
 \chapter{Generalized Linear Mixed
 Models}\label{generalized-linear-mixed-models}

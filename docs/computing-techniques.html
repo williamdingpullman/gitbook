@@ -414,7 +414,7 @@ max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;differe
 <h2><span class="header-section-number">6.4</span> Metropolis Hastings</h2>
 <p>Metropolis–Hastings is a MCMC method for obtaining a sequence of random samples from a probability distribution from which direct sampling is difficult. By using the samples, we can plot the distribution (through histgram), or we can calculate the integral (e.g., you need to calculate the expected value).</p>
 <p>(Side note: does this remind you the importance sampling? Very similiar!)</p>
-<p>Basic logic:</p>
+<p>Basic logic (my own summary):</p>
 <ol style="list-style-type: decimal">
 <li><p>Set up a random starting value of <span class="math inline">\(x_0\)</span>.</p></li>
 <li><p>Sample a <span class="math inline">\(y_0\)</span> from the instrumental function of <span class="math inline">\(q(x)\)</span>.</p></li>
@@ -446,6 +446,18 @@ X
 </div>
 <div id="em" class="section level2">
 <h2><span class="header-section-number">6.5</span> EM</h2>
+<p>EM algorithm is an iterative method to find ML or maximum a posteriori (MAP) estimates of parameters.</p>
+<p>Direct Ref: <a href="http://www.di.fc.ul.pt/~jpn/r/EM/EM.html" class="uri">http://www.di.fc.ul.pt/~jpn/r/EM/EM.html</a></p>
+<p>Suppose that we only observe <span class="math inline">\(X\)</span>, and do not know <span class="math inline">\(Z\)</span>. We thus need to construct the posterior <span class="math inline">\(p(Z|X,\theta)\)</span>. Given <span class="math inline">\(p(Z|X,\theta)\)</span>, we can compute the likelihood of the complete dataset:</p>
+<p><span class="math display">\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\]</span> The EM algorithm: (0) We got <span class="math inline">\(X\)</span> and <span class="math inline">\(p(Z|X,\theta)\)</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Random assign a <span class="math inline">\(\theta_0\)</span>, since we do not know any of them.</p></li>
+<li><p>E-step: <span class="math inline">\(Q_{\theta_i} = E_{Z|X,\theta_i}[log p(X,Z|\theta)]\)</span></p></li>
+<li><p>M-step: compute <span class="math inline">\(\theta_{i+1} \leftarrow argmax Q_{\theta_i}\)</span></p></li>
+<li><p>If <span class="math inline">\(\theta_i\)</span> and <span class="math inline">\(\theta_{i+1}\)</span> are not close enough, <span class="math inline">\(\theta_i \leftarrow \theta_{i+1}\)</span>. Goto step 2.</p></li>
+</ol>
+<p>For examples, you can refer to the following link: <a href="http://www.di.fc.ul.pt/~jpn/r/EM/EM.html" class="uri">http://www.di.fc.ul.pt/~jpn/r/EM/EM.html</a></p>
+<p>(Personally, I can also refer to Quiz 2 in 536.)</p>
 </div>
 <div id="references-2" class="section level2">
 <h2><span class="header-section-number">6.6</span> References</h2>
@@ -462,6 +474,10 @@ X
 <p><a href="https://www.stat.cmu.edu/~cshalizi/350/lectures/26/lecture-26.pdf" class="uri">https://www.stat.cmu.edu/~cshalizi/350/lectures/26/lecture-26.pdf</a></p>
 <p><a href="https://www.stat.cmu.edu/~cshalizi/402/lectures/14-logistic-regression/lecture-14.pdf" class="uri">https://www.stat.cmu.edu/~cshalizi/402/lectures/14-logistic-regression/lecture-14.pdf</a></p>
 <p><a href="http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html" class="uri">http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html</a></p>
+<ol start="3" style="list-style-type: decimal">
+<li>MH</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=VGRVRjr0vyw" class="uri">https://www.youtube.com/watch?v=VGRVRjr0vyw</a></p>
 
 </div>
 </div>

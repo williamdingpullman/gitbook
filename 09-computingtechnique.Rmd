@@ -280,7 +280,7 @@ Metropolis–Hastings is a MCMC method for obtaining a sequence of random sample
 
 (Side note: does this remind you the importance sampling? Very similiar!)
 
-Basic logic:
+Basic logic (my own summary):
 
 (1) Set up a random starting value of $x_0$.
 
@@ -320,6 +320,29 @@ hist(mygamma(Nsim,alpha,beta), breaks = 100)
 
 ## EM
 
+EM algorithm is an iterative method to find ML or maximum a posteriori (MAP) estimates of parameters.
+
+Direct Ref: http://www.di.fc.ul.pt/~jpn/r/EM/EM.html
+
+Suppose that we only observe $X$, and do not know $Z$. We thus need to construct the posterior $p(Z|X,\theta)$. Given $p(Z|X,\theta)$, we can compute the likelihood of the complete dataset:
+
+$$p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)$$
+The EM algorithm:
+(0) We got $X$ and $p(Z|X,\theta)$
+
+(1) Random assign a $\theta_0$, since we do not know any of them.
+
+(2) E-step: $Q_{\theta_i} = E_{Z|X,\theta_i}[log p(X,Z|\theta)]$
+
+(3) M-step: compute $\theta_{i+1} \leftarrow argmax Q_{\theta_i}$ 
+
+(4) If $\theta_i$ and $\theta_{i+1}$ are not close enough, $\theta_i \leftarrow \theta_{i+1}$. Goto step 2. 
+
+
+For examples, you can refer to the following link: http://www.di.fc.ul.pt/~jpn/r/EM/EM.html
+
+(Personally, I can also refer to Quiz 2 in 536.)
+
 
 ## References
 
@@ -341,7 +364,9 @@ https://www.stat.cmu.edu/~cshalizi/402/lectures/14-logistic-regression/lecture-1
 
 http://hua-zhou.github.io/teaching/biostatm280-2017spring/slides/18-newton/newton.html
 
+3. MH
 
+https://www.youtube.com/watch?v=VGRVRjr0vyw
 
 
 
