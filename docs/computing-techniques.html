@@ -262,8 +262,8 @@ data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <spa
 <p>The main purpose of Newton Raphson algorithm is to calculate the root of a function (e.g., <span class="math inline">\(x^2-3=0\)</span>). We know that in order to maximize the MLE, we need to calculate the first derivatice of the function and then set it to zero <span class="math inline">\(\ell^{&#39;}(x)=0\)</span>. Thus, we can use the same Newton Raphson method to help calculate the MLE maximization as well.</p>
 <p>There are different ways to understand Newton Raphson method, but I found the method fo geometric the most easy way to explain.</p>
 <div class="figure">
-<img src="Newton.JPG" alt="Credit of this picture: https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf" />
-<p class="caption">Credit of this picture: <a href="https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf" class="uri">https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf</a></p>
+<img src="Newton.JPG" alt="Credit of this figure: https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf" />
+<p class="caption">Credit of this figure: <a href="https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf" class="uri">https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf</a></p>
 </div>
 <p>Specifically, suppose that you want to calculate the root of a function <span class="math inline">\(f(x)=0\)</span>. We assume the root is <span class="math inline">\(r\)</span>. However, we do not that, and we randomly guess a point of <span class="math inline">\(a\)</span>. Thus, we can get a tangent line with slope of <span class="math inline">\(f^{&#39;}(a)\)</span> and a point of <span class="math inline">\((a,f(a))\)</span>. Since we know the slope and one of its points, we can write the function for this tangent line.</p>
 <p><span class="math display">\[y-f(a)=f^{&#39;}(a)(x-a)\]</span> To calculate the <span class="math inline">\(x-intercept\)</span>, namely <span class="math inline">\(b\)</span> in the figure, we can set <span class="math inline">\(y=0\)</span>, and get the following:</p>

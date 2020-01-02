@@ -79,7 +79,7 @@ The main purpose of Newton Raphson algorithm is to calculate the root of a funct
 
 There are different ways to understand Newton Raphson method, but I found the method fo geometric the most easy way to explain.  
 
-![Credit of this picture: https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf](Newton.jpg) 
+![Credit of this figure: https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf](Newton.jpg) 
 
 
 Specifically, suppose that you want to calculate the root of a function $f(x)=0$. We assume the root is $r$. However, we do not that, and we randomly guess a point of $a$. Thus, we can get a tangent line with slope of $f^{'}(a)$ and a point of $(a,f(a))$. Since we know the slope and one of its points, we can write the function for this tangent line. 
