@@ -170,7 +170,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.2" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html#references-3"><i class="fa fa-check"></i><b>9.2</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="project-draft.html"><a href="project-draft.html"><i class="fa fa-check"></i><b>10</b> Project Draft</a><ul>
-<li class="chapter" data-level="10.1" data-path="project-draft.html"><a href="project-draft.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.1" data-path="project-draft.html"><a href="project-draft.html#background"><i class="fa fa-check"></i><b>10.1</b> Background</a></li>
 <li class="chapter" data-level="10.2" data-path="project-draft.html"><a href="project-draft.html#reference"><i class="fa fa-check"></i><b>10.2</b> Reference</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -195,8 +195,94 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="project-draft" class="section level1">
 <h1><span class="header-section-number">Chapter 10</span> Project Draft</h1>
-<div id="introduction" class="section level2">
-<h2><span class="header-section-number">10.1</span> Introduction</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata3&lt;-<span class="kw">read.csv</span>(<span class="st">&#39;Schnibbe 1502 Binary Data.csv&#39;</span>)
+<span class="kw">head</span>(mydata3)</code></pre></div>
+<pre><code>##   X0
+## 1  0
+## 2  1
+## 3  0
+## 4  0
+## 5  1
+## 6  0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NO_new&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">222</span>)
+mydata4&lt;-<span class="kw">cbind</span>(mydata3,NO_new)
+
+a1 =<span class="st"> </span><span class="kw">glmer</span>(X0 <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>NO_new), <span class="dt">data =</span> mydata4,<span class="dt">family=</span>binomial)
+a1</code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: X0 ~ 1 + (1 | NO_new)
+##    Data: mydata4
+##       AIC       BIC    logLik  deviance  df.resid 
+##  243.2936  250.0990 -119.6468  239.2936       220 
+## Random effects:
+##  Groups Name        Std.Dev.
+##  NO_new (Intercept) 0.000353
+## Number of obs: 222, groups:  NO_new, 222
+## Fixed Effects:
+## (Intercept)  
+##       -1.21</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(a1)</code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: X0 ~ 1 + (1 | NO_new)
+##    Data: mydata4
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##    243.3    250.1   -119.6    239.3      220 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -0.5461 -0.5461 -0.5461 -0.5461  1.8311 
+## 
+## Random effects:
+##  Groups Name        Variance  Std.Dev.
+##  NO_new (Intercept) 1.246e-07 0.000353
+## Number of obs: 222, groups:  NO_new, 222
+## 
+## Fixed effects:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -1.2098     0.1603  -7.549 4.38e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a2 =<span class="st"> </span><span class="kw">glm</span>(X0 <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> mydata4,<span class="dt">family=</span>binomial)
+a2</code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = X0 ~ 1, family = binomial, data = mydata4)
+## 
+## Coefficients:
+## (Intercept)  
+##       -1.21  
+## 
+## Degrees of Freedom: 221 Total (i.e. Null);  221 Residual
+## Null Deviance:       239.3 
+## Residual Deviance: 239.3     AIC: 241.3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(a2)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = X0 ~ 1, family = binomial, data = mydata4)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.7225  -0.7225  -0.7225  -0.7225   1.7151  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -1.2098     0.1595  -7.583 3.38e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 239.29  on 221  degrees of freedom
+## Residual deviance: 239.29  on 221  degrees of freedom
+## AIC: 241.29
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div id="background" class="section level2">
+<h2><span class="header-section-number">10.1</span> Background</h2>
 <p>The following code is from this website: <a href="http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html" class="uri">http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html</a>. I will remove it on this page after I complete my practice and learning.</p>
 <p>In this example, it simulates a longitudinal data with 4 variables for each of 1000 separate individuals. Specifically, there are three continuous covariates (varying over time) and one ordinal covariate (constant over time). We will consider a random intercept model (mean zero and variance 100), and fit the data with glmer() from lme4 R package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="dv">1000</span>; p =<span class="st"> </span><span class="dv">3</span>; K =<span class="st"> </span><span class="dv">4</span>; sig =<span class="st"> </span><span class="dv">10</span>
