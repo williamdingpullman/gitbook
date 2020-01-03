@@ -6,7 +6,7 @@ Before moving to LMM, I would like to review LM and GLM first.
 
 ### LM
 
-$$Y|X \sim N(\mu(X),\sigma I)$$
+$$Y|X \sim N(\mu(X),\sigma^2 I)$$
 
 $$E(Y|X)=\mu(X)=X^T \beta$$
 where, 
@@ -26,6 +26,22 @@ $$log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i$$
 $$\mu_i=\frac{\alpha x_i}{h+x_i}$$
 Reciprocal link:
 $$g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}$$
+In a more general sense, for exponential family 
+
+$$\begin{aligned} P_{\theta}(X)&= e^{\sum \eta_i(\theta)T_i(X)} C(\theta)h(x)\\ &=e^{\sum \eta_i(\theta)T_i(X)} e^{-log(\frac{1}{c(\theta)})}h(x) \\ &= e^{\sum \eta_i(\theta)T_i(X)-log(\frac{1}{c(\theta)})} h(x)  \\&= e^{\sum \eta_i(\theta)T_i(X)-b(\theta)} h(x) \end{aligned}$$
+
+For normal distributions, it belongs to exponential family.
+
+$$\begin{aligned} P_{\theta}(X) &= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}\\ &=e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} e^{log(\frac{1}{\sigma\sqrt{2\pi}})} \\ &= e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}-\sigma\sqrt{2\pi}} \\ &= e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-\sqrt{2\pi}\sigma}\\ &=e^{-\frac{1}{2\sigma^2}x^2+\frac{x\mu}{\sigma^2}-(\frac{1}{2\sigma^2} \mu^2+\sqrt{2\pi}\sigma)} \end{aligned}$$
+Where,
+
+$\eta_1 =-\frac{1}{2\sigma^2}$ and $T_1(x)=x^2$
+
+$\eta_2 =-\frac{\mu}{\sigma^2}$ and $T_2(x)=x$
+
+$B(\theta)=\frac{1}{2\sigma^2} \mu^2+\sqrt{2\pi}\sigma$
+
+
 ## LMM
 The following is a shortened version of Jonathan Rosenblatt's LMM tutorial. http://www.john-ros.com/Rcourse/lme.html.
 
