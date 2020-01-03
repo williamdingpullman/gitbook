@@ -529,6 +529,9 @@ Before moving to LMM, I would like to review LM and GLM first.
 
 \[\mu(X): random component\] \[X^T \beta: covariates\] \#\#\# GLM
 
+Ref:
+\url{https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf}
+
 \[Y \sim exponential family\] Link function
 
 \[g(\mu(X))=X^T \beta\] Possion regression:
@@ -568,9 +571,9 @@ Where,
 
 Thus, we can see that \(h(x)\) is a normal pdf \(\sim N(0, \sigma^2)\).
 
-Another example, when \(x\) is descrete. For example, Bernoulli:
+Another example, \(x\) is descrete. For example, Bernoulli:
 
-\[ \begin{aligned} &= p^x(1-p)^{1-x}  \\ &=e^{log(p^x(1-p)^{1-x}} \\ &= e^{xlog(p)+(1-x)log(1-p)}\\ &= e^{xlog(p)-xlog(1-p)+log(1-p)}\\ &=e^{xlog(\frac{p}{1-p})+log(1-p)} \end{aligned}\]
+\[ \begin{aligned} &= p^x(1-p)^{1-x}  \\ &=e^{log(p^x(1-p)^{1-x})} \\ &= e^{xlog(p)+(1-x)log(1-p)}\\ &= e^{xlog(p)-xlog(1-p)+log(1-p)}\\ &=e^{xlog(\frac{p}{1-p})+log(1-p)} \end{aligned}\]
 
 Where,
 
