@@ -13,6 +13,7 @@ where,
 
 $$\mu(X): random component$$
 $$X^T \beta: covariates$$
+
 ### GLM
 
 Ref: https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf
@@ -70,6 +71,27 @@ $\eta_1 =log(\frac{p}{1-p})$ and $T_1(x)=x$
 $B(\theta)=log(\frac{1}{1-p})$
 
 $h(x) =1$
+
+
+Canonical exponential family:
+
+$$f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}$$
+where, $b(.)$ and $c(.,.)$ are known. 
+
+Again, use the normal pdf:
+
+$$\begin{aligned} P_{\theta}(X) &= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}\\ &=e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} e^{log(\frac{1}{\sigma\sqrt{2\pi}})} \\ &= e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}-log (\sigma\sqrt{2\pi})} \\ &= e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &= e^{\frac{x\mu}{\sigma^2}-\frac{\mu^2}{2\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \\ &=e^{\frac{x\mu-\frac{1}{2}\mu^2}{\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \end{aligned}$$
+
+Where (we assume $\sigma^2$ is known.),
+
+$\theta=\mu$
+
+$\phi =\sigma^2$
+
+$b(\theta)=\frac{1}{2}\mu^2$
+
+$c(x, \phi)=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2)=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2))=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi))$
+
 
 ## LMM
 The following is a shortened version of Jonathan Rosenblatt's LMM tutorial. http://www.john-ros.com/Rcourse/lme.html.

@@ -122,6 +122,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>3</b> Linear Mixed Models</a><ul>
 <li class="chapter" data-level="3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lm-and-glm"><i class="fa fa-check"></i><b>3.1</b> LM and GLM</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lm"><i class="fa fa-check"></i><b>3.1.1</b> LM</a></li>
+<li class="chapter" data-level="3.1.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#glm"><i class="fa fa-check"></i><b>3.1.2</b> GLM</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lmm"><i class="fa fa-check"></i><b>3.2</b> LMM</a></li>
 <li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.3</b> Calculate mean</a></li>
@@ -207,7 +208,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">3.1.1</span> LM</h3>
 <p><span class="math display">\[Y|X \sim N(\mu(X),\sigma^2 I)\]</span></p>
 <p><span class="math display">\[E(Y|X)=\mu(X)=X^T \beta\]</span> where,</p>
-<p><span class="math display">\[\mu(X): random component\]</span> <span class="math display">\[X^T \beta: covariates\]</span> ### GLM</p>
+<p><span class="math display">\[\mu(X): random component\]</span> <span class="math display">\[X^T \beta: covariates\]</span></p>
+</div>
+<div id="glm" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> GLM</h3>
 <p>Ref: <a href="https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf" class="uri">https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf</a></p>
 <p><span class="math display">\[Y \sim exponential family\]</span> Link function</p>
 <p><span class="math display">\[g(\mu(X))=X^T \beta\]</span> Possion regression: <span class="math display">\[\mu_i = \gamma e^{\delta t_i}\]</span> Link function is log link, and it becomes: <span class="math display">\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\]</span> <span class="math display">\[\mu_i=\frac{\alpha x_i}{h+x_i}\]</span> Reciprocal link: <span class="math display">\[g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}\]</span> In a more general sense, for exponential family:</p>
@@ -230,6 +234,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math inline">\(\eta_1 =log(\frac{p}{1-p})\)</span> and <span class="math inline">\(T_1(x)=x\)</span></p>
 <p><span class="math inline">\(B(\theta)=log(\frac{1}{1-p})\)</span></p>
 <p><span class="math inline">\(h(x) =1\)</span></p>
+<p>Canonical exponential family:</p>
+<p><span class="math display">\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]</span> where, <span class="math inline">\(b(.)\)</span> and <span class="math inline">\(c(.,.)\)</span> are known.</p>
+<p>Again, use the normal pdf:</p>
+<p><span class="math display">\[\begin{aligned} P_{\theta}(X) &amp;= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}\\ &amp;=e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} e^{log(\frac{1}{\sigma\sqrt{2\pi}})} \\ &amp;= e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}-log (\sigma\sqrt{2\pi})} \\ &amp;= e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &amp;= e^{\frac{x\mu}{\sigma^2}-\frac{\mu^2}{2\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \\ &amp;=e^{\frac{x\mu-\frac{1}{2}\mu^2}{\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \end{aligned}\]</span></p>
+<p>Where (we assume <span class="math inline">\(\sigma^2\)</span> is known.),</p>
+<p><span class="math inline">\(\theta=\mu\)</span></p>
+<p><span class="math inline">\(\phi =\sigma^2\)</span></p>
+<p><span class="math inline">\(b(\theta)=\frac{1}{2}\mu^2\)</span></p>
+<p><span class="math inline">\(c(x, \phi)=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2)=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2))=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi))\)</span></p>
 </div>
 </div>
 <div id="lmm" class="section level2">
