@@ -173,9 +173,19 @@ for(b in 1:100){
 
 
 
+## Important Examples with R code
+
+1. Fitting mixed models with (temporal) correlations in R
+
+https://bbolker.github.io/mixedmodels-misc/notes/corr_braindump.html
+
+2. Mixed effects logistic regression 
+
+https://stats.idre.ucla.edu/r/dae/mixed-effects-logistic-regression/
 
 
-## Reference
+
+## References
 
 1. Data
 
