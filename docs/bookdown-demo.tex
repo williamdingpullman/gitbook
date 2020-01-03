@@ -568,6 +568,18 @@ Where,
 
 Thus, we can see that \(h(x)\) is a normal pdf \(\sim N(0, \sigma^2)\).
 
+Another example, when \(x\) is descrete. For example, Bernoulli:
+
+\[ \begin{aligned} &= p^x(1-p)^{1-x}  \\ &=e^{log(p^x(1-p)^{1-x}} \\ &= e^{xlog(p)+(1-x)log(1-p)}\\ &= e^{xlog(p)-xlog(1-p)+log(1-p)}\\ &=e^{xlog(\frac{p}{1-p})+log(1-p)} \end{aligned}\]
+
+Where,
+
+\(\eta_1 =log(\frac{p}{1-p})\) and \(T_1(x)=x\)
+
+\(B(\theta)=log(\frac{1}{1-p})\)
+
+\(h(x) =1\)
+
 \section{LMM}\label{lmm}
 
 The following is a shortened version of Jonathan Rosenblatt's LMM

@@ -223,6 +223,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math inline">\(B(\theta)=\frac{1}{2\sigma^2} \mu^2\)</span></p>
 <p><span class="math inline">\(\begin{aligned} h(x) &amp;=e^{-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)} \\&amp;=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}\frac{x^2}{\sigma^2}} \end{aligned}\)</span></p>
 <p>Thus, we can see that <span class="math inline">\(h(x)\)</span> is a normal pdf <span class="math inline">\(\sim N(0, \sigma^2)\)</span>.</p>
+<p>Another example, when <span class="math inline">\(x\)</span> is descrete. For example, Bernoulli:</p>
+<p><span class="math display">\[ \begin{aligned} &amp;= p^x(1-p)^{1-x}  \\ &amp;=e^{log(p^x(1-p)^{1-x}} \\ &amp;= e^{xlog(p)+(1-x)log(1-p)}\\ &amp;= e^{xlog(p)-xlog(1-p)+log(1-p)}\\ &amp;=e^{xlog(\frac{p}{1-p})+log(1-p)} \end{aligned}\]</span></p>
+<p>Where,</p>
+<p><span class="math inline">\(\eta_1 =log(\frac{p}{1-p})\)</span> and <span class="math inline">\(T_1(x)=x\)</span></p>
+<p><span class="math inline">\(B(\theta)=log(\frac{1}{1-p})\)</span></p>
+<p><span class="math inline">\(h(x) =1\)</span></p>
 </div>
 </div>
 <div id="lmm" class="section level2">
