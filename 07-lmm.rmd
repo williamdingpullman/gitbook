@@ -1,5 +1,32 @@
 # Linear Mixed Models
 
+## LM and GLM
+
+Before moving to LMM, I would like to review LM and GLM first.
+
+### LM
+
+$$Y|X \sim N(\mu(X),\sigma I)$$
+
+$$E(Y|X)=\mu(X)=X^T \beta$$
+where, 
+
+$$\mu(X): random component$$
+$$X^T \beta: covariates$$
+### GLM
+
+$$Y \sim exponential family$$
+ Link function
+ 
+ $$g(\mu(X))=X^T \beta$$
+Possion regression:
+$$\mu_i = \gamma e^{\delta t_i}$$
+Link function is log link, and it becomes:
+$$log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i$$
+$$\mu_i=\frac{\alpha x_i}{h+x_i}$$
+Reciprocal link:
+$$g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}$$
+## LMM
 The following is a shortened version of Jonathan Rosenblatt's LMM tutorial. http://www.john-ros.com/Rcourse/lme.html.
 
 In addition, another reference is from Douglas Bates's R package document.
