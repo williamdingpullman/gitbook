@@ -2668,31 +2668,23 @@ Field}\label{practice-learning-on-the-battle-field}
 \begin{Highlighting}[]
 \NormalTok{NO_new<-}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{222}\NormalTok{)}
 \NormalTok{mydata4<-}\KeywordTok{cbind}\NormalTok{(mydata3,NO_new)}
-
-\NormalTok{a1 =}\StringTok{ }\KeywordTok{glmer}\NormalTok{(X0 }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{NO_new), }\DataTypeTok{data =}\NormalTok{ mydata4,}\DataTypeTok{family=}\NormalTok{binomial)}
-\NormalTok{a1}
+\KeywordTok{head}\NormalTok{(mydata4)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: binomial  ( logit )
-## Formula: X0 ~ 1 + (1 | NO_new)
-##    Data: mydata4
-##       AIC       BIC    logLik  deviance  df.resid 
-##  243.2936  250.0990 -119.6468  239.2936       220 
-## Random effects:
-##  Groups Name        Std.Dev.
-##  NO_new (Intercept) 0.000353
-## Number of obs: 222, groups:  NO_new, 222
-## Fixed Effects:
-## (Intercept)  
-##       -1.21
+##   X0 NO_new
+## 1  0      1
+## 2  1      2
+## 3  0      3
+## 4  0      4
+## 5  1      5
+## 6  0      6
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{a1 =}\StringTok{ }\KeywordTok{glmer}\NormalTok{(X0 }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{NO_new), }\DataTypeTok{data =}\NormalTok{ mydata4,}\DataTypeTok{family=}\NormalTok{binomial)}
 \KeywordTok{summary}\NormalTok{(a1)}
 \end{Highlighting}
 \end{Shaded}
@@ -2726,25 +2718,6 @@ Field}\label{practice-learning-on-the-battle-field}
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{a2 =}\StringTok{ }\KeywordTok{glm}\NormalTok{(X0 }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ mydata4,}\DataTypeTok{family=}\NormalTok{binomial)}
-\NormalTok{a2}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:  glm(formula = X0 ~ 1, family = binomial, data = mydata4)
-## 
-## Coefficients:
-## (Intercept)  
-##       -1.21  
-## 
-## Degrees of Freedom: 221 Total (i.e. Null);  221 Residual
-## Null Deviance:       239.3 
-## Residual Deviance: 239.3     AIC: 241.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{summary}\NormalTok{(a2)}
 \end{Highlighting}
 \end{Shaded}

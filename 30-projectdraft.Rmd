@@ -5,13 +5,12 @@ mydata3<-read.csv('Schnibbe 1502 Binary Data.csv')
 head(mydata3)
 NO_new<-rep(1:222)
 mydata4<-cbind(mydata3,NO_new)
+head(mydata4)
 
 a1 = glmer(X0 ~ 1 + (1|NO_new), data = mydata4,family=binomial)
-a1
 summary(a1)
 
 a2 = glm(X0 ~ 1, data = mydata4,family=binomial)
-a2
 summary(a2)
 
 
