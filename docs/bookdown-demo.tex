@@ -119,7 +119,7 @@
 
 \title{GLMM, Concepts, \& R}
 \author{Bill Last Updated:}
-\date{03 January, 2020}
+\date{04 January, 2020}
 
 \begin{document}
 \maketitle
@@ -533,22 +533,37 @@ where,
 
 \(X^T \beta: covariates\)
 
-\subsection{GLM}\label{glm}
+\subsection{GLM-Definition}\label{glm-definition}
 
 Ref:
 \url{https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf}
 
 \[Y \sim exponential family\] Link function
 
-\[g(\mu(X))=X^T \beta\] Possion regression:
+\[g(\mu(X))=X^T \beta\]
+
+\subsection{GLM-log link example}\label{glm-log-link-example}
+
 \[\mu_i = \gamma e^{\delta t_i}\] Link function is log link, and it
 becomes:
-\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\]
-\[\mu_i=\frac{\alpha x_i}{h+x_i}\] Reciprocal link:
+
+\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\] (This
+is somehow similar to Poisson distribution.)
+
+\subsection{GLM-Reciprocal link:}\label{glm-reciprocal-link}
+
+\[\mu_i=\frac{\alpha x_i}{h+x_i}\]
+
+Reciprocal link:
+
 \[g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}\]
+
+\subsection{GLM-exponential family:}\label{glm-exponential-family}
+
 In a more general sense, for exponential family:
 
 \[\begin{aligned} P_{\theta}(X)=P(X, \theta)&= e^{\sum \eta_i(\theta)T_i(X)} C(\theta)h(x)\\ &=e^{\sum \eta_i(\theta)T_i(X)} e^{-log(\frac{1}{c(\theta)})}h(x) \\ &= e^{\sum \eta_i(\theta)T_i(X)-log(\frac{1}{c(\theta)})} h(x)  \\&= e^{\sum \eta_i(\theta)T_i(X)-B(\theta)} h(x) \end{aligned}\]
+\textbf{Normal distribution}
 
 For normal distributions, it belongs to exponential family.
 
@@ -577,6 +592,8 @@ Where,
 
 Thus, we can see that \(h(x)\) is a normal pdf \(\sim N(0, \sigma^2)\).
 
+\textbf{Bernoulli}
+
 Another example, \(x\) is descrete. For example, Bernoulli:
 
 \[ \begin{aligned} &= p^x(1-p)^{1-x}  \\ &=e^{log(p^x(1-p)^{1-x})} \\ &= e^{xlog(p)+(1-x)log(1-p)}\\ &= e^{xlog(p)-xlog(1-p)+log(1-p)}\\ &=e^{xlog(\frac{p}{1-p})+log(1-p)} \end{aligned}\]
@@ -589,10 +606,15 @@ Where,
 
 \(h(x) =1\)
 
+\subsection{Canonical exponential
+family}\label{canonical-exponential-family}
+
 Canonical exponential family:
 
 \[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\] where,
 \(b(.)\) and \(c(.,.)\) are known.
+
+\textbf{Normal distribution}
 
 Again, use the normal pdf:
 
@@ -608,6 +630,8 @@ Where (we assume \(\sigma^2\) is known.),
 
 \(\begin{aligned} c(x, \phi) &=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)
 
+\textbf{First derivative}
+
 Canonical exponential family:
 
 \[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]
@@ -615,6 +639,8 @@ Canonical exponential family:
 log likelihood (only one observation) \[log f_{\theta}(x)\]
 
 \[\begin{aligned} E[\frac{\partial (logf_{\theta}(X))}{\partial \theta} ] &=E[\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)}] \\ &= \int \frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)} f_{\theta}(X) dx  \\ &= \int \frac{\partial f_{\theta}(X)}{\partial \theta} dx \\ &= \frac{\partial}{\partial \theta} \int f_{\theta}(X)dx \\ &= \frac{\partial 1}{\partial \theta} \\ &=0  \end{aligned}\]
+\textbf{Second derivative}
+
 Second derivative
 
 \[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2} ] &=E[ \frac{\partial}{\partial \theta}(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})] \\  
@@ -623,6 +649,9 @@ Second derivative
 &=\frac{\partial^2}{\partial \theta^2}\int f_{\theta}(X) dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
 &=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\
 &=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{(f_{\theta}(X))^2}f_{\theta}(x)dx \\ &= - E[(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})^2]\\ &= -E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \end{aligned}\]
+
+\subsection{Canonical exponential family - Expected value and
+variance}\label{canonical-exponential-family---expected-value-and-variance}
 
 Based on the first derivative, we can get:
 
@@ -640,6 +669,9 @@ At the same time,
 Thus,
 
 \[Var(X)=b^{''}(\theta) \phi\]
+
+\subsection{Expected value and variance - Possion
+Example}\label{expected-value-and-variance---possion-example}
 
 Example of possion distribution
 
