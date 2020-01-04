@@ -129,7 +129,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1.6" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-exponential-family"><i class="fa fa-check"></i><b>3.1.6</b> Canonical exponential family</a></li>
 <li class="chapter" data-level="3.1.7" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-exponential-family---expected-value-and-variance"><i class="fa fa-check"></i><b>3.1.7</b> Canonical exponential family - Expected value and variance</a></li>
 <li class="chapter" data-level="3.1.8" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#expected-value-and-variance---possion-example"><i class="fa fa-check"></i><b>3.1.8</b> Expected value and variance - Possion Example</a></li>
-<li class="chapter" data-level="3.1.9" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-link---bernoulli"><i class="fa fa-check"></i><b>3.1.9</b> Canonical link - Bernoulli</a></li>
+<li class="chapter" data-level="3.1.9" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-link"><i class="fa fa-check"></i><b>3.1.9</b> Canonical link</a></li>
+<li class="chapter" data-level="3.1.10" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-link---bernoulli"><i class="fa fa-check"></i><b>3.1.10</b> Canonical link - Bernoulli</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lmm"><i class="fa fa-check"></i><b>3.2</b> LMM</a></li>
 <li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.3</b> Calculate mean</a></li>
@@ -270,7 +271,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Where (we assume <span class="math inline">\(\sigma^2\)</span> is known.),</p>
 <p><span class="math inline">\(\theta=\mu\)</span></p>
 <p><span class="math inline">\(\phi =\sigma^2\)</span></p>
-<p><span class="math inline">\(b(\theta)=\frac{1}{2}\mu^2\)</span></p>
+<p><span class="math inline">\(b(\theta)=\frac{1}{2}\theta^2\)</span></p>
 <p><span class="math inline">\(\begin{aligned} c(x, \phi) &amp;=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &amp;=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)</span></p>
 </div>
 <div id="canonical-exponential-family---expected-value-and-variance" class="section level3">
@@ -306,7 +307,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We thus know that <span class="math inline">\(\theta=log(\mu)\)</span>. We can contintue to write the equation above as follows.</p>
 <p><span class="math display">\[=e^{y\theta-e^{\theta}-log(y!)}\]</span></p>
 <p>Thus, we can get:</p>
-<p><span class="math display">\[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]</span> <span class="math display">\[Var(X)=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2}=\mu\]</span> ### Canonical link</p>
+<p><span class="math display">\[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]</span> <span class="math display">\[Var(X)=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2}=\mu\]</span></p>
+</div>
+<div id="canonical-link" class="section level3">
+<h3><span class="header-section-number">3.1.9</span> Canonical link</h3>
 <p>A link functin can link <span class="math inline">\(X^T \beta\)</span> to the mean <span class="math inline">\(\mu\)</span>.</p>
 <p>That is,</p>
 <p><span class="math display">\[g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)\]</span> We know that</p>
@@ -316,16 +320,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[g=b^{&#39; -1}(\theta)\]</span></p>
 </div>
 <div id="canonical-link---bernoulli" class="section level3">
-<h3><span class="header-section-number">3.1.9</span> Canonical link - Bernoulli</h3>
-<p>Bernoulli:</p>
+<h3><span class="header-section-number">3.1.10</span> Canonical link - Bernoulli</h3>
+<p>PMF of Bernoulli:</p>
 <p><span class="math display">\[ \begin{aligned} &amp;= p^y(1-p)^{1-y}  \\ &amp;=e^{log(p^y(1-p)^{1-y})} \\ &amp;= e^{ylog(p)+(1-y)log(1-p)}\\ &amp;= e^{ylog(p)-ylog(1-p)+log(1-p)}\\ &amp;=e^{ylog(\frac{p}{1-p})+log(1-p)} \end{aligned} \]</span> Copared to the following:</p>
 <p><span class="math display">\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]</span> We need to change the format of Bernoulli:</p>
 <p><span class="math display">\[\theta= log \frac{p}{1-p}\]</span> Thus, <span class="math display">\[e^{\theta}=\frac{p}{1-p} \rightarrow p=\frac{e^{\theta}}{1+e^{\theta}} \]</span> After that, we can contintue the Bernoulli:</p>
 <p><span class="math display">\[\begin{aligned} &amp;= e^{y\theta+log(1-\frac{e^{\theta}}{1+e^{\theta}})} \\ &amp;=e^{y\theta+log(\frac{1}{1+e^{\theta}})} \\ &amp;=e^{y\theta-log(1+e^{\theta})} \end{aligned}\]</span></p>
 <p>Where,</p>
-<p><span class="math inline">\(b(\theta)=log(1+e^{\theta})\)</span></p>
+<p><span class="math display">\[b(\theta)=log(1+e^{\theta})\]</span></p>
 <p>We can then try to calculate the derivative:</p>
-<p><span class="math display">\[b^{&#39;}(\theta)\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}\]</span> We know that</p>
+<p><span class="math display">\[b^{&#39;}(\theta)=\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}\]</span> We know that</p>
 <p><span class="math display">\[b^{&#39;}(\theta)=\mu\]</span> Thus, we can get</p>
 <p><span class="math display">\[\mu=\frac{e^{\theta}}{1+e^{\theta}}\]</span> We can then calculate the inverse function:</p>
 <p><span class="math display">\[\theta=log(\frac{\mu}{1-\mu})\]</span> Thus,</p>

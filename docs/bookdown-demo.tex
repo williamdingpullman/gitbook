@@ -626,7 +626,7 @@ Where (we assume \(\sigma^2\) is known.),
 
 \(\phi =\sigma^2\)
 
-\(b(\theta)=\frac{1}{2}\mu^2\)
+\(b(\theta)=\frac{1}{2}\theta^2\)
 
 \(\begin{aligned} c(x, \phi) &=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)
 
@@ -696,7 +696,8 @@ Thus, we can get:
 
 \[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]
 \[Var(X)=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2}=\mu\]
-\#\#\# Canonical link
+
+\subsection{Canonical link}\label{canonical-link}
 
 A link functin can link \(X^T \beta\) to the mean \(\mu\).
 
@@ -715,7 +716,7 @@ Thus,
 \subsection{Canonical link -
 Bernoulli}\label{canonical-link---bernoulli}
 
-Bernoulli:
+PMF of Bernoulli:
 
 \[ \begin{aligned} &= p^y(1-p)^{1-y}  \\ &=e^{log(p^y(1-p)^{1-y})} \\ &= e^{ylog(p)+(1-y)log(1-p)}\\ &= e^{ylog(p)-ylog(1-p)+log(1-p)}\\ &=e^{ylog(\frac{p}{1-p})+log(1-p)} \end{aligned} \]
 Copared to the following:
@@ -731,11 +732,11 @@ After that, we can contintue the Bernoulli:
 
 Where,
 
-\(b(\theta)=log(1+e^{\theta})\)
+\[b(\theta)=log(1+e^{\theta})\]
 
 We can then try to calculate the derivative:
 
-\[b^{'}(\theta)\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}\]
+\[b^{'}(\theta)=\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}\]
 We know that
 
 \[b^{'}(\theta)=\mu\] Thus, we can get
