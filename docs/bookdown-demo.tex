@@ -630,6 +630,9 @@ Where (we assume \(\sigma^2\) is known.),
 
 \(\begin{aligned} c(x, \phi) &=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)
 
+\subsection{Canonical exponential family - Expected value and
+variance}\label{canonical-exponential-family---expected-value-and-variance}
+
 \textbf{First derivative}
 
 Canonical exponential family:
@@ -649,9 +652,6 @@ Second derivative
 &=\frac{\partial^2}{\partial \theta^2}\int f_{\theta}(X) dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
 &=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\
 &=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{(f_{\theta}(X))^2}f_{\theta}(x)dx \\ &= - E[(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})^2]\\ &= -E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \end{aligned}\]
-
-\subsection{Canonical exponential family - Expected value and
-variance}\label{canonical-exponential-family---expected-value-and-variance}
 
 Based on the first derivative, we can get:
 
@@ -681,7 +681,7 @@ If we put \(k\) as \(y\), and \(\lambda\) as \(\mu\), we can get:
 
 \[P(\mu)=\frac{\mu^y e^{-\mu}}{y!}\] Compare to,
 
-\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]
+\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]
 
 We can write it as the exponential format:
 
@@ -696,6 +696,56 @@ Thus, we can get:
 
 \[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]
 \[Var(X)=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2}=\mu\]
+\#\#\# Canonical link
+
+A link functin can link \(X^T \beta\) to the mean \(\mu\).
+
+That is,
+
+\[g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)\] We know that
+
+\[\mu = b^{'}(\theta)\]
+
+Thus,
+
+\[ b^{'}(\theta)=g^{-1}(X^T \beta)\] Thus,
+
+\[g=b^{' -1}(\theta)\]
+
+\subsection{Canonical link -
+Bernoulli}\label{canonical-link---bernoulli}
+
+Bernoulli:
+
+\[ \begin{aligned} &= p^y(1-p)^{1-y}  \\ &=e^{log(p^y(1-p)^{1-y})} \\ &= e^{ylog(p)+(1-y)log(1-p)}\\ &= e^{ylog(p)-ylog(1-p)+log(1-p)}\\ &=e^{ylog(\frac{p}{1-p})+log(1-p)} \end{aligned} \]
+Copared to the following:
+
+\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\] We need
+to change the format of Bernoulli:
+
+\[\theta= log \frac{p}{1-p}\] Thus,
+\[e^{\theta}=\frac{p}{1-p} \rightarrow p=\frac{e^{\theta}}{1+e^{\theta}} \]
+After that, we can contintue the Bernoulli:
+
+\[\begin{aligned} &= e^{y\theta+log(1-\frac{e^{\theta}}{1+e^{\theta}})} \\ &=e^{y\theta+log(\frac{1}{1+e^{\theta}})} \\ &=e^{y\theta-log(1+e^{\theta})} \end{aligned}\]
+
+Where,
+
+\(b(\theta)=log(1+e^{\theta})\)
+
+We can then try to calculate the derivative:
+
+\[b^{'}(\theta)\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}\]
+We know that
+
+\[b^{'}(\theta)=\mu\] Thus, we can get
+
+\[\mu=\frac{e^{\theta}}{1+e^{\theta}}\] We can then calculate the
+inverse function:
+
+\[\theta=log(\frac{\mu}{1-\mu})\] Thus,
+
+\[g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta\]
 
 \section{LMM}\label{lmm}
 
