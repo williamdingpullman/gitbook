@@ -207,8 +207,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="lm" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> LM</h3>
 <p><span class="math display">\[Y|X \sim N(\mu(X),\sigma^2 I)\]</span></p>
-<p><span class="math display">\[E(Y|X)=\mu(X)=X^T \beta\]</span> where,</p>
-<p><span class="math display">\[\mu(X): random component\]</span> <span class="math display">\[X^T \beta: covariates\]</span></p>
+<p><span class="math display">\[E(Y|X)=\mu(X)=X^T \beta\]</span></p>
+<p>where,</p>
+<p><span class="math inline">\(\mu(X): random component\)</span></p>
+<p><span class="math inline">\(X^T \beta: covariates\)</span></p>
 </div>
 <div id="glm" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> GLM</h3>
@@ -242,7 +244,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math inline">\(\theta=\mu\)</span></p>
 <p><span class="math inline">\(\phi =\sigma^2\)</span></p>
 <p><span class="math inline">\(b(\theta)=\frac{1}{2}\mu^2\)</span></p>
-<p><span class="math inline">\(c(x, \phi)=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2)=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2))=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi))\)</span></p>
+<p><span class="math inline">\(\begin{aligned} c(x, \phi) &amp;=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &amp;=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)</span></p>
 </div>
 </div>
 <div id="lmm" class="section level2">
