@@ -256,10 +256,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 &amp;=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\
 &amp;=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{(f_{\theta}(X))^2}f_{\theta}(x)dx \\ &amp;= - E[(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})^2]\\ &amp;= -E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \end{aligned}\]</span></p>
 <p>Based on the first derivative, we can get:</p>
-<p><span class="math display">\[log(f_{\theta}(X))=\frac{X\theta-b(\theta)}{\phi}+c(X,\phi)\]</span> <span class="math display">\[E[\frac{\partial (log(f_{\theta}(X)))}{\partial \theta}]= E[\frac{X-b^{&#39;}(\theta)}{\phi}]=\frac{E(X)-b^{&#39;}(\theta)}{\phi}=0\]</span> Thus, we can get that <span class="math inline">\(E(X)=b^{&#39;}(\theta)\)</span>.</p>
+<p><span class="math display">\[log(f_{\theta}(X))=\frac{X\theta-b(\theta)}{\phi}+c(X,\phi)\]</span> <span class="math display">\[E[\frac{\partial (log(f_{\theta}(X)))}{\partial \theta}]= E[\frac{X-b^{&#39;}(\theta)}{\phi}]=\frac{E(X)-b^{&#39;}(\theta)}{\phi}=0\]</span> Thus, we can get,</p>
+<p><span class="math display">\[E(X)=b^{&#39;}(\theta)\]</span></p>
 <p>For second derivative, from the calculation above, we know that,</p>
 <p><span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&amp;=-E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \\ &amp;= -E[(\frac{X-b^{&#39;}(\theta)}{\phi})^2]\\ &amp;=-E[(\frac{X-E(X)}{\phi})^2] \\ &amp;= -\frac{Var(X)}{\phi^2}\end{aligned}\]</span> At the same time, <span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&amp;=E[\frac{\partial (\frac{X-b^{&#39;}(\theta)}{\phi})}{\partial \theta}] \\ &amp;= E[-\frac{b^{&#39;&#39;}(\theta)}{\phi}]\\ &amp;= - \frac{b^{&#39;&#39;}(\theta)}{\phi} \end{aligned}\]</span> Thus,</p>
 <p><span class="math display">\[Var(X)=b^{&#39;&#39;}(\theta) \phi\]</span></p>
+<p>Example of possion distribution</p>
+<p><span class="math display">\[P(\lambda)=\frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
+<p>If we put <span class="math inline">\(k\)</span> as <span class="math inline">\(y\)</span>, and <span class="math inline">\(\lambda\)</span> as <span class="math inline">\(\mu\)</span>, we can get:</p>
+<p><span class="math display">\[P(\mu)=\frac{\mu^y e^{-\mu}}{y!}\]</span> Compare to,</p>
+<p><span class="math display">\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]</span></p>
+<p>We can write it as the exponential format:</p>
+<p><span class="math display">\[\begin{aligned} P(\mu) &amp;=\frac{\mu^y e^{-\mu}}{y!}  \\ &amp;= e^{log(\mu^y)+log(e^{-\mu})-log(y!)} \\ &amp;= e^{ylog(\mu)-\mu-log(y!)}\end{aligned}\]</span></p>
+<p>We thus know that <span class="math inline">\(\theta=log(\mu)\)</span>. We can contintue to write the equation above as follows.</p>
+<p><span class="math display">\[=e^{y\theta-e^{\theta}-log(y!)}\]</span></p>
+<p>Thus, we can get:</p>
+<p><span class="math display">\[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]</span> <span class="math display">\[Var(X)=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2}=\mu\]</span></p>
 </div>
 </div>
 <div id="lmm" class="section level2">

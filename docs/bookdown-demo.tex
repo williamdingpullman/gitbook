@@ -628,7 +628,9 @@ Based on the first derivative, we can get:
 
 \[log(f_{\theta}(X))=\frac{X\theta-b(\theta)}{\phi}+c(X,\phi)\]
 \[E[\frac{\partial (log(f_{\theta}(X)))}{\partial \theta}]= E[\frac{X-b^{'}(\theta)}{\phi}]=\frac{E(X)-b^{'}(\theta)}{\phi}=0\]
-Thus, we can get that \(E(X)=b^{'}(\theta)\).
+Thus, we can get,
+
+\[E(X)=b^{'}(\theta)\]
 
 For second derivative, from the calculation above, we know that,
 
@@ -638,6 +640,30 @@ At the same time,
 Thus,
 
 \[Var(X)=b^{''}(\theta) \phi\]
+
+Example of possion distribution
+
+\[P(\lambda)=\frac{\lambda^k e^{-\lambda}}{k!}\]
+
+If we put \(k\) as \(y\), and \(\lambda\) as \(\mu\), we can get:
+
+\[P(\mu)=\frac{\mu^y e^{-\mu}}{y!}\] Compare to,
+
+\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]
+
+We can write it as the exponential format:
+
+\[\begin{aligned} P(\mu) &=\frac{\mu^y e^{-\mu}}{y!}  \\ &= e^{log(\mu^y)+log(e^{-\mu})-log(y!)} \\ &= e^{ylog(\mu)-\mu-log(y!)}\end{aligned}\]
+
+We thus know that \(\theta=log(\mu)\). We can contintue to write the
+equation above as follows.
+
+\[=e^{y\theta-e^{\theta}-log(y!)}\]
+
+Thus, we can get:
+
+\[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]
+\[Var(X)=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2}=\mu\]
 
 \section{LMM}\label{lmm}
 
