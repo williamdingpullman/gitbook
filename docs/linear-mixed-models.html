@@ -245,6 +245,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math inline">\(\phi =\sigma^2\)</span></p>
 <p><span class="math inline">\(b(\theta)=\frac{1}{2}\mu^2\)</span></p>
 <p><span class="math inline">\(\begin{aligned} c(x, \phi) &amp;=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &amp;=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)</span></p>
+<p>Canonical exponential family:</p>
+<p><span class="math display">\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]</span></p>
+<p>log likelihood (only one observation) <span class="math display">\[log f_{\theta}(x)\]</span></p>
+<p><span class="math display">\[\begin{aligned} E[\frac{\partial (logf_{\theta}(X))}{\partial \theta} ] &amp;=E[\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)}] \\ &amp;= \int \frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)} f_{\theta}(X) dx  \\ &amp;= \int \frac{\partial f_{\theta}(X)}{\partial \theta} dx \\ &amp;= \frac{\partial}{\partial \theta} \int f_{\theta}(X)dx \\ &amp;= \frac{\partial 1}{\partial \theta} \\ &amp;=0  \end{aligned}\]</span> Second derivative</p>
+<p><span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2} ] &amp;=E[ \frac{\partial}{\partial \theta}(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})] \\  
+&amp;=E[\frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f^2_{\theta}(X)}] \\ &amp;= \int \frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ &amp;=\int (\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} - \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)})dx  \\ 
+&amp;= \int \frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
+&amp;=\frac{\partial^2}{\partial \theta^2}\int f_{\theta}(X) dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
+&amp;=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\
+&amp;=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{(f_{\theta}(X))^2}f_{\theta}(x)dx \\ &amp;= - E[(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})^2]\\ &amp;= -E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \end{aligned}\]</span></p>
+<p>Based on the first derivative, we can get:</p>
+<p><span class="math display">\[log(f_{\theta}(X))=\frac{X\theta-b(\theta)}{\phi}+c(X,\phi)\]</span> <span class="math display">\[E[\frac{\partial (log(f_{\theta}(X)))}{\partial \theta}]= E[\frac{X-b^{&#39;}(\theta)}{\phi}]=\frac{E(X)-b^{&#39;}(\theta)}{\phi}=0\]</span> Thus, we can get that <span class="math inline">\(E(X)=b^{&#39;}(\theta)\)</span>.</p>
+<p>For second derivative, from the calculation above, we know that,</p>
+<p><span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&amp;=-E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \\ &amp;= -E[(\frac{X-b^{&#39;}(\theta)}{\phi})^2]\\ &amp;=-E[(\frac{X-E(X)}{\phi})^2] \\ &amp;= -\frac{Var(X)}{\phi^2}\end{aligned}\]</span> At the same time, <span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&amp;=E[\frac{\partial (\frac{X-b^{&#39;}(\theta)}{\phi})}{\partial \theta}] \\ &amp;= E[-\frac{b^{&#39;&#39;}(\theta)}{\phi}]\\ &amp;= - \frac{b^{&#39;&#39;}(\theta)}{\phi} \end{aligned}\]</span> Thus,</p>
+<p><span class="math display">\[Var(X)=b^{&#39;&#39;}(\theta) \phi\]</span></p>
 </div>
 </div>
 <div id="lmm" class="section level2">

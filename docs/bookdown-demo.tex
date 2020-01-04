@@ -608,6 +608,37 @@ Where (we assume \(\sigma^2\) is known.),
 
 \(\begin{aligned} c(x, \phi) &=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)
 
+Canonical exponential family:
+
+\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]
+
+log likelihood (only one observation) \[log f_{\theta}(x)\]
+
+\[\begin{aligned} E[\frac{\partial (logf_{\theta}(X))}{\partial \theta} ] &=E[\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)}] \\ &= \int \frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)} f_{\theta}(X) dx  \\ &= \int \frac{\partial f_{\theta}(X)}{\partial \theta} dx \\ &= \frac{\partial}{\partial \theta} \int f_{\theta}(X)dx \\ &= \frac{\partial 1}{\partial \theta} \\ &=0  \end{aligned}\]
+Second derivative
+
+\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2} ] &=E[ \frac{\partial}{\partial \theta}(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})] \\  
+&=E[\frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f^2_{\theta}(X)}] \\ &= \int \frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ &=\int (\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} - \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)})dx  \\ 
+&= \int \frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
+&=\frac{\partial^2}{\partial \theta^2}\int f_{\theta}(X) dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
+&=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\
+&=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{(f_{\theta}(X))^2}f_{\theta}(x)dx \\ &= - E[(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})^2]\\ &= -E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \end{aligned}\]
+
+Based on the first derivative, we can get:
+
+\[log(f_{\theta}(X))=\frac{X\theta-b(\theta)}{\phi}+c(X,\phi)\]
+\[E[\frac{\partial (log(f_{\theta}(X)))}{\partial \theta}]= E[\frac{X-b^{'}(\theta)}{\phi}]=\frac{E(X)-b^{'}(\theta)}{\phi}=0\]
+Thus, we can get that \(E(X)=b^{'}(\theta)\).
+
+For second derivative, from the calculation above, we know that,
+
+\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&=-E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \\ &= -E[(\frac{X-b^{'}(\theta)}{\phi})^2]\\ &=-E[(\frac{X-E(X)}{\phi})^2] \\ &= -\frac{Var(X)}{\phi^2}\end{aligned}\]
+At the same time,
+\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&=E[\frac{\partial (\frac{X-b^{'}(\theta)}{\phi})}{\partial \theta}] \\ &= E[-\frac{b^{''}(\theta)}{\phi}]\\ &= - \frac{b^{''}(\theta)}{\phi} \end{aligned}\]
+Thus,
+
+\[Var(X)=b^{''}(\theta) \phi\]
+
 \section{LMM}\label{lmm}
 
 The following is a shortened version of Jonathan Rosenblatt's LMM
