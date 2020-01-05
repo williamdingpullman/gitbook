@@ -131,6 +131,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1.8" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#expected-value-and-variance---possion-example"><i class="fa fa-check"></i><b>3.1.8</b> Expected value and variance - Possion Example</a></li>
 <li class="chapter" data-level="3.1.9" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-link"><i class="fa fa-check"></i><b>3.1.9</b> Canonical link</a></li>
 <li class="chapter" data-level="3.1.10" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-link---bernoulli"><i class="fa fa-check"></i><b>3.1.10</b> Canonical link - Bernoulli</a></li>
+<li class="chapter" data-level="3.1.11" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#nr---bernoulli"><i class="fa fa-check"></i><b>3.1.11</b> NR - Bernoulli</a></li>
+<li class="chapter" data-level="3.1.12" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#iteratively-re-weighted-least-squares"><i class="fa fa-check"></i><b>3.1.12</b> Iteratively Re-weighted Least Squares</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lmm"><i class="fa fa-check"></i><b>3.2</b> LMM</a></li>
 <li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.3</b> Calculate mean</a></li>
@@ -334,6 +336,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[\mu=\frac{e^{\theta}}{1+e^{\theta}}\]</span> We can then calculate the inverse function:</p>
 <p><span class="math display">\[\theta=log(\frac{\mu}{1-\mu})\]</span> Thus,</p>
 <p><span class="math display">\[g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta\]</span></p>
+</div>
+<div id="nr---bernoulli" class="section level3">
+<h3><span class="header-section-number">3.1.11</span> NR - Bernoulli</h3>
+<p>We know that the PMF for Bernoulli:</p>
+<p><span class="math display">\[\begin{aligned} &amp;= p^y(1-p)^{1-y} \\  &amp;=e^{y\theta-log(1+e^{\theta})} \\ &amp;=e^{yx^T \beta-log(1+e^{x^T \beta})} \end{aligned}\]</span> Thus,</p>
+<p><span class="math display">\[\ell(\beta|Y,X)=\sum_{i=1}^{n}(Y_iX_i^{T}\beta-log(1+e^{X_i^T \beta}))\]</span> Thus, teh gradient is:</p>
+<p><span class="math display">\[\nabla_{\ell}(\beta)=\sum_{i=1}^{n}(Y_iX_i - \frac{e^{X_i^T \beta}}{1+e^{X_i^T \beta}})\]</span> The Hessian is:</p>
+<p><span class="math display">\[H_{\ell}(\beta)=-\sum_{i=1}^{n}\frac{e^{X_i^T \beta}}{(1+e^{X_i^T \beta})^2}X_iX_i^T\]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[\beta^{k+1}=\beta^k-(H_{\ell}(\beta^k))^{-1}\nabla_{\ell}(\beta^k) \]</span></p>
+</div>
+<div id="iteratively-re-weighted-least-squares" class="section level3">
+<h3><span class="header-section-number">3.1.12</span> Iteratively Re-weighted Least Squares</h3>
 </div>
 </div>
 <div id="lmm" class="section level2">

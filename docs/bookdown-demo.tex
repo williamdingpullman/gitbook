@@ -748,6 +748,28 @@ inverse function:
 
 \[g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta\]
 
+\subsection{NR - Bernoulli}\label{nr---bernoulli}
+
+We know that the PMF for Bernoulli:
+
+\[\begin{aligned} &= p^y(1-p)^{1-y} \\  &=e^{y\theta-log(1+e^{\theta})} \\ &=e^{yx^T \beta-log(1+e^{x^T \beta})} \end{aligned}\]
+Thus,
+
+\[\ell(\beta|Y,X)=\sum_{i=1}^{n}(Y_iX_i^{T}\beta-log(1+e^{X_i^T \beta}))\]
+Thus, teh gradient is:
+
+\[\nabla_{\ell}(\beta)=\sum_{i=1}^{n}(Y_iX_i - \frac{e^{X_i^T \beta}}{1+e^{X_i^T \beta}})\]
+The Hessian is:
+
+\[H_{\ell}(\beta)=-\sum_{i=1}^{n}\frac{e^{X_i^T \beta}}{(1+e^{X_i^T \beta})^2}X_iX_i^T\]
+
+Thus,
+
+\[\beta^{k+1}=\beta^k-(H_{\ell}(\beta^k))^{-1}\nabla_{\ell}(\beta^k) \]
+
+\subsection{Iteratively Re-weighted Least
+Squares}\label{iteratively-re-weighted-least-squares}
+
 \section{LMM}\label{lmm}
 
 The following is a shortened version of Jonathan Rosenblatt's LMM
