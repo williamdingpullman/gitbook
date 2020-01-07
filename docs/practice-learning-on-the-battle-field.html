@@ -52,41 +52,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -176,9 +201,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>8</b> Twitter Example</a><ul>
 <li class="chapter" data-level="8.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>8.1</b> Model</a></li>
-<li class="chapter" data-level="8.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>8.2</b> Simulating Data of Senators on Twitter</a></li>
-<li class="chapter" data-level="8.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
-<li class="chapter" data-level="8.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html"><i class="fa fa-check"></i><b>9</b> Practice: Learning on the Battle Field</a><ul>
 <li class="chapter" data-level="9.1" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html#r-code"><i class="fa fa-check"></i><b>9.1</b> R code</a></li>
@@ -213,142 +235,142 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 9</span> Practice: Learning on the Battle Field</h1>
 <div id="r-code" class="section level2">
 <h2><span class="header-section-number">9.1</span> R code</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#https://fivethirtyeight.com/contributors/josh-hermsmeyer/</span>
-<span class="co"># https://github.com/ryurko/nflscrapR-data/blob/master/legacy_data/README.md</span>
-
-<span class="co">#mydata1 = read.csv(&#39;plays.txt&#39;)</span>
-<span class="co">#unique(mydata1$gameId)</span>
-
-<span class="co">#unique(mydata1$PassLength)</span>
-<span class="co">#table(mydata1$PassLength)</span>
-<span class="co">#table(mydata1$PassResult)</span>
-<span class="co">#table(mydata1$numberOfPassRushers)</span>
-
-
-##mydata3 = read.csv(url(&#39;https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_play_by_play/pbp_2017.csv&#39;))
-##write.csv(mydata3,&#39;2017playbyplay.csv&#39;)
-
-mydata3&lt;-<span class="kw">read.csv</span>(<span class="st">&#39;2017playbyplay.csv&#39;</span>)
-<span class="kw">nrow</span>(mydata3)
-<span class="kw">table</span>(mydata3<span class="op">$</span>Passer)
-<span class="kw">table</span>(mydata3<span class="op">$</span>PlayType)
-
-<span class="co">#mydata5&lt;-mydata3[!duplicated(mydata3[,c(&#39;GameID&#39;,&#39;Passer&#39;)]),]</span>
-<span class="co">#unique(mydata3$GameID)</span>
-mydata6&lt;-<span class="kw">subset</span>(mydata3,down<span class="op">==</span><span class="dv">1</span>)
-
-
-mydata7&lt;-<span class="kw">subset</span>(mydata6,PlayType<span class="op">==</span><span class="st">&#39;Pass&#39;</span><span class="op">|</span>PlayType<span class="op">==</span><span class="st">&#39;Run&#39;</span>)
-<span class="co">#table(mydata7$PlayType)</span>
-<span class="co">#table(droplevels(mydata7$PlayType))</span>
-
-mydata7<span class="op">$</span>PlayType&lt;-<span class="kw">droplevels</span>(mydata7<span class="op">$</span>PlayType)
-<span class="kw">table</span>(mydata7<span class="op">$</span>PlayType)
-
-<span class="co">#http://rstudio-pubs-static.s3.amazonaws.com/6975_c4943349b6174f448104a5513fed59a9.html</span>
-<span class="kw">source</span>(<span class="st">&quot;http://pcwww.liv.ac.uk/~william/R/crosstab.r&quot;</span>)
-mydata8&lt;-mydata7[,<span class="kw">c</span>(<span class="st">&#39;Passer&#39;</span>,<span class="st">&#39;PlayType&#39;</span>,<span class="st">&#39;GameID&#39;</span>,<span class="st">&#39;posteam&#39;</span>,<span class="st">&#39;DefensiveTeam&#39;</span>,<span class="st">&#39;Yards.Gained&#39;</span>,<span class="st">&#39;FirstDown&#39;</span>,<span class="st">&#39;TimeSecs&#39;</span>)]
-<span class="co">#results&lt;-crosstab(mydata8, row.vars = &quot;GameID&quot;, col.vars = &quot;PlayType&quot;, type = &quot;r&quot;)</span>
-<span class="co">#p1&lt;-results$crosstab</span>
-<span class="co">#hist(p1[,1],20)</span>
-
-
-
-<span class="kw">library</span>(plyr)
-count_vector&lt;-<span class="kw">count</span>(mydata8, <span class="st">&quot;GameID&quot;</span>)
-
-l_new&lt;-<span class="kw">length</span>(count_vector<span class="op">$</span>freq)
-time&lt;-<span class="kw">c</span>()
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>l_new)
-{time&lt;-<span class="kw">append</span>(time,<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>count_vector<span class="op">$</span>freq[i]))}
-<span class="kw">nrow</span>(time)
-mydata8<span class="op">$</span>time&lt;-time
-mydata8<span class="op">$</span>play_new&lt;-<span class="kw">ifelse</span>(mydata8<span class="op">$</span>PlayType<span class="op">==</span><span class="st">&#39;Pass&#39;</span>,<span class="dv">1</span>,<span class="dv">0</span>)
-
-n_counting&lt;-<span class="dv">0</span>  <span class="co"># help counting the number of pairs</span>
-
-## The following code collects all the rows of each pair. However, it is difficult to analyze data
-<span class="co"># in such a format. </span>
-
-<span class="co">#empty_df = mydata8[FALSE,]</span>
-<span class="co">#for (i in 1:l_new) # level of different game</span>
-<span class="co">#{</span>
-<span class="co">#   for(j in 1:((count_vector$freq[i])-1)) # within the same game</span>
-<span class="co">#   {</span>
-<span class="co">#      if(i==1)</span>
-<span class="co">#      {row_id&lt;-j}</span>
-<span class="co">#      else {row_id&lt;-sum(count_vector$freq[1:(i-1)])+j}</span>
-<span class="co">#</span>
-<span class="co">#      #print(row_id)</span>
-<span class="co">#      if(as.character(mydata8[row_id,]$posteam)!=as.character(mydata8[row_id+1,]$posteam))</span>
-<span class="co">#      {</span>
-<span class="co">#        print(&quot;not same team&quot;)</span>
-<span class="co">#        if (nrow(empty_df)==0)</span>
-<span class="co">#           {empty_df&lt;-mydata8[row_id:(row_id+1),]}</span>
-<span class="co">#        else</span>
-<span class="co">#           {</span>
-<span class="co">#             if(row.names(mydata8[row_id,])!=row.names(tail(empty_df,1)))</span>
-<span class="co">#               {empty_df&lt;-rbind(empty_df,mydata8[row_id,])}</span>
-<span class="co">#             empty_df&lt;-rbind(empty_df,mydata8[row_id+1,])</span>
-<span class="co">#           }</span>
-<span class="co">#       n_counting&lt;-n_counting+1</span>
-<span class="co">#      }</span>
-<span class="co">#   }</span>
-<span class="co">#}</span>
-
-
-<span class="co"># The following code only collects the second row of the pair, but adds data of </span>
-### PT_L: type of play in the last first down from the other team
-### TG_L: Yards.Gained in the last play
-### FirstDown: did they get first down or not. Note that, if yes, it means it was a fumble.
-
-PT_L=<span class="st">&quot;Pass&quot;</span>
-TG_L=<span class="dv">0</span>
-FD_L=<span class="dv">0</span>
-
-pari_data=<span class="st"> </span>mydata8[<span class="dv">1</span>,]
-pari_data&lt;-<span class="kw">cbind</span>(pari_data,PT_L,TG_L,FD_L)
-pari_data&lt;-pari_data[<span class="ot">FALSE</span>,]
-
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>l_new) <span class="co"># level of different game</span>
-{
-  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>((count_vector<span class="op">$</span>freq[i])<span class="op">-</span><span class="dv">1</span>)) <span class="co"># within the same game</span>
-  {
-
-    <span class="cf">if</span>(i<span class="op">==</span><span class="dv">1</span>)
-    {row_id&lt;-j}
-    <span class="cf">else</span> {row_id&lt;-<span class="kw">sum</span>(count_vector<span class="op">$</span>freq[<span class="dv">1</span><span class="op">:</span>(i<span class="op">-</span><span class="dv">1</span>)])<span class="op">+</span>j}
-
-    <span class="kw">print</span>(row_id)
-    <span class="cf">if</span>(<span class="kw">as.character</span>(mydata8[row_id,]<span class="op">$</span>posteam)<span class="op">!=</span><span class="kw">as.character</span>(mydata8[row_id<span class="op">+</span><span class="dv">1</span>,]<span class="op">$</span>posteam))
-    {
-      <span class="kw">print</span>(<span class="st">&quot;not same team&quot;</span>)
-      PT_L&lt;-<span class="kw">as.character</span>(mydata8[row_id,]<span class="op">$</span>PlayType)
-      TG_L&lt;-mydata8[row_id,]<span class="op">$</span>Yards.Gained
-      FD_L&lt;-mydata8[row_id,]<span class="op">$</span>FirstDown
-
-      new_row&lt;-<span class="kw">cbind</span>(mydata8[(row_id<span class="op">+</span><span class="dv">1</span>),],PT_L,TG_L,FD_L)
-      pari_data&lt;-<span class="kw">rbind</span>(pari_data,new_row)
-     }
-
-      n_counting&lt;-n_counting<span class="op">+</span><span class="dv">1</span>
-  }
-}
-
-pari_data<span class="op">$</span>same&lt;-<span class="kw">ifelse</span>(pari_data<span class="op">$</span>PlayType<span class="op">==</span>pari_data<span class="op">$</span>PT_L,<span class="dv">1</span>,<span class="dv">0</span>)
-
-<span class="co">#write.csv(pari_data,&#39;pari_data.csv&#39;)</span>
-
-<span class="kw">write.table</span>(pari_data, <span class="dt">file =</span> <span class="st">&quot;pari_data.csv&quot;</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>,<span class="dt">na =</span> <span class="st">&quot;&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1"><span class="co">#https://fivethirtyeight.com/contributors/josh-hermsmeyer/</span></a>
+<a class="sourceLine" id="cb118-2" title="2"><span class="co"># https://github.com/ryurko/nflscrapR-data/blob/master/legacy_data/README.md</span></a>
+<a class="sourceLine" id="cb118-3" title="3"></a>
+<a class="sourceLine" id="cb118-4" title="4"><span class="co">#mydata1 = read.csv(&#39;plays.txt&#39;)</span></a>
+<a class="sourceLine" id="cb118-5" title="5"><span class="co">#unique(mydata1$gameId)</span></a>
+<a class="sourceLine" id="cb118-6" title="6"></a>
+<a class="sourceLine" id="cb118-7" title="7"><span class="co">#unique(mydata1$PassLength)</span></a>
+<a class="sourceLine" id="cb118-8" title="8"><span class="co">#table(mydata1$PassLength)</span></a>
+<a class="sourceLine" id="cb118-9" title="9"><span class="co">#table(mydata1$PassResult)</span></a>
+<a class="sourceLine" id="cb118-10" title="10"><span class="co">#table(mydata1$numberOfPassRushers)</span></a>
+<a class="sourceLine" id="cb118-11" title="11"></a>
+<a class="sourceLine" id="cb118-12" title="12"></a>
+<a class="sourceLine" id="cb118-13" title="13"><span class="co">##mydata3 = read.csv(url(&#39;https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_play_by_play/pbp_2017.csv&#39;))</span></a>
+<a class="sourceLine" id="cb118-14" title="14"><span class="co">##write.csv(mydata3,&#39;2017playbyplay.csv&#39;)</span></a>
+<a class="sourceLine" id="cb118-15" title="15"></a>
+<a class="sourceLine" id="cb118-16" title="16">mydata3&lt;-<span class="kw">read.csv</span>(<span class="st">&#39;2017playbyplay.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb118-17" title="17"><span class="kw">nrow</span>(mydata3)</a>
+<a class="sourceLine" id="cb118-18" title="18"><span class="kw">table</span>(mydata3<span class="op">$</span>Passer)</a>
+<a class="sourceLine" id="cb118-19" title="19"><span class="kw">table</span>(mydata3<span class="op">$</span>PlayType)</a>
+<a class="sourceLine" id="cb118-20" title="20"></a>
+<a class="sourceLine" id="cb118-21" title="21"><span class="co">#mydata5&lt;-mydata3[!duplicated(mydata3[,c(&#39;GameID&#39;,&#39;Passer&#39;)]),]</span></a>
+<a class="sourceLine" id="cb118-22" title="22"><span class="co">#unique(mydata3$GameID)</span></a>
+<a class="sourceLine" id="cb118-23" title="23">mydata6&lt;-<span class="kw">subset</span>(mydata3,down<span class="op">==</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb118-24" title="24"></a>
+<a class="sourceLine" id="cb118-25" title="25"></a>
+<a class="sourceLine" id="cb118-26" title="26">mydata7&lt;-<span class="kw">subset</span>(mydata6,PlayType<span class="op">==</span><span class="st">&#39;Pass&#39;</span><span class="op">|</span>PlayType<span class="op">==</span><span class="st">&#39;Run&#39;</span>)</a>
+<a class="sourceLine" id="cb118-27" title="27"><span class="co">#table(mydata7$PlayType)</span></a>
+<a class="sourceLine" id="cb118-28" title="28"><span class="co">#table(droplevels(mydata7$PlayType))</span></a>
+<a class="sourceLine" id="cb118-29" title="29"></a>
+<a class="sourceLine" id="cb118-30" title="30">mydata7<span class="op">$</span>PlayType&lt;-<span class="kw">droplevels</span>(mydata7<span class="op">$</span>PlayType)</a>
+<a class="sourceLine" id="cb118-31" title="31"><span class="kw">table</span>(mydata7<span class="op">$</span>PlayType)</a>
+<a class="sourceLine" id="cb118-32" title="32"></a>
+<a class="sourceLine" id="cb118-33" title="33"><span class="co">#http://rstudio-pubs-static.s3.amazonaws.com/6975_c4943349b6174f448104a5513fed59a9.html</span></a>
+<a class="sourceLine" id="cb118-34" title="34"><span class="kw">source</span>(<span class="st">&quot;http://pcwww.liv.ac.uk/~william/R/crosstab.r&quot;</span>)</a>
+<a class="sourceLine" id="cb118-35" title="35">mydata8&lt;-mydata7[,<span class="kw">c</span>(<span class="st">&#39;Passer&#39;</span>,<span class="st">&#39;PlayType&#39;</span>,<span class="st">&#39;GameID&#39;</span>,<span class="st">&#39;posteam&#39;</span>,<span class="st">&#39;DefensiveTeam&#39;</span>,<span class="st">&#39;Yards.Gained&#39;</span>,<span class="st">&#39;FirstDown&#39;</span>,<span class="st">&#39;TimeSecs&#39;</span>)]</a>
+<a class="sourceLine" id="cb118-36" title="36"><span class="co">#results&lt;-crosstab(mydata8, row.vars = &quot;GameID&quot;, col.vars = &quot;PlayType&quot;, type = &quot;r&quot;)</span></a>
+<a class="sourceLine" id="cb118-37" title="37"><span class="co">#p1&lt;-results$crosstab</span></a>
+<a class="sourceLine" id="cb118-38" title="38"><span class="co">#hist(p1[,1],20)</span></a>
+<a class="sourceLine" id="cb118-39" title="39"></a>
+<a class="sourceLine" id="cb118-40" title="40"></a>
+<a class="sourceLine" id="cb118-41" title="41"></a>
+<a class="sourceLine" id="cb118-42" title="42"><span class="kw">library</span>(plyr)</a>
+<a class="sourceLine" id="cb118-43" title="43">count_vector&lt;-<span class="kw">count</span>(mydata8, <span class="st">&quot;GameID&quot;</span>)</a>
+<a class="sourceLine" id="cb118-44" title="44"></a>
+<a class="sourceLine" id="cb118-45" title="45">l_new&lt;-<span class="kw">length</span>(count_vector<span class="op">$</span>freq)</a>
+<a class="sourceLine" id="cb118-46" title="46">time&lt;-<span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb118-47" title="47"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>l_new)</a>
+<a class="sourceLine" id="cb118-48" title="48">{time&lt;-<span class="kw">append</span>(time,<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>count_vector<span class="op">$</span>freq[i]))}</a>
+<a class="sourceLine" id="cb118-49" title="49"><span class="kw">nrow</span>(time)</a>
+<a class="sourceLine" id="cb118-50" title="50">mydata8<span class="op">$</span>time&lt;-time</a>
+<a class="sourceLine" id="cb118-51" title="51">mydata8<span class="op">$</span>play_new&lt;-<span class="kw">ifelse</span>(mydata8<span class="op">$</span>PlayType<span class="op">==</span><span class="st">&#39;Pass&#39;</span>,<span class="dv">1</span>,<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb118-52" title="52"></a>
+<a class="sourceLine" id="cb118-53" title="53">n_counting&lt;-<span class="dv">0</span>  <span class="co"># help counting the number of pairs</span></a>
+<a class="sourceLine" id="cb118-54" title="54"></a>
+<a class="sourceLine" id="cb118-55" title="55"><span class="co">## The following code collects all the rows of each pair. However, it is difficult to analyze data</span></a>
+<a class="sourceLine" id="cb118-56" title="56"><span class="co"># in such a format. </span></a>
+<a class="sourceLine" id="cb118-57" title="57"></a>
+<a class="sourceLine" id="cb118-58" title="58"><span class="co">#empty_df = mydata8[FALSE,]</span></a>
+<a class="sourceLine" id="cb118-59" title="59"><span class="co">#for (i in 1:l_new) # level of different game</span></a>
+<a class="sourceLine" id="cb118-60" title="60"><span class="co">#{</span></a>
+<a class="sourceLine" id="cb118-61" title="61"><span class="co">#   for(j in 1:((count_vector$freq[i])-1)) # within the same game</span></a>
+<a class="sourceLine" id="cb118-62" title="62"><span class="co">#   {</span></a>
+<a class="sourceLine" id="cb118-63" title="63"><span class="co">#      if(i==1)</span></a>
+<a class="sourceLine" id="cb118-64" title="64"><span class="co">#      {row_id&lt;-j}</span></a>
+<a class="sourceLine" id="cb118-65" title="65"><span class="co">#      else {row_id&lt;-sum(count_vector$freq[1:(i-1)])+j}</span></a>
+<a class="sourceLine" id="cb118-66" title="66"><span class="co">#</span></a>
+<a class="sourceLine" id="cb118-67" title="67"><span class="co">#      #print(row_id)</span></a>
+<a class="sourceLine" id="cb118-68" title="68"><span class="co">#      if(as.character(mydata8[row_id,]$posteam)!=as.character(mydata8[row_id+1,]$posteam))</span></a>
+<a class="sourceLine" id="cb118-69" title="69"><span class="co">#      {</span></a>
+<a class="sourceLine" id="cb118-70" title="70"><span class="co">#        print(&quot;not same team&quot;)</span></a>
+<a class="sourceLine" id="cb118-71" title="71"><span class="co">#        if (nrow(empty_df)==0)</span></a>
+<a class="sourceLine" id="cb118-72" title="72"><span class="co">#           {empty_df&lt;-mydata8[row_id:(row_id+1),]}</span></a>
+<a class="sourceLine" id="cb118-73" title="73"><span class="co">#        else</span></a>
+<a class="sourceLine" id="cb118-74" title="74"><span class="co">#           {</span></a>
+<a class="sourceLine" id="cb118-75" title="75"><span class="co">#             if(row.names(mydata8[row_id,])!=row.names(tail(empty_df,1)))</span></a>
+<a class="sourceLine" id="cb118-76" title="76"><span class="co">#               {empty_df&lt;-rbind(empty_df,mydata8[row_id,])}</span></a>
+<a class="sourceLine" id="cb118-77" title="77"><span class="co">#             empty_df&lt;-rbind(empty_df,mydata8[row_id+1,])</span></a>
+<a class="sourceLine" id="cb118-78" title="78"><span class="co">#           }</span></a>
+<a class="sourceLine" id="cb118-79" title="79"><span class="co">#       n_counting&lt;-n_counting+1</span></a>
+<a class="sourceLine" id="cb118-80" title="80"><span class="co">#      }</span></a>
+<a class="sourceLine" id="cb118-81" title="81"><span class="co">#   }</span></a>
+<a class="sourceLine" id="cb118-82" title="82"><span class="co">#}</span></a>
+<a class="sourceLine" id="cb118-83" title="83"></a>
+<a class="sourceLine" id="cb118-84" title="84"></a>
+<a class="sourceLine" id="cb118-85" title="85"><span class="co"># The following code only collects the second row of the pair, but adds data of </span></a>
+<a class="sourceLine" id="cb118-86" title="86"><span class="co">### PT_L: type of play in the last first down from the other team</span></a>
+<a class="sourceLine" id="cb118-87" title="87"><span class="co">### TG_L: Yards.Gained in the last play</span></a>
+<a class="sourceLine" id="cb118-88" title="88"><span class="co">### FirstDown: did they get first down or not. Note that, if yes, it means it was a fumble.</span></a>
+<a class="sourceLine" id="cb118-89" title="89"></a>
+<a class="sourceLine" id="cb118-90" title="90">PT_L=<span class="st">&quot;Pass&quot;</span></a>
+<a class="sourceLine" id="cb118-91" title="91">TG_L=<span class="dv">0</span></a>
+<a class="sourceLine" id="cb118-92" title="92">FD_L=<span class="dv">0</span></a>
+<a class="sourceLine" id="cb118-93" title="93"></a>
+<a class="sourceLine" id="cb118-94" title="94">pari_data=<span class="st"> </span>mydata8[<span class="dv">1</span>,]</a>
+<a class="sourceLine" id="cb118-95" title="95">pari_data&lt;-<span class="kw">cbind</span>(pari_data,PT_L,TG_L,FD_L)</a>
+<a class="sourceLine" id="cb118-96" title="96">pari_data&lt;-pari_data[<span class="ot">FALSE</span>,]</a>
+<a class="sourceLine" id="cb118-97" title="97"></a>
+<a class="sourceLine" id="cb118-98" title="98"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>l_new) <span class="co"># level of different game</span></a>
+<a class="sourceLine" id="cb118-99" title="99">{</a>
+<a class="sourceLine" id="cb118-100" title="100">  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>((count_vector<span class="op">$</span>freq[i])<span class="op">-</span><span class="dv">1</span>)) <span class="co"># within the same game</span></a>
+<a class="sourceLine" id="cb118-101" title="101">  {</a>
+<a class="sourceLine" id="cb118-102" title="102"></a>
+<a class="sourceLine" id="cb118-103" title="103">    <span class="cf">if</span>(i<span class="op">==</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb118-104" title="104">    {row_id&lt;-j}</a>
+<a class="sourceLine" id="cb118-105" title="105">    <span class="cf">else</span> {row_id&lt;-<span class="kw">sum</span>(count_vector<span class="op">$</span>freq[<span class="dv">1</span><span class="op">:</span>(i<span class="dv">-1</span>)])<span class="op">+</span>j}</a>
+<a class="sourceLine" id="cb118-106" title="106"></a>
+<a class="sourceLine" id="cb118-107" title="107">    <span class="kw">print</span>(row_id)</a>
+<a class="sourceLine" id="cb118-108" title="108">    <span class="cf">if</span>(<span class="kw">as.character</span>(mydata8[row_id,]<span class="op">$</span>posteam)<span class="op">!=</span><span class="kw">as.character</span>(mydata8[row_id<span class="op">+</span><span class="dv">1</span>,]<span class="op">$</span>posteam))</a>
+<a class="sourceLine" id="cb118-109" title="109">    {</a>
+<a class="sourceLine" id="cb118-110" title="110">      <span class="kw">print</span>(<span class="st">&quot;not same team&quot;</span>)</a>
+<a class="sourceLine" id="cb118-111" title="111">      PT_L&lt;-<span class="kw">as.character</span>(mydata8[row_id,]<span class="op">$</span>PlayType)</a>
+<a class="sourceLine" id="cb118-112" title="112">      TG_L&lt;-mydata8[row_id,]<span class="op">$</span>Yards.Gained</a>
+<a class="sourceLine" id="cb118-113" title="113">      FD_L&lt;-mydata8[row_id,]<span class="op">$</span>FirstDown</a>
+<a class="sourceLine" id="cb118-114" title="114"></a>
+<a class="sourceLine" id="cb118-115" title="115">      new_row&lt;-<span class="kw">cbind</span>(mydata8[(row_id<span class="op">+</span><span class="dv">1</span>),],PT_L,TG_L,FD_L)</a>
+<a class="sourceLine" id="cb118-116" title="116">      pari_data&lt;-<span class="kw">rbind</span>(pari_data,new_row)</a>
+<a class="sourceLine" id="cb118-117" title="117">     }</a>
+<a class="sourceLine" id="cb118-118" title="118"></a>
+<a class="sourceLine" id="cb118-119" title="119">      n_counting&lt;-n_counting<span class="op">+</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb118-120" title="120">  }</a>
+<a class="sourceLine" id="cb118-121" title="121">}</a>
+<a class="sourceLine" id="cb118-122" title="122"></a>
+<a class="sourceLine" id="cb118-123" title="123">pari_data<span class="op">$</span>same&lt;-<span class="kw">ifelse</span>(pari_data<span class="op">$</span>PlayType<span class="op">==</span>pari_data<span class="op">$</span>PT_L,<span class="dv">1</span>,<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb118-124" title="124"></a>
+<a class="sourceLine" id="cb118-125" title="125"><span class="co">#write.csv(pari_data,&#39;pari_data.csv&#39;)</span></a>
+<a class="sourceLine" id="cb118-126" title="126"></a>
+<a class="sourceLine" id="cb118-127" title="127"><span class="kw">write.table</span>(pari_data, <span class="dt">file =</span> <span class="st">&quot;pari_data.csv&quot;</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>,<span class="dt">na =</span> <span class="st">&quot;&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>)</a></code></pre></div>
 <p><strong>Remarks</strong></p>
 <ol style="list-style-type: decimal">
 <li><p>mylogit1: in general, a team has a different play in their first down, compared to the other team in the last first down.</p></li>
 <li><p>mylogit2: If the defence team passed in the last first down, the offence team is less likely to use pass. If the defence team gained more yards, the offence team is more likely to pass in the next first down. If the defence team fumbled, it will reduce the chance the offence team to do the pass.</p></li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pari_data2&lt;-<span class="kw">read.csv</span>(<span class="st">&#39;pari_data.csv&#39;</span>)
-
-mylogit1 =<span class="st"> </span><span class="kw">glm</span>(same<span class="op">~</span><span class="dv">1</span>, <span class="dt">family=</span>binomial, <span class="dt">data=</span>pari_data2)
-<span class="kw">summary</span>(mylogit1)</code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1">pari_data2&lt;-<span class="kw">read.csv</span>(<span class="st">&#39;pari_data.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb119-2" title="2"></a>
+<a class="sourceLine" id="cb119-3" title="3">mylogit1 =<span class="st"> </span><span class="kw">glm</span>(same<span class="op">~</span><span class="dv">1</span>, <span class="dt">family=</span>binomial, <span class="dt">data=</span>pari_data2)</a>
+<a class="sourceLine" id="cb119-4" title="4"><span class="kw">summary</span>(mylogit1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = same ~ 1, family = binomial, data = pari_data2)
@@ -370,8 +392,8 @@ mylogit1 =<span class="st"> </span><span class="kw">glm</span>(same<span class="
 ## AIC: 7037.5
 ## 
 ## Number of Fisher Scoring iterations: 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylogit2 =<span class="st"> </span><span class="kw">glm</span>(play_new<span class="op">~</span>same<span class="op">+</span>TG_L<span class="op">+</span>FD_L, <span class="dt">family=</span>binomial, <span class="dt">data=</span>pari_data2)
-<span class="kw">summary</span>(mylogit2)</code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1">mylogit2 =<span class="st"> </span><span class="kw">glm</span>(play_new<span class="op">~</span>same<span class="op">+</span>TG_L<span class="op">+</span>FD_L, <span class="dt">family=</span>binomial, <span class="dt">data=</span>pari_data2)</a>
+<a class="sourceLine" id="cb121-2" title="2"><span class="kw">summary</span>(mylogit2)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = play_new ~ same + TG_L + FD_L, family = binomial, 
@@ -397,10 +419,10 @@ mylogit1 =<span class="st"> </span><span class="kw">glm</span>(same<span class="
 ## AIC: 6858.1
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lme4)
-mylogit3 =<span class="st"> </span><span class="kw">glmer</span>(same<span class="op">~</span>play_new<span class="op">+</span>TG_L<span class="op">+</span>FD_L<span class="op">+</span>(<span class="dv">1</span><span class="op">|</span>GameID), <span class="dt">family=</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>), <span class="dt">data=</span>pari_data2)</code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" title="1"><span class="kw">library</span>(lme4)</a>
+<a class="sourceLine" id="cb123-2" title="2">mylogit3 =<span class="st"> </span><span class="kw">glmer</span>(same<span class="op">~</span>play_new<span class="op">+</span>TG_L<span class="op">+</span>FD_L<span class="op">+</span>(<span class="dv">1</span><span class="op">|</span>GameID), <span class="dt">family=</span> <span class="kw">binomial</span>(<span class="st">&quot;logit&quot;</span>), <span class="dt">data=</span>pari_data2)</a></code></pre></div>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mylogit3)</code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" title="1"><span class="kw">summary</span>(mylogit3)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: binomial  ( logit )
@@ -435,10 +457,10 @@ mylogit3 =<span class="st"> </span><span class="kw">glmer</span>(same<span class
 ## FD_L     -0.147  0.031 -0.041
 ## convergence code: 0
 ## boundary (singular) fit: see ?isSingular</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Bill_1&lt;- bild(play_new ~ TG_L+FD_L, data = mydata8, id=&quot;GameID&quot;,start = NULL, dependence = &quot;MC1R&quot;)</span>
-<span class="co">#summary(Bill_1)</span>
-
-<span class="co">#locust2 &lt;- bild(as.factor(PlayType) ~ time + I(time^2), data = mydata8,id=&quot;GameID&quot;,start = NULL, dependence = &quot;MC2&quot;)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" title="1"><span class="co">#Bill_1&lt;- bild(play_new ~ TG_L+FD_L, data = mydata8, id=&quot;GameID&quot;,start = NULL, dependence = &quot;MC1R&quot;)</span></a>
+<a class="sourceLine" id="cb127-2" title="2"><span class="co">#summary(Bill_1)</span></a>
+<a class="sourceLine" id="cb127-3" title="3"></a>
+<a class="sourceLine" id="cb127-4" title="4"><span class="co">#locust2 &lt;- bild(as.factor(PlayType) ~ time + I(time^2), data = mydata8,id=&quot;GameID&quot;,start = NULL, dependence = &quot;MC2&quot;)</span></a></code></pre></div>
 </div>
 <div id="references-3" class="section level2">
 <h2><span class="header-section-number">9.2</span> References</h2>
@@ -509,7 +531,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

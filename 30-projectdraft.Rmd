@@ -24,6 +24,8 @@ The following code is from this website: http://www.biostat.umn.edu/~baolin/teac
 
 In this example, it simulates a longitudinal data with 4 variables for each of 1000 separate individuals. Specifically, there are three continuous covariates (varying over time) and one ordinal covariate (constant over time). We will consider a random intercept model (mean zero and variance 100), and fit the data with glmer() from lme4 R package.
 
+The R code:
+
 ```{R}
 
 n = 1000; p = 3; K = 4; sig = 10
