@@ -3103,6 +3103,15 @@ The R code:
 \hypertarget{bayesian}{%
 \chapter{Bayesian}\label{bayesian}}
 
+\hypertarget{frequentist}{%
+\section{Frequentist}\label{frequentist}}
+
+\[\theta = \{ fair , loaded \}\]
+\[x \sim Bin (5, \theta)\]
+\[ \begin{aligned}
+f(x|\theta) &=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 & if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} & if \;  \theta=loaded  \end{cases} \\ &= xx\end{aligned}
+\]
+
 \[f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior\]
 Note that, the posterior is a PDF of \(\theta\), which is not in the function of \(f(y)\). Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior.
 
@@ -3120,8 +3129,6 @@ If we ignore the normalizing constant, we will get
 \[f(\theta | Y=1) \propto \theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1}=\theta I_{0 \leqq \theta \leqslant 1}\]
 
 Thus, we can see that with vs.~without the noramlizing constant is the ``2''.
-
-()
 
 \bibliography{book.bib,packages.bib}
 
