@@ -1,0 +1,21 @@
+# Bayesian
+
+$$f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior$$
+Note that, the posterior is a PDF of $\theta$, which is not in the function of $f(y)$. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior. 
+
+Suppose that $\theta$ is the probablity of a coin getting head. We could assign a uniform distribution.
+
+$$\theta \sim U[0,1]$$
+
+$$f(\theta)=I_{0 \leqq \theta \leqslant 1}$$
+(It is interesting to see how to write the pdf for uniform distribution.)
+
+$$f(\theta | Y=1)= \frac{\theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1}}{\int_{-\infty}^{+\infty} \theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1} d\theta}=\frac{\theta I_{0 \leqq \theta \leqslant 1}}{\int_0^1 \theta d\theta}=2\theta I_{0 \leqq \theta \leqslant 1}$$
+
+If we ignore the normalizing constant, we will get
+
+$$f(\theta | Y=1) \propto \theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1}=\theta I_{0 \leqq \theta \leqslant 1}$$
+
+Thus, we can see that with vs. without the noramlizing constant is the "2".
+
+()

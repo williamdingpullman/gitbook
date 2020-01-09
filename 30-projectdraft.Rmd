@@ -27,7 +27,6 @@ In this example, it simulates a longitudinal data with 4 variables for each of 1
 The R code:
 
 ```{R}
-
 n = 1000; p = 3; K = 4; sig = 10
 set.seed(123)
 
