@@ -201,6 +201,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>8</b> Twitter Example</a><ul>
 <li class="chapter" data-level="8.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>8.1</b> Model</a></li>
+<li class="chapter" data-level="8.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>8.2</b> Simulating Data of Senators on Twitter</a></li>
+<li class="chapter" data-level="8.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="8.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html"><i class="fa fa-check"></i><b>9</b> Practice: Learning on the Battle Field</a><ul>
 <li class="chapter" data-level="9.1" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html#r-code"><i class="fa fa-check"></i><b>9.1</b> R code</a></li>
@@ -309,7 +312,9 @@ Thus, the posterior is as follows.</p>
 <a class="sourceLine" id="cb105-56" title="56"><span class="co">#Return: including theta and acceptance rate</span></a>
 <a class="sourceLine" id="cb105-57" title="57">  <span class="kw">list</span>(<span class="dt">theta=</span>keep.theta,<span class="dt">acceptance_rate=</span>acc<span class="op">/</span>att)</a>
 <a class="sourceLine" id="cb105-58" title="58">}</a></code></pre></div>
-<p>##Simulating Data of Senators on Twitter</p>
+</div>
+<div id="simulating-data-of-senators-on-twitter" class="section level2">
+<h2><span class="header-section-number">8.2</span> Simulating Data of Senators on Twitter</h2>
 <p>Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know their ideology. Assume that Democrats have negative ideology scores to indicate that they are more liberal, whereas Republicans have positive scores to indicate that they are more conservative. The following is data simulation for senators.</p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1"><span class="co"># Republicans are more conservative, and they have positive numbers.</span></a>
 <a class="sourceLine" id="cb106-2" title="2">Republicans&lt;-<span class="kw">c</span>()</a>
@@ -334,7 +339,9 @@ Thus, the posterior is as follows.</p>
 ## 4        4      0.9922547
 ## 5        5      1.0089966
 ## 6        6      0.8878271</code></pre>
-<p>##Simulating Data of Conservative Users on Twitter and Model Testing</p>
+</div>
+<div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
+<h2><span class="header-section-number">8.3</span> Simulating Data of Conservative Users on Twitter and Model Testing</h2>
 <p>Assume that we observe one Twitter user, who is more conservative. To simulate Twitter following data for this user, I assign this user to follow more Republican senators. Thus, if the Metropolis Hastings algorithm works as intended, we would expect to see a positive estimated value for their ideology. Importantly, as we can see in the histogram below, the estimated value indeed is positive, providing preliminary evidence for the statistical model and the algorithm. In addition, for the acceptance rate, we can see that the constant has a lower number than ideology, since we only accept a constant when it is positive.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1"><span class="co">#This user approximately follows 45 Republican Senators and 10 Democrat Senators. </span></a>
 <a class="sourceLine" id="cb108-2" title="2">Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)</a>
@@ -356,7 +363,9 @@ Thus, the posterior is as follows.</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1"><span class="kw">hist</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,</a>
 <a class="sourceLine" id="cb112-2" title="2">     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</a></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-3.png" width="672" /></p>
-<p>##Simulating Data of Liberal Users on Twitter and Model Testing</p>
+</div>
+<div id="simulating-data-of-liberal-users-on-twitter-and-model-testing" class="section level2">
+<h2><span class="header-section-number">8.4</span> Simulating Data of Liberal Users on Twitter and Model Testing</h2>
 <p>To further verify the Metropolis Hastings algorithm, I plan to test the opposite estimate. Specifically, assume that we observe another user, who is more liberal. To simulate Twitter following data for this user, I assign this user to follow more Democrat senators. In this case, we would expect to see a negative value for their estimated ideology. As we can see in the histogram shown below, as expected, the estimated value is negative, providing convergent evidence for the model and the algorithm.</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1"><span class="co">#This user approximately follows 10 Republican Senators and 45 Democrat Senators. </span></a>
 <a class="sourceLine" id="cb113-2" title="2">Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)</a>

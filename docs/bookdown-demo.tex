@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{09 January, 2020}
+    \date{10 January, 2020}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -2366,7 +2366,8 @@ Thus, the posterior is as follows.
 \end{Highlighting}
 \end{Shaded}
 
-\#\#Simulating Data of Senators on Twitter
+\hypertarget{simulating-data-of-senators-on-twitter}{%
+\section{Simulating Data of Senators on Twitter}\label{simulating-data-of-senators-on-twitter}}
 
 Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know their ideology. Assume that Democrats have negative ideology scores to indicate that they are more liberal, whereas Republicans have positive scores to indicate that they are more conservative. The following is data simulation for senators.
 
@@ -2401,7 +2402,8 @@ Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know t
 ## 6        6      0.8878271
 \end{verbatim}
 
-\#\#Simulating Data of Conservative Users on Twitter and Model Testing
+\hypertarget{simulating-data-of-conservative-users-on-twitter-and-model-testing}{%
+\section{Simulating Data of Conservative Users on Twitter and Model Testing}\label{simulating-data-of-conservative-users-on-twitter-and-model-testing}}
 
 Assume that we observe one Twitter user, who is more conservative. To simulate Twitter following data for this user, I assign this user to follow more Republican senators. Thus, if the Metropolis Hastings algorithm works as intended, we would expect to see a positive estimated value for their ideology. Importantly, as we can see in the histogram below, the estimated value indeed is positive, providing preliminary evidence for the statistical model and the algorithm. In addition, for the acceptance rate, we can see that the constant has a lower number than ideology, since we only accept a constant when it is positive.
 
@@ -2451,7 +2453,8 @@ Assume that we observe one Twitter user, who is more conservative. To simulate T
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-29-3.pdf}
 
-\#\#Simulating Data of Liberal Users on Twitter and Model Testing
+\hypertarget{simulating-data-of-liberal-users-on-twitter-and-model-testing}{%
+\section{Simulating Data of Liberal Users on Twitter and Model Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}}
 
 To further verify the Metropolis Hastings algorithm, I plan to test the opposite estimate. Specifically, assume that we observe another user, who is more liberal. To simulate Twitter following data for this user, I assign this user to follow more Democrat senators. In this case, we would expect to see a negative value for their estimated ideology. As we can see in the histogram shown below, as expected, the estimated value is negative, providing convergent evidence for the model and the algorithm.
 
