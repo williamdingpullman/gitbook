@@ -4,9 +4,39 @@
 
 $$\theta = \{ fair , loaded \}$$
 $$x \sim Bin (5, \theta)$$
-$$ \begin{aligned}
-f(x|\theta) &=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 & if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} & if \;  \theta=loaded  \end{cases} \\ &= xx\end{aligned}
-$$
+$$\begin{aligned} f(x|\theta) &=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 & if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} & if \;  \theta=loaded  \end{cases} \\ &= \binom{5}{x} (\frac{1}{2})^5 I_{\{\theta=fair \}}+\binom{5}{x} (0.7)^x(0.3)^{5-x}I_{\{\theta=loaded \}}\end{aligned}$$
+
+When $x=2$
+
+$$f(\theta | x=2)=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 = 0.3125& if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} = 0.1323& if \;  \theta=loaded  \end{cases}$$
+Thus, based on MLE, it suggests that it should be "fair", since it has a greater probablity if we observe 2 head out of 5 trials. 
+
+However, we can not know the following probability: given we observe $x=2$, what is the probability that $\theta$ is fair. 
+
+$$P(\theta=fair | X=2)$$
+FOr frequentist's perspective, the coin is the fixed coin, And thus, the probablity of $P(\theta=fair|x=2)$ is equal to $P(\theta=fair)$.
+
+$$P(\theta=fair|x=2)=P(\theta=fair)$$
+As,
+
+$$P(\theta=fair) \in C(0,1) (i.e., either \; 0 \; or \; 1)$$
+
+## Bayesian
+
+Prior $P(loaded)=0.6$
+
+$$\begin{aligned} f(\theta | X) &= \frac{f(x|\theta) f(\theta)}{\sum_{\theta} f(x|\theta)f(\theta)} \\ &=\frac{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 \times I_{\{\theta=fair \}}+ (0.7)^x(0.3)^{5-x} \times 0.6 \times I_{\{\theta=loaded \}}]}{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 + (0.7)^x(0.3)^{5-x} \times 0.6]}  \end{aligned}$$
+
+$$\begin{aligned} f(\theta |X=2) &=\frac{0.0125 I_{\{\theta=fair \}}+0.0079 I_{\{\theta=loaded \}} }{0.0125+0.0079} \\ &= 0.612 I_{\{\theta=fair \}} + 0.388 I_{\{\theta=loaded \}} \end{aligned}$$
+Thus, we can say that:
+
+$$P(\theta=loaded | X=2)=0.388$$
+We can change the prior, and get different posterior probabilities:
+
+$$P(\theta=loaded)=\frac{1}{2} \rightarrow P(\theta=loaded | X=2)=0.297$$
+$$P(\theta=loaded)=\frac{9}{10} \rightarrow P(\theta=loaded | X=2)=0.792$$
+
+## Untitled
 
 $$f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior$$
 Note that, the posterior is a PDF of $\theta$, which is not in the function of $f(y)$. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior. 

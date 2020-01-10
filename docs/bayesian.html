@@ -213,6 +213,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>11</b> Bayesian</a><ul>
 <li class="chapter" data-level="11.1" data-path="bayesian.html"><a href="bayesian.html#frequentist"><i class="fa fa-check"></i><b>11.1</b> Frequentist</a></li>
+<li class="chapter" data-level="11.2" data-path="bayesian.html"><a href="bayesian.html#bayesian-1"><i class="fa fa-check"></i><b>11.2</b> Bayesian</a></li>
+<li class="chapter" data-level="11.3" data-path="bayesian.html"><a href="bayesian.html#untitled"><i class="fa fa-check"></i><b>11.3</b> Untitled</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -240,9 +242,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.1</span> Frequentist</h2>
 <p><span class="math display">\[\theta = \{ fair , loaded \}\]</span>
 <span class="math display">\[x \sim Bin (5, \theta)\]</span>
-<span class="math display">\[ \begin{aligned}
-f(x|\theta) &amp;=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 &amp; if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} &amp; if \;  \theta=loaded  \end{cases} \\ &amp;= xx\end{aligned}
-\]</span></p>
+<span class="math display">\[\begin{aligned} f(x|\theta) &amp;=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 &amp; if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} &amp; if \;  \theta=loaded  \end{cases} \\ &amp;= \binom{5}{x} (\frac{1}{2})^5 I_{\{\theta=fair \}}+\binom{5}{x} (0.7)^x(0.3)^{5-x}I_{\{\theta=loaded \}}\end{aligned}\]</span></p>
+<p>When <span class="math inline">\(x=2\)</span></p>
+<p><span class="math display">\[f(\theta | x=2)=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 = 0.3125&amp; if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} = 0.1323&amp; if \;  \theta=loaded  \end{cases}\]</span>
+Thus, based on MLE, it suggests that it should be “fair”, since it has a greater probablity if we observe 2 head out of 5 trials.</p>
+<p>However, we can not know the following probability: given we observe <span class="math inline">\(x=2\)</span>, what is the probability that <span class="math inline">\(\theta\)</span> is fair.</p>
+<p><span class="math display">\[P(\theta=fair | X=2)\]</span>
+FOr frequentist’s perspective, the coin is the fixed coin, And thus, the probablity of <span class="math inline">\(P(\theta=fair|x=2)\)</span> is equal to <span class="math inline">\(P(\theta=fair)\)</span>.</p>
+<p><span class="math display">\[P(\theta=fair|x=2)=P(\theta=fair)\]</span>
+As,</p>
+<p><span class="math display">\[P(\theta=fair) \in C(0,1) (i.e., either \; 0 \; or \; 1)\]</span></p>
+</div>
+<div id="bayesian-1" class="section level2">
+<h2><span class="header-section-number">11.2</span> Bayesian</h2>
+<p>Prior <span class="math inline">\(P(loaded)=0.6\)</span></p>
+<p><span class="math display">\[\begin{aligned} f(\theta | X) &amp;= \frac{f(x|\theta) f(\theta)}{\sum_{\theta} f(x|\theta)f(\theta)} \\ &amp;=\frac{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 \times I_{\{\theta=fair \}}+ (0.7)^x(0.3)^{5-x} \times 0.6 \times I_{\{\theta=loaded \}}]}{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 + (0.7)^x(0.3)^{5-x} \times 0.6]}  \end{aligned}\]</span></p>
+<p><span class="math display">\[\begin{aligned} f(\theta |X=2) &amp;=\frac{0.0125 I_{\{\theta=fair \}}+0.0079 I_{\{\theta=loaded \}} }{0.0125+0.0079} \\ &amp;= 0.612 I_{\{\theta=fair \}} + 0.388 I_{\{\theta=loaded \}} \end{aligned}\]</span>
+Thus, we can say that:</p>
+<p><span class="math display">\[P(\theta=loaded | X=2)=0.388\]</span>
+We can change the prior, and get different posterior probabilities:</p>
+<p><span class="math display">\[P(\theta=loaded)=\frac{1}{2} \rightarrow P(\theta=loaded | X=2)=0.297\]</span>
+<span class="math display">\[P(\theta=loaded)=\frac{9}{10} \rightarrow P(\theta=loaded | X=2)=0.792\]</span></p>
+</div>
+<div id="untitled" class="section level2">
+<h2><span class="header-section-number">11.3</span> Untitled</h2>
 <p><span class="math display">\[f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior\]</span>
 Note that, the posterior is a PDF of <span class="math inline">\(\theta\)</span>, which is not in the function of <span class="math inline">\(f(y)\)</span>. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior.</p>
 <p>Suppose that <span class="math inline">\(\theta\)</span> is the probablity of a coin getting head. We could assign a uniform distribution.</p>
