@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Twitter Example | GLMM, Concepts, &amp; R</title>
+  <title>Chapter 12 Trying | GLMM, Concepts, &amp; R</title>
   <meta name="description" content="The webpages are mainly about logit models." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Twitter Example | GLMM, Concepts, &amp; R" />
+  <meta property="og:title" content="Chapter 12 Trying | GLMM, Concepts, &amp; R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Twitter Example | GLMM, Concepts, &amp; R" />
+  <meta name="twitter:title" content="Chapter 12 Trying | GLMM, Concepts, &amp; R" />
   
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="generalized-linear-mixed-models.html"/>
-<link rel="next" href="practice-learning-on-the-battle-field.html"/>
+<link rel="prev" href="bayesian.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -218,152 +218,108 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="twitter-example" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Twitter Example</h1>
-<p>The following is part of my course project for Stat 536. It aims to replicate part of the findings from Barbera (2015) Birds of the Same Feather Tweet Together: Bayesian Ideal Point Estimation Using Twitter Data. Political Analysis 23 (1). Note that, the following model is much simpler than that in the original paper.</p>
-<div id="model" class="section level2">
-<h2><span class="header-section-number">8.1</span> Model</h2>
-<p>Suppose that a Twitter user is presented with a choice between following or not following another target <span class="math inline">\(j \in \{ 1, ..., m\}\)</span>. Let <span class="math inline">\(y_{j}=1\)</span> if the user decides to follow <span class="math inline">\(j\)</span>, and <span class="math inline">\(y_{j}=0\)</span> otherwise.</p>
-<p><span class="math display">\[y_{j}=\begin{cases} 1 &amp; Following \\ 0 &amp; Not Following \end{cases}\]</span></p>
-<p><span class="math display">\[p(y_{j}=1|\theta) = \frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)}\]</span> We additionally know the priors of <span class="math inline">\(\theta\)</span>.</p>
-<p><span class="math display">\[\theta_i \sim N(0,10^2) (i = 0, 1)\]</span></p>
-<p>The likelihood function is as follows.</p>
-<p><span class="math display">\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]</span> Thus, the posterior is as follows.</p>
-<p><span class="math display">\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]</span> <span class="math display">\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Establish the function for logistic regression</span>
+<div id="trying" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Trying</h1>
+<div id="raw-r-code" class="section level2">
+<h2><span class="header-section-number">12.1</span> Raw R code</h2>
+<p>Covarance Matrix for <span class="math inline">\(n\)</span> observations</p>
+<p>(I use <span class="math inline">\(n\)</span> here to distinguish <span class="math inline">\(m\)</span>, which will be used to indicate the number of iterations.)</p>
+<p><span class="math display">\[V=\sigma^2 \begin{bmatrix} 1 &amp; \rho &amp; \rho^2 &amp; ... &amp; \rho^{n-1} &amp; \rho^n \\ \rho &amp; 1 &amp; \rho &amp; ... &amp; \rho^{n-2}&amp; \rho^{n-1}\\ \rho^2 &amp; \rho &amp; 1 &amp; ... &amp; \rho^{n-3}&amp; \rho^{n-2} \\ ...\\ \rho^n &amp; \rho^{n-1} &amp; \rho^{n-2} &amp; ... &amp; \rho &amp; 1 \end{bmatrix}\]</span></p>
+<p>The inverse matrix is as follows:</p>
+<p><span class="math display">\[Q=V^{-1}=\frac{1}{\sigma^2(1-\rho)} \begin{bmatrix} 1 &amp; -\rho &amp; 0 &amp; ... &amp; 0 &amp; 0 \\ -\rho &amp; 1+\rho^2 &amp; -\rho &amp; ... &amp; 0 &amp; 0\\ 0 &amp; -\rho &amp; 1+\rho^2 &amp; ... &amp; 0 &amp; 0 \\ ...\\ 0 &amp; 0 &amp; 0 &amp; ... &amp; 1+\rho^2 &amp;-\rho\\ 0 &amp; 0 &amp; 0 &amp; ... &amp; -\rho &amp; 1 \end{bmatrix}\]</span></p>
+<p><span class="math display">\[N(-\sum_{j\neq k} Q_{kj}b_j^{(m)}Q_{kk}^{-1},Q_{kk}^{-1})\]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;CVTuningCov&quot;)</span>
+<span class="kw">library</span>(CVTuningCov) <span class="co"># Will be used to generate AR1 matrix</span></code></pre></div>
+<pre><code>## Warning: package &#39;CVTuningCov&#39; was built under R version 3.6.2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
+y&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>) ## observations
+
+n=<span class="kw">length</span>(y) <span class="co"># the number of observations</span>
+
+
+<span class="co">#Establish the exp function</span>
 Expit&lt;-<span class="cf">function</span>(x){<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))}
+<span class="co">#Y: observations</span>
+<span class="co">#b: random effect</span>
+<span class="co">#beta_0:fixed effect-&gt;intercept (or, mean of Y)</span>
 
-<span class="co">#Construct the posterior - in a log-format</span>
-<span class="co">#To make sure that the estimate of theta_1 is stable, </span>
-<span class="co">#the following code wants to make sure that theta_0 is always greater than zero.</span>
-
-log_post&lt;-<span class="cf">function</span>(Y, X, theta)
-  {
-  <span class="cf">if</span>(theta[<span class="dv">1</span>]<span class="op">&lt;=</span><span class="dv">0</span>){post=<span class="op">-</span><span class="ot">Inf</span>}
-  <span class="cf">if</span>(theta[<span class="dv">1</span>]<span class="op">&gt;</span><span class="dv">0</span>){
-  prob1&lt;-<span class="kw">Expit</span>(<span class="op">-</span>theta[<span class="dv">1</span>]<span class="op">*</span>((theta[<span class="dv">2</span>]<span class="op">-</span>X)<span class="op">^</span><span class="dv">2</span>))
-  likelihood&lt;-<span class="kw">sum</span>(<span class="kw">dbinom</span>(Y,<span class="dv">1</span>,prob1,<span class="dt">log =</span> <span class="ot">TRUE</span>))
-  priors&lt;-<span class="kw">sum</span>(<span class="kw">dnorm</span>(theta,<span class="dv">0</span>,<span class="dv">10</span>,<span class="dt">log=</span><span class="ot">TRUE</span>))
-  post=likelihood<span class="op">+</span>priors}
-  <span class="kw">return</span>(post)
-   }
-
-Bayes_logit&lt;-<span class="cf">function</span> (Y,X,<span class="dt">n_samples=</span><span class="dv">2000</span>)
-{
-<span class="co">#Initial values</span>
-  theta&lt;-<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">5</span>)
-<span class="co">#store data</span>
-  keep.theta&lt;-<span class="kw">matrix</span>(<span class="dv">0</span>,n_samples,<span class="dv">2</span>)
-  keep.theta[<span class="dv">1</span>,]&lt;-theta
-  
-<span class="co">#acceptance and rejection  </span>
-  acc&lt;-att&lt;-<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">2</span>)
-<span class="co">#current log posterior</span>
-  current_lp&lt;-<span class="kw">log_post</span>(Y,X,theta)
-
-  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>n_samples)  
-  {
-    
-    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)
-    {
-      <span class="co">#attempt + 1</span>
-      att[j]&lt;-att[j]<span class="op">+</span><span class="dv">1</span>
-      can_theta&lt;-theta
-      can_theta[j]&lt;-<span class="kw">rnorm</span>(<span class="dv">1</span>,theta[j],<span class="fl">0.5</span>)
-      <span class="co">#candidate of log posterior</span>
-      candidate_lp&lt;-<span class="kw">log_post</span>(Y,X,can_theta)
-      Rho&lt;-<span class="kw">min</span>(<span class="kw">exp</span>(candidate_lp<span class="op">-</span>current_lp),<span class="dv">1</span>)
-      Random_probability&lt;-<span class="kw">runif</span>(<span class="dv">1</span>)
-      <span class="cf">if</span> (Random_probability<span class="op">&lt;</span>Rho)
-      {
-        theta&lt;-can_theta
-        current_lp&lt;-candidate_lp
-        <span class="co">#acceptance + 1, as long as Random_probability&lt;Rho</span>
-        acc[j]&lt;-acc[j]<span class="op">+</span><span class="dv">1</span>
-      }
-    }
-    <span class="co">#save theta</span>
-    keep.theta[i,]&lt;-theta
+log_pdf_function&lt;-<span class="cf">function</span>(Y,b,beta_<span class="dv">0</span>)
+  {mean_prob&lt;-<span class="kw">Expit</span>(beta_<span class="dv">0</span><span class="op">+</span>b)
+  <span class="kw">dbinom</span>(Y,<span class="dv">1</span>,mean_prob,<span class="dt">log =</span> <span class="ot">TRUE</span>)
   }
-<span class="co">#Return: including theta and acceptance rate</span>
-  <span class="kw">list</span>(<span class="dt">theta=</span>keep.theta,<span class="dt">acceptance_rate=</span>acc<span class="op">/</span>att)
-}</code></pre></div>
+
+b_records&lt;-<span class="kw">rep</span>(<span class="dv">0</span>,n)  <span class="co">#Initial values for the random effect</span>
+<span class="co">#b_records&lt;-c(1,1,1,0,0,0,0,0,1,1) #Initial values for the random effect</span>
+rho_records&lt;-<span class="fl">0.5</span> <span class="co">#Initial value for rho</span>
+sigma_recoards&lt;-<span class="dv">2</span>  <span class="co">#Initial value for sigma</span>
+co_matrix&lt;-(sigma_recoards<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">AR1</span>(n,rho_records) <span class="co"># covariance matrix</span>
+co_matrix_inverse&lt;-<span class="kw">solve</span>(co_matrix)  <span class="co"># inverse covariance matrix</span>
+mean_<span class="dv">0</span>&lt;-<span class="dv">0</span> <span class="co"># starting mean value for normal distribution (of the random effect)</span>
+beta&lt;-<span class="fl">0.5</span> <span class="co"># starting value for the intercept of Y</span>
+
+<span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)
+ {
+  sd_<span class="dv">0</span>&lt;-<span class="dv">1</span><span class="op">/</span>(co_matrix_inverse[k,k])
+  
+  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)
+      {
+        Q_kj&lt;-<span class="kw">ifelse</span>(j<span class="op">!=</span>k,co_matrix_inverse[k,j],<span class="dv">0</span>)
+        mean_<span class="dv">0</span>&lt;-mean_<span class="dv">0</span><span class="op">-</span>(Q_kj<span class="op">/</span>co_matrix_inverse[k,k])<span class="op">*</span>b_records[j]
+      }
+  
+  b_candidate&lt;-<span class="kw">rnorm</span>(<span class="dv">1</span>,mean_<span class="dv">0</span>,sd_<span class="dv">0</span>)
+  
+  current_lp&lt;-<span class="kw">log_pdf_function</span>(y[k],b_records[k],beta)
+  candidate_lp&lt;-<span class="kw">log_pdf_function</span>(y[k],b_candidate,beta)
+  
+  Smaller_value&lt;-<span class="kw">min</span>(<span class="kw">exp</span>(candidate_lp<span class="op">-</span>current_lp),<span class="dv">1</span>)
+  
+  Random_probability&lt;-<span class="kw">runif</span>(<span class="dv">1</span>)
+  
+  b_records[k]&lt;-<span class="kw">ifelse</span>(Random_probability<span class="op">&lt;</span>Smaller_value,b_candidate,b_records[k])
+ }
+
+b_records </code></pre></div>
+<pre><code>##  [1] 0.000000 2.856496 1.311819 0.000000 0.000000 4.740657 2.494000 0.000000
+##  [9] 5.523040 0.000000</code></pre>
 </div>
-<div id="simulating-data-of-senators-on-twitter" class="section level2">
-<h2><span class="header-section-number">8.2</span> Simulating Data of Senators on Twitter</h2>
-<p>Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know their ideology. Assume that Democrats have negative ideology scores to indicate that they are more liberal, whereas Republicans have positive scores to indicate that they are more conservative. The following is data simulation for senators.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Republicans are more conservative, and they have positive numbers.</span>
-Republicans&lt;-<span class="kw">c</span>()
-Republicans&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="dv">1</span>,<span class="fl">0.5</span>)
-No_Republicans&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,<span class="dv">1</span>)
-Part_<span class="dv">1</span>&lt;-<span class="kw">cbind</span>(No_Republicans,Republicans)
+<div id="glmmtmb-package" class="section level2">
+<h2><span class="header-section-number">12.2</span> glmmTMB package</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#https://cran.r-project.org/web/packages/glmmTMB/vignettes/covstruct.html</span>
 
-<span class="co"># Democrats are more liberal, and they have negative numbers.</span>
-Democrats&lt;-<span class="kw">c</span>()
-Democrats&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="op">-</span><span class="dv">1</span>,<span class="fl">0.5</span>)
-No_Democrats&lt;-<span class="kw">rep</span>(<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">1</span>)
-Part_<span class="dv">2</span>&lt;-<span class="kw">cbind</span>(No_Democrats,Democrats)
-Data_Elites&lt;-<span class="kw">rbind</span>(Part_<span class="dv">1</span>,Part_<span class="dv">2</span>)
-Data_Elites&lt;-<span class="kw">as.data.frame</span>(Data_Elites)
-<span class="kw">colnames</span>(Data_Elites) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Elite_No&quot;</span>,<span class="st">&quot;Elite_ideology&quot;</span>)
+<span class="kw">library</span>(glmmTMB)</code></pre></div>
+<pre><code>## Warning: package &#39;glmmTMB&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning in checkMatrixPackageVersion(): Package version inconsistency detected.
+## TMB was built with Matrix version 1.2.18
+## Current Matrix version is 1.2.17
+## Please re-install &#39;TMB&#39; from source using install.packages(&#39;TMB&#39;, type = &#39;source&#39;) or ask CRAN for a binary version of &#39;TMB&#39; matching CRAN&#39;s &#39;Matrix&#39; package</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">times &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dv">1</span><span class="op">:</span>n)
+<span class="kw">levels</span>(times)</code></pre></div>
+<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="dv">1</span>,n))
+dat0 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(y,times,group)
 
-<span class="kw">head</span>(Data_Elites)</code></pre></div>
-<pre><code>##   Elite_No Elite_ideology
-## 1        1      1.0541992
-## 2        2      0.3805544
-## 3        3      1.3568577
-## 4        4      0.9922547
-## 5        5      1.0089966
-## 6        6      0.8878271</code></pre>
-</div>
-<div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
-<h2><span class="header-section-number">8.3</span> Simulating Data of Conservative Users on Twitter and Model Testing</h2>
-<p>Assume that we observe one Twitter user, who is more conservative. To simulate Twitter following data for this user, I assign this user to follow more Republican senators. Thus, if the Metropolis Hastings algorithm works as intended, we would expect to see a positive estimated value for their ideology. Importantly, as we can see in the histogram below, the estimated value indeed is positive, providing preliminary evidence for the statistical model and the algorithm. In addition, for the acceptance rate, we can see that the constant has a lower number than ideology, since we only accept a constant when it is positive.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This user approximately follows 45 Republican Senators and 10 Democrat Senators. </span>
-Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)
-<span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;R_User&quot;</span>)
-Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)
-
-X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology
-Y_data&lt;-Data_combined<span class="op">$</span>R_User
-
-fit_C&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
-fit_C<span class="op">$</span>acceptance_rate</code></pre></div>
-<pre><code>## [1] 0.1320660 0.5557779</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Conservative Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-3.png" width="672" /></p>
-</div>
-<div id="simulating-data-of-liberal-users-on-twitter-and-model-testing" class="section level2">
-<h2><span class="header-section-number">8.4</span> Simulating Data of Liberal Users on Twitter and Model Testing</h2>
-<p>To further verify the Metropolis Hastings algorithm, I plan to test the opposite estimate. Specifically, assume that we observe another user, who is more liberal. To simulate Twitter following data for this user, I assign this user to follow more Democrat senators. In this case, we would expect to see a negative value for their estimated ideology. As we can see in the histogram shown below, as expected, the estimated value is negative, providing convergent evidence for the model and the algorithm.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This user approximately follows 10 Republican Senators and 45 Democrat Senators. </span>
-Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)
-<span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;L_User&quot;</span>)
-Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)
-
-X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology
-Y_data&lt;-Data_combined<span class="op">$</span>L_User
-
-
-fit_L&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
-fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
-<pre><code>## [1] 0.1585793 0.5092546</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Liberal Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-3.png" width="672" /></p>
+<span class="kw">glmmTMB</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">ar1</span>(times <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">|</span><span class="st"> </span>group), <span class="dt">data=</span>dat0)</code></pre></div>
+<pre><code>## Formula:          y ~ ar1(times + 0 | group)
+## Data: dat0
+##      AIC      BIC   logLik df.resid 
+## 21.84871 23.05905 -6.92435        6 
+## Random-effects (co)variances:
+## 
+## Conditional model:
+##  Groups   Name   Std.Dev.  Corr       
+##  group    times1 4.900e-01 -0.17 (ar1)
+##  Residual        5.602e-05            
+## 
+## Number of obs: 10 / Conditional model: group, 1
+## 
+## Dispersion estimate for gaussian family (sigma^2): 3.14e-09 
+## 
+## Fixed Effects:
+## 
+## Conditional model:
+## (Intercept)  
+##       0.603</code></pre>
 
 </div>
 </div>
@@ -372,8 +328,8 @@ fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
           </div>
         </div>
       </div>
-<a href="generalized-linear-mixed-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="practice-learning-on-the-battle-field.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bayesian.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -404,7 +360,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/20-mh-algorithm-and-data.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/50-trying.rmd",
 "text": "Edit"
 },
 "history": {

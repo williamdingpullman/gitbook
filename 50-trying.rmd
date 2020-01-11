@@ -1,0 +1,87 @@
+# Trying
+
+## Raw R code
+
+Covarance Matrix for $n$ observations
+
+(I use $n$ here to distinguish $m$, which will be used to indicate the number of iterations.)
+
+$$V=\sigma^2 \begin{bmatrix} 1 & \rho & \rho^2 & ... & \rho^{n-1} & \rho^n \\ \rho & 1 & \rho & ... & \rho^{n-2}& \rho^{n-1}\\ \rho^2 & \rho & 1 & ... & \rho^{n-3}& \rho^{n-2} \\ ...\\ \rho^n & \rho^{n-1} & \rho^{n-2} & ... & \rho & 1 \end{bmatrix}$$
+
+
+The inverse matrix is as follows:
+
+$$Q=V^{-1}=\frac{1}{\sigma^2(1-\rho)} \begin{bmatrix} 1 & -\rho & 0 & ... & 0 & 0 \\ -\rho & 1+\rho^2 & -\rho & ... & 0 & 0\\ 0 & -\rho & 1+\rho^2 & ... & 0 & 0 \\ ...\\ 0 & 0 & 0 & ... & 1+\rho^2 &-\rho\\ 0 & 0 & 0 & ... & -\rho & 1 \end{bmatrix}$$
+
+$$N(-\sum_{j\neq k} Q_{kj}b_j^{(m)}Q_{kk}^{-1},Q_{kk}^{-1})$$
+
+```{R}
+#install.packages("CVTuningCov")
+library(CVTuningCov) # Will be used to generate AR1 matrix
+
+set.seed(123)
+y<-c(1,1,1,0,0,1,1,0,1,0) ## observations
+
+n=length(y) # the number of observations
+
+
+#Establish the exp function
+Expit<-function(x){exp(x)/(1+exp(x))}
+#Y: observations
+#b: random effect
+#beta_0:fixed effect->intercept (or, mean of Y)
+
+log_pdf_function<-function(Y,b,beta_0)
+  {mean_prob<-Expit(beta_0+b)
+  dbinom(Y,1,mean_prob,log = TRUE)
+  }
+
+b_records<-rep(0,n)  #Initial values for the random effect
+#b_records<-c(1,1,1,0,0,0,0,0,1,1) #Initial values for the random effect
+rho_records<-0.5 #Initial value for rho
+sigma_recoards<-2  #Initial value for sigma
+co_matrix<-(sigma_recoards^2)*AR1(n,rho_records) # covariance matrix
+co_matrix_inverse<-solve(co_matrix)  # inverse covariance matrix
+mean_0<-0 # starting mean value for normal distribution (of the random effect)
+beta<-0.5 # starting value for the intercept of Y
+
+for (k in 1:n)
+ {
+  sd_0<-1/(co_matrix_inverse[k,k])
+  
+  for(j in 1:n)
+      {
+        Q_kj<-ifelse(j!=k,co_matrix_inverse[k,j],0)
+        mean_0<-mean_0-(Q_kj/co_matrix_inverse[k,k])*b_records[j]
+      }
+  
+  b_candidate<-rnorm(1,mean_0,sd_0)
+  
+  current_lp<-log_pdf_function(y[k],b_records[k],beta)
+  candidate_lp<-log_pdf_function(y[k],b_candidate,beta)
+  
+  Smaller_value<-min(exp(candidate_lp-current_lp),1)
+  
+  Random_probability<-runif(1)
+  
+  b_records[k]<-ifelse(Random_probability<Smaller_value,b_candidate,b_records[k])
+ }
+
+b_records 
+```
+
+## glmmTMB package
+
+```{r}
+#https://cran.r-project.org/web/packages/glmmTMB/vignettes/covstruct.html
+
+library(glmmTMB)
+
+times <- factor(1:n)
+levels(times)
+group <- factor(rep(1,n))
+dat0 <- data.frame(y,times,group)
+
+glmmTMB(y ~ ar1(times + 0 | group), data=dat0)
+
+```
