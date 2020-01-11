@@ -1,10 +1,30 @@
+---
+output:
+  pdf_document: default
+---
 # Trying
 
-## Raw R code
 
-Covarance Matrix for $n$ observations
 
-(I use $n$ here to distinguish $m$, which will be used to indicate the number of iterations.)
+## The Basic Idea
+
+$$L(\beta,D|Y)=\int \prod_{i=1}^{n} f_{y_i|u}(y_i|b,\beta)f_{b_i}(b_i|D)db_i$$
+
+Notations :
+
+$y$: Variable for the fixed effect 
+
+$b$: Variable for the random effect 
+
+$\beta$: Parameters for the fixed effect
+
+$D$: Parameters for the random effect
+
+The dimension of the integral is equal to the levels of the random factors (i.e., the number of observations).
+ 
+## Model and R Code
+
+Covarance Matrix for $n$ observations:
 
 $$V=\sigma^2 \begin{bmatrix} 1 & \rho & \rho^2 & ... & \rho^{n-1} & \rho^n \\ \rho & 1 & \rho & ... & \rho^{n-2}& \rho^{n-1}\\ \rho^2 & \rho & 1 & ... & \rho^{n-3}& \rho^{n-2} \\ ...\\ \rho^n & \rho^{n-1} & \rho^{n-2} & ... & \rho & 1 \end{bmatrix}$$
 
@@ -37,13 +57,12 @@ log_pdf_function<-function(Y,b,beta_0)
   }
 
 b_records<-rep(0,n)  #Initial values for the random effect
-#b_records<-c(1,1,1,0,0,0,0,0,1,1) #Initial values for the random effect
 rho_records<-0.5 #Initial value for rho
 sigma_recoards<-2  #Initial value for sigma
 co_matrix<-(sigma_recoards^2)*AR1(n,rho_records) # covariance matrix
 co_matrix_inverse<-solve(co_matrix)  # inverse covariance matrix
-mean_0<-0 # starting mean value for normal distribution (of the random effect)
-beta<-0.5 # starting value for the intercept of Y
+mean_0<-0 # Initial mean value for normal distribution (of the random effect)
+beta<-0.5 # Initial value for the intercept of Y
 
 for (k in 1:n)
  {
@@ -70,11 +89,31 @@ for (k in 1:n)
 b_records 
 ```
 
+
+
+$$ln L(\beta, \theta; Y,b)=lnf_{Y|b}(Y|b,\beta)+lnf_b(b|\theta)$$
+
+$$\frac{\partial lnf(Y|b, \beta)}{\partial \beta}=X^{'}(Y-E(Y|b))$$
+
+$$\frac{\partial lnf(Y|b, \beta)}{\partial \beta \partial \beta^{'}}=-X^{'}(Y-E(Y|b))$$
+$$log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}})]$$
+$$\begin{aligned} \nabla \ell &= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i+b)} \frac{\partial p(\beta ^T x_i+b)}{\partial (\beta ^T x_i+b)}\frac{\partial (\beta ^T x_i+b)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i+b)}(-1)\frac{\partial p(\beta ^T x_i+b)}{\partial (\beta ^T x_i+b)}\frac{\partial (\beta ^T x_i+b)}{\partial \beta}] \\ &=\sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b)] \\ &= \sum_{i=1}^{n} x_i^T[y_i-\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}}] \end{aligned}$$
+
+
+As noted, the Newton Raphson algorithm needs the second order.
+
+$$\begin{aligned} \nabla^2 \ell &=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b)]}{\partial \beta} \\ &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b) }{\partial \beta}\\
+&=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b) }{\partial (\beta^Tx_i+b)} \frac{\partial (\beta^Tx_i+b)}{\partial \beta}\\ &=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b)(1-p(\beta ^T x_i+b))x_i \\ &=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}}(1-\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}})x_i
+\end{aligned}$$
+
+
+
 ## glmmTMB package
 
 ```{r}
+# https://becarioprecario.bitbucket.io/inla-gitbook/ch-intro.html
 #https://cran.r-project.org/web/packages/glmmTMB/vignettes/covstruct.html
-
+#install.packages("glmmTMB")
 library(glmmTMB)
 
 times <- factor(1:n)

@@ -195,8 +195,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.3" data-path="bayesian.html"><a href="bayesian.html#untitled"><i class="fa fa-check"></i><b>11.3</b> Untitled</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
-<li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#raw-r-code"><i class="fa fa-check"></i><b>12.1</b> Raw R code</a></li>
-<li class="chapter" data-level="12.2" data-path="trying.html"><a href="trying.html#glmmtmb-package"><i class="fa fa-check"></i><b>12.2</b> glmmTMB package</a></li>
+<li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>12.1</b> The Basic Idea</a></li>
+<li class="chapter" data-level="12.2" data-path="trying.html"><a href="trying.html#model-and-r-code"><i class="fa fa-check"></i><b>12.2</b> Model and R Code</a></li>
+<li class="chapter" data-level="12.3" data-path="trying.html"><a href="trying.html#glmmtmb-package"><i class="fa fa-check"></i><b>12.3</b> glmmTMB package</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -220,10 +221,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="trying" class="section level1">
 <h1><span class="header-section-number">Chapter 12</span> Trying</h1>
-<div id="raw-r-code" class="section level2">
-<h2><span class="header-section-number">12.1</span> Raw R code</h2>
-<p>Covarance Matrix for <span class="math inline">\(n\)</span> observations</p>
-<p>(I use <span class="math inline">\(n\)</span> here to distinguish <span class="math inline">\(m\)</span>, which will be used to indicate the number of iterations.)</p>
+<div id="the-basic-idea" class="section level2">
+<h2><span class="header-section-number">12.1</span> The Basic Idea</h2>
+<p><span class="math display">\[L(\beta,D|Y)=\int \prod_{i=1}^{n} f_{y_i|u}(y_i|b,\beta)f_{b_i}(b_i|D)db_i\]</span></p>
+<p>Notations :</p>
+<p><span class="math inline">\(y\)</span>: Variable for the fixed effect</p>
+<p><span class="math inline">\(b\)</span>: Variable for the random effect</p>
+<p><span class="math inline">\(\beta\)</span>: Parameters for the fixed effect</p>
+<p><span class="math inline">\(D\)</span>: Parameters for the random effect</p>
+<p>The dimension of the integral is equal to the levels of the random factors (i.e., the number of observations).</p>
+</div>
+<div id="model-and-r-code" class="section level2">
+<h2><span class="header-section-number">12.2</span> Model and R Code</h2>
+<p>Covarance Matrix for <span class="math inline">\(n\)</span> observations:</p>
 <p><span class="math display">\[V=\sigma^2 \begin{bmatrix} 1 &amp; \rho &amp; \rho^2 &amp; ... &amp; \rho^{n-1} &amp; \rho^n \\ \rho &amp; 1 &amp; \rho &amp; ... &amp; \rho^{n-2}&amp; \rho^{n-1}\\ \rho^2 &amp; \rho &amp; 1 &amp; ... &amp; \rho^{n-3}&amp; \rho^{n-2} \\ ...\\ \rho^n &amp; \rho^{n-1} &amp; \rho^{n-2} &amp; ... &amp; \rho &amp; 1 \end{bmatrix}\]</span></p>
 <p>The inverse matrix is as follows:</p>
 <p><span class="math display">\[Q=V^{-1}=\frac{1}{\sigma^2(1-\rho)} \begin{bmatrix} 1 &amp; -\rho &amp; 0 &amp; ... &amp; 0 &amp; 0 \\ -\rho &amp; 1+\rho^2 &amp; -\rho &amp; ... &amp; 0 &amp; 0\\ 0 &amp; -\rho &amp; 1+\rho^2 &amp; ... &amp; 0 &amp; 0 \\ ...\\ 0 &amp; 0 &amp; 0 &amp; ... &amp; 1+\rho^2 &amp;-\rho\\ 0 &amp; 0 &amp; 0 &amp; ... &amp; -\rho &amp; 1 \end{bmatrix}\]</span></p>
@@ -249,13 +259,12 @@ log_pdf_function&lt;-<span class="cf">function</span>(Y,b,beta_<span class="dv">
   }
 
 b_records&lt;-<span class="kw">rep</span>(<span class="dv">0</span>,n)  <span class="co">#Initial values for the random effect</span>
-<span class="co">#b_records&lt;-c(1,1,1,0,0,0,0,0,1,1) #Initial values for the random effect</span>
 rho_records&lt;-<span class="fl">0.5</span> <span class="co">#Initial value for rho</span>
 sigma_recoards&lt;-<span class="dv">2</span>  <span class="co">#Initial value for sigma</span>
 co_matrix&lt;-(sigma_recoards<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">AR1</span>(n,rho_records) <span class="co"># covariance matrix</span>
 co_matrix_inverse&lt;-<span class="kw">solve</span>(co_matrix)  <span class="co"># inverse covariance matrix</span>
-mean_<span class="dv">0</span>&lt;-<span class="dv">0</span> <span class="co"># starting mean value for normal distribution (of the random effect)</span>
-beta&lt;-<span class="fl">0.5</span> <span class="co"># starting value for the intercept of Y</span>
+mean_<span class="dv">0</span>&lt;-<span class="dv">0</span> <span class="co"># Initial mean value for normal distribution (of the random effect)</span>
+beta&lt;-<span class="fl">0.5</span> <span class="co"># Initial value for the intercept of Y</span>
 
 <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)
  {
@@ -282,11 +291,19 @@ beta&lt;-<span class="fl">0.5</span> <span class="co"># starting value for the i
 b_records </code></pre></div>
 <pre><code>##  [1] 0.000000 2.856496 1.311819 0.000000 0.000000 4.740657 2.494000 0.000000
 ##  [9] 5.523040 0.000000</code></pre>
+<p><span class="math display">\[ln L(\beta, \theta; Y,b)=lnf_{Y|b}(Y|b,\beta)+lnf_b(b|\theta)\]</span></p>
+<p><span class="math display">\[\frac{\partial lnf(Y|b, \beta)}{\partial \beta}=X^{&#39;}(Y-E(Y|b))\]</span></p>
+<p><span class="math display">\[\frac{\partial lnf(Y|b, \beta)}{\partial \beta \partial \beta^{&#39;}}=-X^{&#39;}(Y-E(Y|b))\]</span> <span class="math display">\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}})]\]</span> <span class="math display">\[\begin{aligned} \nabla \ell &amp;= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i+b)} \frac{\partial p(\beta ^T x_i+b)}{\partial (\beta ^T x_i+b)}\frac{\partial (\beta ^T x_i+b)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i+b)}(-1)\frac{\partial p(\beta ^T x_i+b)}{\partial (\beta ^T x_i+b)}\frac{\partial (\beta ^T x_i+b)}{\partial \beta}] \\ &amp;=\sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b)] \\ &amp;= \sum_{i=1}^{n} x_i^T[y_i-\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}}] \end{aligned}\]</span></p>
+<p>As noted, the Newton Raphson algorithm needs the second order.</p>
+<p><span class="math display">\[\begin{aligned} \nabla^2 \ell &amp;=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b)]}{\partial \beta} \\ &amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b) }{\partial \beta}\\
+&amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b) }{\partial (\beta^Tx_i+b)} \frac{\partial (\beta^Tx_i+b)}{\partial \beta}\\ &amp;=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b)(1-p(\beta ^T x_i+b))x_i \\ &amp;=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}}(1-\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}})x_i
+\end{aligned}\]</span></p>
 </div>
 <div id="glmmtmb-package" class="section level2">
-<h2><span class="header-section-number">12.2</span> glmmTMB package</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#https://cran.r-project.org/web/packages/glmmTMB/vignettes/covstruct.html</span>
-
+<h2><span class="header-section-number">12.3</span> glmmTMB package</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># https://becarioprecario.bitbucket.io/inla-gitbook/ch-intro.html</span>
+<span class="co">#https://cran.r-project.org/web/packages/glmmTMB/vignettes/covstruct.html</span>
+<span class="co">#install.packages(&quot;glmmTMB&quot;)</span>
 <span class="kw">library</span>(glmmTMB)</code></pre></div>
 <pre><code>## Warning: package &#39;glmmTMB&#39; was built under R version 3.6.2</code></pre>
 <pre><code>## Warning in checkMatrixPackageVersion(): Package version inconsistency detected.
