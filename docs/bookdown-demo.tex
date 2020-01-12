@@ -3333,33 +3333,38 @@ The inverse matrix is as follows:
 \NormalTok{b_records<-}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,n)  }\CommentTok{#Initial values for the random effect}
 \NormalTok{rho_records<-}\FloatTok{0.5} \CommentTok{#Initial value for rho}
 \NormalTok{sigma_recoards<-}\DecValTok{2}  \CommentTok{#Initial value for sigma}
-\NormalTok{co_matrix<-(sigma_recoards}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{*}\KeywordTok{AR1}\NormalTok{(n,rho_records) }\CommentTok{# covariance matrix}
-\NormalTok{co_matrix_inverse<-}\KeywordTok{solve}\NormalTok{(co_matrix)  }\CommentTok{# inverse covariance matrix}
 \NormalTok{mean_}\DecValTok{0}\NormalTok{<-}\DecValTok{0} \CommentTok{# Initial mean value for normal distribution (of the random effect)}
 \NormalTok{beta<-}\FloatTok{0.5} \CommentTok{# Initial value for the intercept of Y}
 
+\NormalTok{co_matrix<-(sigma_recoards}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{*}\KeywordTok{AR1}\NormalTok{(n,rho_records) }\CommentTok{# covariance matrix}
+\NormalTok{co_matrix_inverse<-}\KeywordTok{solve}\NormalTok{(co_matrix)  }\CommentTok{# inverse covariance matrix}
+
+
 \ControlFlowTok{for}\NormalTok{ (k }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n)}
 \NormalTok{ \{}
+  \CommentTok{# Variance for the random effect}
 \NormalTok{  sd_}\DecValTok{0}\NormalTok{<-}\DecValTok{1}\OperatorTok{/}\NormalTok{(co_matrix_inverse[k,k])}
   
   \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n)}
-\NormalTok{      \{}
+\NormalTok{      \{ }\CommentTok{# Make sure the k is not equal j, otherwise 0}
 \NormalTok{        Q_kj<-}\KeywordTok{ifelse}\NormalTok{(j}\OperatorTok{!=}\NormalTok{k,co_matrix_inverse[k,j],}\DecValTok{0}\NormalTok{)}
+        \CommentTok{# Calculate the mean for the random effect; sum of mean in a loop}
 \NormalTok{        mean_}\DecValTok{0}\NormalTok{<-mean_}\DecValTok{0}\OperatorTok{-}\NormalTok{(Q_kj}\OperatorTok{/}\NormalTok{co_matrix_inverse[k,k])}\OperatorTok{*}\NormalTok{b_records[j]}
 \NormalTok{      \}}
-  
+  \CommentTok{# Draw a random number from the normal distribution for the random effect}
 \NormalTok{  b_candidate<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,mean_}\DecValTok{0}\NormalTok{,sd_}\DecValTok{0}\NormalTok{)}
   
 \NormalTok{  current_lp<-}\KeywordTok{log_pdf_function}\NormalTok{(y[k],b_records[k],beta)}
 \NormalTok{  candidate_lp<-}\KeywordTok{log_pdf_function}\NormalTok{(y[k],b_candidate,beta)}
   
 \NormalTok{  Smaller_value<-}\KeywordTok{min}\NormalTok{(}\KeywordTok{exp}\NormalTok{(candidate_lp}\OperatorTok{-}\NormalTok{current_lp),}\DecValTok{1}\NormalTok{)}
-  
+  \CommentTok{# Draw a random number from the uniform distribution}
 \NormalTok{  Random_probability<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}
-  
+  \CommentTok{# Update b (i.e., random variable)}
 \NormalTok{  b_records[k]<-}\KeywordTok{ifelse}\NormalTok{(Random_probability}\OperatorTok{<}\NormalTok{Smaller_value,b_candidate,b_records[k])}
-\NormalTok{ \}}
+\NormalTok{\}}
 
+\CommentTok{# Print result}
 \NormalTok{b_records }
 \end{Highlighting}
 \end{Shaded}
