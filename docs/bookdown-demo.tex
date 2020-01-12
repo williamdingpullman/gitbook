@@ -3369,19 +3369,63 @@ The inverse matrix is as follows:
 ##  [9] 5.523040 0.000000
 \end{verbatim}
 
-\[ln L(\beta, \theta; Y,b)=lnf_{Y|b}(Y|b,\beta)+lnf_b(b|\theta)\]
+\[ln L(\beta, \theta; Y,b)=\ell=lnf_{Y|b}(Y|b,\beta)+lnf_b(b|\theta)\]
+
+\[a^{(m+1)}=a^{(m)}+\tau(a^{(m)})^{-1} S(a^{(m)})\] Where,
+
+\[\tau(a) = -E(\frac{\partial^2 \ell}{\partial \alpha \partial \alpha^{'}}|Y)\]
+
+\[S(a) = E(\frac{\partial \ell}{\partial \alpha }|Y)\]
 
 \[\frac{\partial lnf(Y|b, \beta)}{\partial \beta}=X^{'}(Y-E(Y|b))\]
 
 \[\frac{\partial lnf(Y|b, \beta)}{\partial \beta \partial \beta^{'}}=-X^{'}(Y-E(Y|b))\]
-\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}})]\]
-\[\begin{aligned} \nabla \ell &= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i+b)} \frac{\partial p(\beta ^T x_i+b)}{\partial (\beta ^T x_i+b)}\frac{\partial (\beta ^T x_i+b)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i+b)}(-1)\frac{\partial p(\beta ^T x_i+b)}{\partial (\beta ^T x_i+b)}\frac{\partial (\beta ^T x_i+b)}{\partial \beta}] \\ &=\sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b)] \\ &= \sum_{i=1}^{n} x_i^T[y_i-\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}}] \end{aligned}\]
+\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})]\]
+\[\begin{aligned} \nabla \ell &= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i+b_i)} \frac{\partial p(\beta ^T x_i+b_i)}{\partial (\beta ^T x_i+b_i)}\frac{\partial (\beta ^T x_i+b_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i+b_i)}(-1)\frac{\partial p(\beta ^T x_i+b_i)}{\partial (\beta ^T x_i+b_i)}\frac{\partial (\beta ^T x_i+b_i)}{\partial \beta}] \\ &=\sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)] \\ &= \sum_{i=1}^{n} x_i^T[y_i-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}] \end{aligned}\]
 
-As noted, the Newton Raphson algorithm needs the second order.
+The Newton Raphson algorithm needs the second order.
 
-\[\begin{aligned} \nabla^2 \ell &=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b)]}{\partial \beta} \\ &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b) }{\partial \beta}\\
-&=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b) }{\partial (\beta^Tx_i+b)} \frac{\partial (\beta^Tx_i+b)}{\partial \beta}\\ &=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b)(1-p(\beta ^T x_i+b))x_i \\ &=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}}(1-\frac{e^{\beta^Tx_i+b}}{1+e^{\beta^Tx_i+b}})x_i
-\end{aligned}\]
+\[\begin{aligned} \nabla^2 \ell &=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)]}{\partial \beta} \\ &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial \beta}\\ &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial (\beta^Tx_i+b_i)} \frac{\partial (\beta^Tx_i+b_i)}{\partial \beta}\\ &=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b_i)(1-p(\beta ^T x_i+b_i))x_i \\ &=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})x_i \end{aligned}\]
+The following R code is for the EM gradient (EMG) Newton Raphson:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x_intercept<-}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,n)}
+\NormalTok{x_intercept<-}\KeywordTok{as.matrix}\NormalTok{(x_intercept)}
+
+\CommentTok{#We need to set random starting values.}
+\CommentTok{#beta_old<-c(1,1,1,1)}
+\NormalTok{tolerance=}\FloatTok{1e-3}
+\NormalTok{max_its=}\DecValTok{2000}\NormalTok{;iteration=}\DecValTok{1}\NormalTok{;difference=}\DecValTok{2}
+\NormalTok{W<-}\KeywordTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,n,n)}
+\NormalTok{beta_old<-}\FloatTok{0.5}
+
+\ControlFlowTok{while}\NormalTok{(difference}\OperatorTok{>}\NormalTok{tolerance }\OperatorTok{&}\StringTok{ }\NormalTok{iteration}\OperatorTok{<}\NormalTok{max_its)}
+\NormalTok{  \{}
+  \CommentTok{# The first order}
+\NormalTok{  f_firstorder<-}\KeywordTok{t}\NormalTok{(x_intercept)}\OperatorTok{%*%}\NormalTok{(y}\OperatorTok{-}\KeywordTok{Expit}\NormalTok{(x_intercept}\OperatorTok{%*%}\NormalTok{beta_old))}
+  \CommentTok{# The second order}
+  \KeywordTok{diag}\NormalTok{(W) =}\StringTok{ }\KeywordTok{Expit}\NormalTok{(x_intercept}\OperatorTok{%*%}\NormalTok{beta_old)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{Expit}\NormalTok{(x_intercept}\OperatorTok{%*%}\NormalTok{beta_old))}
+  
+\NormalTok{  f_secondorder<-}\OperatorTok{-}\KeywordTok{t}\NormalTok{(x_intercept)}\OperatorTok{%*%}\NormalTok{W}\OperatorTok{%*%}\NormalTok{x_intercept}
+  
+  \CommentTok{# Calculate the beta_updated}
+\NormalTok{  beta_updated=beta_old}\OperatorTok{-}\NormalTok{(}\KeywordTok{solve}\NormalTok{(f_secondorder)}\OperatorTok{%*%}\NormalTok{f_firstorder)}
+  
+\NormalTok{  difference=}\KeywordTok{max}\NormalTok{(}\KeywordTok{abs}\NormalTok{(beta_updated}\OperatorTok{-}\NormalTok{beta_old));}
+  
+\NormalTok{  iteration=iteration}\OperatorTok{+}\DecValTok{1}\NormalTok{;}
+  
+\NormalTok{  beta_old=beta_updated\}}
+
+\NormalTok{beta_old}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] 0.4054651
+\end{verbatim}
 
 \section{glmmTMB package}\label{glmmtmb-package}
 
