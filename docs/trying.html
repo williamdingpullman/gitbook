@@ -294,25 +294,28 @@ b_records </code></pre></div>
 <p><span class="math display">\[ln L(\beta, \theta; Y,b)=\ell=lnf_{Y|b}(Y|b,\beta)+lnf_b(b|\theta)\]</span></p>
 <p><span class="math display">\[a^{(m+1)}=a^{(m)}+\tau(a^{(m)})^{-1} S(a^{(m)})\]</span> Where,</p>
 <p><span class="math display">\[\tau(a) = -E(\frac{\partial^2 \ell}{\partial \alpha \partial \alpha^{&#39;}}|Y)\]</span></p>
-<p><span class="math display">\[S(a) = E(\frac{\partial \ell}{\partial \alpha }|Y)\]</span></p>
+<p><span class="math display">\[S(a) = E(\frac{\partial \ell}{\partial \alpha }|Y)\]</span> Note that, <span class="math inline">\(\alpha\)</span> is a combination of two sets of parameters.</p>
+<p><span class="math display">\[\alpha = \binom{\beta}{b} \]</span></p>
+<p><span class="math display">\[\ell=\sum_{i=1}^{n}\{[y_i ln (\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}) + (1-y_i) ln(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})]+lnf_b(b_i|\theta)\}\]</span></p>
 <p><span class="math display">\[\frac{\partial lnf(Y|b, \beta)}{\partial \beta}=X^{&#39;}(Y-E(Y|b))\]</span></p>
-<p><span class="math display">\[\frac{\partial lnf(Y|b, \beta)}{\partial \beta \partial \beta^{&#39;}}=-X^{&#39;}(Y-E(Y|b))\]</span> <span class="math display">\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})]\]</span> <span class="math display">\[\begin{aligned} \nabla \ell &amp;= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i+b_i)} \frac{\partial p(\beta ^T x_i+b_i)}{\partial (\beta ^T x_i+b_i)}\frac{\partial (\beta ^T x_i+b_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i+b_i)}(-1)\frac{\partial p(\beta ^T x_i+b_i)}{\partial (\beta ^T x_i+b_i)}\frac{\partial (\beta ^T x_i+b_i)}{\partial \beta}] \\ &amp;=\sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)] \\ &amp;= \sum_{i=1}^{n} x_i^T[y_i-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}] \end{aligned}\]</span></p>
+<p><span class="math display">\[\frac{\partial lnf(Y|b, \beta)}{\partial \beta \partial \beta^{&#39;}}=-X^{&#39;}(Y-E(Y|b))\]</span></p>
+<p><span class="math display">\[\begin{aligned} \nabla \ell &amp;= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i+b_i)} \frac{\partial p(\beta ^T x_i+b_i)}{\partial (\beta ^T x_i+b_i)}\frac{\partial (\beta ^T x_i+b_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i+b_i)}(-1)\frac{\partial p(\beta ^T x_i+b_i)}{\partial (\beta ^T x_i+b_i)}\frac{\partial (\beta ^T x_i+b_i)}{\partial \beta}] \\ &amp;=\sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)] \\ &amp;= \sum_{i=1}^{n} x_i^T[y_i-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}] \end{aligned}\]</span></p>
 <p>The Newton Raphson algorithm needs the second order.</p>
-<p><span class="math display">\[\begin{aligned} \nabla^2 \ell &amp;=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)]}{\partial \beta} \\ &amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial \beta}\\ &amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial (\beta^Tx_i+b_i)} \frac{\partial (\beta^Tx_i+b_i)}{\partial \beta}\\ &amp;=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b_i)(1-p(\beta ^T x_i+b_i))x_i \\ &amp;=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})x_i \end{aligned}\]</span> The following R code is for the EM gradient (EMG) Newton Raphson:</p>
+<p><span class="math display">\[\begin{aligned} \nabla^2 \ell &amp;=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)]}{\partial \beta} \\ &amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial \beta}\\ &amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial (\beta^Tx_i+b_i)} \frac{\partial (\beta^Tx_i+b_i)}{\partial \beta}\\ &amp;=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b_i)(1-p(\beta ^T x_i+b_i))x_i \\ &amp;=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})x_i \end{aligned}\]</span></p>
+<p>Using the Newton Raphson, the following code calculates the basic logistic model, without any random effect. As we can see, it gets the same result as the R function of GLM. Note that, the function of Expit and the variables of y and are from the last block of R code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x_intercept&lt;-<span class="kw">rep</span>(<span class="dv">1</span>,n)
 x_intercept&lt;-<span class="kw">as.matrix</span>(x_intercept)
 
-<span class="co">#We need to set random starting values.</span>
-<span class="co">#beta_old&lt;-c(1,1,1,1)</span>
 tolerance=<span class="fl">1e-3</span>
 max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
 W&lt;-<span class="kw">matrix</span>(<span class="dv">0</span>,n,n)
-beta_old&lt;-<span class="fl">0.5</span>
+beta_old&lt;-<span class="fl">0.4</span>
 
 <span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its)
   {
   <span class="co"># The first order</span>
   f_firstorder&lt;-<span class="kw">t</span>(x_intercept)<span class="op">%*%</span>(y<span class="op">-</span><span class="kw">Expit</span>(x_intercept<span class="op">%*%</span>beta_old))
+  
   <span class="co"># The second order</span>
   <span class="kw">diag</span>(W) =<span class="st"> </span><span class="kw">Expit</span>(x_intercept<span class="op">%*%</span>beta_old)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">Expit</span>(x_intercept<span class="op">%*%</span>beta_old))
   
@@ -330,6 +333,42 @@ beta_old&lt;-<span class="fl">0.5</span>
 beta_old</code></pre></div>
 <pre><code>##           [,1]
 ## [1,] 0.4054651</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glm</span>(y<span class="op">~</span><span class="dv">1</span>, <span class="dt">family=</span>binomial)<span class="op">$</span>coefficients</code></pre></div>
+<pre><code>## (Intercept) 
+##   0.4054651</code></pre>
+<p>In the following, I will try to add the random effect.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x_intercept&lt;-<span class="kw">rep</span>(<span class="dv">1</span>,n)
+x_intercept&lt;-<span class="kw">as.matrix</span>(x_intercept)
+
+<span class="co">#We need to set random starting values.</span>
+
+tolerance=<span class="fl">1e-3</span>
+max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
+W&lt;-<span class="kw">matrix</span>(<span class="dv">0</span>,n,n)
+beta_old&lt;-<span class="fl">0.4</span>
+
+<span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its)
+  {
+  <span class="co"># The first order</span>
+  f_firstorder&lt;-<span class="kw">t</span>(x_intercept)<span class="op">%*%</span>(y<span class="op">-</span><span class="kw">Expit</span>(x_intercept<span class="op">%*%</span>beta_old<span class="op">+</span>b_records))
+  
+  <span class="co"># The second order</span>
+  <span class="kw">diag</span>(W) =<span class="st"> </span><span class="kw">Expit</span>(x_intercept<span class="op">%*%</span>beta_old<span class="op">+</span>b_records)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">Expit</span>(x_intercept<span class="op">%*%</span>beta_old<span class="op">+</span>b_records))
+  
+  f_secondorder&lt;-<span class="op">-</span><span class="kw">t</span>(x_intercept)<span class="op">%*%</span>W<span class="op">%*%</span>x_intercept
+  
+  <span class="co"># Calculate the beta_updated</span>
+  beta_updated=beta_old<span class="op">-</span>(<span class="kw">solve</span>(f_secondorder)<span class="op">%*%</span>f_firstorder)
+  
+  difference=<span class="kw">max</span>(<span class="kw">abs</span>(beta_updated<span class="op">-</span>beta_old));
+  
+  iteration=iteration<span class="op">+</span><span class="dv">1</span>;
+  
+  beta_old=beta_updated}
+
+beta_old</code></pre></div>
+<pre><code>##            [,1]
+## [1,] -0.7227565</code></pre>
 </div>
 <div id="glmmtmb-package" class="section level2">
 <h2><span class="header-section-number">12.3</span> glmmTMB package</h2>

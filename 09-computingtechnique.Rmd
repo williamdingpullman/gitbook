@@ -324,7 +324,7 @@ EM algorithm is an iterative method to find ML or maximum a posteriori (MAP) est
 
 Direct Ref: http://www.di.fc.ul.pt/~jpn/r/EM/EM.html
 
-Suppose that we only observe $X$, and do not know $Z$. We thus need to construct the posterior $p(Z|X,\theta)$. Given $p(Z|X,\theta)$, we can compute the likelihood of the complete dataset:
+Suppose that we only observe $X$, and do not know $Z$. We thus need to construct the complete data of $(X, Z)$. Given $p(Z|X,\theta)$, we can compute the likelihood of the complete dataset:
 
 $$p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)$$
 The EM algorithm:
