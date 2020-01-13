@@ -3216,7 +3216,15 @@ code}\label{important-examples-with-r-code}
 
 \chapter{Bayesian}\label{bayesian}
 
-\section{Frequentist}\label{frequentist}
+The following is the part of the class note that I took from the online
+course of ``Bayesian Statistics: From Concept to Data Analysis.''
+(\url{https://www.coursera.org/learn/bayesian-statistics/home/welcome})
+
+Important note: All the notes here are just for my own study purpose. I
+do not clain any copyright. You can use it for study purpose as well,
+but please do not use it for any business purposes.
+
+\section{Frequentist perspective}\label{frequentist-perspective}
 
 \[\theta = \{ fair , loaded \}\] \[x \sim Bin (5, \theta)\]
 \[\begin{aligned} f(x|\theta) &=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 & if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} & if \;  \theta=loaded  \end{cases} \\ &= \binom{5}{x} (\frac{1}{2})^5 I_{\{\theta=fair \}}+\binom{5}{x} (0.7)^x(0.3)^{5-x}I_{\{\theta=loaded \}}\end{aligned}\]
@@ -3238,7 +3246,7 @@ to \(P(\theta=fair)\).
 
 \[P(\theta=fair) \in C(0,1) (i.e., either \; 0 \; or \; 1)\]
 
-\section{Bayesian}\label{bayesian-1}
+\section{Bayesian perspective}\label{bayesian-perspective}
 
 Prior \(P(loaded)=0.6\)
 
@@ -3255,7 +3263,7 @@ different posterior probabilities:
 
 \section{Continous parameters}\label{continous-parameters}
 
-In the examples above, \(\theta\) is descrete. In contrast, the examples
+In the examples above, \(\theta\) is discrete. In contrast, the examples
 below use continous \(\theta\).
 
 \[f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior\]
@@ -3311,6 +3319,9 @@ between 0.158 and 0.987.
 \textbf{Highest Posterior Density}
 
 \[P(\theta > \sqrt{0.05}|Y=1)=P(\theta >0.224|Y=1)=0.95\]
+
+\section{Bernoulli/binomial likelihood with uniform
+prior}\label{bernoullibinomial-likelihood-with-uniform-prior}
 
 \chapter{Trying}\label{trying}
 

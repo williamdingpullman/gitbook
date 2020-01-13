@@ -1,6 +1,10 @@
 # Bayesian
 
-## Frequentist
+The following is the part of the class note that I took from the online course of "Bayesian Statistics: From Concept to Data Analysis." (https://www.coursera.org/learn/bayesian-statistics/home/welcome) 
+
+Important note: All the notes here are just for my own study purpose. I do not clain any copyright. You can use it for study purpose as well, but please do not use it for any business purposes.
+
+## Frequentist perspective
 
 $$\theta = \{ fair , loaded \}$$
 $$x \sim Bin (5, \theta)$$
@@ -21,7 +25,7 @@ As,
 
 $$P(\theta=fair) \in C(0,1) (i.e., either \; 0 \; or \; 1)$$
 
-## Bayesian
+## Bayesian perspective
 
 Prior $P(loaded)=0.6$
 
@@ -38,7 +42,7 @@ $$P(\theta=loaded)=\frac{9}{10} \rightarrow P(\theta=loaded | X=2)=0.792$$
 
 ## Continous parameters
 
-In the examples above, $\theta$ is descrete. In contrast, the examples below use continous $\theta$. 
+In the examples above, $\theta$ is discrete. In contrast, the examples below use continous $\theta$. 
 
 $$f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior$$
 Note that, the posterior is a PDF of $\theta$, which is not in the function of $f(y)$. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior. 
@@ -86,3 +90,8 @@ We cab say that: there's a 95% probability that $\theta$ is in between 0.158 and
 __Highest Posterior Density__
 
 $$P(\theta > \sqrt{0.05}|Y=1)=P(\theta >0.224|Y=1)=0.95$$
+
+
+## Bernoulli/binomial likelihood with uniform prior
+
+

@@ -190,13 +190,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.3" data-path="project-draft.html"><a href="project-draft.html#references-4"><i class="fa fa-check"></i><b>10.3</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>11</b> Bayesian</a><ul>
-<li class="chapter" data-level="11.1" data-path="bayesian.html"><a href="bayesian.html#frequentist"><i class="fa fa-check"></i><b>11.1</b> Frequentist</a></li>
-<li class="chapter" data-level="11.2" data-path="bayesian.html"><a href="bayesian.html#bayesian-1"><i class="fa fa-check"></i><b>11.2</b> Bayesian</a></li>
+<li class="chapter" data-level="11.1" data-path="bayesian.html"><a href="bayesian.html#frequentist-perspective"><i class="fa fa-check"></i><b>11.1</b> Frequentist perspective</a></li>
+<li class="chapter" data-level="11.2" data-path="bayesian.html"><a href="bayesian.html#bayesian-perspective"><i class="fa fa-check"></i><b>11.2</b> Bayesian perspective</a></li>
 <li class="chapter" data-level="11.3" data-path="bayesian.html"><a href="bayesian.html#continous-parameters"><i class="fa fa-check"></i><b>11.3</b> Continous parameters</a><ul>
 <li class="chapter" data-level="11.3.1" data-path="bayesian.html"><a href="bayesian.html#uniform"><i class="fa fa-check"></i><b>11.3.1</b> Uniform</a></li>
 <li class="chapter" data-level="11.3.2" data-path="bayesian.html"><a href="bayesian.html#uniform-prior-versus-posterior"><i class="fa fa-check"></i><b>11.3.2</b> Uniform: prior versus posterior</a></li>
 <li class="chapter" data-level="11.3.3" data-path="bayesian.html"><a href="bayesian.html#uniform-equal-tailed-versus-hpd"><i class="fa fa-check"></i><b>11.3.3</b> Uniform: equal tailed versus HPD</a></li>
 </ul></li>
+<li class="chapter" data-level="11.4" data-path="bayesian.html"><a href="bayesian.html#bernoullibinomial-likelihood-with-uniform-prior"><i class="fa fa-check"></i><b>11.4</b> Bernoulli/binomial likelihood with uniform prior</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
 <li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>12.1</b> The Basic Idea</a></li>
@@ -225,8 +226,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="bayesian" class="section level1">
 <h1><span class="header-section-number">Chapter 11</span> Bayesian</h1>
-<div id="frequentist" class="section level2">
-<h2><span class="header-section-number">11.1</span> Frequentist</h2>
+<p>The following is the part of the class note that I took from the online course of “Bayesian Statistics: From Concept to Data Analysis.” (<a href="https://www.coursera.org/learn/bayesian-statistics/home/welcome" class="uri">https://www.coursera.org/learn/bayesian-statistics/home/welcome</a>)</p>
+<p>Important note: All the notes here are just for my own study purpose. I do not clain any copyright. You can use it for study purpose as well, but please do not use it for any business purposes.</p>
+<div id="frequentist-perspective" class="section level2">
+<h2><span class="header-section-number">11.1</span> Frequentist perspective</h2>
 <p><span class="math display">\[\theta = \{ fair , loaded \}\]</span> <span class="math display">\[x \sim Bin (5, \theta)\]</span> <span class="math display">\[\begin{aligned} f(x|\theta) &amp;=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 &amp; if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} &amp; if \;  \theta=loaded  \end{cases} \\ &amp;= \binom{5}{x} (\frac{1}{2})^5 I_{\{\theta=fair \}}+\binom{5}{x} (0.7)^x(0.3)^{5-x}I_{\{\theta=loaded \}}\end{aligned}\]</span></p>
 <p>When <span class="math inline">\(x=2\)</span></p>
 <p><span class="math display">\[f(\theta | x=2)=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 = 0.3125&amp; if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} = 0.1323&amp; if \;  \theta=loaded  \end{cases}\]</span> Thus, based on MLE, it suggests that it should be “fair”, since it has a greater probablity if we observe 2 head out of 5 trials.</p>
@@ -235,8 +238,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[P(\theta=fair|x=2)=P(\theta=fair)\]</span> As,</p>
 <p><span class="math display">\[P(\theta=fair) \in C(0,1) (i.e., either \; 0 \; or \; 1)\]</span></p>
 </div>
-<div id="bayesian-1" class="section level2">
-<h2><span class="header-section-number">11.2</span> Bayesian</h2>
+<div id="bayesian-perspective" class="section level2">
+<h2><span class="header-section-number">11.2</span> Bayesian perspective</h2>
 <p>Prior <span class="math inline">\(P(loaded)=0.6\)</span></p>
 <p><span class="math display">\[\begin{aligned} f(\theta | X) &amp;= \frac{f(x|\theta) f(\theta)}{\sum_{\theta} f(x|\theta)f(\theta)} \\ &amp;=\frac{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 \times I_{\{\theta=fair \}}+ (0.7)^x(0.3)^{5-x} \times 0.6 \times I_{\{\theta=loaded \}}]}{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 + (0.7)^x(0.3)^{5-x} \times 0.6]}  \end{aligned}\]</span></p>
 <p><span class="math display">\[\begin{aligned} f(\theta |X=2) &amp;=\frac{0.0125 I_{\{\theta=fair \}}+0.0079 I_{\{\theta=loaded \}} }{0.0125+0.0079} \\ &amp;= 0.612 I_{\{\theta=fair \}} + 0.388 I_{\{\theta=loaded \}} \end{aligned}\]</span> Thus, we can say that:</p>
@@ -245,7 +248,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="continous-parameters" class="section level2">
 <h2><span class="header-section-number">11.3</span> Continous parameters</h2>
-<p>In the examples above, <span class="math inline">\(\theta\)</span> is descrete. In contrast, the examples below use continous <span class="math inline">\(\theta\)</span>.</p>
+<p>In the examples above, <span class="math inline">\(\theta\)</span> is discrete. In contrast, the examples below use continous <span class="math inline">\(\theta\)</span>.</p>
 <p><span class="math display">\[f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior\]</span> Note that, the posterior is a PDF of <span class="math inline">\(\theta\)</span>, which is not in the function of <span class="math inline">\(f(y)\)</span>. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior.</p>
 <div id="uniform" class="section level3">
 <h3><span class="header-section-number">11.3.1</span> Uniform</h3>
@@ -271,8 +274,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[P(\theta &lt; q|Y=1)=\int_0^q 2\theta d\theta=q^2\]</span> <span class="math display">\[P(\sqrt{0.025}&lt;\theta&lt;\sqrt{0.975}|Y=1)=P(0.158&lt;\theta&lt;0.987)=0.95\]</span> We cab say that: there’s a 95% probability that <span class="math inline">\(\theta\)</span> is in between 0.158 and 0.987.</p>
 <p><strong>Highest Posterior Density</strong></p>
 <p><span class="math display">\[P(\theta &gt; \sqrt{0.05}|Y=1)=P(\theta &gt;0.224|Y=1)=0.95\]</span></p>
-
 </div>
+</div>
+<div id="bernoullibinomial-likelihood-with-uniform-prior" class="section level2">
+<h2><span class="header-section-number">11.4</span> Bernoulli/binomial likelihood with uniform prior</h2>
+
 </div>
 </div>
             </section>
