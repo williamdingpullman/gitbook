@@ -36,24 +36,53 @@ We can change the prior, and get different posterior probabilities:
 $$P(\theta=loaded)=\frac{1}{2} \rightarrow P(\theta=loaded | X=2)=0.297$$
 $$P(\theta=loaded)=\frac{9}{10} \rightarrow P(\theta=loaded | X=2)=0.792$$
 
-## Untitled
+## Continous parameters
+
+In the examples above, $\theta$ is descrete. In contrast, the examples below use continous $\theta$. 
 
 $$f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior$$
 Note that, the posterior is a PDF of $\theta$, which is not in the function of $f(y)$. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior. 
+
+### Uniform
 
 Suppose that $\theta$ is the probablity of a coin getting head. We could assign a uniform distribution.
 
 $$\theta \sim U[0,1]$$
 
-$$f(\theta)=I_{0 \leqq \theta \leqslant 1}$$
+$$f(\theta)=I_{ \{0 \leqq \theta \leqslant 1 \}}$$
 (It is interesting to see how to write the pdf for uniform distribution.)
 
-$$f(\theta | Y=1)= \frac{\theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1}}{\int_{-\infty}^{+\infty} \theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1} d\theta}=\frac{\theta I_{0 \leqq \theta \leqslant 1}}{\int_0^1 \theta d\theta}=2\theta I_{0 \leqq \theta \leqslant 1}$$
+$$f(\theta | Y=1)= \frac{\theta^1(1-\theta)^0 I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^1(1-\theta)^0 I_{\{0 \leqq \theta \leqslant 1\}} d\theta}=\frac{\theta I_{\{0 \leqq \theta \leqslant 1 \}}}{\int_0^1 \theta d\theta}=2\theta I_{ \{0 \leqq \theta \leqslant 1\}}$$
 
 If we ignore the normalizing constant, we will get
 
-$$f(\theta | Y=1) \propto \theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1}=\theta I_{0 \leqq \theta \leqslant 1}$$
+$$f(\theta | Y=1) \propto \theta^1(1-\theta)^0 I_{ \{0 \leqq \theta \leqslant 1\} }=\theta I_{ \{0 \leqq \theta \leqslant 1\} }$$
 
 Thus, we can see that with vs. without the noramlizing constant is the "2".
 
+### Uniform: prior versus posterior
 
+When $\theta$ follows uniform distribution:
+
+__Prior__
+
+$$P(0.025 <\theta<0.975)=0.95$$
+$$P( 0.05< \theta )=0.95$$
+__Posterior__
+
+$$P(0.025<\theta<0.975)=\int_{0.025}^{0.975} 2\theta d\theta=0.95$$
+$$P(0.05<\theta)=1-P(\theta <0.05)=\int_{0}^{0.05} 2\theta d\theta=1-0.05^2=0.9975$$
+
+Thus, we can see that, while $P(0.025<\theta<0.975)$ is the same for prior and posterior, $P(0.05<\theta)$ is not the same. 
+
+### Uniform: equal tailed versus HPD
+
+__Equal tailed__
+
+$$P(\theta < q|Y=1)=\int_0^q 2\theta d\theta=q^2$$
+$$P(\sqrt{0.025}<\theta<\sqrt{0.975}|Y=1)=P(0.158<\theta<0.987)=0.95$$
+We cab say that: there's a 95% probability that $\theta$ is in between 0.158 and 0.987.
+
+__Highest Posterior Density__
+
+$$P(\theta > \sqrt{0.05}|Y=1)=P(\theta >0.224|Y=1)=0.95$$

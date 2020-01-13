@@ -192,7 +192,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>11</b> Bayesian</a><ul>
 <li class="chapter" data-level="11.1" data-path="bayesian.html"><a href="bayesian.html#frequentist"><i class="fa fa-check"></i><b>11.1</b> Frequentist</a></li>
 <li class="chapter" data-level="11.2" data-path="bayesian.html"><a href="bayesian.html#bayesian-1"><i class="fa fa-check"></i><b>11.2</b> Bayesian</a></li>
-<li class="chapter" data-level="11.3" data-path="bayesian.html"><a href="bayesian.html#untitled"><i class="fa fa-check"></i><b>11.3</b> Untitled</a></li>
+<li class="chapter" data-level="11.3" data-path="bayesian.html"><a href="bayesian.html#continous-parameters"><i class="fa fa-check"></i><b>11.3</b> Continous parameters</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="bayesian.html"><a href="bayesian.html#uniform"><i class="fa fa-check"></i><b>11.3.1</b> Uniform</a></li>
+<li class="chapter" data-level="11.3.2" data-path="bayesian.html"><a href="bayesian.html#uniform-prior-versus-posterior"><i class="fa fa-check"></i><b>11.3.2</b> Uniform: prior versus posterior</a></li>
+<li class="chapter" data-level="11.3.3" data-path="bayesian.html"><a href="bayesian.html#uniform-equal-tailed-versus-hpd"><i class="fa fa-check"></i><b>11.3.3</b> Uniform: equal tailed versus HPD</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
 <li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>12.1</b> The Basic Idea</a></li>
@@ -239,17 +243,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[P(\theta=loaded | X=2)=0.388\]</span> We can change the prior, and get different posterior probabilities:</p>
 <p><span class="math display">\[P(\theta=loaded)=\frac{1}{2} \rightarrow P(\theta=loaded | X=2)=0.297\]</span> <span class="math display">\[P(\theta=loaded)=\frac{9}{10} \rightarrow P(\theta=loaded | X=2)=0.792\]</span></p>
 </div>
-<div id="untitled" class="section level2">
-<h2><span class="header-section-number">11.3</span> Untitled</h2>
+<div id="continous-parameters" class="section level2">
+<h2><span class="header-section-number">11.3</span> Continous parameters</h2>
+<p>In the examples above, <span class="math inline">\(\theta\)</span> is descrete. In contrast, the examples below use continous <span class="math inline">\(\theta\)</span>.</p>
 <p><span class="math display">\[f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior\]</span> Note that, the posterior is a PDF of <span class="math inline">\(\theta\)</span>, which is not in the function of <span class="math inline">\(f(y)\)</span>. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior.</p>
+<div id="uniform" class="section level3">
+<h3><span class="header-section-number">11.3.1</span> Uniform</h3>
 <p>Suppose that <span class="math inline">\(\theta\)</span> is the probablity of a coin getting head. We could assign a uniform distribution.</p>
 <p><span class="math display">\[\theta \sim U[0,1]\]</span></p>
-<p><span class="math display">\[f(\theta)=I_{0 \leqq \theta \leqslant 1}\]</span> (It is interesting to see how to write the pdf for uniform distribution.)</p>
-<p><span class="math display">\[f(\theta | Y=1)= \frac{\theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1}}{\int_{-\infty}^{+\infty} \theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1} d\theta}=\frac{\theta I_{0 \leqq \theta \leqslant 1}}{\int_0^1 \theta d\theta}=2\theta I_{0 \leqq \theta \leqslant 1}\]</span></p>
+<p><span class="math display">\[f(\theta)=I_{ \{0 \leqq \theta \leqslant 1 \}}\]</span> (It is interesting to see how to write the pdf for uniform distribution.)</p>
+<p><span class="math display">\[f(\theta | Y=1)= \frac{\theta^1(1-\theta)^0 I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^1(1-\theta)^0 I_{\{0 \leqq \theta \leqslant 1\}} d\theta}=\frac{\theta I_{\{0 \leqq \theta \leqslant 1 \}}}{\int_0^1 \theta d\theta}=2\theta I_{ \{0 \leqq \theta \leqslant 1\}}\]</span></p>
 <p>If we ignore the normalizing constant, we will get</p>
-<p><span class="math display">\[f(\theta | Y=1) \propto \theta^1(1-\theta)^0 I_{0 \leqq \theta \leqslant 1}=\theta I_{0 \leqq \theta \leqslant 1}\]</span></p>
+<p><span class="math display">\[f(\theta | Y=1) \propto \theta^1(1-\theta)^0 I_{ \{0 \leqq \theta \leqslant 1\} }=\theta I_{ \{0 \leqq \theta \leqslant 1\} }\]</span></p>
 <p>Thus, we can see that with vs. without the noramlizing constant is the “2”.</p>
+</div>
+<div id="uniform-prior-versus-posterior" class="section level3">
+<h3><span class="header-section-number">11.3.2</span> Uniform: prior versus posterior</h3>
+<p>When <span class="math inline">\(\theta\)</span> follows uniform distribution:</p>
+<p><strong>Prior</strong></p>
+<p><span class="math display">\[P(0.025 &lt;\theta&lt;0.975)=0.95\]</span> <span class="math display">\[P( 0.05&lt; \theta )=0.95\]</span> <strong>Posterior</strong></p>
+<p><span class="math display">\[P(0.025&lt;\theta&lt;0.975)=\int_{0.025}^{0.975} 2\theta d\theta=0.95\]</span> <span class="math display">\[P(0.05&lt;\theta)=1-P(\theta &lt;0.05)=\int_{0}^{0.05} 2\theta d\theta=1-0.05^2=0.9975\]</span></p>
+<p>Thus, we can see that, while <span class="math inline">\(P(0.025&lt;\theta&lt;0.975)\)</span> is the same for prior and posterior, <span class="math inline">\(P(0.05&lt;\theta)\)</span> is not the same.</p>
+</div>
+<div id="uniform-equal-tailed-versus-hpd" class="section level3">
+<h3><span class="header-section-number">11.3.3</span> Uniform: equal tailed versus HPD</h3>
+<p><strong>Equal tailed</strong></p>
+<p><span class="math display">\[P(\theta &lt; q|Y=1)=\int_0^q 2\theta d\theta=q^2\]</span> <span class="math display">\[P(\sqrt{0.025}&lt;\theta&lt;\sqrt{0.975}|Y=1)=P(0.158&lt;\theta&lt;0.987)=0.95\]</span> We cab say that: there’s a 95% probability that <span class="math inline">\(\theta\)</span> is in between 0.158 and 0.987.</p>
+<p><strong>Highest Posterior Density</strong></p>
+<p><span class="math display">\[P(\theta &gt; \sqrt{0.05}|Y=1)=P(\theta &gt;0.224|Y=1)=0.95\]</span></p>
 
+</div>
 </div>
 </div>
             </section>

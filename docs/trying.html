@@ -192,7 +192,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>11</b> Bayesian</a><ul>
 <li class="chapter" data-level="11.1" data-path="bayesian.html"><a href="bayesian.html#frequentist"><i class="fa fa-check"></i><b>11.1</b> Frequentist</a></li>
 <li class="chapter" data-level="11.2" data-path="bayesian.html"><a href="bayesian.html#bayesian-1"><i class="fa fa-check"></i><b>11.2</b> Bayesian</a></li>
-<li class="chapter" data-level="11.3" data-path="bayesian.html"><a href="bayesian.html#untitled"><i class="fa fa-check"></i><b>11.3</b> Untitled</a></li>
+<li class="chapter" data-level="11.3" data-path="bayesian.html"><a href="bayesian.html#continous-parameters"><i class="fa fa-check"></i><b>11.3</b> Continous parameters</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="bayesian.html"><a href="bayesian.html#uniform"><i class="fa fa-check"></i><b>11.3.1</b> Uniform</a></li>
+<li class="chapter" data-level="11.3.2" data-path="bayesian.html"><a href="bayesian.html#uniform-prior-versus-posterior"><i class="fa fa-check"></i><b>11.3.2</b> Uniform: prior versus posterior</a></li>
+<li class="chapter" data-level="11.3.3" data-path="bayesian.html"><a href="bayesian.html#uniform-equal-tailed-versus-hpd"><i class="fa fa-check"></i><b>11.3.3</b> Uniform: equal tailed versus HPD</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
 <li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>12.1</b> The Basic Idea</a></li>
@@ -237,66 +241,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[V=\sigma^2 \begin{bmatrix} 1 &amp; \rho &amp; \rho^2 &amp; ... &amp; \rho^{n-1} &amp; \rho^n \\ \rho &amp; 1 &amp; \rho &amp; ... &amp; \rho^{n-2}&amp; \rho^{n-1}\\ \rho^2 &amp; \rho &amp; 1 &amp; ... &amp; \rho^{n-3}&amp; \rho^{n-2} \\ ...\\ \rho^n &amp; \rho^{n-1} &amp; \rho^{n-2} &amp; ... &amp; \rho &amp; 1 \end{bmatrix}\]</span></p>
 <p>The inverse matrix is as follows:</p>
 <p><span class="math display">\[Q=V^{-1}=\frac{1}{\sigma^2(1-\rho)} \begin{bmatrix} 1 &amp; -\rho &amp; 0 &amp; ... &amp; 0 &amp; 0 \\ -\rho &amp; 1+\rho^2 &amp; -\rho &amp; ... &amp; 0 &amp; 0\\ 0 &amp; -\rho &amp; 1+\rho^2 &amp; ... &amp; 0 &amp; 0 \\ ...\\ 0 &amp; 0 &amp; 0 &amp; ... &amp; 1+\rho^2 &amp;-\rho\\ 0 &amp; 0 &amp; 0 &amp; ... &amp; -\rho &amp; 1 \end{bmatrix}\]</span></p>
-<p><span class="math display">\[N(-\sum_{j\neq k} Q_{kj}b_j^{(m)}Q_{kk}^{-1},Q_{kk}^{-1})\]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;CVTuningCov&quot;)</span>
-<span class="kw">library</span>(CVTuningCov) <span class="co"># Will be used to generate AR1 matrix</span></code></pre></div>
-<pre><code>## Warning: package &#39;CVTuningCov&#39; was built under R version 3.6.2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
-y&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>) ## observations
-
-n=<span class="kw">length</span>(y) <span class="co"># the number of observations</span>
-
-
-<span class="co">#Establish the exp function</span>
-Expit&lt;-<span class="cf">function</span>(x){<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))}
-<span class="co">#Y: observations</span>
-<span class="co">#b: random effect</span>
-<span class="co">#beta_0:fixed effect-&gt;intercept (or, mean of Y)</span>
-
-log_pdf_function&lt;-<span class="cf">function</span>(Y,b,beta_<span class="dv">0</span>)
-  {mean_prob&lt;-<span class="kw">Expit</span>(beta_<span class="dv">0</span><span class="op">+</span>b)
-  <span class="kw">dbinom</span>(Y,<span class="dv">1</span>,mean_prob,<span class="dt">log =</span> <span class="ot">TRUE</span>)
-  }
-
-b_records&lt;-<span class="kw">rep</span>(<span class="dv">0</span>,n)  <span class="co">#Initial values for the random effect</span>
-rho_records&lt;-<span class="fl">0.5</span> <span class="co">#Initial value for rho</span>
-sigma_recoards&lt;-<span class="dv">2</span>  <span class="co">#Initial value for sigma</span>
-mean_<span class="dv">0</span>&lt;-<span class="dv">0</span> <span class="co"># Initial mean value for normal distribution (of the random effect)</span>
-beta&lt;-<span class="fl">0.5</span> <span class="co"># Initial value for the intercept of Y</span>
-
-co_matrix&lt;-(sigma_recoards<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">AR1</span>(n,rho_records) <span class="co"># covariance matrix</span>
-co_matrix_inverse&lt;-<span class="kw">solve</span>(co_matrix)  <span class="co"># inverse covariance matrix</span>
-
-
-<span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)
- {
-  <span class="co"># Variance for the random effect</span>
-  sd_<span class="dv">0</span>&lt;-<span class="dv">1</span><span class="op">/</span>(co_matrix_inverse[k,k])
-  
-  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)
-      { <span class="co"># Make sure the k is not equal j, otherwise 0</span>
-        Q_kj&lt;-<span class="kw">ifelse</span>(j<span class="op">!=</span>k,co_matrix_inverse[k,j],<span class="dv">0</span>)
-        <span class="co"># Calculate the mean for the random effect; sum of mean in a loop</span>
-        mean_<span class="dv">0</span>&lt;-mean_<span class="dv">0</span><span class="op">-</span>(Q_kj<span class="op">/</span>co_matrix_inverse[k,k])<span class="op">*</span>b_records[j]
-      }
-  <span class="co"># Draw a random number from the normal distribution for the random effect</span>
-  b_candidate&lt;-<span class="kw">rnorm</span>(<span class="dv">1</span>,mean_<span class="dv">0</span>,sd_<span class="dv">0</span>)
-  
-  current_lp&lt;-<span class="kw">log_pdf_function</span>(y[k],b_records[k],beta)
-  candidate_lp&lt;-<span class="kw">log_pdf_function</span>(y[k],b_candidate,beta)
-  
-  Smaller_value&lt;-<span class="kw">min</span>(<span class="kw">exp</span>(candidate_lp<span class="op">-</span>current_lp),<span class="dv">1</span>)
-  <span class="co"># Draw a random number from the uniform distribution</span>
-  Random_probability&lt;-<span class="kw">runif</span>(<span class="dv">1</span>)
-  <span class="co"># Update b (i.e., random variable)</span>
-  b_records[k]&lt;-<span class="kw">ifelse</span>(Random_probability<span class="op">&lt;</span>Smaller_value,b_candidate,b_records[k])
-}
-
-<span class="co"># Print result</span>
-b_records </code></pre></div>
-<pre><code>##  [1] 0.000000 2.856496 1.311819 0.000000 0.000000 4.740657 2.494000 0.000000
-##  [9] 5.523040 0.000000</code></pre>
-<p><span class="math display">\[ln L(\beta, \theta; Y,b)=\ell=lnf_{Y|b}(Y|b,\beta)+lnf_b(b|\theta)\]</span></p>
+<p><span class="math display">\[N(-\sum_{j\neq k} Q_{kj}b_j^{(m)}Q_{kk}^{-1},Q_{kk}^{-1})\]</span> <span class="math display">\[ln L(\beta, \theta; Y,b)=\ell=lnf_{Y|b}(Y|b,\beta)+lnf_b(b|\theta)\]</span></p>
 <p><span class="math display">\[a^{(m+1)}=a^{(m)}+\tau(a^{(m)})^{-1} S(a^{(m)})\]</span> Where,</p>
 <p><span class="math display">\[\tau(a) = -E(\frac{\partial^2 \ell}{\partial \alpha \partial \alpha^{&#39;}}|Y)\]</span></p>
 <p><span class="math display">\[S(a) = E(\frac{\partial \ell}{\partial \alpha }|Y)\]</span> Note that, <span class="math inline">\(\alpha\)</span> is a combination of two sets of parameters.</p>
@@ -306,8 +251,7 @@ b_records </code></pre></div>
 <p><span class="math display">\[\frac{\partial lnf(Y|b, \beta)}{\partial \beta \partial \beta^{&#39;}}=-X^{&#39;}(Y-E(Y|b))\]</span></p>
 <p><span class="math display">\[\begin{aligned} \nabla \ell &amp;= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i+b_i)} \frac{\partial p(\beta ^T x_i+b_i)}{\partial (\beta ^T x_i+b_i)}\frac{\partial (\beta ^T x_i+b_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i+b_i)}(-1)\frac{\partial p(\beta ^T x_i+b_i)}{\partial (\beta ^T x_i+b_i)}\frac{\partial (\beta ^T x_i+b_i)}{\partial \beta}] \\ &amp;=\sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)] \\ &amp;= \sum_{i=1}^{n} x_i^T[y_i-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}] \end{aligned}\]</span></p>
 <p>The Newton Raphson algorithm needs the second order.</p>
-<p><span class="math display">\[\begin{aligned} \nabla^2 \ell &amp;=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)]}{\partial \beta} \\ &amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial \beta}\\ &amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial (\beta^Tx_i+b_i)} \frac{\partial (\beta^Tx_i+b_i)}{\partial \beta}\\ &amp;=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b_i)(1-p(\beta ^T x_i+b_i))x_i \\ &amp;=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})x_i \end{aligned}\]</span></p>
-<p>Using the Newton Raphson, the following code calculates the basic logistic model, without any random effect. As we can see, it gets the same result as the R function of GLM. Note that, the function of Expit and the variables of y and are from the last block of R code.</p>
+<p><span class="math display">\[\begin{aligned} \nabla^2 \ell &amp;=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)]}{\partial \beta} \\ &amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial \beta}\\ &amp;=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial (\beta^Tx_i+b_i)} \frac{\partial (\beta^Tx_i+b_i)}{\partial \beta}\\ &amp;=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b_i)(1-p(\beta ^T x_i+b_i))x_i \\ &amp;=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})x_i \end{aligned}\]</span> Using the Newton Raphson, the following code calculates the basic logistic model, without any random effects. As we can see, it produces the same result as the R generic function of GLM. Note that, the function of Expit and the variables of y and are from the last block of R code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x_intercept&lt;-<span class="kw">rep</span>(<span class="dv">1</span>,n)
 x_intercept&lt;-<span class="kw">as.matrix</span>(x_intercept)
 
@@ -336,11 +280,74 @@ beta_old&lt;-<span class="fl">0.4</span>
   beta_old=beta_updated}
 
 beta_old</code></pre></div>
-<pre><code>##           [,1]
-## [1,] 0.4054651</code></pre>
+<pre><code>##          [,1]
+## [1,] 1.643422</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glm</span>(y<span class="op">~</span><span class="dv">1</span>, <span class="dt">family=</span>binomial)<span class="op">$</span>coefficients</code></pre></div>
 <pre><code>## (Intercept) 
-##   0.4054651</code></pre>
+##    1.643422</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;CVTuningCov&quot;)</span>
+<span class="kw">library</span>(CVTuningCov) <span class="co"># Will be used to generate AR1 matrix</span>
+
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+y&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>) ## observations
+
+n=<span class="kw">length</span>(y) <span class="co"># the number of observations</span>
+
+
+<span class="co">#Establish the exp function</span>
+Expit&lt;-<span class="cf">function</span>(x){<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))}
+<span class="co">#Y: observations</span>
+<span class="co">#b: random effect</span>
+<span class="co">#beta_0:fixed effect-&gt;intercept (or, mean of Y)</span>
+
+log_pdf_function&lt;-<span class="cf">function</span>(Y,b,beta_<span class="dv">0</span>)
+  {mean_prob&lt;-<span class="kw">Expit</span>(beta_<span class="dv">0</span><span class="op">+</span>b)
+  <span class="kw">dbinom</span>(Y,<span class="dv">1</span>,mean_prob,<span class="dt">log =</span> <span class="ot">TRUE</span>)
+  }
+
+b_records&lt;-<span class="kw">rep</span>(<span class="dv">0</span>,n)  <span class="co">#Initial values for the random effect</span>
+rho_records&lt;-<span class="fl">0.5</span> <span class="co">#Initial value for rho</span>
+sigma_recoards&lt;-<span class="dv">2</span>  <span class="co">#Initial value for sigma</span>
+mean_<span class="dv">0</span>&lt;-<span class="dv">0</span> <span class="co"># Initial mean value for normal distribution (of the random effect)</span>
+beta&lt;-<span class="fl">0.5</span> <span class="co"># Initial value for the intercept of Y</span>
+
+
+f_random&lt;-<span class="cf">function</span>(sigma_recoards, rho_records,beta)
+{
+  
+co_matrix&lt;-(sigma_recoards<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">AR1</span>(n,rho_records) <span class="co"># covariance matrix</span>
+co_matrix_inverse&lt;-<span class="kw">solve</span>(co_matrix)  <span class="co"># inverse covariance matrix</span>
+
+
+<span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)
+ {
+  <span class="co"># Variance for the random effect</span>
+  sd_<span class="dv">0</span>&lt;-<span class="dv">1</span><span class="op">/</span>(co_matrix_inverse[k,k])
+  
+  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)
+      { <span class="co"># Make sure that k is not equal to j, otherwise 0</span>
+        Q_kj&lt;-<span class="kw">ifelse</span>(j<span class="op">!=</span>k,co_matrix_inverse[k,j],<span class="dv">0</span>)
+        <span class="co"># Calculate the mean for the random effect; sum of mean in a loop</span>
+        mean_<span class="dv">0</span>&lt;-mean_<span class="dv">0</span><span class="op">-</span>(Q_kj<span class="op">/</span>co_matrix_inverse[k,k])<span class="op">*</span>b_records[j]
+      }
+  <span class="co"># Draw a random number from the normal distribution for the random effect</span>
+  b_candidate&lt;-<span class="kw">rnorm</span>(<span class="dv">1</span>,mean_<span class="dv">0</span>,sd_<span class="dv">0</span>)
+  
+  current_lp&lt;-<span class="kw">log_pdf_function</span>(y[k],b_records[k],beta)
+  candidate_lp&lt;-<span class="kw">log_pdf_function</span>(y[k],b_candidate,beta)
+  
+  Smaller_value&lt;-<span class="kw">min</span>(<span class="kw">exp</span>(candidate_lp<span class="op">-</span>current_lp),<span class="dv">1</span>)
+  <span class="co"># Draw a random number from the uniform distribution</span>
+  Random_probability&lt;-<span class="kw">runif</span>(<span class="dv">1</span>)
+  <span class="co"># Update b (i.e., random variable)</span>
+  b_records[k]&lt;-<span class="kw">ifelse</span>(Random_probability<span class="op">&lt;</span>Smaller_value,b_candidate,b_records[k])
+}
+
+<span class="kw">return</span>(b_records)
+}
+
+<span class="co"># Print result</span>
+<span class="co">#b_records&lt;-f_random(1,0.8,0.3) </span></code></pre></div>
 <p>In the following, I will try to add the random effect.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x_intercept&lt;-<span class="kw">rep</span>(<span class="dv">1</span>,n)
 x_intercept&lt;-<span class="kw">as.matrix</span>(x_intercept)
@@ -354,9 +361,13 @@ beta_old&lt;-<span class="fl">0.4</span>
 
 <span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its)
   {
+  b_records&lt;-<span class="kw">f_random</span>(<span class="dv">2</span>,<span class="fl">0.9</span>,beta_old)
+  <span class="kw">print</span>(<span class="st">&quot;first&quot;</span>)
+  <span class="kw">print</span>(beta_old)
+  <span class="kw">print</span>(b_records)
   <span class="co"># The first order</span>
   f_firstorder&lt;-<span class="kw">t</span>(x_intercept)<span class="op">%*%</span>(y<span class="op">-</span><span class="kw">Expit</span>(x_intercept<span class="op">%*%</span>beta_old<span class="op">+</span>b_records))
-  
+  <span class="kw">print</span>(f_firstorder)
   <span class="co"># The second order</span>
   <span class="kw">diag</span>(W) =<span class="st"> </span><span class="kw">Expit</span>(x_intercept<span class="op">%*%</span>beta_old<span class="op">+</span>b_records)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">Expit</span>(x_intercept<span class="op">%*%</span>beta_old<span class="op">+</span>b_records))
   
@@ -369,11 +380,10 @@ beta_old&lt;-<span class="fl">0.4</span>
   
   iteration=iteration<span class="op">+</span><span class="dv">1</span>;
   
-  beta_old=beta_updated}
+  beta_old=beta_updated
+  }
 
 beta_old</code></pre></div>
-<pre><code>##            [,1]
-## [1,] -0.7227565</code></pre>
 </div>
 <div id="glmmtmb-package" class="section level2">
 <h2><span class="header-section-number">12.3</span> glmmTMB package</h2>
@@ -388,31 +398,130 @@ beta_old</code></pre></div>
 ## Please re-install &#39;TMB&#39; from source using install.packages(&#39;TMB&#39;, type = &#39;source&#39;) or ask CRAN for a binary version of &#39;TMB&#39; matching CRAN&#39;s &#39;Matrix&#39; package</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">times &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dv">1</span><span class="op">:</span>n)
 <span class="kw">levels</span>(times)</code></pre></div>
-<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</code></pre>
+<pre><code>##    [1] &quot;1&quot;    &quot;2&quot;    &quot;3&quot;    &quot;4&quot;    &quot;5&quot;    &quot;6&quot;    &quot;7&quot;    &quot;8&quot;    &quot;9&quot;    &quot;10&quot;  
+##   [11] &quot;11&quot;   &quot;12&quot;   &quot;13&quot;   &quot;14&quot;   &quot;15&quot;   &quot;16&quot;   &quot;17&quot;   &quot;18&quot;   &quot;19&quot;   &quot;20&quot;  
+##   [21] &quot;21&quot;   &quot;22&quot;   &quot;23&quot;   &quot;24&quot;   &quot;25&quot;   &quot;26&quot;   &quot;27&quot;   &quot;28&quot;   &quot;29&quot;   &quot;30&quot;  
+##   [31] &quot;31&quot;   &quot;32&quot;   &quot;33&quot;   &quot;34&quot;   &quot;35&quot;   &quot;36&quot;   &quot;37&quot;   &quot;38&quot;   &quot;39&quot;   &quot;40&quot;  
+##   [41] &quot;41&quot;   &quot;42&quot;   &quot;43&quot;   &quot;44&quot;   &quot;45&quot;   &quot;46&quot;   &quot;47&quot;   &quot;48&quot;   &quot;49&quot;   &quot;50&quot;  
+##   [51] &quot;51&quot;   &quot;52&quot;   &quot;53&quot;   &quot;54&quot;   &quot;55&quot;   &quot;56&quot;   &quot;57&quot;   &quot;58&quot;   &quot;59&quot;   &quot;60&quot;  
+##   [61] &quot;61&quot;   &quot;62&quot;   &quot;63&quot;   &quot;64&quot;   &quot;65&quot;   &quot;66&quot;   &quot;67&quot;   &quot;68&quot;   &quot;69&quot;   &quot;70&quot;  
+##   [71] &quot;71&quot;   &quot;72&quot;   &quot;73&quot;   &quot;74&quot;   &quot;75&quot;   &quot;76&quot;   &quot;77&quot;   &quot;78&quot;   &quot;79&quot;   &quot;80&quot;  
+##   [81] &quot;81&quot;   &quot;82&quot;   &quot;83&quot;   &quot;84&quot;   &quot;85&quot;   &quot;86&quot;   &quot;87&quot;   &quot;88&quot;   &quot;89&quot;   &quot;90&quot;  
+##   [91] &quot;91&quot;   &quot;92&quot;   &quot;93&quot;   &quot;94&quot;   &quot;95&quot;   &quot;96&quot;   &quot;97&quot;   &quot;98&quot;   &quot;99&quot;   &quot;100&quot; 
+##  [101] &quot;101&quot;  &quot;102&quot;  &quot;103&quot;  &quot;104&quot;  &quot;105&quot;  &quot;106&quot;  &quot;107&quot;  &quot;108&quot;  &quot;109&quot;  &quot;110&quot; 
+##  [111] &quot;111&quot;  &quot;112&quot;  &quot;113&quot;  &quot;114&quot;  &quot;115&quot;  &quot;116&quot;  &quot;117&quot;  &quot;118&quot;  &quot;119&quot;  &quot;120&quot; 
+##  [121] &quot;121&quot;  &quot;122&quot;  &quot;123&quot;  &quot;124&quot;  &quot;125&quot;  &quot;126&quot;  &quot;127&quot;  &quot;128&quot;  &quot;129&quot;  &quot;130&quot; 
+##  [131] &quot;131&quot;  &quot;132&quot;  &quot;133&quot;  &quot;134&quot;  &quot;135&quot;  &quot;136&quot;  &quot;137&quot;  &quot;138&quot;  &quot;139&quot;  &quot;140&quot; 
+##  [141] &quot;141&quot;  &quot;142&quot;  &quot;143&quot;  &quot;144&quot;  &quot;145&quot;  &quot;146&quot;  &quot;147&quot;  &quot;148&quot;  &quot;149&quot;  &quot;150&quot; 
+##  [151] &quot;151&quot;  &quot;152&quot;  &quot;153&quot;  &quot;154&quot;  &quot;155&quot;  &quot;156&quot;  &quot;157&quot;  &quot;158&quot;  &quot;159&quot;  &quot;160&quot; 
+##  [161] &quot;161&quot;  &quot;162&quot;  &quot;163&quot;  &quot;164&quot;  &quot;165&quot;  &quot;166&quot;  &quot;167&quot;  &quot;168&quot;  &quot;169&quot;  &quot;170&quot; 
+##  [171] &quot;171&quot;  &quot;172&quot;  &quot;173&quot;  &quot;174&quot;  &quot;175&quot;  &quot;176&quot;  &quot;177&quot;  &quot;178&quot;  &quot;179&quot;  &quot;180&quot; 
+##  [181] &quot;181&quot;  &quot;182&quot;  &quot;183&quot;  &quot;184&quot;  &quot;185&quot;  &quot;186&quot;  &quot;187&quot;  &quot;188&quot;  &quot;189&quot;  &quot;190&quot; 
+##  [191] &quot;191&quot;  &quot;192&quot;  &quot;193&quot;  &quot;194&quot;  &quot;195&quot;  &quot;196&quot;  &quot;197&quot;  &quot;198&quot;  &quot;199&quot;  &quot;200&quot; 
+##  [201] &quot;201&quot;  &quot;202&quot;  &quot;203&quot;  &quot;204&quot;  &quot;205&quot;  &quot;206&quot;  &quot;207&quot;  &quot;208&quot;  &quot;209&quot;  &quot;210&quot; 
+##  [211] &quot;211&quot;  &quot;212&quot;  &quot;213&quot;  &quot;214&quot;  &quot;215&quot;  &quot;216&quot;  &quot;217&quot;  &quot;218&quot;  &quot;219&quot;  &quot;220&quot; 
+##  [221] &quot;221&quot;  &quot;222&quot;  &quot;223&quot;  &quot;224&quot;  &quot;225&quot;  &quot;226&quot;  &quot;227&quot;  &quot;228&quot;  &quot;229&quot;  &quot;230&quot; 
+##  [231] &quot;231&quot;  &quot;232&quot;  &quot;233&quot;  &quot;234&quot;  &quot;235&quot;  &quot;236&quot;  &quot;237&quot;  &quot;238&quot;  &quot;239&quot;  &quot;240&quot; 
+##  [241] &quot;241&quot;  &quot;242&quot;  &quot;243&quot;  &quot;244&quot;  &quot;245&quot;  &quot;246&quot;  &quot;247&quot;  &quot;248&quot;  &quot;249&quot;  &quot;250&quot; 
+##  [251] &quot;251&quot;  &quot;252&quot;  &quot;253&quot;  &quot;254&quot;  &quot;255&quot;  &quot;256&quot;  &quot;257&quot;  &quot;258&quot;  &quot;259&quot;  &quot;260&quot; 
+##  [261] &quot;261&quot;  &quot;262&quot;  &quot;263&quot;  &quot;264&quot;  &quot;265&quot;  &quot;266&quot;  &quot;267&quot;  &quot;268&quot;  &quot;269&quot;  &quot;270&quot; 
+##  [271] &quot;271&quot;  &quot;272&quot;  &quot;273&quot;  &quot;274&quot;  &quot;275&quot;  &quot;276&quot;  &quot;277&quot;  &quot;278&quot;  &quot;279&quot;  &quot;280&quot; 
+##  [281] &quot;281&quot;  &quot;282&quot;  &quot;283&quot;  &quot;284&quot;  &quot;285&quot;  &quot;286&quot;  &quot;287&quot;  &quot;288&quot;  &quot;289&quot;  &quot;290&quot; 
+##  [291] &quot;291&quot;  &quot;292&quot;  &quot;293&quot;  &quot;294&quot;  &quot;295&quot;  &quot;296&quot;  &quot;297&quot;  &quot;298&quot;  &quot;299&quot;  &quot;300&quot; 
+##  [301] &quot;301&quot;  &quot;302&quot;  &quot;303&quot;  &quot;304&quot;  &quot;305&quot;  &quot;306&quot;  &quot;307&quot;  &quot;308&quot;  &quot;309&quot;  &quot;310&quot; 
+##  [311] &quot;311&quot;  &quot;312&quot;  &quot;313&quot;  &quot;314&quot;  &quot;315&quot;  &quot;316&quot;  &quot;317&quot;  &quot;318&quot;  &quot;319&quot;  &quot;320&quot; 
+##  [321] &quot;321&quot;  &quot;322&quot;  &quot;323&quot;  &quot;324&quot;  &quot;325&quot;  &quot;326&quot;  &quot;327&quot;  &quot;328&quot;  &quot;329&quot;  &quot;330&quot; 
+##  [331] &quot;331&quot;  &quot;332&quot;  &quot;333&quot;  &quot;334&quot;  &quot;335&quot;  &quot;336&quot;  &quot;337&quot;  &quot;338&quot;  &quot;339&quot;  &quot;340&quot; 
+##  [341] &quot;341&quot;  &quot;342&quot;  &quot;343&quot;  &quot;344&quot;  &quot;345&quot;  &quot;346&quot;  &quot;347&quot;  &quot;348&quot;  &quot;349&quot;  &quot;350&quot; 
+##  [351] &quot;351&quot;  &quot;352&quot;  &quot;353&quot;  &quot;354&quot;  &quot;355&quot;  &quot;356&quot;  &quot;357&quot;  &quot;358&quot;  &quot;359&quot;  &quot;360&quot; 
+##  [361] &quot;361&quot;  &quot;362&quot;  &quot;363&quot;  &quot;364&quot;  &quot;365&quot;  &quot;366&quot;  &quot;367&quot;  &quot;368&quot;  &quot;369&quot;  &quot;370&quot; 
+##  [371] &quot;371&quot;  &quot;372&quot;  &quot;373&quot;  &quot;374&quot;  &quot;375&quot;  &quot;376&quot;  &quot;377&quot;  &quot;378&quot;  &quot;379&quot;  &quot;380&quot; 
+##  [381] &quot;381&quot;  &quot;382&quot;  &quot;383&quot;  &quot;384&quot;  &quot;385&quot;  &quot;386&quot;  &quot;387&quot;  &quot;388&quot;  &quot;389&quot;  &quot;390&quot; 
+##  [391] &quot;391&quot;  &quot;392&quot;  &quot;393&quot;  &quot;394&quot;  &quot;395&quot;  &quot;396&quot;  &quot;397&quot;  &quot;398&quot;  &quot;399&quot;  &quot;400&quot; 
+##  [401] &quot;401&quot;  &quot;402&quot;  &quot;403&quot;  &quot;404&quot;  &quot;405&quot;  &quot;406&quot;  &quot;407&quot;  &quot;408&quot;  &quot;409&quot;  &quot;410&quot; 
+##  [411] &quot;411&quot;  &quot;412&quot;  &quot;413&quot;  &quot;414&quot;  &quot;415&quot;  &quot;416&quot;  &quot;417&quot;  &quot;418&quot;  &quot;419&quot;  &quot;420&quot; 
+##  [421] &quot;421&quot;  &quot;422&quot;  &quot;423&quot;  &quot;424&quot;  &quot;425&quot;  &quot;426&quot;  &quot;427&quot;  &quot;428&quot;  &quot;429&quot;  &quot;430&quot; 
+##  [431] &quot;431&quot;  &quot;432&quot;  &quot;433&quot;  &quot;434&quot;  &quot;435&quot;  &quot;436&quot;  &quot;437&quot;  &quot;438&quot;  &quot;439&quot;  &quot;440&quot; 
+##  [441] &quot;441&quot;  &quot;442&quot;  &quot;443&quot;  &quot;444&quot;  &quot;445&quot;  &quot;446&quot;  &quot;447&quot;  &quot;448&quot;  &quot;449&quot;  &quot;450&quot; 
+##  [451] &quot;451&quot;  &quot;452&quot;  &quot;453&quot;  &quot;454&quot;  &quot;455&quot;  &quot;456&quot;  &quot;457&quot;  &quot;458&quot;  &quot;459&quot;  &quot;460&quot; 
+##  [461] &quot;461&quot;  &quot;462&quot;  &quot;463&quot;  &quot;464&quot;  &quot;465&quot;  &quot;466&quot;  &quot;467&quot;  &quot;468&quot;  &quot;469&quot;  &quot;470&quot; 
+##  [471] &quot;471&quot;  &quot;472&quot;  &quot;473&quot;  &quot;474&quot;  &quot;475&quot;  &quot;476&quot;  &quot;477&quot;  &quot;478&quot;  &quot;479&quot;  &quot;480&quot; 
+##  [481] &quot;481&quot;  &quot;482&quot;  &quot;483&quot;  &quot;484&quot;  &quot;485&quot;  &quot;486&quot;  &quot;487&quot;  &quot;488&quot;  &quot;489&quot;  &quot;490&quot; 
+##  [491] &quot;491&quot;  &quot;492&quot;  &quot;493&quot;  &quot;494&quot;  &quot;495&quot;  &quot;496&quot;  &quot;497&quot;  &quot;498&quot;  &quot;499&quot;  &quot;500&quot; 
+##  [501] &quot;501&quot;  &quot;502&quot;  &quot;503&quot;  &quot;504&quot;  &quot;505&quot;  &quot;506&quot;  &quot;507&quot;  &quot;508&quot;  &quot;509&quot;  &quot;510&quot; 
+##  [511] &quot;511&quot;  &quot;512&quot;  &quot;513&quot;  &quot;514&quot;  &quot;515&quot;  &quot;516&quot;  &quot;517&quot;  &quot;518&quot;  &quot;519&quot;  &quot;520&quot; 
+##  [521] &quot;521&quot;  &quot;522&quot;  &quot;523&quot;  &quot;524&quot;  &quot;525&quot;  &quot;526&quot;  &quot;527&quot;  &quot;528&quot;  &quot;529&quot;  &quot;530&quot; 
+##  [531] &quot;531&quot;  &quot;532&quot;  &quot;533&quot;  &quot;534&quot;  &quot;535&quot;  &quot;536&quot;  &quot;537&quot;  &quot;538&quot;  &quot;539&quot;  &quot;540&quot; 
+##  [541] &quot;541&quot;  &quot;542&quot;  &quot;543&quot;  &quot;544&quot;  &quot;545&quot;  &quot;546&quot;  &quot;547&quot;  &quot;548&quot;  &quot;549&quot;  &quot;550&quot; 
+##  [551] &quot;551&quot;  &quot;552&quot;  &quot;553&quot;  &quot;554&quot;  &quot;555&quot;  &quot;556&quot;  &quot;557&quot;  &quot;558&quot;  &quot;559&quot;  &quot;560&quot; 
+##  [561] &quot;561&quot;  &quot;562&quot;  &quot;563&quot;  &quot;564&quot;  &quot;565&quot;  &quot;566&quot;  &quot;567&quot;  &quot;568&quot;  &quot;569&quot;  &quot;570&quot; 
+##  [571] &quot;571&quot;  &quot;572&quot;  &quot;573&quot;  &quot;574&quot;  &quot;575&quot;  &quot;576&quot;  &quot;577&quot;  &quot;578&quot;  &quot;579&quot;  &quot;580&quot; 
+##  [581] &quot;581&quot;  &quot;582&quot;  &quot;583&quot;  &quot;584&quot;  &quot;585&quot;  &quot;586&quot;  &quot;587&quot;  &quot;588&quot;  &quot;589&quot;  &quot;590&quot; 
+##  [591] &quot;591&quot;  &quot;592&quot;  &quot;593&quot;  &quot;594&quot;  &quot;595&quot;  &quot;596&quot;  &quot;597&quot;  &quot;598&quot;  &quot;599&quot;  &quot;600&quot; 
+##  [601] &quot;601&quot;  &quot;602&quot;  &quot;603&quot;  &quot;604&quot;  &quot;605&quot;  &quot;606&quot;  &quot;607&quot;  &quot;608&quot;  &quot;609&quot;  &quot;610&quot; 
+##  [611] &quot;611&quot;  &quot;612&quot;  &quot;613&quot;  &quot;614&quot;  &quot;615&quot;  &quot;616&quot;  &quot;617&quot;  &quot;618&quot;  &quot;619&quot;  &quot;620&quot; 
+##  [621] &quot;621&quot;  &quot;622&quot;  &quot;623&quot;  &quot;624&quot;  &quot;625&quot;  &quot;626&quot;  &quot;627&quot;  &quot;628&quot;  &quot;629&quot;  &quot;630&quot; 
+##  [631] &quot;631&quot;  &quot;632&quot;  &quot;633&quot;  &quot;634&quot;  &quot;635&quot;  &quot;636&quot;  &quot;637&quot;  &quot;638&quot;  &quot;639&quot;  &quot;640&quot; 
+##  [641] &quot;641&quot;  &quot;642&quot;  &quot;643&quot;  &quot;644&quot;  &quot;645&quot;  &quot;646&quot;  &quot;647&quot;  &quot;648&quot;  &quot;649&quot;  &quot;650&quot; 
+##  [651] &quot;651&quot;  &quot;652&quot;  &quot;653&quot;  &quot;654&quot;  &quot;655&quot;  &quot;656&quot;  &quot;657&quot;  &quot;658&quot;  &quot;659&quot;  &quot;660&quot; 
+##  [661] &quot;661&quot;  &quot;662&quot;  &quot;663&quot;  &quot;664&quot;  &quot;665&quot;  &quot;666&quot;  &quot;667&quot;  &quot;668&quot;  &quot;669&quot;  &quot;670&quot; 
+##  [671] &quot;671&quot;  &quot;672&quot;  &quot;673&quot;  &quot;674&quot;  &quot;675&quot;  &quot;676&quot;  &quot;677&quot;  &quot;678&quot;  &quot;679&quot;  &quot;680&quot; 
+##  [681] &quot;681&quot;  &quot;682&quot;  &quot;683&quot;  &quot;684&quot;  &quot;685&quot;  &quot;686&quot;  &quot;687&quot;  &quot;688&quot;  &quot;689&quot;  &quot;690&quot; 
+##  [691] &quot;691&quot;  &quot;692&quot;  &quot;693&quot;  &quot;694&quot;  &quot;695&quot;  &quot;696&quot;  &quot;697&quot;  &quot;698&quot;  &quot;699&quot;  &quot;700&quot; 
+##  [701] &quot;701&quot;  &quot;702&quot;  &quot;703&quot;  &quot;704&quot;  &quot;705&quot;  &quot;706&quot;  &quot;707&quot;  &quot;708&quot;  &quot;709&quot;  &quot;710&quot; 
+##  [711] &quot;711&quot;  &quot;712&quot;  &quot;713&quot;  &quot;714&quot;  &quot;715&quot;  &quot;716&quot;  &quot;717&quot;  &quot;718&quot;  &quot;719&quot;  &quot;720&quot; 
+##  [721] &quot;721&quot;  &quot;722&quot;  &quot;723&quot;  &quot;724&quot;  &quot;725&quot;  &quot;726&quot;  &quot;727&quot;  &quot;728&quot;  &quot;729&quot;  &quot;730&quot; 
+##  [731] &quot;731&quot;  &quot;732&quot;  &quot;733&quot;  &quot;734&quot;  &quot;735&quot;  &quot;736&quot;  &quot;737&quot;  &quot;738&quot;  &quot;739&quot;  &quot;740&quot; 
+##  [741] &quot;741&quot;  &quot;742&quot;  &quot;743&quot;  &quot;744&quot;  &quot;745&quot;  &quot;746&quot;  &quot;747&quot;  &quot;748&quot;  &quot;749&quot;  &quot;750&quot; 
+##  [751] &quot;751&quot;  &quot;752&quot;  &quot;753&quot;  &quot;754&quot;  &quot;755&quot;  &quot;756&quot;  &quot;757&quot;  &quot;758&quot;  &quot;759&quot;  &quot;760&quot; 
+##  [761] &quot;761&quot;  &quot;762&quot;  &quot;763&quot;  &quot;764&quot;  &quot;765&quot;  &quot;766&quot;  &quot;767&quot;  &quot;768&quot;  &quot;769&quot;  &quot;770&quot; 
+##  [771] &quot;771&quot;  &quot;772&quot;  &quot;773&quot;  &quot;774&quot;  &quot;775&quot;  &quot;776&quot;  &quot;777&quot;  &quot;778&quot;  &quot;779&quot;  &quot;780&quot; 
+##  [781] &quot;781&quot;  &quot;782&quot;  &quot;783&quot;  &quot;784&quot;  &quot;785&quot;  &quot;786&quot;  &quot;787&quot;  &quot;788&quot;  &quot;789&quot;  &quot;790&quot; 
+##  [791] &quot;791&quot;  &quot;792&quot;  &quot;793&quot;  &quot;794&quot;  &quot;795&quot;  &quot;796&quot;  &quot;797&quot;  &quot;798&quot;  &quot;799&quot;  &quot;800&quot; 
+##  [801] &quot;801&quot;  &quot;802&quot;  &quot;803&quot;  &quot;804&quot;  &quot;805&quot;  &quot;806&quot;  &quot;807&quot;  &quot;808&quot;  &quot;809&quot;  &quot;810&quot; 
+##  [811] &quot;811&quot;  &quot;812&quot;  &quot;813&quot;  &quot;814&quot;  &quot;815&quot;  &quot;816&quot;  &quot;817&quot;  &quot;818&quot;  &quot;819&quot;  &quot;820&quot; 
+##  [821] &quot;821&quot;  &quot;822&quot;  &quot;823&quot;  &quot;824&quot;  &quot;825&quot;  &quot;826&quot;  &quot;827&quot;  &quot;828&quot;  &quot;829&quot;  &quot;830&quot; 
+##  [831] &quot;831&quot;  &quot;832&quot;  &quot;833&quot;  &quot;834&quot;  &quot;835&quot;  &quot;836&quot;  &quot;837&quot;  &quot;838&quot;  &quot;839&quot;  &quot;840&quot; 
+##  [841] &quot;841&quot;  &quot;842&quot;  &quot;843&quot;  &quot;844&quot;  &quot;845&quot;  &quot;846&quot;  &quot;847&quot;  &quot;848&quot;  &quot;849&quot;  &quot;850&quot; 
+##  [851] &quot;851&quot;  &quot;852&quot;  &quot;853&quot;  &quot;854&quot;  &quot;855&quot;  &quot;856&quot;  &quot;857&quot;  &quot;858&quot;  &quot;859&quot;  &quot;860&quot; 
+##  [861] &quot;861&quot;  &quot;862&quot;  &quot;863&quot;  &quot;864&quot;  &quot;865&quot;  &quot;866&quot;  &quot;867&quot;  &quot;868&quot;  &quot;869&quot;  &quot;870&quot; 
+##  [871] &quot;871&quot;  &quot;872&quot;  &quot;873&quot;  &quot;874&quot;  &quot;875&quot;  &quot;876&quot;  &quot;877&quot;  &quot;878&quot;  &quot;879&quot;  &quot;880&quot; 
+##  [881] &quot;881&quot;  &quot;882&quot;  &quot;883&quot;  &quot;884&quot;  &quot;885&quot;  &quot;886&quot;  &quot;887&quot;  &quot;888&quot;  &quot;889&quot;  &quot;890&quot; 
+##  [891] &quot;891&quot;  &quot;892&quot;  &quot;893&quot;  &quot;894&quot;  &quot;895&quot;  &quot;896&quot;  &quot;897&quot;  &quot;898&quot;  &quot;899&quot;  &quot;900&quot; 
+##  [901] &quot;901&quot;  &quot;902&quot;  &quot;903&quot;  &quot;904&quot;  &quot;905&quot;  &quot;906&quot;  &quot;907&quot;  &quot;908&quot;  &quot;909&quot;  &quot;910&quot; 
+##  [911] &quot;911&quot;  &quot;912&quot;  &quot;913&quot;  &quot;914&quot;  &quot;915&quot;  &quot;916&quot;  &quot;917&quot;  &quot;918&quot;  &quot;919&quot;  &quot;920&quot; 
+##  [921] &quot;921&quot;  &quot;922&quot;  &quot;923&quot;  &quot;924&quot;  &quot;925&quot;  &quot;926&quot;  &quot;927&quot;  &quot;928&quot;  &quot;929&quot;  &quot;930&quot; 
+##  [931] &quot;931&quot;  &quot;932&quot;  &quot;933&quot;  &quot;934&quot;  &quot;935&quot;  &quot;936&quot;  &quot;937&quot;  &quot;938&quot;  &quot;939&quot;  &quot;940&quot; 
+##  [941] &quot;941&quot;  &quot;942&quot;  &quot;943&quot;  &quot;944&quot;  &quot;945&quot;  &quot;946&quot;  &quot;947&quot;  &quot;948&quot;  &quot;949&quot;  &quot;950&quot; 
+##  [951] &quot;951&quot;  &quot;952&quot;  &quot;953&quot;  &quot;954&quot;  &quot;955&quot;  &quot;956&quot;  &quot;957&quot;  &quot;958&quot;  &quot;959&quot;  &quot;960&quot; 
+##  [961] &quot;961&quot;  &quot;962&quot;  &quot;963&quot;  &quot;964&quot;  &quot;965&quot;  &quot;966&quot;  &quot;967&quot;  &quot;968&quot;  &quot;969&quot;  &quot;970&quot; 
+##  [971] &quot;971&quot;  &quot;972&quot;  &quot;973&quot;  &quot;974&quot;  &quot;975&quot;  &quot;976&quot;  &quot;977&quot;  &quot;978&quot;  &quot;979&quot;  &quot;980&quot; 
+##  [981] &quot;981&quot;  &quot;982&quot;  &quot;983&quot;  &quot;984&quot;  &quot;985&quot;  &quot;986&quot;  &quot;987&quot;  &quot;988&quot;  &quot;989&quot;  &quot;990&quot; 
+##  [991] &quot;991&quot;  &quot;992&quot;  &quot;993&quot;  &quot;994&quot;  &quot;995&quot;  &quot;996&quot;  &quot;997&quot;  &quot;998&quot;  &quot;999&quot;  &quot;1000&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="dv">1</span>,n))
 dat0 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(y,times,group)
 
 <span class="kw">glmmTMB</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">ar1</span>(times <span class="op">+</span><span class="st"> </span><span class="dv">0</span> <span class="op">|</span><span class="st"> </span>group), <span class="dt">data=</span>dat0)</code></pre></div>
 <pre><code>## Formula:          y ~ ar1(times + 0 | group)
 ## Data: dat0
-##      AIC      BIC   logLik df.resid 
-## 21.84871 23.05905 -6.92435        6 
+##       AIC       BIC    logLik  df.resid 
+##  843.4275  863.0585 -417.7138       996 
 ## Random-effects (co)variances:
 ## 
 ## Conditional model:
-##  Groups   Name   Std.Dev.  Corr       
-##  group    times1 4.900e-01 -0.17 (ar1)
-##  Residual        5.602e-05            
+##  Groups   Name   Std.Dev. Corr      
+##  group    times1 0.1833   0.29 (ar1)
+##  Residual        0.3196             
 ## 
-## Number of obs: 10 / Conditional model: group, 1
+## Number of obs: 1000 / Conditional model: group, 1
 ## 
-## Dispersion estimate for gaussian family (sigma^2): 3.14e-09 
+## Dispersion estimate for gaussian family (sigma^2): 0.102 
 ## 
 ## Fixed Effects:
 ## 
 ## Conditional model:
 ## (Intercept)  
-##       0.603</code></pre>
+##      0.8379</code></pre>
 
 </div>
 </div>
