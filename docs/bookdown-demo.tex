@@ -3331,9 +3331,27 @@ Thus,
 
 \[\theta | y \sim Beta (\sum y_i+1, n-\sum y_i +1)\]
 
-\textbf{Side note}
+\textbf{Side note:} \(Beta(1,1)=Uniform(0,1)\):
 
-\[Beta(\alpha,\beta)=\frac{x^{\alpha}(1-x)^{\beta-1}}{B(\alpha,\beta)}\]
+\(Beta(\alpha,\beta)=\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq x \leqslant 1\}}\)
+
+Thus, we can get the following since the support for beta distribution
+is \([0,1]\):
+
+\(Beta(1,1)=\frac{x^0(1-x)^0}{B(\alpha,\beta)}=1\times I_{\{0 \leqq x \leqslant 1\}}\)
+
+\section{Conjugate priors}\label{conjugate-priors}
+
+As noted above, beta prior (or, Uniform) leads to beta posterior. In a
+more general sense, Beta prior always leads to beta posterior.
+
+For instance,
+
+\[ \begin{aligned} f(\theta |y) \propto f(y|\theta)f(\theta)&=\theta^{\sum y_i}(1-\theta)^{\sum n-y_i}\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq \theta \leqslant 1\}} \\ &=\frac{1}{B(\alpha, \beta)}\theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \\ &\propto  \theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \end{aligned}\]
+Thus,
+
+\[f(\theta |y) \sim Beta(\alpha+\sum y_i,\beta+\sum n-y_i)\] Conjugate
+prior: prior and posterior share the same distribution.
 
 \chapter{Trying}\label{trying}
 

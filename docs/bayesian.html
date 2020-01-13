@@ -198,6 +198,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.3.3" data-path="bayesian.html"><a href="bayesian.html#uniform-equal-tailed-versus-hpd"><i class="fa fa-check"></i><b>11.3.3</b> Uniform: equal tailed versus HPD</a></li>
 </ul></li>
 <li class="chapter" data-level="11.4" data-path="bayesian.html"><a href="bayesian.html#bernoullibinomial-likelihood-with-uniform-prior"><i class="fa fa-check"></i><b>11.4</b> Bernoulli/binomial likelihood with uniform prior</a></li>
+<li class="chapter" data-level="11.5" data-path="bayesian.html"><a href="bayesian.html#conjugate-priors"><i class="fa fa-check"></i><b>11.5</b> Conjugate priors</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
 <li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>12.1</b> The Basic Idea</a></li>
@@ -283,8 +284,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[\begin{aligned}  f(\theta | Y=1) &amp;= \frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &amp;=\frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\frac{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)}{\Gamma(n+2)} \int_{-\infty}^{+\infty} \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &amp;= \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)}\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}  \end{aligned} \]</span></p>
 <p>Thus,</p>
 <p><span class="math display">\[\theta | y \sim Beta (\sum y_i+1, n-\sum y_i +1)\]</span></p>
-<p><strong>Side note</strong></p>
-<p><span class="math display">\[Beta(\alpha,\beta)=\frac{x^{\alpha}(1-x)^{\beta-1}}{B(\alpha,\beta)}\]</span></p>
+<p><strong>Side note:</strong> <span class="math inline">\(Beta(1,1)=Uniform(0,1)\)</span>:</p>
+<p><span class="math inline">\(Beta(\alpha,\beta)=\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq x \leqslant 1\}}\)</span></p>
+<p>Thus, we can get the following since the support for beta distribution is <span class="math inline">\([0,1]\)</span>:</p>
+<p><span class="math inline">\(Beta(1,1)=\frac{x^0(1-x)^0}{B(\alpha,\beta)}=1\times I_{\{0 \leqq x \leqslant 1\}}\)</span></p>
+</div>
+<div id="conjugate-priors" class="section level2">
+<h2><span class="header-section-number">11.5</span> Conjugate priors</h2>
+<p>As noted above, beta prior (or, Uniform) leads to beta posterior. In a more general sense, Beta prior always leads to beta posterior.</p>
+<p>For instance,</p>
+<p><span class="math display">\[ \begin{aligned} f(\theta |y) \propto f(y|\theta)f(\theta)&amp;=\theta^{\sum y_i}(1-\theta)^{\sum n-y_i}\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq \theta \leqslant 1\}} \\ &amp;=\frac{1}{B(\alpha, \beta)}\theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \\ &amp;\propto  \theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \end{aligned}\]</span> Thus,</p>
+<p><span class="math display">\[f(\theta |y) \sim Beta(\alpha+\sum y_i,\beta+\sum n-y_i)\]</span> Conjugate prior: prior and posterior share the same distribution.</p>
 
 </div>
 </div>
