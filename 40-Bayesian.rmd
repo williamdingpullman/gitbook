@@ -87,7 +87,7 @@ __Equal tailed__
 
 $$P(\theta < q|Y=1)=\int_0^q 2\theta d\theta=q^2$$
 $$P(\sqrt{0.025}<\theta<\sqrt{0.975}|Y=1)=P(0.158<\theta<0.987)=0.95$$
-We cab say that: there's a 95% probability that $\theta$ is in between 0.158 and 0.987.
+We can say that: there's a 95% probability that $\theta$ is in between 0.158 and 0.987.
 
 __Highest Posterior Density__
 
@@ -135,6 +135,23 @@ $$\begin{aligned} Mean_{posterior}&= \frac{\alpha+\sum y_i}{\alpha+\sum y_i+\bet
 
 __Side Note__
 
-Binomial proportion confidence interval:
+(1) Binomial proportion confidence interval:
 
 $$\hat{p} +/- 1.96 \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+(2) Mean of Beta distribution:
+
+$$\frac{\alpha}{\alpha+\beta}$$
+(3) Plot of Beta distribution 
+
+
+```{R}
+# Method 1
+x<-seq(0,1,length=200)
+plot(x,dbeta(x,1,5),type = "l")
+
+# Method 2
+x2<-rbeta(200,1,5)
+hist(x2,prob = TRUE)
+lines(density(x2))
+
+```
