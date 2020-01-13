@@ -15,10 +15,10 @@ When $x=2$
 $$f(\theta | x=2)=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 = 0.3125& if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} = 0.1323& if \;  \theta=loaded  \end{cases}$$
 Thus, based on MLE, it suggests that it should be "fair", since it has a greater probablity if we observe 2 head out of 5 trials. 
 
-However, we can not know the following probability: given we observe $x=2$, what is the probability that $\theta$ is fair. 
+However, we can not know the following probability: given that we observe $x=2$, what is the probability that $\theta$ is fair? 
 
 $$P(\theta=fair | X=2)$$
-FOr frequentist's perspective, the coin is the fixed coin, And thus, the probablity of $P(\theta=fair|x=2)$ is equal to $P(\theta=fair)$.
+From the frequentist's perspective, the coin is the fixed coin. And thus, the probablity of $P(\theta=fair|x=2)$ is equal to $P(\theta=fair)$.
 
 $$P(\theta=fair|x=2)=P(\theta=fair)$$
 As,
@@ -96,7 +96,7 @@ $$P(\theta > \sqrt{0.05}|Y=1)=P(\theta >0.224|Y=1)=0.95$$
 
 ## Bernoulli/binomial likelihood with uniform prior
 
-$$\begin{aligned}  f(\theta | Y=1) &= \frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &=\frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\frac{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)}{\Gamma(n+2)} \int_{-\infty}^{+\infty} \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &= \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)}\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}  \end{aligned} $$
+$$\begin{aligned}  f(\theta | Y=1) &= \frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &=\frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\frac{\Gamma(\sum y_i+1)\Gamma(n-\sum y_i+1)}{\Gamma(n+2)} \int_{-\infty}^{+\infty} \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_i+1)} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &= \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_i+1)}\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}  \end{aligned} $$
 
 Thus, 
 
@@ -118,8 +118,23 @@ As noted above, beta prior (or, Uniform) leads to beta posterior. In a more gene
 
 For instance,
 
-$$ \begin{aligned} f(\theta |y) \propto f(y|\theta)f(\theta)&=\theta^{\sum y_i}(1-\theta)^{\sum n-y_i}\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq \theta \leqslant 1\}} \\ &=\frac{1}{B(\alpha, \beta)}\theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \\ &\propto  \theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \end{aligned}$$
+$$\begin{aligned} f(\theta |y) \propto f(y|\theta)f(\theta)&=\theta^{\sum y_i}(1-\theta)^{\sum n-y_i}\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq \theta \leqslant 1\}} \\ &=\frac{1}{B(\alpha, \beta)}\theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \\ &\propto  \theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \end{aligned}$$
 Thus, 
 
 $$f(\theta |y) \sim Beta(\alpha+\sum y_i,\beta+\sum n-y_i)$$
 Conjugate prior: prior and posterior share the same distribution. 
+As we can see, both the data and the prior contribute to the posterior.
+
+For the prior of $Beta(\alpha, \beta)$, the mean is 
+
+$$Mean_{prior}=\frac{\alpha}{\alpha+\beta}$$
+
+Posterior mean is,
+
+$$\begin{aligned} Mean_{posterior}&= \frac{\alpha+\sum y_i}{\alpha+\sum y_i+\beta+n-\sum y_i} \\ &=\frac{\alpha+\sum y_i}{\alpha+\beta+n} \\ &= \frac{\alpha+\beta}{\alpha+\beta+n}\frac{\alpha}{\alpha+\beta}+\frac{n}{\alpha+\beta+n}\frac{\sum y_i}{n} \\ &= Weight_{prior} \times Mean_{prior}+Weight_{data} \times Mean_{data}\end{aligned}$$
+
+__Side Note__
+
+Binomial proportion confidence interval:
+
+$$\hat{p} +/- 1.96 \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
