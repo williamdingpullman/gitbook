@@ -227,7 +227,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="bayesian" class="section level1">
 <h1><span class="header-section-number">Chapter 11</span> Bayesian</h1>
 <p>The following is the part of the class note that I took from the online course of “Bayesian Statistics: From Concept to Data Analysis.” (<a href="https://www.coursera.org/learn/bayesian-statistics/home/welcome" class="uri">https://www.coursera.org/learn/bayesian-statistics/home/welcome</a>)</p>
-<p>Important note: All the notes here are just for my own study purpose. I do not clain any copyright. You can use it for study purpose as well, but please do not use it for any business purposes.</p>
+<p>Important note: All the notes here are just for my own study purpose. I do not clain any copyright. You can use it for study purpose as well, but not for any business purposes.</p>
 <div id="frequentist-perspective" class="section level2">
 <h2><span class="header-section-number">11.1</span> Frequentist perspective</h2>
 <p><span class="math display">\[\theta = \{ fair , loaded \}\]</span> <span class="math display">\[x \sim Bin (5, \theta)\]</span> <span class="math display">\[\begin{aligned} f(x|\theta) &amp;=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 &amp; if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} &amp; if \;  \theta=loaded  \end{cases} \\ &amp;= \binom{5}{x} (\frac{1}{2})^5 I_{\{\theta=fair \}}+\binom{5}{x} (0.7)^x(0.3)^{5-x}I_{\{\theta=loaded \}}\end{aligned}\]</span></p>
@@ -242,14 +242,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">11.2</span> Bayesian perspective</h2>
 <p>Prior <span class="math inline">\(P(loaded)=0.6\)</span></p>
 <p><span class="math display">\[\begin{aligned} f(\theta | X) &amp;= \frac{f(x|\theta) f(\theta)}{\sum_{\theta} f(x|\theta)f(\theta)} \\ &amp;=\frac{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 \times I_{\{\theta=fair \}}+ (0.7)^x(0.3)^{5-x} \times 0.6 \times I_{\{\theta=loaded \}}]}{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 + (0.7)^x(0.3)^{5-x} \times 0.6]}  \end{aligned}\]</span></p>
-<p><span class="math display">\[\begin{aligned} f(\theta |X=2) &amp;=\frac{0.0125 I_{\{\theta=fair \}}+0.0079 I_{\{\theta=loaded \}} }{0.0125+0.0079} \\ &amp;= 0.612 I_{\{\theta=fair \}} + 0.388 I_{\{\theta=loaded \}} \end{aligned}\]</span> Thus, we can say that:</p>
+<p><span class="math display">\[\begin{aligned} f(\theta |X=2) &amp;=\frac{0.0125 I_{\{\theta=fair \}}+0.0079 I_{\{\theta=loaded \}} }{0.0125+0.0079} \\ &amp;= 0.612 I_{\{\theta=fair \}} + 0.388 I_{\{\theta=loaded \}} \end{aligned}\]</span></p>
+<p>Thus, we can say that:</p>
 <p><span class="math display">\[P(\theta=loaded | X=2)=0.388\]</span> We can change the prior, and get different posterior probabilities:</p>
 <p><span class="math display">\[P(\theta=loaded)=\frac{1}{2} \rightarrow P(\theta=loaded | X=2)=0.297\]</span> <span class="math display">\[P(\theta=loaded)=\frac{9}{10} \rightarrow P(\theta=loaded | X=2)=0.792\]</span></p>
 </div>
 <div id="continous-parameters" class="section level2">
 <h2><span class="header-section-number">11.3</span> Continous parameters</h2>
 <p>In the examples above, <span class="math inline">\(\theta\)</span> is discrete. In contrast, the examples below use continous <span class="math inline">\(\theta\)</span>.</p>
-<p><span class="math display">\[f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior\]</span> Note that, the posterior is a PDF of <span class="math inline">\(\theta\)</span>, which is not in the function of <span class="math inline">\(f(y)\)</span>. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior.</p>
+<p><span class="math display">\[f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior\]</span></p>
+<p>Note that, the posterior is a PDF of <span class="math inline">\(\theta\)</span>, which is not in the function of <span class="math inline">\(f(y)\)</span>. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior.</p>
 <div id="uniform" class="section level3">
 <h3><span class="header-section-number">11.3.1</span> Uniform</h3>
 <p>Suppose that <span class="math inline">\(\theta\)</span> is the probablity of a coin getting head. We could assign a uniform distribution.</p>
@@ -278,6 +280,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="bernoullibinomial-likelihood-with-uniform-prior" class="section level2">
 <h2><span class="header-section-number">11.4</span> Bernoulli/binomial likelihood with uniform prior</h2>
+<p><span class="math display">\[\begin{aligned}  f(\theta | Y=1) &amp;= \frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &amp;=\frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\frac{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)}{\Gamma(n+2)} \int_{-\infty}^{+\infty} \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &amp;= \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)}\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}  \end{aligned} \]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[\theta | y \sim Beta (\sum y_i+1, n-\sum y_i +1)\]</span></p>
+<p><strong>Side note</strong></p>
+<p><span class="math display">\[Beta(\alpha,\beta)=\frac{x^{\alpha}(1-x)^{\beta-1}}{B(\alpha,\beta)}\]</span></p>
 
 </div>
 </div>

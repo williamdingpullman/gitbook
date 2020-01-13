@@ -2,7 +2,7 @@
 
 The following is the part of the class note that I took from the online course of "Bayesian Statistics: From Concept to Data Analysis." (https://www.coursera.org/learn/bayesian-statistics/home/welcome) 
 
-Important note: All the notes here are just for my own study purpose. I do not clain any copyright. You can use it for study purpose as well, but please do not use it for any business purposes.
+Important note: All the notes here are just for my own study purpose. I do not clain any copyright. You can use it for study purpose as well, but not for any business purposes.
 
 ## Frequentist perspective
 
@@ -32,6 +32,7 @@ Prior $P(loaded)=0.6$
 $$\begin{aligned} f(\theta | X) &= \frac{f(x|\theta) f(\theta)}{\sum_{\theta} f(x|\theta)f(\theta)} \\ &=\frac{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 \times I_{\{\theta=fair \}}+ (0.7)^x(0.3)^{5-x} \times 0.6 \times I_{\{\theta=loaded \}}]}{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 + (0.7)^x(0.3)^{5-x} \times 0.6]}  \end{aligned}$$
 
 $$\begin{aligned} f(\theta |X=2) &=\frac{0.0125 I_{\{\theta=fair \}}+0.0079 I_{\{\theta=loaded \}} }{0.0125+0.0079} \\ &= 0.612 I_{\{\theta=fair \}} + 0.388 I_{\{\theta=loaded \}} \end{aligned}$$
+
 Thus, we can say that:
 
 $$P(\theta=loaded | X=2)=0.388$$
@@ -45,6 +46,7 @@ $$P(\theta=loaded)=\frac{9}{10} \rightarrow P(\theta=loaded | X=2)=0.792$$
 In the examples above, $\theta$ is discrete. In contrast, the examples below use continous $\theta$. 
 
 $$f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior$$
+
 Note that, the posterior is a PDF of $\theta$, which is not in the function of $f(y)$. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior. 
 
 ### Uniform
@@ -94,4 +96,14 @@ $$P(\theta > \sqrt{0.05}|Y=1)=P(\theta >0.224|Y=1)=0.95$$
 
 ## Bernoulli/binomial likelihood with uniform prior
 
+$$\begin{aligned}  f(\theta | Y=1) &= \frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &=\frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\frac{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)}{\Gamma(n+2)} \int_{-\infty}^{+\infty} \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &= \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_0+1)}\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}  \end{aligned} $$
+
+Thus, 
+
+$$\theta | y \sim Beta (\sum y_i+1, n-\sum y_i +1)$$
+
+
+__Side note__
+
+$$Beta(\alpha,\beta)=\frac{x^{\alpha}(1-x)^{\beta-1}}{B(\alpha,\beta)}$$
 
