@@ -18,11 +18,12 @@
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage{microtype}
+\usepackage[]{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage{hyperref}
-\hypersetup{unicode=true,
+\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
             pdftitle={GLMM, Concepts, \& R},
             pdfauthor={Bill Last Updated:},
             pdfborder={0 0 0},
@@ -39,38 +40,40 @@
 \usepackage{framed}
 \definecolor{shadecolor}{RGB}{248,248,248}
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
 \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
 \usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -100,31 +103,10 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
-
-%%% Change title format to be more compact
-\usepackage{titling}
-
-% Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
-}
-
-\setlength{\droptitle}{-2em}
-
-  \title{GLMM, Concepts, \& R}
-    \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-    \author{Bill Last Updated:}
-    \preauthor{\centering\large\emph}
-  \postauthor{\par}
-      \predate{\centering\large\emph}
-  \postdate{\par}
-    \date{13 January, 2020}
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -135,6 +117,10 @@
 }
 \makeatother
 
+\title{GLMM, Concepts, \& R}
+\author{Bill Last Updated:}
+\date{14 January, 2020}
+
 \begin{document}
 \maketitle
 
@@ -142,22 +128,24 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\hypertarget{my-section}{%
-\chapter*{Preface: Motivation}\label{my-section}}
+\chapter*{Preface: Motivation}\label{my-section}
 \addcontentsline{toc}{chapter}{Preface: Motivation}
 
-All the notes I have done here are the preparation for my stat master project, which will be about Generalized Linear Mixed Models. While I have tried my best, probably there are still some typos and erros. Please feel free to let me know in case you find one. Thank you!
+All the notes I have done here are the preparation for my stat master
+project, which will be about Generalized Linear Mixed Models. While I
+have tried my best, probably there are still some typos and erros.
+Please feel free to let me know in case you find one. Thank you!
 
-\hypertarget{basics}{%
-\chapter{Basics}\label{basics}}
+\chapter{Basics}\label{basics}
 
-\hypertarget{logit}{%
-\section{Logit}\label{logit}}
+\section{Logit}\label{logit}
 
-\[f(x)=log(\frac{p(y=1)}{1-p(y=1)})\]
-The basic idea of logistic regression:
+\[f(x)=log(\frac{p(y=1)}{1-p(y=1)})\] The basic idea of logistic
+regression:
 \[p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]
-Thus, \(e^{\beta_0+\beta_1x_1+...+\beta_nx_n}\) can be from \(-\infty\) to \(+\infty\), and \(p(y=1)\) will be always within the range of \((0,1)\).
+Thus, \(e^{\beta_0+\beta_1x_1+...+\beta_nx_n}\) can be from \(-\infty\)
+to \(+\infty\), and \(p(y=1)\) will be always within the range of
+\((0,1)\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -170,10 +158,14 @@ Thus, \(e^{\beta_0+\beta_1x_1+...+\beta_nx_n}\) can be from \(-\infty\) to \(+\i
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-1-1.pdf}
 
 We can also write the function into another format as follows:
-\[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\]
-Thus, we know that the regression coeficients of \(\beta_i\) actually change the ``log-odds'' of the event. Of course, note that the magnitude of \(\beta_i\) is dependent upon the units of \(x_i\).
+\[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\] Thus,
+we know that the regression coeficients of \(\beta_i\) actually change
+the ``log-odds'' of the event. Of course, note that the magnitude of
+\(\beta_i\) is dependent upon the units of \(x_i\).
 
-The following is an example testing whether that home teams are more likely to win in NFL games. The results show that the odd of winning is the same for both home and away teams.
+The following is an example testing whether that home teams are more
+likely to win in NFL games. The results show that the odd of winning is
+the same for both home and away teams.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -217,10 +209,12 @@ The following is an example testing whether that home teams are more likely to w
 ## Number of Fisher Scoring iterations: 3
 \end{verbatim}
 
-\hypertarget{probit}{%
-\section{Probit}\label{probit}}
+\section{Probit}\label{probit}
 
-As noted above, logit \(f(x)=log(\frac{p(y=1)}{1-p(y=1)})\) provides the resulting range of \((0,1)\). Another way to provide the same rage is through the cdf of normal distribution.The following R code is used to illusrate this process.
+As noted above, logit \(f(x)=log(\frac{p(y=1)}{1-p(y=1)})\) provides the
+resulting range of \((0,1)\). Another way to provide the same rage is
+through the cdf of normal distribution.The following R code is used to
+illusrate this process.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -230,15 +224,19 @@ As noted above, logit \(f(x)=log(\frac{p(y=1)}{1-p(y=1)})\) provides the resulti
 \end{Shaded}
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-3-1.pdf}
-Thus, the cdf of normal distribution can be used to indicate the probability of \(p(y=1)\).
+Thus, the cdf of normal distribution can be used to indicate the
+probability of \(p(y=1)\).
 
 \[\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\]
 
-Similar to logit model, we can also write the inverse function of the cdf to get the function that can be from \(-\infty\) to \(+\infty\).
+Similar to logit model, we can also write the inverse function of the
+cdf to get the function that can be from \(-\infty\) to \(+\infty\).
 
 \[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p(y=1))\]
 
-Thus, for example, if \(X\beta\) = -2, based on \(\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\) we can get that the \(p(y=1)=0.023\).
+Thus, for example, if \(X\beta\) = -2, based on
+\(\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\) we can get that the
+\(p(y=1)=0.023\).
 
 In contrast, if \(X\beta\) = 3, the \(p(y=1)=0.999\).
 
@@ -264,8 +262,10 @@ In contrast, if \(X\beta\) = 3, the \(p(y=1)=0.999\).
 
 Let's assume that there is a latent variable called \(Y^*\) such that
 
-\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)\]
-You could think of \(Y^*\) as a kind of ``proxy'' between \(X\beta+\epsilon\) and the observed \(Y (1 or 0)\). Thus, we can get the following. Note that, it does not have to be zero, and can be any constant.
+\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)\] You could think of
+\(Y^*\) as a kind of ``proxy'' between \(X\beta+\epsilon\) and the
+observed \(Y (1 or 0)\). Thus, we can get the following. Note that, it
+does not have to be zero, and can be any constant.
 
 \[
 Y^*=\begin{cases} 0 \;\;\: if \;  y_i^* \leq 0 \\ 1 \;\;\: if \;  y_i^* > 0 \end{cases}
@@ -275,32 +275,35 @@ Thus,
 
 \[y_i^* > 0 \Rightarrow \beta^{'}X_i + \epsilon_i >0 \Rightarrow \epsilon_i > -\beta^{'}X_i\]
 
-Thus, we can write it as follows. Note that \(\frac{ \epsilon_i}{\sigma} \sim N(0,1)\)
+Thus, we can write it as follows. Note that
+\(\frac{ \epsilon_i}{\sigma} \sim N(0,1)\)
 
 \[p(y=1|x_i)= p(y_i^* >0|x_i)=p(\epsilon_i > -\beta^{'}X_i)= p(\frac{ \epsilon_i}{\sigma}>\frac{-\beta^{'}X_i}{\sigma})=\Phi(\frac{\beta^{'}X_i}{\sigma}) \]
 We thus can get:
 
 \[p(y=0|x_i)=1-\Phi(\frac{\beta^{'}X_i}{\sigma})\]
 
-For \(p(y=1|x_i)=\Phi(\frac{\beta^{'}X_i}{\sigma})\), we can not really estimate both \(\beta\) and \(\sigma\) as they are in a ratio. We can assume \(\sigma =1\), then \(\epsilon \sim N(0,1)\).
-We know \(y_i\) and \(x_i\) since we observe them. Thus, we can write it as follows.
+For \(p(y=1|x_i)=\Phi(\frac{\beta^{'}X_i}{\sigma})\), we can not really
+estimate both \(\beta\) and \(\sigma\) as they are in a ratio. We can
+assume \(\sigma =1\), then \(\epsilon \sim N(0,1)\). We know \(y_i\) and
+\(x_i\) since we observe them. Thus, we can write it as follows.
 
 \[p(y=1|x_i)=\Phi(\beta^{'}X_i)\]
 
-\hypertarget{intro}{%
-\chapter{MLE}\label{intro}}
+\chapter{MLE}\label{intro}
 
-\hypertarget{basic-idea-of-mle}{%
-\section{Basic idea of MLE}\label{basic-idea-of-mle}}
+\section{Basic idea of MLE}\label{basic-idea-of-mle}
 
-Suppose that we flip a coin, \(y_i=0\) for tails and \(y_i=1\) for heads. If we get \(p\) heads from \(n\) trials, we can get the proportion of heads is \(p/n\), which is the sample mean. If we do not do any further calculation, this is our best guess.
+Suppose that we flip a coin, \(y_i=0\) for tails and \(y_i=1\) for
+heads. If we get \(p\) heads from \(n\) trials, we can get the
+proportion of heads is \(p/n\), which is the sample mean. If we do not
+do any further calculation, this is our best guess.
 
 Suppose that the true proablity is \(\rho\), then we can get:
 
 \[
 \mathbf{L}(y_i)=\begin{cases} \rho \;\;\:   y_i = 1 \\ 1-\rho \;\;\:  y_i = 0 \end{cases}
-\]
-Thus, we can also write it as follows.
+\] Thus, we can also write it as follows.
 \[\mathbf{L}(y_i) = \rho^{y_i}(1-\rho)^{1-y_i}\]
 
 Thus, we can get:
@@ -310,7 +313,8 @@ Further, we can get a log-transformed format.
 
 \[log (\prod \mathbf{L}(y_i|\rho))=\sum y_i log \rho + \sum(1-y_i) log(1-\rho)\]
 
-To maximize the log-function above, we can calculate the derivative with respect to \(\rho\).
+To maximize the log-function above, we can calculate the derivative with
+respect to \(\rho\).
 \[\frac{\partial log (\prod \mathbf{L}(y_i|\rho)) }{\partial \rho}=\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}\]
 Set the derivative to zero and solve for \(\rho\), we can get
 
@@ -318,15 +322,23 @@ Set the derivative to zero and solve for \(\rho\), we can get
 \[\Rightarrow (1-\rho)\sum y_i - \rho \sum(1-y_i) =0\]
 \[\Rightarrow \sum y_i-\rho\sum y_i - n\rho +\rho\sum y_i =0\]
 \[\Rightarrow \sum y_i - n\rho  =0\]
-\[\Rightarrow \rho  = \frac{\sum y_i}{n}=\frac{p}{n}\]
-Thus, we can see that the \(\rho\) maximizing the likelihood function is equal to the sample mean.
+\[\Rightarrow \rho  = \frac{\sum y_i}{n}=\frac{p}{n}\] Thus, we can see
+that the \(\rho\) maximizing the likelihood function is equal to the
+sample mean.
 
-\hypertarget{coin-flip-example-probit-and-logit}{%
-\section{Coin flip example, probit, and logit}\label{coin-flip-example-probit-and-logit}}
+\section{Coin flip example, probit, and
+logit}\label{coin-flip-example-probit-and-logit}
 
-In the example above, we are not really trying to estimate a lot of regression coefficients. What we are doing actually is to calculate the sample mean, or intercept in the regresion sense. What does it mean? Let's use some data to explain it.
+In the example above, we are not really trying to estimate a lot of
+regression coefficients. What we are doing actually is to calculate the
+sample mean, or intercept in the regresion sense. What does it mean?
+Let's use some data to explain it.
 
-Suppose that we flip a coin 20 times and observe 8 heads. We can use the R's glm function to esimate the \(\rho\). If the result is consistent with what we did above, we should observe that the \(cdf\) of the esimate of \(\beta_0\) (i.e., intercept) should be equal to \(8/20=0.4\).
+Suppose that we flip a coin 20 times and observe 8 heads. We can use the
+R's glm function to esimate the \(\rho\). If the result is consistent
+with what we did above, we should observe that the \(cdf\) of the
+esimate of \(\beta_0\) (i.e., intercept) should be equal to
+\(8/20=0.4\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -347,8 +359,7 @@ Suppose that we flip a coin 20 times and observe 8 heads. We can use the R's glm
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{probit-1}{%
-\subsection{Probit}\label{probit-1}}
+\subsection{Probit}\label{probit-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -382,12 +393,13 @@ Suppose that we flip a coin 20 times and observe 8 heads. We can use the R's glm
 ##         0.4
 \end{verbatim}
 
-As we can see the intercept is \(-0.2533\), and thus \(\Phi(-0.2533471)=0.4\)
+As we can see the intercept is \(-0.2533\), and thus
+\(\Phi(-0.2533471)=0.4\)
 
-\hypertarget{logit-1}{%
-\subsection{Logit}\label{logit-1}}
+\subsection{Logit}\label{logit-1}
 
-We can also use logit link to calculate the intercept as well. Recall that
+We can also use logit link to calculate the intercept as well. Recall
+that
 
 \[p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]
 Thus,
@@ -417,10 +429,10 @@ Thus,
 ##         0.4
 \end{verbatim}
 
-Note that, the defaul link for the binomial in the glm function in logit.
+Note that, the defaul link for the binomial in the glm function in
+logit.
 
-\hypertarget{further-on-logit}{%
-\section{Further on logit}\label{further-on-logit}}
+\section{Further on logit}\label{further-on-logit}
 
 The probablity of \(y=1\) is as follows:
 
@@ -435,7 +447,9 @@ Thus, the likelihood function is as follows:
 Thus, the log-likelihood is as follows:
 \[logL=\sum (-y_i \cdot log(1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)})-(1-y_i)\cdot log(1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}))\]
 
-Typically, optimisers minimize a function, so we use negative log-likelihood as minimising that is equivalent to maximising the log-likelihood or the likelihood itself.
+Typically, optimisers minimize a function, so we use negative
+log-likelihood as minimising that is equivalent to maximising the
+log-likelihood or the likelihood itself.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -497,21 +511,17 @@ Typically, optimisers minimize a function, so we use negative log-likelihood as 
 ## as.factor(rank)4 -1.551463677 -1.563396035
 \end{verbatim}
 
-\hypertarget{references}{%
-\section{References}\label{references}}
+\section{References}\label{references}
 
 \url{http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf}
 
-\hypertarget{linear-mixed-models}{%
-\chapter{Linear Mixed Models}\label{linear-mixed-models}}
+\chapter{Linear Mixed Models}\label{linear-mixed-models}
 
-\hypertarget{lm-and-glm}{%
-\section{LM and GLM}\label{lm-and-glm}}
+\section{LM and GLM}\label{lm-and-glm}
 
 Before moving to LMM, I would like to review LM and GLM first.
 
-\hypertarget{lm}{%
-\subsection{LM}\label{lm}}
+\subsection{LM}\label{lm}
 
 \[Y|X \sim N(\mu(X),\sigma^2 I)\]
 
@@ -523,27 +533,24 @@ where,
 
 \(X^T \beta: covariates\)
 
-\hypertarget{glm-definition}{%
-\subsection{GLM-Definition}\label{glm-definition}}
+\subsection{GLM-Definition}\label{glm-definition}
 
-Ref: \url{https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf}
+Ref:
+\url{https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf}
 
-\[Y \sim exponential family\]
-Link function
+\[Y \sim exponential family\] Link function
 
 \[g(\mu(X))=X^T \beta\]
 
-\hypertarget{glm-log-link-example}{%
-\subsection{GLM-log link example}\label{glm-log-link-example}}
+\subsection{GLM-log link example}\label{glm-log-link-example}
 
-\[\mu_i = \gamma e^{\delta t_i}\]
-Link function is log link, and it becomes:
+\[\mu_i = \gamma e^{\delta t_i}\] Link function is log link, and it
+becomes:
 
-\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\]
-(This is somehow similar to Poisson distribution.)
+\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\] (This
+is somehow similar to Poisson distribution.)
 
-\hypertarget{glm-reciprocal-link}{%
-\subsection{GLM-Reciprocal link:}\label{glm-reciprocal-link}}
+\subsection{GLM-Reciprocal link:}\label{glm-reciprocal-link}
 
 \[\mu_i=\frac{\alpha x_i}{h+x_i}\]
 
@@ -551,8 +558,7 @@ Reciprocal link:
 
 \[g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}\]
 
-\hypertarget{glm-exponential-family}{%
-\subsection{GLM-exponential family:}\label{glm-exponential-family}}
+\subsection{GLM-exponential family:}\label{glm-exponential-family}
 
 In a more general sense, for exponential family:
 
@@ -572,7 +578,8 @@ Where,
 
 \(h(x)=1\)
 
-In the case above, \(\theta=(\mu, \sigma^2)\). If \(\sigma^2\) is known, \(\theta=\mu\). In this case, we can rewrite the normal pdf as follows.
+In the case above, \(\theta=(\mu, \sigma^2)\). If \(\sigma^2\) is known,
+\(\theta=\mu\). In this case, we can rewrite the normal pdf as follows.
 
 \[\begin{aligned} P_{\theta}(X) &=e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &=e^{\frac{x\mu}{\sigma^2}-\frac{1}{2\sigma^2} \mu^2}e^{-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)} \end{aligned}\]
 Where,
@@ -599,13 +606,13 @@ Where,
 
 \(h(x) =1\)
 
-\hypertarget{canonical-exponential-family}{%
-\subsection{Canonical exponential family}\label{canonical-exponential-family}}
+\subsection{Canonical exponential
+family}\label{canonical-exponential-family}
 
 Canonical exponential family:
 
-\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]
-where, \(b(.)\) and \(c(.,.)\) are known.
+\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\] where,
+\(b(.)\) and \(c(.,.)\) are known.
 
 \textbf{Normal distribution}
 
@@ -623,8 +630,8 @@ Where (we assume \(\sigma^2\) is known.),
 
 \(\begin{aligned} c(x, \phi) &=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)
 
-\hypertarget{canonical-exponential-family---expected-value-and-variance}{%
-\subsection{Canonical exponential family - Expected value and variance}\label{canonical-exponential-family---expected-value-and-variance}}
+\subsection{Canonical exponential family - Expected value and
+variance}\label{canonical-exponential-family---expected-value-and-variance}
 
 \textbf{First derivative}
 
@@ -632,8 +639,7 @@ Canonical exponential family:
 
 \[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]
 
-log likelihood (only one observation)
-\[log f_{\theta}(x)\]
+log likelihood (only one observation) \[log f_{\theta}(x)\]
 
 \[\begin{aligned} E[\frac{\partial (logf_{\theta}(X))}{\partial \theta} ] &=E[\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)}] \\ &= \int \frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)} f_{\theta}(X) dx  \\ &= \int \frac{\partial f_{\theta}(X)}{\partial \theta} dx \\ &= \frac{\partial}{\partial \theta} \int f_{\theta}(X)dx \\ &= \frac{\partial 1}{\partial \theta} \\ &=0  \end{aligned}\]
 \textbf{Second derivative}
@@ -664,8 +670,8 @@ Thus,
 
 \[Var(X)=b^{''}(\theta) \phi\]
 
-\hypertarget{expected-value-and-variance---possion-example}{%
-\subsection{Expected value and variance - Possion Example}\label{expected-value-and-variance---possion-example}}
+\subsection{Expected value and variance - Possion
+Example}\label{expected-value-and-variance---possion-example}
 
 Example of possion distribution
 
@@ -673,8 +679,7 @@ Example of possion distribution
 
 If we put \(k\) as \(y\), and \(\lambda\) as \(\mu\), we can get:
 
-\[P(\mu)=\frac{\mu^y e^{-\mu}}{y!}\]
-Compare to,
+\[P(\mu)=\frac{\mu^y e^{-\mu}}{y!}\] Compare to,
 
 \[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]
 
@@ -682,7 +687,8 @@ We can write it as the exponential format:
 
 \[\begin{aligned} P(\mu) &=\frac{\mu^y e^{-\mu}}{y!}  \\ &= e^{log(\mu^y)+log(e^{-\mu})-log(y!)} \\ &= e^{ylog(\mu)-\mu-log(y!)}\end{aligned}\]
 
-We thus know that \(\theta=log(\mu)\). We can contintue to write the equation above as follows.
+We thus know that \(\theta=log(\mu)\). We can contintue to write the
+equation above as follows.
 
 \[=e^{y\theta-e^{\theta}-log(y!)}\]
 
@@ -691,38 +697,34 @@ Thus, we can get:
 \[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]
 \[Var(X)=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2}=\mu\]
 
-\hypertarget{canonical-link}{%
-\subsection{Canonical link}\label{canonical-link}}
+\subsection{Canonical link}\label{canonical-link}
 
 A link functin can link \(X^T \beta\) to the mean \(\mu\).
 
 That is,
 
-\[g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)\]
-We know that
+\[g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)\] We know that
 
 \[\mu = b^{'}(\theta)\]
 
 Thus,
 
-\[ b^{'}(\theta)=g^{-1}(X^T \beta)\]
-Thus,
+\[ b^{'}(\theta)=g^{-1}(X^T \beta)\] Thus,
 
 \[g=b^{' -1}(\theta)\]
 
-\hypertarget{canonical-link---bernoulli}{%
-\subsection{Canonical link - Bernoulli}\label{canonical-link---bernoulli}}
+\subsection{Canonical link -
+Bernoulli}\label{canonical-link---bernoulli}
 
 PMF of Bernoulli:
 
 \[ \begin{aligned} &= p^y(1-p)^{1-y}  \\ &=e^{log(p^y(1-p)^{1-y})} \\ &= e^{ylog(p)+(1-y)log(1-p)}\\ &= e^{ylog(p)-ylog(1-p)+log(1-p)}\\ &=e^{ylog(\frac{p}{1-p})+log(1-p)} \end{aligned} \]
 Copared to the following:
 
-\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]
-We need to change the format of Bernoulli:
+\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\] We need
+to change the format of Bernoulli:
 
-\[\theta= log \frac{p}{1-p}\]
-Thus,
+\[\theta= log \frac{p}{1-p}\] Thus,
 \[e^{\theta}=\frac{p}{1-p} \rightarrow p=\frac{e^{\theta}}{1+e^{\theta}} \]
 After that, we can contintue the Bernoulli:
 
@@ -737,19 +739,16 @@ We can then try to calculate the derivative:
 \[b^{'}(\theta)=\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}\]
 We know that
 
-\[b^{'}(\theta)=\mu\]
-Thus, we can get
+\[b^{'}(\theta)=\mu\] Thus, we can get
 
-\[\mu=\frac{e^{\theta}}{1+e^{\theta}}\]
-We can then calculate the inverse function:
+\[\mu=\frac{e^{\theta}}{1+e^{\theta}}\] We can then calculate the
+inverse function:
 
-\[\theta=log(\frac{\mu}{1-\mu})\]
-Thus,
+\[\theta=log(\frac{\mu}{1-\mu})\] Thus,
 
 \[g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta\]
 
-\hypertarget{nr---bernoulli}{%
-\subsection{NR - Bernoulli}\label{nr---bernoulli}}
+\subsection{NR - Bernoulli}\label{nr---bernoulli}
 
 We know that the PMF for Bernoulli:
 
@@ -768,29 +767,45 @@ Thus,
 
 \[\beta^{k+1}=\beta^k-(H_{\ell}(\beta^k))^{-1}\nabla_{\ell}(\beta^k) \]
 
-\hypertarget{iteratively-re-weighted-least-squares}{%
-\subsection{Iteratively Re-weighted Least Squares}\label{iteratively-re-weighted-least-squares}}
+\subsection{Iteratively Re-weighted Least
+Squares}\label{iteratively-re-weighted-least-squares}
 
-\hypertarget{lmm}{%
-\section{LMM}\label{lmm}}
+\section{LMM}\label{lmm}
 
-The following is a shortened version of Jonathan Rosenblatt's LMM tutorial. \url{http://www.john-ros.com/Rcourse/lme.html}.
+The following is a shortened version of Jonathan Rosenblatt's LMM
+tutorial. \url{http://www.john-ros.com/Rcourse/lme.html}.
 
-In addition, another reference is from Douglas Bates's R package document.
+In addition, another reference is from Douglas Bates's R package
+document.
 \url{https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf?fbclid=IwAR1nmmRP9A0BrhKdgBibNjM5acR_spTpXV8QlQGdmTWyQz3ZtV3LYn6kCbQ}
 
-Assume that \(y\) is a function of \(x\) and \(u\), where \(x\) is the fixed effect and \(u\) is the random effect. Thus, we can get,
+Assume that \(y\) is a function of \(x\) and \(u\), where \(x\) is the
+fixed effect and \(u\) is the random effect. Thus, we can get,
 
 \[y|x, u = x'\beta+z'u+\epsilon\]
 
-For random effect, one example can be that you want to test the treatment effect, and sample 8 observations from 4 groups. You measure before and after the treatment. In this case, \(x\) represents the treatment effect, whereas \(z\) represents the group effect (i.e., random effect). Note that, in this case, it reminds the paired t-test. Remember in SPSS, why do we do paired t-test? Typically, it is the case when we measure a subject (or, participant) twice. In this case, we can consider each participant as an unit of random effect (rather than as group in the last example.)
+For random effect, one example can be that you want to test the
+treatment effect, and sample 8 observations from 4 groups. You measure
+before and after the treatment. In this case, \(x\) represents the
+treatment effect, whereas \(z\) represents the group effect (i.e.,
+random effect). Note that, in this case, it reminds the paired t-test.
+Remember in SPSS, why do we do paired t-test? Typically, it is the case
+when we measure a subject (or, participant) twice. In this case, we can
+consider each participant as an unit of random effect (rather than as
+group in the last example.)
 
-\hypertarget{calculate-mean}{%
-\section{Calculate mean}\label{calculate-mean}}
+\section{Calculate mean}\label{calculate-mean}
 
-The following code generates 4 numbers (\(N(0,10)\)) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations.
+The following code generates 4 numbers (\(N(0,10)\)) for 4 groups. Then,
+replicate it within each group.That is, in the end, there are 8
+observations.
 
-Note that, in the following code, there are no ``independent variables''. Both the linear model and mixed model are actually just trying to calculate the mean. Note that lmer(y\textasciitilde{}1+1\textbar{}groups) and lmer(y\textasciitilde{}1\textbar{}groups) will generate the same results.
+Note that, in the following code, there are no ``independent
+variables''. Both the linear model and mixed model are actually just
+trying to calculate the mean. Note that
+lmer(y\textasciitilde{}1+1\textbar{}groups) and
+lmer(y\textasciitilde{}1\textbar{}groups) will generate the same
+results.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -808,8 +823,8 @@ Note that, in the following code, there are no ``independent variables''. Both t
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -5.6047565 -5.6047565 -2.3017749 -2.3017749 15.5870831 15.5870831
-## [7]  0.7050839  0.7050839
+## [1] -5.6047565 -5.6047565 -2.3017749 -2.3017749 15.5870831 15.5870831  0.7050839
+## [8]  0.7050839
 \end{verbatim}
 
 \begin{Shaded}
@@ -820,14 +835,14 @@ Note that, in the following code, there are no ``independent variables''. Both t
 
 \CommentTok{# fit a linear model assuming independence}
 \CommentTok{# i.e., assume that there is no "group things".}
-\NormalTok{lm}\FloatTok{.5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\NormalTok{)}
+\NormalTok{lm.}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\NormalTok{)}
 
 \CommentTok{# fit a mixed-model that deals with the group dependence}
 \CommentTok{#install.packages("lme4")}
 \KeywordTok{library}\NormalTok{(lme4)}
 \NormalTok{lme.}\FloatTok{5.}\NormalTok{a <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{+}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
 \NormalTok{lme.}\FloatTok{5.}\NormalTok{b <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
-\NormalTok{lm}\FloatTok{.5}
+\NormalTok{lm.}\DecValTok{5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -881,8 +896,7 @@ Note that, in the following code, there are no ``independent variables''. Both t
 ##       4.283
 \end{verbatim}
 
-\hypertarget{test-the-treatment-effect}{%
-\section{Test the treatment effect}\label{test-the-treatment-effect}}
+\section{Test the treatment effect}\label{test-the-treatment-effect}
 
 As we can see that, LLM and paired t-test generate the same t-value.
 
@@ -962,8 +976,7 @@ As we can see that, LLM and paired t-test generate the same t-value.
 ## 0.2664793
 \end{verbatim}
 
-\hypertarget{another-example}{%
-\section{Another example}\label{another-example}}
+\section{Another example}\label{another-example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1047,12 +1060,18 @@ As we can see that, LLM and paired t-test generate the same t-value.
 ## (Intercept)  1527.50      19.38    78.8
 \end{verbatim}
 
-\hypertarget{full-lmm-model}{%
-\section{Full LMM model}\label{full-lmm-model}}
+\section{Full LMM model}\label{full-lmm-model}
 
-In the following, I used the data from the package of lme4. For Days + (1 \textbar{} Subject), it only has random intercept; in contrast, Days + ( Days\textbar{} Subject ) has both random intercept and random slope for Days. Note that, random effects do not generate specific slopes for each level of Days, but rather just a variance of all the slopes.
+In the following, I used the data from the package of lme4. For Days +
+(1 \textbar{} Subject), it only has random intercept; in contrast, Days
++ ( Days\textbar{} Subject ) has both random intercept and random slope
+for Days. Note that, random effects do not generate specific slopes for
+each level of Days, but rather just a variance of all the slopes.
 
-Therefore, we can see that ``Days + ( Days\textbar{} Subject )'' and ``Days + ( 1+Days\textbar{} Subject )'' generate the same results. For more discussion, you can refer to the following link: \url{https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r}
+Therefore, we can see that ``Days + ( Days\textbar{} Subject )'' and
+``Days + ( 1+Days\textbar{} Subject )'' generate the same results. For
+more discussion, you can refer to the following link:
+\url{https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1171,10 +1190,13 @@ Therefore, we can see that ``Days + ( Days\textbar{} Subject )'' and ``Days + ( 
 ## Days -0.138
 \end{verbatim}
 
-\hypertarget{serial-correlations-in-time-and-space}{%
-\section{Serial correlations in time and space}\label{serial-correlations-in-time-and-space}}
+\section{Serial correlations in time and
+space}\label{serial-correlations-in-time-and-space}
 
-The hierarchical model of \(y|x, u = x'\beta+z'u+\epsilon\) can work well for correlations within blocks, but not for correlations in time as the correlations decay in time. The following uses nlme package to calculate time serial data.
+The hierarchical model of \(y|x, u = x'\beta+z'u+\epsilon\) can work
+well for correlations within blocks, but not for correlations in time as
+the correlations decay in time. The following uses nlme package to
+calculate time serial data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1283,25 +1305,31 @@ The hierarchical model of \(y|x, u = x'\beta+z'u+\epsilon\) can work well for co
 ## Number of Groups: 11
 \end{verbatim}
 
-\hypertarget{basic-stat-concepts}{%
-\chapter{Basic Stat Concepts}\label{basic-stat-concepts}}
+\chapter{Basic Stat Concepts}\label{basic-stat-concepts}
 
-\hypertarget{score}{%
-\section{Score}\label{score}}
+\section{Score}\label{score}
 
-The score is the gradient (the vector of partial derivatives) of \(log L(\theta)\), with respect to an m-dimensional parameter vector \(\theta\).
+The score is the gradient (the vector of partial derivatives) of
+\(log L(\theta)\), with respect to an m-dimensional parameter vector
+\(\theta\).
 
-\[S(\theta) = \frac{\partial\ell}{\partial \theta}\]
-Typically, they use \(\nabla\) to denote the partical derivative.
+\[S(\theta) = \frac{\partial\ell}{\partial \theta}\] Typically, they use
+\(\nabla\) to denote the partical derivative.
 
 \[\nabla \ell\]
 
-Such differentiation will generate a \(m \times 1\) row vector, which indicates the sensitivity of the likelihood.
+Such differentiation will generate a \(m \times 1\) row vector, which
+indicates the sensitivity of the likelihood.
 
-Quote from Steffen Lauritzen's slides: ``Generally the solution to this equation must be calculated by iterative methods. One of the most common methods is the Newton--Raphson
-method and this is based on successive approximations to the solution, using Taylor's theorem to approximate the equation.''
+Quote from Steffen Lauritzen's slides: ``Generally the solution to this
+equation must be calculated by iterative methods. One of the most common
+methods is the Newton--Raphson method and this is based on successive
+approximations to the solution, using Taylor's theorem to approximate
+the equation.''
 
-For instance, using logit link, we can get the first derivative of log likelihood logistic regression as follows. We can not really find \(\beta\) easily to make the equation to be 0.
+For instance, using logit link, we can get the first derivative of log
+likelihood logistic regression as follows. We can not really find
+\(\beta\) easily to make the equation to be 0.
 
 \[\begin{aligned}
 \frac{\partial \ell} {\partial \beta} 
@@ -1309,8 +1337,7 @@ For instance, using logit link, we can get the first derivative of log likelihoo
 &=\sum_{i=1}^{n} x_i^T[y_i-\hat{y_i}]
 \end{aligned}\]
 
-\hypertarget{gradient-and-jacobian}{%
-\section{Gradient and Jacobian}\label{gradient-and-jacobian}}
+\section{Gradient and Jacobian}\label{gradient-and-jacobian}
 
 \textbf{Remarks}: This part discusses gradient in a more general sense.
 
@@ -1337,16 +1364,16 @@ For instance,
 \[\nabla f(x,y)=[\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}]=[2x,2]\]
 \(\mathbb{R}^n \rightarrow \mathbb{R^m}\)
 
-\[f(x,y)=(x^2+2y,x^3)\]
-\[Jac(f)=\begin{bmatrix}
+\[f(x,y)=(x^2+2y,x^3)\] \[Jac(f)=\begin{bmatrix}
 2x & 2\\
 2x^2 & 0 
 \end{bmatrix}\]
 
-\hypertarget{hessian-and-fisher-information}{%
-\section{Hessian and Fisher Information}\label{hessian-and-fisher-information}}
+\section{Hessian and Fisher
+Information}\label{hessian-and-fisher-information}
 
-Hessian matrix or Hessian is a square matrix of second-order partial derivatives of a scalar-valued function, or scalar field.
+Hessian matrix or Hessian is a square matrix of second-order partial
+derivatives of a scalar-valued function, or scalar field.
 
 \(\mathbb{R}^n \rightarrow \mathbb{R}\)
 
@@ -1360,7 +1387,8 @@ Hessian matrix or Hessian is a square matrix of second-order partial derivatives
 
 As a special case, in the context of logit:
 
-Suppose that the log likelihood function is \(\ell (\theta)\). \(\theta\) is a \(m\) demension vector.
+Suppose that the log likelihood function is \(\ell (\theta)\).
+\(\theta\) is a \(m\) demension vector.
 
 \[ \theta = \begin{bmatrix}\theta_1 \\
 \theta_2 \\
@@ -1378,7 +1406,11 @@ Suppose that the log likelihood function is \(\ell (\theta)\). \(\theta\) is a \
 \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_1} & \frac{\partial^2 \ell}{\partial \theta_m \theta_2 } & \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_3} & ... & \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_m} 
 \end{bmatrix}\]
 
-``In statistics, the observed information, or observed Fisher information, is the negative of the second derivative (the Hessian matrix) of the''log-likelihood" (the logarithm of the likelihood function). It is a sample-based version of the Fisher information." (Direct quote from Wikipedia.)
+``In statistics, the observed information, or observed Fisher
+information, is the negative of the second derivative (the Hessian
+matrix) of the''log-likelihood" (the logarithm of the likelihood
+function). It is a sample-based version of the Fisher information."
+(Direct quote from Wikipedia.)
 
 Thus, the observed information matrix:
 
@@ -1388,20 +1420,20 @@ Expected (Fisher) information matrix:
 
 \[E[-\nabla ^2(\ell)] \]
 
-\hypertarget{canonical-link-function}{%
-\section{Canonical link function}\label{canonical-link-function}}
+\section{Canonical link function}\label{canonical-link-function}
 
 Inspired by a Stack Exchange post, I created the following figure:
 
 \[ \frac{Paramter}{\theta} \longrightarrow \gamma^{'}(\theta) = \mu \longrightarrow \frac{Mean}{\mu} \longrightarrow g(\mu) = \eta \longrightarrow \frac{ Linear predictor}{\eta} \]
 
-For the case of \(n\) time Bernoulli (i.e., Binomial), its canonical link function is logit. Specifically,
+For the case of \(n\) time Bernoulli (i.e., Binomial), its canonical
+link function is logit. Specifically,
 
 \[ \frac{Paramter}{\theta=\beta^Tx_i}  \longrightarrow \gamma^{'}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}\]
 Thus, we can see that,
 
-\[\theta \equiv \eta \]
-The link function \(g(\mu)\) relates the linear predictor \(\eta = \beta^Tx_i\) to the mean \(\mu\).
+\[\theta \equiv \eta \] The link function \(g(\mu)\) relates the linear
+predictor \(\eta = \beta^Tx_i\) to the mean \(\mu\).
 
 \textbf{Remarks}:
 
@@ -1412,17 +1444,22 @@ The link function \(g(\mu)\) relates the linear predictor \(\eta = \beta^Tx_i\) 
 \item
   \(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\) (Not logit!).
 \item
-  Link function (i.e., \(g(\mu)\)) = logit = logarithm of odds = log \(\frac{Event - Happened }{Event - Not - Happened}\).
+  Link function (i.e., \(g(\mu)\)) = logit = logarithm of odds = log
+  \(\frac{Event - Happened }{Event - Not - Happened}\).
 \item
-  \(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\). Thus, link function = linear predictor = log odds!
+  \(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\). Thus, link function =
+  linear predictor = log odds!
 \item
-  Quote from the Stack Exchange post ``Newton Method and Fisher scoring for finding the ML estimator coincide, these links simplify the derivation of the MLE.''
+  Quote from the Stack Exchange post ``Newton Method and Fisher scoring
+  for finding the ML estimator coincide, these links simplify the
+  derivation of the MLE.''
 \end{enumerate}
 
-(Recall, we know that \(\mu\) or \(p(y=1)\) is the mean function. Recall that, \(n\) trails of coin flips, and get \(p\) heads. Thus \(\mu = \frac{p}{n}\).)
+(Recall, we know that \(\mu\) or \(p(y=1)\) is the mean function. Recall
+that, \(n\) trails of coin flips, and get \(p\) heads. Thus
+\(\mu = \frac{p}{n}\).)
 
-\hypertarget{ordinary-least-squares-ols}{%
-\section{Ordinary Least Squares (OLS)}\label{ordinary-least-squares-ols}}
+\section{Ordinary Least Squares (OLS)}\label{ordinary-least-squares-ols}
 
 Suppose we have \(n\) observation, and \(m\) variables.
 
@@ -1448,8 +1485,7 @@ We can combine all the \(n\) equations as the following one:
 
 We can further rewrite it as a matrix format as follows.
 
-\[y= X \beta\]
-Where,
+\[y= X \beta\] Where,
 
 \[y = \begin{bmatrix}y_1 \\
 y_2 \\
@@ -1474,11 +1510,14 @@ y_n \\
 \beta_m \\
 \end{bmatrix}\]
 
-Since later we need the inverse of \(X\), we need to make it into a square matrix.
+Since later we need the inverse of \(X\), we need to make it into a
+square matrix.
 
 \[X^Ty=X^TX \hat{\beta} \Rightarrow \hat{\beta} = (X^TX)^{-1} X^Ty\]
 
-We can use R to implement this calculation. As we can see, there is no need to do any iterations at all, but rather just pure matrix calculation.
+We can use R to implement this calculation. As we can see, there is no
+need to do any iterations at all, but rather just pure matrix
+calculation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1501,11 +1540,11 @@ We can use R to implement this calculation. As we can see, there is no need to d
 ## [3,] 2.037671
 \end{verbatim}
 
-\textbf{Side Notes}
-The function of as.matrix will automatically make c(2,1,2) become the dimension of \(3 \times 1\), you do not need to transpose the \(\beta\).
+\textbf{Side Notes} The function of as.matrix will automatically make
+c(2,1,2) become the dimension of \(3 \times 1\), you do not need to
+transpose the \(\beta\).
 
-\hypertarget{taylor-series}{%
-\section{Taylor series}\label{taylor-series}}
+\section{Taylor series}\label{taylor-series}
 
 \[\begin{aligned}
 f(x)|_{a} &=f(a)+\frac{f^{'}(a)}{1!}(x-a)+\frac{f^{'}(a)}{2!}(x-a)^2+\frac{f^{''}(a)}{3!}(x-a)^{3}+...\\&=\sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n 
@@ -1529,8 +1568,7 @@ if \(x=2\)
 
 \(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\)
 
-\hypertarget{fisher-scoring}{%
-\section{Fisher scoring}\label{fisher-scoring}}
+\section{Fisher scoring}\label{fisher-scoring}
 
 {[}I will come back to this later.{]}
 
@@ -1538,8 +1576,7 @@ if \(x=2\)
 
 \url{https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression}
 
-\hypertarget{references-1}{%
-\section{References}\label{references-1}}
+\section{References}\label{references-1}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1626,16 +1663,13 @@ if \(x=2\)
 
 \url{https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function}
 
-\hypertarget{basic-r}{%
-\chapter{Basic R}\label{basic-r}}
+\chapter{Basic R}\label{basic-r}
 
 This section is about R coding.
 
-\hypertarget{apply-lapply-sapply}{%
-\section{apply, lapply, sapply}\label{apply-lapply-sapply}}
+\section{apply, lapply, sapply}\label{apply-lapply-sapply}
 
-\hypertarget{apply}{%
-\subsection{apply}\label{apply}}
+\subsection{apply}\label{apply}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1652,7 +1686,7 @@ This section is about R coding.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## Operating on the columns}
+\NormalTok{## Operating on the columns}
 \KeywordTok{apply}\NormalTok{(m_trying, }\DecValTok{2}\NormalTok{, sum)}
 \end{Highlighting}
 \end{Shaded}
@@ -1663,7 +1697,7 @@ This section is about R coding.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## Operating on the rows}
+\NormalTok{## Operating on the rows}
 \KeywordTok{apply}\NormalTok{(m_trying, }\DecValTok{1}\NormalTok{, sum)}
 \end{Highlighting}
 \end{Shaded}
@@ -1672,12 +1706,13 @@ This section is about R coding.
 ## [1] 25 30
 \end{verbatim}
 
-\hypertarget{lapply}{%
-\subsection{lapply}\label{lapply}}
+\subsection{lapply}\label{lapply}
 
-``lapply returns a list of the same length as X, each element of which is the result of applying FUN to the corresponding element of X.''
+``lapply returns a list of the same length as X, each element of which
+is the result of applying FUN to the corresponding element of X.''
 
-lapply operates on lists. Thus, as we can see below, even if m\_trying is not a list, each cell becomes a list.
+lapply operates on lists. Thus, as we can see below, even if m\_trying
+is not a list, each cell becomes a list.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1710,10 +1745,10 @@ lapply operates on lists. Thus, as we can see below, even if m\_trying is not a 
 ## [1] TRUE
 \end{verbatim}
 
-\hypertarget{sapply}{%
-\subsection{sapply}\label{sapply}}
+\subsection{sapply}\label{sapply}
 
-``sapply() function takes list, vector or data frame as input and gives output in vector or matrix.''
+``sapply() function takes list, vector or data frame as input and gives
+output in vector or matrix.''
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1766,8 +1801,7 @@ lapply operates on lists. Thus, as we can see below, even if m\_trying is not a 
 ## [1] TRUE
 \end{verbatim}
 
-\hypertarget{c}{%
-\section{C}\label{c}}
+\section{C}\label{c}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1816,15 +1850,18 @@ lapply operates on lists. Thus, as we can see below, even if m\_trying is not a 
 ##  num [1:8] 0.777 0.84 0.871 0.953 0.384 ...
 \end{verbatim}
 
-\hypertarget{computing-techniques}{%
-\chapter{Computing Techniques}\label{computing-techniques}}
+\chapter{Computing Techniques}\label{computing-techniques}
 
-Since GLMM can use EM algorithm in its maximum likelihood calculation (see McCulloch, 1994), it is practically useful to rehearse EM and other computing techniques.
+Since GLMM can use EM algorithm in its maximum likelihood calculation
+(see McCulloch, 1994), it is practically useful to rehearse EM and other
+computing techniques.
 
-\hypertarget{monte-carlo-approximation}{%
-\section{Monte carlo approximation}\label{monte-carlo-approximation}}
+\section{Monte carlo approximation}\label{monte-carlo-approximation}
 
-Example: calculate the integral of \(p(z>2)\) when \(z \sim N(0,1)\). To use Monte Carlo approximation, we can have an indicator function, which will determine whether the sample from \(N(0,1)\) will be included into the calculation of the integral.
+Example: calculate the integral of \(p(z>2)\) when \(z \sim N(0,1)\). To
+use Monte Carlo approximation, we can have an indicator function, which
+will determine whether the sample from \(N(0,1)\) will be included into
+the calculation of the integral.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1862,18 +1899,30 @@ Example: calculate the integral of \(p(z>2)\) when \(z \sim N(0,1)\). To use Mon
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf}
 
-\hypertarget{importance-sampling}{%
-\section{Importance sampling}\label{importance-sampling}}
+\section{Importance sampling}\label{importance-sampling}
 
-Importance sampling has samples generated from a different distribution than the distribution of interest. Specifically, assume that we want to calculate the expected value of \(h(x)\), and \(x \sim f(x)\).
+Importance sampling has samples generated from a different distribution
+than the distribution of interest. Specifically, assume that we want to
+calculate the expected value of \(h(x)\), and \(x \sim f(x)\).
 
-\[E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx \]
-We can sample \(x_i\) from \(g(x)\) and then calculate the mean of \(h(x_i) \frac{f(x_i)}{g(x_i)}\).
+\[E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx \] We
+can sample \(x_i\) from \(g(x)\) and then calculate the mean of
+\(h(x_i) \frac{f(x_i)}{g(x_i)}\).
 
-Using the same explane above, we can use a shifted exponential distribution to help calculate the intergral for normal distribution. Specifically,
+Using the same explane above, we can use a shifted exponential
+distribution to help calculate the intergral for normal distribution.
+Specifically,
 
 \[\int_2^{\infty} \frac{1}{2 \pi} e^{-\frac{1}{2}x^2}dx = \int_2^{\infty} \frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}} e^{-(x-2)}dx \]
-The idea is that, we can generate \(x_i\) from exponential distribution of \(e^{-(x-2)}\), and then insert them into the targeted ``expected (value) function'' of \(\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}\). Thus, as you can see, importance sampling is based on the law of large numbers (i.e., If the same experiment or study is repeated independently a large number of times, the average of the results of the trials must be close to the expected value). We can use it to calculate integral based on link of the definition of expected value.
+The idea is that, we can generate \(x_i\) from exponential distribution
+of \(e^{-(x-2)}\), and then insert them into the targeted ``expected
+(value) function'' of
+\(\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}\). Thus, as you
+can see, importance sampling is based on the law of large numbers (i.e.,
+If the same experiment or study is repeated independently a large number
+of times, the average of the results of the trials must be close to the
+expected value). We can use it to calculate integral based on link of
+the definition of expected value.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1907,49 +1956,66 @@ The idea is that, we can generate \(x_i\) from exponential distribution of \(e^{
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}
 
-\hypertarget{newton-raphson-algorithm}{%
-\section{Newton Raphson algorithm}\label{newton-raphson-algorithm}}
+\section{Newton Raphson algorithm}\label{newton-raphson-algorithm}
 
-The main purpose of Newton Raphson algorithm is to calculate the root of a function (e.g., \(x^2-3=0\)). We know that in order to maximize the MLE, we need to calculate the first derivatice of the function and then set it to zero \(\ell^{'}(x)=0\). Thus, we can use the same Newton Raphson method to help calculate the MLE maximization as well.
+The main purpose of Newton Raphson algorithm is to calculate the root of
+a function (e.g., \(x^2-3=0\)). We know that in order to maximize the
+MLE, we need to calculate the first derivatice of the function and then
+set it to zero \(\ell^{'}(x)=0\). Thus, we can use the same Newton
+Raphson method to help calculate the MLE maximization as well.
 
-There are different ways to understand Newton Raphson method, but I found the method fo geometric the most easy way to explain.
+There are different ways to understand Newton Raphson method, but I
+found the method fo geometric the most easy way to explain.
 
 \begin{figure}
 \centering
 \includegraphics{Newton.jpg}
-\caption{Credit of this figure: \url{https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf}}
+\caption{Credit of this figure:
+\url{https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf}}
 \end{figure}
 
-Specifically, suppose that you want to calculate the root of a function \(f(x)=0\). We assume the root is \(r\). However, we do not that, and we randomly guess a point of \(a\). Thus, we can get a tangent line with slope of \(f^{'}(a)\) and a point of \((a,f(a))\). Since we know the slope and one of its points, we can write the function for this tangent line.
+Specifically, suppose that you want to calculate the root of a function
+\(f(x)=0\). We assume the root is \(r\). However, we do not that, and we
+randomly guess a point of \(a\). Thus, we can get a tangent line with
+slope of \(f^{'}(a)\) and a point of \((a,f(a))\). Since we know the
+slope and one of its points, we can write the function for this tangent
+line.
 
-\[y-f(a)=f^{'}(a)(x-a)\]
-To calculate the \(x-intercept\), namely \(b\) in the figure, we can set \(y=0\), and get the following:
+\[y-f(a)=f^{'}(a)(x-a)\] To calculate the \(x-intercept\), namely \(b\)
+in the figure, we can set \(y=0\), and get the following:
 
 \[-f(a)=f^{'}(a)(x-a) \Rightarrow x (or, b)= a-\frac{f(a)}{f^{'}(a)}\]
-If there is significant difference of \(|a-b|\), we know that our orginal guess of \(a\) is not good. We better use \(b\) as the next guess, and calculate its tangent line again. To generalize, we can write it as follows.
-\[x_{t+1}=x_{t}-\frac{f(x_t)}{f^{'}(x_t)}\]
+If there is significant difference of \(|a-b|\), we know that our
+orginal guess of \(a\) is not good. We better use \(b\) as the next
+guess, and calculate its tangent line again. To generalize, we can write
+it as follows. \[x_{t+1}=x_{t}-\frac{f(x_t)}{f^{'}(x_t)}\]
 
-Okay, this method above is to calculate the root. For MLE, we can also use this method to calculate the root for the \(\ell ^{'}=0\). We can write it as follows.
+Okay, this method above is to calculate the root. For MLE, we can also
+use this method to calculate the root for the \(\ell ^{'}=0\). We can
+write it as follows.
 
-\[x_{t+1}=x_{t}-\frac{\ell^{'}(x_t)}{\ell^{''}(x_t)}\]
-Often, \(x\) is not just a single unknow parameter, but a vector. For this case, we can write it as follows.
+\[x_{t+1}=x_{t}-\frac{\ell^{'}(x_t)}{\ell^{''}(x_t)}\] Often, \(x\) is
+not just a single unknow parameter, but a vector. For this case, we can
+write it as follows.
 
 \[\beta_{t+1}=\beta_{t}-\frac{\ell^{'}(\beta_t)}{\ell^{''}(\beta_t)}\]
 
-\hypertarget{calculate-the-root}{%
-\subsection{Calculate the root}\label{calculate-the-root}}
+\subsection{Calculate the root}\label{calculate-the-root}
 
 \(x^3-5=0\)
 
-Note that, this is obviously not a maximization problem. In contrast, it involves a function with zero. As we can see, we can think it as the first order of Taylor approximation. That is, \(f^{'}(x)=x^3-5=0\). As we can see the following plot, it converts very quickly.
+Note that, this is obviously not a maximization problem. In contrast, it
+involves a function with zero. As we can see, we can think it as the
+first order of Taylor approximation. That is, \(f^{'}(x)=x^3-5=0\). As
+we can see the following plot, it converts very quickly.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{f_firstorder=}\ControlFlowTok{function}\NormalTok{(x)\{x}\OperatorTok{^}\DecValTok{3-5}\NormalTok{\}}
+\NormalTok{f_firstorder=}\ControlFlowTok{function}\NormalTok{(x)\{x}\OperatorTok{^}\DecValTok{3}\OperatorTok{-}\DecValTok{5}\NormalTok{\}}
 \NormalTok{f_secondorder=}\ControlFlowTok{function}\NormalTok{(x)\{}\DecValTok{3}\OperatorTok{*}\NormalTok{x\}}
 \NormalTok{x_old=}\DecValTok{1}\NormalTok{;tolerance=}\FloatTok{1e-3}
 \NormalTok{max_its=}\DecValTok{2000}\NormalTok{;iteration=}\DecValTok{1}\NormalTok{;difference=}\DecValTok{2}
-\NormalTok{c_iteration<-}\KeywordTok{c}\NormalTok{() }\CommentTok{## to collect numbers generated in the iteration process }
+\NormalTok{c_iteration<-}\KeywordTok{c}\NormalTok{() ## to collect numbers generated in the iteration process }
 \ControlFlowTok{while}\NormalTok{(difference}\OperatorTok{>}\NormalTok{tolerance }\OperatorTok{&}\StringTok{ }\NormalTok{iteration}\OperatorTok{<}\NormalTok{max_its)\{}
 \NormalTok{  x_updated=x_old}\OperatorTok{-}\NormalTok{(}\KeywordTok{f_firstorder}\NormalTok{(x_old)}\OperatorTok{/}\KeywordTok{f_secondorder}\NormalTok{(x_old))}
 \NormalTok{  difference=}\KeywordTok{abs}\NormalTok{(x_updated}\OperatorTok{-}\NormalTok{x_old);}
@@ -1963,8 +2029,7 @@ Note that, this is obviously not a maximization problem. In contrast, it involve
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-1.pdf}
 
-\hypertarget{logistic-regression}{%
-\subsection{Logistic regression}\label{logistic-regression}}
+\subsection{Logistic regression}\label{logistic-regression}
 
 Suppose we have \(n\) observation, and \(m\) variables.
 
@@ -1984,7 +2049,8 @@ Typically, we add a vector of \(1\) being used to estimate the constant.
 1 & x_{n1} & x_{n2} & x_{n3} & ... & x_{nm}
 \end{bmatrix}\]
 
-And, we have observe a vector of \(n\) \(y_i\) as well, which is a binary variable:
+And, we have observe a vector of \(n\) \(y_i\) as well, which is a
+binary variable:
 
 \[Y = \begin{bmatrix}1 \\
 0 \\
@@ -2003,7 +2069,9 @@ Using the content from the MLE chapter, we can get:
 Further, we can get a log-transformed format.
 
 \[log (\mathbf{L})=\sum_{i=1}^{n}[y_i log (p_i) + (1-y_i) log(1-p_i)]\]
-Given that \(p_i=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}=\frac{e^{\beta^Tx}}{1+e^{\beta^Tx}}\), we can rewrite it as follows:
+Given that
+\(p_i=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}=\frac{e^{\beta^Tx}}{1+e^{\beta^Tx}}\),
+we can rewrite it as follows:
 
 \[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}})]\]
 Before doing the derivative, we set.
@@ -2011,7 +2079,9 @@ Before doing the derivative, we set.
 
 \[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (p(\beta ^T x_i)) + (1-y_i) log(1-p(\beta ^T x_i))]\]
 
-Note that, \(\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)} = p(\beta ^T x_i)(1-p(\beta ^T x_i))\). We will use it later.
+Note that,
+\(\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)} = p(\beta ^T x_i)(1-p(\beta ^T x_i))\).
+We will use it later.
 
 \[\begin{aligned}
 \nabla \ell &= \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] \\
@@ -2032,7 +2102,8 @@ As noted, the Newton Raphson algorithm needs the second order.
 &=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i
 \end{aligned}\]
 
-The following are the data simulation (3 IVs and 1 DV) and Newton Raphson analysis.
+The following are the data simulation (3 IVs and 1 DV) and Newton
+Raphson analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2119,12 +2190,16 @@ The following are the data simulation (3 IVs and 1 DV) and Newton Raphson analys
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{metropolis-hastings}{%
-\section{Metropolis Hastings}\label{metropolis-hastings}}
+\section{Metropolis Hastings}\label{metropolis-hastings}
 
-Metropolis--Hastings is a MCMC method for obtaining a sequence of random samples from a probability distribution from which direct sampling is difficult. By using the samples, we can plot the distribution (through histgram), or we can calculate the integral (e.g., you need to calculate the expected value).
+Metropolis--Hastings is a MCMC method for obtaining a sequence of random
+samples from a probability distribution from which direct sampling is
+difficult. By using the samples, we can plot the distribution (through
+histgram), or we can calculate the integral (e.g., you need to calculate
+the expected value).
 
-(Side note: does this remind you the importance sampling? Very similiar!)
+(Side note: does this remind you the importance sampling? Very
+similiar!)
 
 Basic logic (my own summary):
 
@@ -2157,14 +2232,14 @@ Use normal pdf to sample gamma distribution
 \begin{Highlighting}[]
 \NormalTok{alpha=}\FloatTok{2.7}\NormalTok{; beta=}\FloatTok{6.3} \CommentTok{# I randomly chose alpha and beta values for the target gamma function}
 
-\NormalTok{Nsim=}\DecValTok{5000}  \CommentTok{## define the number of iteration }
+\NormalTok{Nsim=}\DecValTok{5000}\NormalTok{  ## define the number of iteration }
 
 \NormalTok{X=}\KeywordTok{c}\NormalTok{(}\KeywordTok{rgamma}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{)) }\CommentTok{# initialize the chain from random starting numbers}
 \NormalTok{mygamma<-}\ControlFlowTok{function}\NormalTok{(Nsim,alpha,beta)\{}
 \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\NormalTok{Nsim)\{}
 \NormalTok{  Y=}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{)}
-\NormalTok{  rho=}\KeywordTok{dgamma}\NormalTok{(Y,alpha,beta)}\OperatorTok{*}\KeywordTok{dnorm}\NormalTok{(X[i}\DecValTok{-1}\NormalTok{])}\OperatorTok{/}\NormalTok{(}\KeywordTok{dgamma}\NormalTok{(X[i}\DecValTok{-1}\NormalTok{],alpha,beta)}\OperatorTok{*}\KeywordTok{dnorm}\NormalTok{(Y))}
-\NormalTok{  X[i]=X[i}\DecValTok{-1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{(Y}\OperatorTok{-}\NormalTok{X[i}\DecValTok{-1}\NormalTok{])}\OperatorTok{*}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}\OperatorTok{<}\NormalTok{rho)}
+\NormalTok{  rho=}\KeywordTok{dgamma}\NormalTok{(Y,alpha,beta)}\OperatorTok{*}\KeywordTok{dnorm}\NormalTok{(X[i}\OperatorTok{-}\DecValTok{1}\NormalTok{])}\OperatorTok{/}\NormalTok{(}\KeywordTok{dgamma}\NormalTok{(X[i}\OperatorTok{-}\DecValTok{1}\NormalTok{],alpha,beta)}\OperatorTok{*}\KeywordTok{dnorm}\NormalTok{(Y))}
+\NormalTok{  X[i]=X[i}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{(Y}\OperatorTok{-}\NormalTok{X[i}\OperatorTok{-}\DecValTok{1}\NormalTok{])}\OperatorTok{*}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}\OperatorTok{<}\NormalTok{rho)}
 \NormalTok{\}}
 \NormalTok{X}
 \NormalTok{\}}
@@ -2175,17 +2250,18 @@ Use normal pdf to sample gamma distribution
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-1.pdf}
 
-\hypertarget{em}{%
-\section{EM}\label{em}}
+\section{EM}\label{em}
 
-EM algorithm is an iterative method to find ML or maximum a posteriori (MAP) estimates of parameters.
+EM algorithm is an iterative method to find ML or maximum a posteriori
+(MAP) estimates of parameters.
 
 Direct Ref: \url{http://www.di.fc.ul.pt/~jpn/r/EM/EM.html}
 
-Suppose that we only observe \(X\), and do not know \(Z\). We thus need to construct the complete data of \((X, Z)\). Given \(p(Z|X,\theta)\), we can compute the likelihood of the complete dataset:
+Suppose that we only observe \(X\), and do not know \(Z\). We thus need
+to construct the complete data of \((X, Z)\). Given \(p(Z|X,\theta)\),
+we can compute the likelihood of the complete dataset:
 
-\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\]
-The EM algorithm:
+\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\] The EM algorithm:
 
 \begin{enumerate}
 \def\labelenumi{(\arabic{enumi})}
@@ -2199,15 +2275,17 @@ The EM algorithm:
 \item
   M-step: compute \(\theta_{i+1} \leftarrow argmax Q_{\theta_i}\)
 \item
-  If \(\theta_i\) and \(\theta_{i+1}\) are not close enough, \(\theta_i \leftarrow \theta_{i+1}\). Goto step 2.
+  If \(\theta_i\) and \(\theta_{i+1}\) are not close enough,
+  \(\theta_i \leftarrow \theta_{i+1}\). Goto step 2.
 \end{enumerate}
 
-For examples, you can refer to the following link: \url{http://www.di.fc.ul.pt/~jpn/r/EM/EM.html}
+For examples, you can refer to the following link:
+\url{http://www.di.fc.ul.pt/~jpn/r/EM/EM.html}
 
-(It is em\_R.r in R\_codes folder. Personally, I can also refer to Quiz 2 in 536.)
+(It is em\_R.r in R\_codes folder. Personally, I can also refer to Quiz
+2 in 536.)
 
-\hypertarget{references-2}{%
-\section{References}\label{references-2}}
+\section{References}\label{references-2}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2248,29 +2326,31 @@ For examples, you can refer to the following link: \url{http://www.di.fc.ul.pt/~
 
 \url{https://www.youtube.com/watch?v=VGRVRjr0vyw}
 
-\hypertarget{generalized-linear-mixed-models}{%
-\chapter{Generalized Linear Mixed Models}\label{generalized-linear-mixed-models}}
+\chapter{Generalized Linear Mixed
+Models}\label{generalized-linear-mixed-models}
 
-\hypertarget{basics-of-glmm}{%
-\section{Basics of GLMM}\label{basics-of-glmm}}
+\section{Basics of GLMM}\label{basics-of-glmm}
 
 Recall the formula in the probit model:
 
-\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)=N(0,I)\]
-Similar to LMM, binary model with random effect can be written as follows.
+\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)=N(0,I)\] Similar to
+LMM, binary model with random effect can be written as follows.
 
-\[Y^*=X\beta+ Z u+\epsilon\]
-where,
+\[Y^*=X\beta+ Z u+\epsilon\] where,
 
-\[\epsilon \sim N(0,I)\]
-\[u \sim N(0, D)\]
+\[\epsilon \sim N(0,I)\] \[u \sim N(0, D)\]
 
-We also assume \(\epsilon\) and \(u\) are independent.Thus, we know that \(D\) represents the virances of the random effects. If we make \(u =1\), the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit models. (Note that, however, probit is not canonical link function, but logit is!)
+We also assume \(\epsilon\) and \(u\) are independent.Thus, we know that
+\(D\) represents the virances of the random effects. If we make
+\(u =1\), the model becomes the usual probit model. McCulloch (1994)
+states that there are a few advantages to use probit, rather than logit
+models. (Note that, however, probit is not canonical link function, but
+logit is!)
 
-The following is the note from Charle E. McCulloch's ``Maximum likelihood algorithems for Generalized Linear Mixed Models''
+The following is the note from Charle E. McCulloch's ``Maximum
+likelihood algorithems for Generalized Linear Mixed Models''
 
-\hypertarget{some-references}{%
-\section{Some References}\label{some-references}}
+\section{Some References}\label{some-references}
 
 \url{http://www.biostat.umn.edu/~baolin/teaching/linmods/glmm.html}
 
@@ -2278,15 +2358,20 @@ The following is the note from Charle E. McCulloch's ``Maximum likelihood algori
 
 \url{https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html}
 
-\hypertarget{twitter-example}{%
-\chapter{Twitter Example}\label{twitter-example}}
+\chapter{Twitter Example}\label{twitter-example}
 
-The following is part of my course project for Stat 536. It aims to replicate part of the findings from Barbera (2015) Birds of the Same Feather Tweet Together: Bayesian Ideal Point Estimation Using Twitter Data. Political Analysis 23 (1). Note that, the following model is much simpler than that in the original paper.
+The following is part of my course project for Stat 536. It aims to
+replicate part of the findings from Barbera (2015) Birds of the Same
+Feather Tweet Together: Bayesian Ideal Point Estimation Using Twitter
+Data. Political Analysis 23 (1). Note that, the following model is much
+simpler than that in the original paper.
 
-\hypertarget{model}{%
-\section{Model}\label{model}}
+\section{Model}\label{model}
 
-Suppose that a Twitter user is presented with a choice between following or not following another target \(j \in \{ 1, ..., m\}\). Let \(y_{j}=1\) if the user decides to follow \(j\), and \(y_{j}=0\) otherwise.
+Suppose that a Twitter user is presented with a choice between following
+or not following another target \(j \in \{ 1, ..., m\}\). Let
+\(y_{j}=1\) if the user decides to follow \(j\), and \(y_{j}=0\)
+otherwise.
 
 \[y_{j}=\begin{cases} 1 & Following \\ 0 & Not Following \end{cases}\]
 
@@ -2366,10 +2451,14 @@ Thus, the posterior is as follows.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{simulating-data-of-senators-on-twitter}{%
-\section{Simulating Data of Senators on Twitter}\label{simulating-data-of-senators-on-twitter}}
+\section{Simulating Data of Senators on
+Twitter}\label{simulating-data-of-senators-on-twitter}
 
-Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know their ideology. Assume that Democrats have negative ideology scores to indicate that they are more liberal, whereas Republicans have positive scores to indicate that they are more conservative. The following is data simulation for senators.
+Assume that we have 100 senators, 50 Democrats and 50 Republicans, who
+we know their ideology. Assume that Democrats have negative ideology
+scores to indicate that they are more liberal, whereas Republicans have
+positive scores to indicate that they are more conservative. The
+following is data simulation for senators.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2402,10 +2491,18 @@ Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know t
 ## 6        6      0.8878271
 \end{verbatim}
 
-\hypertarget{simulating-data-of-conservative-users-on-twitter-and-model-testing}{%
-\section{Simulating Data of Conservative Users on Twitter and Model Testing}\label{simulating-data-of-conservative-users-on-twitter-and-model-testing}}
+\section{Simulating Data of Conservative Users on Twitter and Model
+Testing}\label{simulating-data-of-conservative-users-on-twitter-and-model-testing}
 
-Assume that we observe one Twitter user, who is more conservative. To simulate Twitter following data for this user, I assign this user to follow more Republican senators. Thus, if the Metropolis Hastings algorithm works as intended, we would expect to see a positive estimated value for their ideology. Importantly, as we can see in the histogram below, the estimated value indeed is positive, providing preliminary evidence for the statistical model and the algorithm. In addition, for the acceptance rate, we can see that the constant has a lower number than ideology, since we only accept a constant when it is positive.
+Assume that we observe one Twitter user, who is more conservative. To
+simulate Twitter following data for this user, I assign this user to
+follow more Republican senators. Thus, if the Metropolis Hastings
+algorithm works as intended, we would expect to see a positive estimated
+value for their ideology. Importantly, as we can see in the histogram
+below, the estimated value indeed is positive, providing preliminary
+evidence for the statistical model and the algorithm. In addition, for
+the acceptance rate, we can see that the constant has a lower number
+than ideology, since we only accept a constant when it is positive.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2453,10 +2550,17 @@ Assume that we observe one Twitter user, who is more conservative. To simulate T
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-29-3.pdf}
 
-\hypertarget{simulating-data-of-liberal-users-on-twitter-and-model-testing}{%
-\section{Simulating Data of Liberal Users on Twitter and Model Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}}
+\section{Simulating Data of Liberal Users on Twitter and Model
+Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
 
-To further verify the Metropolis Hastings algorithm, I plan to test the opposite estimate. Specifically, assume that we observe another user, who is more liberal. To simulate Twitter following data for this user, I assign this user to follow more Democrat senators. In this case, we would expect to see a negative value for their estimated ideology. As we can see in the histogram shown below, as expected, the estimated value is negative, providing convergent evidence for the model and the algorithm.
+To further verify the Metropolis Hastings algorithm, I plan to test the
+opposite estimate. Specifically, assume that we observe another user,
+who is more liberal. To simulate Twitter following data for this user, I
+assign this user to follow more Democrat senators. In this case, we
+would expect to see a negative value for their estimated ideology. As we
+can see in the histogram shown below, as expected, the estimated value
+is negative, providing convergent evidence for the model and the
+algorithm.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2505,11 +2609,10 @@ To further verify the Metropolis Hastings algorithm, I plan to test the opposite
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-30-3.pdf}
 
-\hypertarget{practice-learning-on-the-battle-field}{%
-\chapter{Practice: Learning on the Battle Field}\label{practice-learning-on-the-battle-field}}
+\chapter{Practice: Learning on the Battle
+Field}\label{practice-learning-on-the-battle-field}
 
-\hypertarget{r-code}{%
-\section{R code}\label{r-code}}
+\section{R code}\label{r-code}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2525,8 +2628,8 @@ To further verify the Metropolis Hastings algorithm, I plan to test the opposite
 \CommentTok{#table(mydata1$numberOfPassRushers)}
 
 
-\CommentTok{##mydata3 = read.csv(url('https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_play_by_play/pbp_2017.csv'))}
-\CommentTok{##write.csv(mydata3,'2017playbyplay.csv')}
+\NormalTok{##mydata3 = read.csv(url('https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_play_by_play/pbp_2017.csv'))}
+\NormalTok{##write.csv(mydata3,'2017playbyplay.csv')}
 
 \NormalTok{mydata3<-}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'2017playbyplay.csv'}\NormalTok{)}
 \KeywordTok{nrow}\NormalTok{(mydata3)}
@@ -2567,7 +2670,7 @@ To further verify the Metropolis Hastings algorithm, I plan to test the opposite
 
 \NormalTok{n_counting<-}\DecValTok{0}  \CommentTok{# help counting the number of pairs}
 
-\CommentTok{## The following code collects all the rows of each pair. However, it is difficult to analyze data}
+\NormalTok{## The following code collects all the rows of each pair. However, it is difficult to analyze data}
 \CommentTok{# in such a format. }
 
 \CommentTok{#empty_df = mydata8[FALSE,]}
@@ -2598,9 +2701,9 @@ To further verify the Metropolis Hastings algorithm, I plan to test the opposite
 
 
 \CommentTok{# The following code only collects the second row of the pair, but adds data of }
-\CommentTok{### PT_L: type of play in the last first down from the other team}
-\CommentTok{### TG_L: Yards.Gained in the last play}
-\CommentTok{### FirstDown: did they get first down or not. Note that, if yes, it means it was a fumble.}
+\NormalTok{### PT_L: type of play in the last first down from the other team}
+\NormalTok{### TG_L: Yards.Gained in the last play}
+\NormalTok{### FirstDown: did they get first down or not. Note that, if yes, it means it was a fumble.}
 
 \NormalTok{PT_L=}\StringTok{"Pass"}
 \NormalTok{TG_L=}\DecValTok{0}
@@ -2617,7 +2720,7 @@ To further verify the Metropolis Hastings algorithm, I plan to test the opposite
 
     \ControlFlowTok{if}\NormalTok{(i}\OperatorTok{==}\DecValTok{1}\NormalTok{)}
 \NormalTok{    \{row_id<-j\}}
-    \ControlFlowTok{else}\NormalTok{ \{row_id<-}\KeywordTok{sum}\NormalTok{(count_vector}\OperatorTok{$}\NormalTok{freq[}\DecValTok{1}\OperatorTok{:}\NormalTok{(i}\DecValTok{-1}\NormalTok{)])}\OperatorTok{+}\NormalTok{j\}}
+    \ControlFlowTok{else}\NormalTok{ \{row_id<-}\KeywordTok{sum}\NormalTok{(count_vector}\OperatorTok{$}\NormalTok{freq[}\DecValTok{1}\OperatorTok{:}\NormalTok{(i}\OperatorTok{-}\DecValTok{1}\NormalTok{)])}\OperatorTok{+}\NormalTok{j\}}
 
     \KeywordTok{print}\NormalTok{(row_id)}
     \ControlFlowTok{if}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(mydata8[row_id,]}\OperatorTok{$}\NormalTok{posteam)}\OperatorTok{!=}\KeywordTok{as.character}\NormalTok{(mydata8[row_id}\OperatorTok{+}\DecValTok{1}\NormalTok{,]}\OperatorTok{$}\NormalTok{posteam))}
@@ -2648,9 +2751,14 @@ To further verify the Metropolis Hastings algorithm, I plan to test the opposite
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  mylogit1: in general, a team has a different play in their first down, compared to the other team in the last first down.
+  mylogit1: in general, a team has a different play in their first down,
+  compared to the other team in the last first down.
 \item
-  mylogit2: If the defence team passed in the last first down, the offence team is less likely to use pass. If the defence team gained more yards, the offence team is more likely to pass in the next first down. If the defence team fumbled, it will reduce the chance the offence team to do the pass.
+  mylogit2: If the defence team passed in the last first down, the
+  offence team is less likely to use pass. If the defence team gained
+  more yards, the offence team is more likely to pass in the next first
+  down. If the defence team fumbled, it will reduce the chance the
+  offence team to do the pass.
 \end{enumerate}
 
 \begin{Shaded}
@@ -2784,8 +2892,7 @@ To further verify the Metropolis Hastings algorithm, I plan to test the opposite
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{references-3}{%
-\section{References}\label{references-3}}
+\section{References}\label{references-3}
 
 \url{https://arxiv.org/pdf/1403.7993.pdf}
 
@@ -2793,8 +2900,7 @@ To further verify the Metropolis Hastings algorithm, I plan to test the opposite
 
 \url{https://rpubs.com/JanpuHou/326048}
 
-\hypertarget{project-draft}{%
-\chapter{Project Draft}\label{project-draft}}
+\chapter{Project Draft}\label{project-draft}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2895,12 +3001,18 @@ To further verify the Metropolis Hastings algorithm, I plan to test the opposite
 ## Number of Fisher Scoring iterations: 4
 \end{verbatim}
 
-\hypertarget{background}{%
-\section{Background}\label{background}}
+\section{Background}\label{background}
 
-The following code is from this website: \url{http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html}. I will remove it on this page after I complete my practice and learning.
+The following code is from this website:
+\url{http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html}.
+I will remove it on this page after I complete my practice and learning.
 
-In this example, it simulates a longitudinal data with 4 variables for each of 1000 separate individuals. Specifically, there are three continuous covariates (varying over time) and one ordinal covariate (constant over time). We will consider a random intercept model (mean zero and variance 100), and fit the data with glmer() from lme4 R package.
+In this example, it simulates a longitudinal data with 4 variables for
+each of 1000 separate individuals. Specifically, there are three
+continuous covariates (varying over time) and one ordinal covariate
+(constant over time). We will consider a random intercept model (mean
+zero and variance 100), and fit the data with glmer() from lme4 R
+package.
 
 The R code:
 
@@ -2909,26 +3021,26 @@ The R code:
 \NormalTok{n =}\StringTok{ }\DecValTok{1000}\NormalTok{; p =}\StringTok{ }\DecValTok{3}\NormalTok{; K =}\StringTok{ }\DecValTok{4}\NormalTok{; sig =}\StringTok{ }\DecValTok{10}
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
 
-\CommentTok{## time varying covariates}
+\NormalTok{## time varying covariates}
 \NormalTok{Xl =}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\StringTok{'list'}\NormalTok{, K)}
 \CommentTok{# 4 list, each 1000 individuals}
 \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{K) Xl[[i]] =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{p), n,p)}
 
-\CommentTok{## constant covariate}
+\NormalTok{## constant covariate}
 \NormalTok{Z =}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(n, }\DecValTok{2}\NormalTok{,}\FloatTok{0.2}\NormalTok{)}
 
-\CommentTok{## random effects}
+\NormalTok{## random effects}
 \CommentTok{#just 1000 random numubers?}
 \NormalTok{U =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n)}\OperatorTok{*}\NormalTok{sig}
 
-\CommentTok{## fixed effects}
+\NormalTok{## fixed effects}
 \CommentTok{# It ends a 1000*4 matrix}
 \NormalTok{etaX =}\StringTok{ }\KeywordTok{sapply}\NormalTok{(Xl, rowSums)}
 
-\CommentTok{## random errors}
+\NormalTok{## random errors}
 \NormalTok{eps =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{K), n,K)}
 
-\CommentTok{## logit model}
+\NormalTok{## logit model}
 \NormalTok{eta =}\StringTok{ }\NormalTok{etaX }\OperatorTok{+}\StringTok{ }\NormalTok{U }\OperatorTok{+}\StringTok{ }\NormalTok{eps}
 \CommentTok{# calculate probability}
 \NormalTok{prb =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{eta))}
@@ -2937,10 +3049,10 @@ The R code:
 \NormalTok{Xs =}\StringTok{ }\NormalTok{Xl[[}\DecValTok{1}\NormalTok{]]}
 \ControlFlowTok{for}\NormalTok{(k }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\NormalTok{K) Xs =}\StringTok{ }\KeywordTok{rbind}\NormalTok{(Xs, Xl[[k]])}
 
-\CommentTok{## GLMM model}
+\NormalTok{## GLMM model}
 \KeywordTok{library}\NormalTok{(lme4)}
 \NormalTok{sid =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, K) }\CommentTok{# a vector of 1-1000, 4 repetitions}
-\CommentTok{## model fit with GLMMM (default to Laplace approximation)}
+\NormalTok{## model fit with GLMMM (default to Laplace approximation)}
 \CommentTok{# subjects as the random effect}
 \NormalTok{a1 =}\StringTok{ }\KeywordTok{glmer}\NormalTok{(}\KeywordTok{c}\NormalTok{(D) }\OperatorTok{~}\StringTok{ }\NormalTok{Xs }\OperatorTok{+}\StringTok{ }\NormalTok{Z[sid] }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{sid), }\DataTypeTok{family=}\NormalTok{binomial)}
 
@@ -2966,9 +3078,9 @@ The R code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## MH sampling of random effects | data}
-\CommentTok{## logit\textbackslash{}Pr(D_i|eta_i,U) = eta_i+U; U \textbackslash{}sim N(0,Vu)}
-\CommentTok{## proposal dist: N(Uc,Vc)}
+\NormalTok{## MH sampling of random effects | data}
+\NormalTok{## logit\textbackslash{}Pr(D_i|eta_i,U) = eta_i+U; U \textbackslash{}sim N(0,Vu)}
+\NormalTok{## proposal dist: N(Uc,Vc)}
 
 \NormalTok{U.mh <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(Di,eta, Vu, Uc,Vc, }\DataTypeTok{B=}\DecValTok{100}\NormalTok{)\{}
 \NormalTok{  ub =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, B)}
@@ -2976,7 +3088,7 @@ The R code:
 \NormalTok{  prb =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{eta}\OperatorTok{-}\NormalTok{ub[}\DecValTok{1}\NormalTok{]))}
 \NormalTok{  llk0 =}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(ub[}\DecValTok{1}\NormalTok{],}\DataTypeTok{sd=}\KeywordTok{sqrt}\NormalTok{(Vu), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(Di}\OperatorTok{*}\NormalTok{prb}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{Di)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{prb))) }\OperatorTok{-}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(ub[}\DecValTok{1}\NormalTok{],Uc,}\KeywordTok{sqrt}\NormalTok{(Vc), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{) }\CommentTok{# likelihood function? }
   \ControlFlowTok{for}\NormalTok{(k }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\NormalTok{B)\{}
-\NormalTok{    ub[k] =}\StringTok{ }\NormalTok{ub[k}\DecValTok{-1}\NormalTok{]}
+\NormalTok{    ub[k] =}\StringTok{ }\NormalTok{ub[k}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
 \NormalTok{    uk =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{)}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(Vc)}\OperatorTok{+}\NormalTok{Uc}
 \NormalTok{    prb =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{eta}\OperatorTok{-}\NormalTok{uk))}
 \NormalTok{    llk1 =}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(uk,}\DataTypeTok{sd=}\KeywordTok{sqrt}\NormalTok{(Vu), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(Di}\OperatorTok{*}\NormalTok{prb}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{Di)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{prb))) }\OperatorTok{-}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(uk,Uc,}\KeywordTok{sqrt}\NormalTok{(Vc), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{)}
@@ -3003,14 +3115,14 @@ The R code:
 \NormalTok{    res =}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(Uc,}\DataTypeTok{sd=}\KeywordTok{sqrt}\NormalTok{(Vu), }\DataTypeTok{log=}\OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(Di}\OperatorTok{*}\NormalTok{prb}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{Di)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{prb)))}
     \OperatorTok{-}\NormalTok{res}
 \NormalTok{  \}}
-\NormalTok{  tmp =}\StringTok{ }\KeywordTok{try}\NormalTok{(}\KeywordTok{optim}\NormalTok{(Uc, llk0, }\DataTypeTok{method=}\StringTok{'Brent'}\NormalTok{, }\DataTypeTok{lower=}\NormalTok{Uc}\DecValTok{-10}\NormalTok{,}\DataTypeTok{upper=}\NormalTok{Uc}\OperatorTok{+}\DecValTok{10}\NormalTok{) )}
+\NormalTok{  tmp =}\StringTok{ }\KeywordTok{try}\NormalTok{(}\KeywordTok{optim}\NormalTok{(Uc, llk0, }\DataTypeTok{method=}\StringTok{'Brent'}\NormalTok{, }\DataTypeTok{lower=}\NormalTok{Uc}\OperatorTok{-}\DecValTok{10}\NormalTok{,}\DataTypeTok{upper=}\NormalTok{Uc}\OperatorTok{+}\DecValTok{10}\NormalTok{) )}
   \ControlFlowTok{if}\NormalTok{(}\KeywordTok{class}\NormalTok{(tmp)}\OperatorTok{==}\StringTok{'try-error'}\NormalTok{) tmp =}\StringTok{ }\KeywordTok{optim}\NormalTok{(Uc, llk0)}
 \NormalTok{  Uc =}\StringTok{ }\NormalTok{tmp}\OperatorTok{$}\NormalTok{par}
 \NormalTok{  Vc =}\StringTok{ }\DecValTok{1}\OperatorTok{/}\KeywordTok{hessian}\NormalTok{(llk0, Uc)}
   \KeywordTok{c}\NormalTok{(Uc,Vc)}
 \NormalTok{\}}
 \NormalTok{UV.mh <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(Vu,beta,Uc, D,X,subj)\{}
-  \CommentTok{## Cov matrix}
+\NormalTok{  ## Cov matrix}
 \NormalTok{  sid =}\StringTok{ }\KeywordTok{unique}\NormalTok{(subj);  n =}\StringTok{ }\KeywordTok{length}\NormalTok{(sid)}
 \NormalTok{  Uc =}\StringTok{ }\NormalTok{Vc =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,n)}
   \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{n)\{}
@@ -3025,9 +3137,9 @@ The R code:
 
 \CommentTok{#Newton Raphson update}
 \CommentTok{# Compute first/second derives of complete data log likelihood}
-\CommentTok{## score and fisher information}
+\NormalTok{## score and fisher information}
 \NormalTok{SF.mh <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(Vu,beta,Uc,Vc, D,X,subj)\{}
-  \CommentTok{## S/hessian matrix}
+\NormalTok{  ## S/hessian matrix}
 \NormalTok{  sid =}\StringTok{ }\KeywordTok{unique}\NormalTok{(subj);  n =}\StringTok{ }\KeywordTok{length}\NormalTok{(sid)}
 \NormalTok{  p =}\StringTok{ }\KeywordTok{dim}\NormalTok{(X)[}\DecValTok{2}\NormalTok{]}
 \NormalTok{  S =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, p)}
@@ -3051,17 +3163,17 @@ The R code:
 \KeywordTok{library}\NormalTok{(lme4)}
 \NormalTok{sid =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, K)}
 \NormalTok{a1 =}\StringTok{ }\KeywordTok{glmer}\NormalTok{(}\KeywordTok{c}\NormalTok{(D) }\OperatorTok{~}\StringTok{ }\NormalTok{Xs }\OperatorTok{+}\StringTok{ }\NormalTok{Z[sid] }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{sid), }\DataTypeTok{family=}\NormalTok{binomial)}
-\CommentTok{## extract variance and fixed effects parameters; + mode/variance of (random effects|data)}
+\NormalTok{## extract variance and fixed effects parameters; + mode/variance of (random effects|data)}
 \NormalTok{Vu =}\StringTok{ }\NormalTok{(}\KeywordTok{getME}\NormalTok{(a1,}\StringTok{'theta'}\NormalTok{))}\OperatorTok{^}\DecValTok{2}\NormalTok{; beta =}\StringTok{ }\KeywordTok{fixef}\NormalTok{(a1); Um =}\StringTok{ }\KeywordTok{ranef}\NormalTok{(a1,}\DataTypeTok{condVar=}\OtherTok{TRUE}\NormalTok{)}
 \NormalTok{D =}\StringTok{ }\KeywordTok{c}\NormalTok{(D); X =}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{,Xs,Z[sid]); subj =}\StringTok{ }\NormalTok{sid}
 \NormalTok{Uc =}\StringTok{ }\KeywordTok{unlist}\NormalTok{(Um[[}\DecValTok{1}\NormalTok{]]); Vc =}\StringTok{ }\KeywordTok{c}\NormalTok{( }\KeywordTok{attr}\NormalTok{(Um[[}\DecValTok{1}\NormalTok{]], }\StringTok{'postVar'}\NormalTok{) )}
 \ControlFlowTok{for}\NormalTok{(b }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{)\{}
-  \CommentTok{## NR updates with MH sampling}
+\NormalTok{  ## NR updates with MH sampling}
 \NormalTok{  obj =}\StringTok{ }\KeywordTok{SF.mh}\NormalTok{(Vu,beta,Uc,Vc, D,X,subj)}
 \NormalTok{  Vu =}\StringTok{ }\NormalTok{obj}\OperatorTok{$}\NormalTok{sig2}
 \NormalTok{  tmp =}\StringTok{ }\KeywordTok{solve}\NormalTok{(obj}\OperatorTok{$}\NormalTok{FI,obj}\OperatorTok{$}\NormalTok{S)}
 \NormalTok{  beta =}\StringTok{ }\NormalTok{beta }\OperatorTok{+}\StringTok{ }\NormalTok{tmp}
-  \CommentTok{## Proposal dist update}
+\NormalTok{  ## Proposal dist update}
 \NormalTok{  tmp1 =}\StringTok{ }\KeywordTok{UV.mh}\NormalTok{(Vu,beta,Uc, D,X,subj)}
 \NormalTok{  Uc =}\StringTok{ }\NormalTok{tmp1}\OperatorTok{$}\NormalTok{Uc; Vc =}\StringTok{ }\NormalTok{tmp1}\OperatorTok{$}\NormalTok{Vc}
   \KeywordTok{cat}\NormalTok{(b, }\StringTok{':'}\NormalTok{, tmp, }\StringTok{';'}\NormalTok{, obj}\OperatorTok{$}\NormalTok{S}\OperatorTok{/}\NormalTok{n, }\StringTok{'}\CharTok{\textbackslash{}n\textbackslash{}t}\StringTok{'}\NormalTok{, }\KeywordTok{sqrt}\NormalTok{(Vu), beta, }\StringTok{'}\CharTok{\textbackslash{}n}\StringTok{'}\NormalTok{)}
@@ -3069,8 +3181,8 @@ The R code:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{important-examples-with-r-code}{%
-\section{Important Examples with R code}\label{important-examples-with-r-code}}
+\section{Important Examples with R
+code}\label{important-examples-with-r-code}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3091,8 +3203,7 @@ The R code:
 
 \url{https://stats.idre.ucla.edu/r/dae/mixed-effects-logistic-regression/}
 
-\hypertarget{references-4}{%
-\section{References}\label{references-4}}
+\section{References}\label{references-4}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3103,37 +3214,39 @@ The R code:
 
 \url{http://www.michelecoscia.com/?page_id=379}
 
-\hypertarget{bayesian}{%
-\chapter{Bayesian}\label{bayesian}}
+\chapter{Bayesian}\label{bayesian}
 
-The following is the part of the class note that I took from the online course of ``Bayesian Statistics: From Concept to Data Analysis.'' (\url{https://www.coursera.org/learn/bayesian-statistics/home/welcome})
+The following is the part of the class note that I took from the online
+course of ``Bayesian Statistics: From Concept to Data Analysis.''
+(\url{https://www.coursera.org/learn/bayesian-statistics/home/welcome})
 
-Important note: All the notes here are just for my own study purpose. I do not clain any copyright. You can use it for study purpose as well, but not for any business purposes.
+Important note: All the notes here are just for my own study purpose. I
+do not clain any copyright. You can use it for study purpose as well,
+but not for any business purposes.
 
-\hypertarget{frequentist-perspective}{%
-\section{Frequentist perspective}\label{frequentist-perspective}}
+\section{Frequentist perspective}\label{frequentist-perspective}
 
-\[\theta = \{ fair , loaded \}\]
-\[x \sim Bin (5, \theta)\]
+\[\theta = \{ fair , loaded \}\] \[x \sim Bin (5, \theta)\]
 \[\begin{aligned} f(x|\theta) &=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 & if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} & if \;  \theta=loaded  \end{cases} \\ &= \binom{5}{x} (\frac{1}{2})^5 I_{\{\theta=fair \}}+\binom{5}{x} (0.7)^x(0.3)^{5-x}I_{\{\theta=loaded \}}\end{aligned}\]
 
 When \(x=2\)
 
 \[f(\theta | x=2)=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 = 0.3125& if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} = 0.1323& if \;  \theta=loaded  \end{cases}\]
-Thus, based on MLE, it suggests that it should be ``fair'', since it has a greater probablity if we observe 2 head out of 5 trials.
+Thus, based on MLE, it suggests that it should be ``fair'', since it has
+a greater probablity if we observe 2 head out of 5 trials.
 
-However, we can not know the following probability: given that we observe \(x=2\), what is the probability that \(\theta\) is fair?
+However, we can not know the following probability: given that we
+observe \(x=2\), what is the probability that \(\theta\) is fair?
 
-\[P(\theta=fair | X=2)\]
-From the frequentist's perspective, the coin is the fixed coin. And thus, the probablity of \(P(\theta=fair|x=2)\) is equal to \(P(\theta=fair)\).
+\[P(\theta=fair | X=2)\] From the frequentist's perspective, the coin is
+the fixed coin. And thus, the probablity of \(P(\theta=fair|x=2)\) is
+equal to \(P(\theta=fair)\).
 
-\[P(\theta=fair|x=2)=P(\theta=fair)\]
-As,
+\[P(\theta=fair|x=2)=P(\theta=fair)\] As,
 
 \[P(\theta=fair) \in C(0,1) (i.e., either \; 0 \; or \; 1)\]
 
-\hypertarget{bayesian-perspective}{%
-\section{Bayesian perspective}\label{bayesian-perspective}}
+\section{Bayesian perspective}\label{bayesian-perspective}
 
 Prior \(P(loaded)=0.6\)
 
@@ -3143,30 +3256,32 @@ Prior \(P(loaded)=0.6\)
 
 Thus, we can say that:
 
-\[P(\theta=loaded | X=2)=0.388\]
-We can change the prior, and get different posterior probabilities:
+\[P(\theta=loaded | X=2)=0.388\] We can change the prior, and get
+different posterior probabilities:
 
 \[P(\theta=loaded)=\frac{1}{2} \rightarrow P(\theta=loaded | X=2)=0.297\]
 \[P(\theta=loaded)=\frac{9}{10} \rightarrow P(\theta=loaded | X=2)=0.792\]
 
-\hypertarget{continous-parameters}{%
-\section{Continous parameters}\label{continous-parameters}}
+\section{Continous parameters}\label{continous-parameters}
 
-In the examples above, \(\theta\) is discrete. In contrast, the examples below use continous \(\theta\).
+In the examples above, \(\theta\) is discrete. In contrast, the examples
+below use continous \(\theta\).
 
 \[f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior\]
 
-Note that, the posterior is a PDF of \(\theta\), which is not in the function of \(f(y)\). Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior.
+Note that, the posterior is a PDF of \(\theta\), which is not in the
+function of \(f(y)\). Thus, removing the denominator (i.e., the
+normalizing constant) does not change the form of the posterior.
 
-\hypertarget{uniform}{%
-\subsection{Uniform}\label{uniform}}
+\subsection{Uniform}\label{uniform}
 
-Suppose that \(\theta\) is the probablity of a coin getting head. We could assign a uniform distribution.
+Suppose that \(\theta\) is the probablity of a coin getting head. We
+could assign a uniform distribution.
 
 \[\theta \sim U[0,1]\]
 
-\[f(\theta)=I_{ \{0 \leqq \theta \leqslant 1 \}}\]
-(It is interesting to see how to write the pdf for uniform distribution.)
+\[f(\theta)=I_{ \{0 \leqq \theta \leqslant 1 \}}\] (It is interesting to
+see how to write the pdf for uniform distribution.)
 
 \[f(\theta | Y=1)= \frac{\theta^1(1-\theta)^0 I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^1(1-\theta)^0 I_{\{0 \leqq \theta \leqslant 1\}} d\theta}=\frac{\theta I_{\{0 \leqq \theta \leqslant 1 \}}}{\int_0^1 \theta d\theta}=2\theta I_{ \{0 \leqq \theta \leqslant 1\}}\]
 
@@ -3174,39 +3289,41 @@ If we ignore the normalizing constant, we will get
 
 \[f(\theta | Y=1) \propto \theta^1(1-\theta)^0 I_{ \{0 \leqq \theta \leqslant 1\} }=\theta I_{ \{0 \leqq \theta \leqslant 1\} }\]
 
-Thus, we can see that with vs.~without the noramlizing constant is the ``2''.
+Thus, we can see that with vs.~without the noramlizing constant is the
+``2''.
 
-\hypertarget{uniform-prior-versus-posterior}{%
-\subsection{Uniform: prior versus posterior}\label{uniform-prior-versus-posterior}}
+\subsection{Uniform: prior versus
+posterior}\label{uniform-prior-versus-posterior}
 
 When \(\theta\) follows uniform distribution:
 
 \textbf{Prior}
 
-\[P(0.025 <\theta<0.975)=0.95\]
-\[P( 0.05< \theta )=0.95\]
+\[P(0.025 <\theta<0.975)=0.95\] \[P( 0.05< \theta )=0.95\]
 \textbf{Posterior}
 
 \[P(0.025<\theta<0.975)=\int_{0.025}^{0.975} 2\theta d\theta=0.95\]
 \[P(0.05<\theta)=1-P(\theta <0.05)=\int_{0}^{0.05} 2\theta d\theta=1-0.05^2=0.9975\]
 
-Thus, we can see that, while \(P(0.025<\theta<0.975)\) is the same for prior and posterior, \(P(0.05<\theta)\) is not the same.
+Thus, we can see that, while \(P(0.025<\theta<0.975)\) is the same for
+prior and posterior, \(P(0.05<\theta)\) is not the same.
 
-\hypertarget{uniform-equal-tailed-versus-hpd}{%
-\subsection{Uniform: equal tailed versus HPD}\label{uniform-equal-tailed-versus-hpd}}
+\subsection{Uniform: equal tailed versus
+HPD}\label{uniform-equal-tailed-versus-hpd}
 
 \textbf{Equal tailed}
 
 \[P(\theta < q|Y=1)=\int_0^q 2\theta d\theta=q^2\]
 \[P(\sqrt{0.025}<\theta<\sqrt{0.975}|Y=1)=P(0.158<\theta<0.987)=0.95\]
-We can say that: there's a 95\% probability that \(\theta\) is in between 0.158 and 0.987.
+We can say that: there's a 95\% probability that \(\theta\) is in
+between 0.158 and 0.987.
 
 \textbf{Highest Posterior Density}
 
 \[P(\theta > \sqrt{0.05}|Y=1)=P(\theta >0.224|Y=1)=0.95\]
 
-\hypertarget{bernoullibinomial-likelihood-with-uniform-prior}{%
-\section{Bernoulli/binomial likelihood with uniform prior}\label{bernoullibinomial-likelihood-with-uniform-prior}}
+\section{Bernoulli/binomial likelihood with uniform
+prior}\label{bernoullibinomial-likelihood-with-uniform-prior}
 
 \[\begin{aligned}  f(\theta | Y=1) &= \frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &=\frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\frac{\Gamma(\sum y_i+1)\Gamma(n-\sum y_i+1)}{\Gamma(n+2)} \int_{-\infty}^{+\infty} \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_i+1)} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &= \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_i+1)}\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}  \end{aligned} \]
 
@@ -3214,28 +3331,28 @@ Thus,
 
 \[\theta | y \sim Beta (\sum y_i+1, n-\sum y_i +1)\]
 
-\textbf{Side note:}
-\(Beta(1,1)=Uniform(0,1)\):
+\textbf{Side note:} \(Beta(1,1)=Uniform(0,1)\):
 
 \(Beta(\alpha,\beta)=\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq x \leqslant 1\}}\)
 
-Thus, we can get the following since the support for beta distribution is \([0,1]\):
+Thus, we can get the following since the support for beta distribution
+is \([0,1]\):
 
 \(Beta(1,1)=\frac{x^0(1-x)^0}{B(\alpha,\beta)}=1\times I_{\{0 \leqq x \leqslant 1\}}\)
 
-\hypertarget{conjugate-priors}{%
-\section{Conjugate priors}\label{conjugate-priors}}
+\section{Conjugate priors}\label{conjugate-priors}
 
-As noted above, beta prior (or, Uniform) leads to beta posterior. In a more general sense, Beta prior always leads to beta posterior.
+As noted above, beta prior (or, Uniform) leads to beta posterior. In a
+more general sense, Beta prior always leads to beta posterior.
 
 For instance,
 
 \[\begin{aligned} f(\theta |y) \propto f(y|\theta)f(\theta)&=\theta^{\sum y_i}(1-\theta)^{\sum n-y_i}\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq \theta \leqslant 1\}} \\ &=\frac{1}{B(\alpha, \beta)}\theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \\ &\propto  \theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \end{aligned}\]
 Thus,
 
-\[f(\theta |y) \sim Beta(\alpha+\sum y_i,\beta+\sum n-y_i)\]
-Conjugate prior: prior and posterior share the same distribution.
-As we can see, both the data and the prior contribute to the posterior.
+\[f(\theta |y) \sim Beta(\alpha+\sum y_i,\beta+\sum n-y_i)\] Conjugate
+prior: prior and posterior share the same distribution. As we can see,
+both the data and the prior contribute to the posterior.
 
 For the prior of \(Beta(\alpha, \beta)\), the mean is
 
@@ -3254,11 +3371,10 @@ Posterior mean is,
   Binomial proportion confidence interval:
 \end{enumerate}
 
-\[\hat{p} +/- 1.96 \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]
-(2) Mean of Beta distribution:
+\[\hat{p} +/- 1.96 \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\] (2) Mean of
+Beta distribution:
 
-\[\frac{\alpha}{\alpha+\beta}\]
-(3) Plot of Beta distribution
+\[\frac{\alpha}{\alpha+\beta}\] (3) Plot of Beta distribution
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3281,22 +3397,23 @@ Posterior mean is,
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-36-2.pdf}
 
-\hypertarget{poisson-distribution}{%
-\section{Poisson distribution}\label{poisson-distribution}}
+\section{Poisson distribution}\label{poisson-distribution}
 
 Pmf of Poisson distribution:
 
 \[Pois (\lambda) \sim \frac{\lambda^k e^{-\lambda}}{k!}\]
 
-We can replace \(k\) with the notation of \(y\), and assume that we observe \(n\) \(y_i\):
+We can replace \(k\) with the notation of \(y\), and assume that we
+observe \(n\) \(y_i\):
 \[y_i \sim \frac{\lambda^{y_i} e^{-\lambda}}{y_i!}\]
 
 \[f(y|\lambda)=\frac{\lambda^{\sum y_i} e^{- n \lambda}}{\prod_{i=1}^n y_i !}\]
 
-We assume that \(\lambda\) follows Gamma distribution (i.e.,Gamma prior):
+We assume that \(\lambda\) follows Gamma distribution (i.e.,Gamma
+prior):
 
-\[\lambda \sim \Gamma(\alpha, \beta)\]
-The pdf for Gamma distribution is:
+\[\lambda \sim \Gamma(\alpha, \beta)\] The pdf for Gamma distribution
+is:
 
 \[\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\]
 
@@ -3307,7 +3424,9 @@ Thus, the posterior is:
 
 \[\Gamma(\alpha + \sum y_i, \beta+n)\]
 
-As we know that, the mean of prior for Gamma is \(\frac{\alpha}{\beta}\). Thus, we can get the mean for the posterior for Gamma is:
+As we know that, the mean of prior for Gamma is
+\(\frac{\alpha}{\beta}\). Thus, we can get the mean for the posterior
+for Gamma is:
 
 \[\begin{aligned} &=\frac{\alpha+\sum y_i}{\beta+n} \\ &= \frac{\beta}{\beta+n} \frac{\alpha}{\beta}+\frac{n}{\beta+n} \frac{\sum y_i}{n} \end{aligned}\]
 To determine the prior of \(\alpha\) and \(\beta\):
@@ -3333,8 +3452,9 @@ To determine the prior of \(\alpha\) and \(\beta\):
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Vague prior
-  Small \(\varepsilon >0\): \(\Gamma (\varepsilon,\varepsilon)\) . Thus, the posterior mean is primarily driven by the data:
+  Vague prior Small \(\varepsilon >0\):
+  \(\Gamma (\varepsilon,\varepsilon)\) . Thus, the posterior mean is
+  primarily driven by the data:
 \end{enumerate}
 
 \[\frac{\varepsilon + \sum y_i}{\varepsilon + n} \approx \frac{ \sum y_i}{n} \]
@@ -3342,16 +3462,57 @@ To determine the prior of \(\alpha\) and \(\beta\):
 \begin{enumerate}
 \def\labelenumi{(\arabic{enumi})}
 \item
-  As we know, beta prior lead the Bernoulli trial to a beta posterior. That is, we know \(f(\theta|y)=\frac{f(y|\theta) f(\theta)}{f(y)}\). What is the prior predictive distribution of \(f(y)\)?
+  As we know, beta prior lead the Bernoulli trial to a beta posterior.
+  That is, we know \(f(\theta|y)=\frac{f(y|\theta) f(\theta)}{f(y)}\).
+  What is the prior predictive distribution of \(f(y)\)?
 \item
-  If Beta(3,3,), what is the prior predictive probablity that we wil observe \(y=0\) in the next trial?
+  If Beta is Beta (3,3), what is the prior predictive probablity that we
+  wil observe \(y=0\) in the next trial?
 \end{enumerate}
 
-\hypertarget{trying}{%
-\chapter{Trying}\label{trying}}
+\section{Exponential data}\label{exponential-data}
 
-\hypertarget{the-basic-idea}{%
-\section{The Basic Idea}\label{the-basic-idea}}
+For instance, suppose that on average you need to wait for 10 minutes
+for a fast food delivery, and thus we can assume that
+\(y \sim Exp(\lambda)\). Furthermore, we assume that the prior
+\(\lambda\) follows Gamma distribution \(Gamma(\alpha, \beta)\), thus it
+is with a mean of \(\frac{\alpha}{\beta}=\frac{1}{10}\).
+
+\[if \; \; \Gamma (100, 1000)\] (Note that, it has a mean of
+\(\frac{100}{1000}=\frac{1}{10}\)).
+
+Thus, we can get:
+
+\[\begin{aligned} f(\lambda | y) &\propto f(y|\lambda) f(\lambda) \\ &\propto \lambda e^{-\lambda y} \lambda^{\alpha-1}e^{-\beta \lambda} \\ &\propto \lambda^{(\alpha+1)-1} e^{-(\beta+y)\lambda } \end{aligned}\]
+Thus, we get
+
+\[\lambda |y \sim \Gamma (\alpha+1,\beta+y)\] Thus, if we observe a data
+point that we need to wait for 12 minutes for a fast food delivery, we
+can update the posterior:
+
+\[\lambda |y \sim \Gamma (101,1012)\] Thus, the mean for the posterior
+is
+
+\[\frac{101}{1012}=\frac{1}{10.02}\]
+
+\textbf{Note:} (1) Typically, we know that the pdf of Gamma is
+\(\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\). We
+replace \(x\) with \(\lambda\) since now the random variable of \(x\) is
+to represent the parameter \(\lambda\) in the exponential distribution.
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  In the above, we drop the constant part
+  (\(\frac{\beta^{\alpha}}{\Gamma(\alpha)}\)) in the Gamma distribution
+  as long as it does not include \(x\) (i.e., \(\lambda\)).
+\end{enumerate}
+
+\chapter{Trying}\label{trying}
+
+\section{The Basic Idea}\label{the-basic-idea}
 
 \[L(\beta,D|Y)=\int \prod_{i=1}^{n} f_{y_i|u}(y_i|b,\beta)f_{b_i}(b_i|D)db_i\]
 
@@ -3365,10 +3526,10 @@ Notations :
 
 \(D\): Parameters for the random effect
 
-The dimension of the integral is equal to the levels of the random factors (i.e., the number of observations).
+The dimension of the integral is equal to the levels of the random
+factors (i.e., the number of observations).
 
-\hypertarget{model-and-r-code}{%
-\section{Model and R Code}\label{model-and-r-code}}
+\section{Model and R Code}\label{model-and-r-code}
 
 Covarance Matrix for \(n\) observations:
 
@@ -3381,13 +3542,12 @@ The inverse matrix is as follows:
 \[N(-\sum_{j\neq k} Q_{kj}b_j^{(m)}Q_{kk}^{-1},Q_{kk}^{-1})\]
 \[ln L(\beta, \theta; Y,b)=\ell=lnf_{Y|b}(Y|b,\beta)+lnf_b(b|\theta)\]
 
-\[a^{(m+1)}=a^{(m)}+\tau(a^{(m)})^{-1} S(a^{(m)})\]
-Where,
+\[a^{(m+1)}=a^{(m)}+\tau(a^{(m)})^{-1} S(a^{(m)})\] Where,
 
 \[\tau(a) = -E(\frac{\partial^2 \ell}{\partial \alpha \partial \alpha^{'}}|Y)\]
 
-\[S(a) = E(\frac{\partial \ell}{\partial \alpha }|Y)\]
-Note that, \(\alpha\) is a combination of two sets of parameters.
+\[S(a) = E(\frac{\partial \ell}{\partial \alpha }|Y)\] Note that,
+\(\alpha\) is a combination of two sets of parameters.
 
 \[\alpha = \binom{\beta}{b} \]
 
@@ -3402,7 +3562,11 @@ Note that, \(\alpha\) is a combination of two sets of parameters.
 The Newton Raphson algorithm needs the second order.
 
 \[\begin{aligned} \nabla^2 \ell &=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)]}{\partial \beta} \\ &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial \beta}\\ &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial (\beta^Tx_i+b_i)} \frac{\partial (\beta^Tx_i+b_i)}{\partial \beta}\\ &=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b_i)(1-p(\beta ^T x_i+b_i))x_i \\ &=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})x_i \end{aligned}\]
-Using the Newton Raphson, the following code calculates the basic logistic model, without any random effects. As we can see, it produces the same result as the R generic function of GLM. Note that, the function of Expit and the variables of y and are from the last block of R code.
+Using the Newton Raphson, the following code calculates the basic
+logistic model, without any random effects. As we can see, it produces
+the same result as the R generic function of GLM. Note that, the
+function of Expit and the variables of y and are from the last block of
+R code.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3459,7 +3623,7 @@ Using the Newton Raphson, the following code calculates the basic logistic model
 \KeywordTok{library}\NormalTok{(CVTuningCov) }\CommentTok{# Will be used to generate AR1 matrix}
 
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
-\NormalTok{y<-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{) }\CommentTok{## observations}
+\NormalTok{y<-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{) ## observations}
 
 \NormalTok{n=}\KeywordTok{length}\NormalTok{(y) }\CommentTok{# the number of observations}
 
@@ -3563,8 +3727,7 @@ In the following, I will try to add the random effect.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{glmmtmb-package}{%
-\section{glmmTMB package}\label{glmmtmb-package}}
+\section{glmmTMB package}\label{glmmtmb-package}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3579,118 +3742,106 @@ In the following, I will try to add the random effect.
 \end{Shaded}
 
 \begin{verbatim}
-##    [1] "1"    "2"    "3"    "4"    "5"    "6"    "7"    "8"    "9"   
-##   [10] "10"   "11"   "12"   "13"   "14"   "15"   "16"   "17"   "18"  
-##   [19] "19"   "20"   "21"   "22"   "23"   "24"   "25"   "26"   "27"  
-##   [28] "28"   "29"   "30"   "31"   "32"   "33"   "34"   "35"   "36"  
-##   [37] "37"   "38"   "39"   "40"   "41"   "42"   "43"   "44"   "45"  
-##   [46] "46"   "47"   "48"   "49"   "50"   "51"   "52"   "53"   "54"  
-##   [55] "55"   "56"   "57"   "58"   "59"   "60"   "61"   "62"   "63"  
-##   [64] "64"   "65"   "66"   "67"   "68"   "69"   "70"   "71"   "72"  
-##   [73] "73"   "74"   "75"   "76"   "77"   "78"   "79"   "80"   "81"  
-##   [82] "82"   "83"   "84"   "85"   "86"   "87"   "88"   "89"   "90"  
-##   [91] "91"   "92"   "93"   "94"   "95"   "96"   "97"   "98"   "99"  
-##  [100] "100"  "101"  "102"  "103"  "104"  "105"  "106"  "107"  "108" 
-##  [109] "109"  "110"  "111"  "112"  "113"  "114"  "115"  "116"  "117" 
-##  [118] "118"  "119"  "120"  "121"  "122"  "123"  "124"  "125"  "126" 
-##  [127] "127"  "128"  "129"  "130"  "131"  "132"  "133"  "134"  "135" 
-##  [136] "136"  "137"  "138"  "139"  "140"  "141"  "142"  "143"  "144" 
-##  [145] "145"  "146"  "147"  "148"  "149"  "150"  "151"  "152"  "153" 
-##  [154] "154"  "155"  "156"  "157"  "158"  "159"  "160"  "161"  "162" 
-##  [163] "163"  "164"  "165"  "166"  "167"  "168"  "169"  "170"  "171" 
-##  [172] "172"  "173"  "174"  "175"  "176"  "177"  "178"  "179"  "180" 
-##  [181] "181"  "182"  "183"  "184"  "185"  "186"  "187"  "188"  "189" 
-##  [190] "190"  "191"  "192"  "193"  "194"  "195"  "196"  "197"  "198" 
-##  [199] "199"  "200"  "201"  "202"  "203"  "204"  "205"  "206"  "207" 
-##  [208] "208"  "209"  "210"  "211"  "212"  "213"  "214"  "215"  "216" 
-##  [217] "217"  "218"  "219"  "220"  "221"  "222"  "223"  "224"  "225" 
-##  [226] "226"  "227"  "228"  "229"  "230"  "231"  "232"  "233"  "234" 
-##  [235] "235"  "236"  "237"  "238"  "239"  "240"  "241"  "242"  "243" 
-##  [244] "244"  "245"  "246"  "247"  "248"  "249"  "250"  "251"  "252" 
-##  [253] "253"  "254"  "255"  "256"  "257"  "258"  "259"  "260"  "261" 
-##  [262] "262"  "263"  "264"  "265"  "266"  "267"  "268"  "269"  "270" 
-##  [271] "271"  "272"  "273"  "274"  "275"  "276"  "277"  "278"  "279" 
-##  [280] "280"  "281"  "282"  "283"  "284"  "285"  "286"  "287"  "288" 
-##  [289] "289"  "290"  "291"  "292"  "293"  "294"  "295"  "296"  "297" 
-##  [298] "298"  "299"  "300"  "301"  "302"  "303"  "304"  "305"  "306" 
-##  [307] "307"  "308"  "309"  "310"  "311"  "312"  "313"  "314"  "315" 
-##  [316] "316"  "317"  "318"  "319"  "320"  "321"  "322"  "323"  "324" 
-##  [325] "325"  "326"  "327"  "328"  "329"  "330"  "331"  "332"  "333" 
-##  [334] "334"  "335"  "336"  "337"  "338"  "339"  "340"  "341"  "342" 
-##  [343] "343"  "344"  "345"  "346"  "347"  "348"  "349"  "350"  "351" 
-##  [352] "352"  "353"  "354"  "355"  "356"  "357"  "358"  "359"  "360" 
-##  [361] "361"  "362"  "363"  "364"  "365"  "366"  "367"  "368"  "369" 
-##  [370] "370"  "371"  "372"  "373"  "374"  "375"  "376"  "377"  "378" 
-##  [379] "379"  "380"  "381"  "382"  "383"  "384"  "385"  "386"  "387" 
-##  [388] "388"  "389"  "390"  "391"  "392"  "393"  "394"  "395"  "396" 
-##  [397] "397"  "398"  "399"  "400"  "401"  "402"  "403"  "404"  "405" 
-##  [406] "406"  "407"  "408"  "409"  "410"  "411"  "412"  "413"  "414" 
-##  [415] "415"  "416"  "417"  "418"  "419"  "420"  "421"  "422"  "423" 
-##  [424] "424"  "425"  "426"  "427"  "428"  "429"  "430"  "431"  "432" 
-##  [433] "433"  "434"  "435"  "436"  "437"  "438"  "439"  "440"  "441" 
-##  [442] "442"  "443"  "444"  "445"  "446"  "447"  "448"  "449"  "450" 
-##  [451] "451"  "452"  "453"  "454"  "455"  "456"  "457"  "458"  "459" 
-##  [460] "460"  "461"  "462"  "463"  "464"  "465"  "466"  "467"  "468" 
-##  [469] "469"  "470"  "471"  "472"  "473"  "474"  "475"  "476"  "477" 
-##  [478] "478"  "479"  "480"  "481"  "482"  "483"  "484"  "485"  "486" 
-##  [487] "487"  "488"  "489"  "490"  "491"  "492"  "493"  "494"  "495" 
-##  [496] "496"  "497"  "498"  "499"  "500"  "501"  "502"  "503"  "504" 
-##  [505] "505"  "506"  "507"  "508"  "509"  "510"  "511"  "512"  "513" 
-##  [514] "514"  "515"  "516"  "517"  "518"  "519"  "520"  "521"  "522" 
-##  [523] "523"  "524"  "525"  "526"  "527"  "528"  "529"  "530"  "531" 
-##  [532] "532"  "533"  "534"  "535"  "536"  "537"  "538"  "539"  "540" 
-##  [541] "541"  "542"  "543"  "544"  "545"  "546"  "547"  "548"  "549" 
-##  [550] "550"  "551"  "552"  "553"  "554"  "555"  "556"  "557"  "558" 
-##  [559] "559"  "560"  "561"  "562"  "563"  "564"  "565"  "566"  "567" 
-##  [568] "568"  "569"  "570"  "571"  "572"  "573"  "574"  "575"  "576" 
-##  [577] "577"  "578"  "579"  "580"  "581"  "582"  "583"  "584"  "585" 
-##  [586] "586"  "587"  "588"  "589"  "590"  "591"  "592"  "593"  "594" 
-##  [595] "595"  "596"  "597"  "598"  "599"  "600"  "601"  "602"  "603" 
-##  [604] "604"  "605"  "606"  "607"  "608"  "609"  "610"  "611"  "612" 
-##  [613] "613"  "614"  "615"  "616"  "617"  "618"  "619"  "620"  "621" 
-##  [622] "622"  "623"  "624"  "625"  "626"  "627"  "628"  "629"  "630" 
-##  [631] "631"  "632"  "633"  "634"  "635"  "636"  "637"  "638"  "639" 
-##  [640] "640"  "641"  "642"  "643"  "644"  "645"  "646"  "647"  "648" 
-##  [649] "649"  "650"  "651"  "652"  "653"  "654"  "655"  "656"  "657" 
-##  [658] "658"  "659"  "660"  "661"  "662"  "663"  "664"  "665"  "666" 
-##  [667] "667"  "668"  "669"  "670"  "671"  "672"  "673"  "674"  "675" 
-##  [676] "676"  "677"  "678"  "679"  "680"  "681"  "682"  "683"  "684" 
-##  [685] "685"  "686"  "687"  "688"  "689"  "690"  "691"  "692"  "693" 
-##  [694] "694"  "695"  "696"  "697"  "698"  "699"  "700"  "701"  "702" 
-##  [703] "703"  "704"  "705"  "706"  "707"  "708"  "709"  "710"  "711" 
-##  [712] "712"  "713"  "714"  "715"  "716"  "717"  "718"  "719"  "720" 
-##  [721] "721"  "722"  "723"  "724"  "725"  "726"  "727"  "728"  "729" 
-##  [730] "730"  "731"  "732"  "733"  "734"  "735"  "736"  "737"  "738" 
-##  [739] "739"  "740"  "741"  "742"  "743"  "744"  "745"  "746"  "747" 
-##  [748] "748"  "749"  "750"  "751"  "752"  "753"  "754"  "755"  "756" 
-##  [757] "757"  "758"  "759"  "760"  "761"  "762"  "763"  "764"  "765" 
-##  [766] "766"  "767"  "768"  "769"  "770"  "771"  "772"  "773"  "774" 
-##  [775] "775"  "776"  "777"  "778"  "779"  "780"  "781"  "782"  "783" 
-##  [784] "784"  "785"  "786"  "787"  "788"  "789"  "790"  "791"  "792" 
-##  [793] "793"  "794"  "795"  "796"  "797"  "798"  "799"  "800"  "801" 
-##  [802] "802"  "803"  "804"  "805"  "806"  "807"  "808"  "809"  "810" 
-##  [811] "811"  "812"  "813"  "814"  "815"  "816"  "817"  "818"  "819" 
-##  [820] "820"  "821"  "822"  "823"  "824"  "825"  "826"  "827"  "828" 
-##  [829] "829"  "830"  "831"  "832"  "833"  "834"  "835"  "836"  "837" 
-##  [838] "838"  "839"  "840"  "841"  "842"  "843"  "844"  "845"  "846" 
-##  [847] "847"  "848"  "849"  "850"  "851"  "852"  "853"  "854"  "855" 
-##  [856] "856"  "857"  "858"  "859"  "860"  "861"  "862"  "863"  "864" 
-##  [865] "865"  "866"  "867"  "868"  "869"  "870"  "871"  "872"  "873" 
-##  [874] "874"  "875"  "876"  "877"  "878"  "879"  "880"  "881"  "882" 
-##  [883] "883"  "884"  "885"  "886"  "887"  "888"  "889"  "890"  "891" 
-##  [892] "892"  "893"  "894"  "895"  "896"  "897"  "898"  "899"  "900" 
-##  [901] "901"  "902"  "903"  "904"  "905"  "906"  "907"  "908"  "909" 
-##  [910] "910"  "911"  "912"  "913"  "914"  "915"  "916"  "917"  "918" 
-##  [919] "919"  "920"  "921"  "922"  "923"  "924"  "925"  "926"  "927" 
-##  [928] "928"  "929"  "930"  "931"  "932"  "933"  "934"  "935"  "936" 
-##  [937] "937"  "938"  "939"  "940"  "941"  "942"  "943"  "944"  "945" 
-##  [946] "946"  "947"  "948"  "949"  "950"  "951"  "952"  "953"  "954" 
-##  [955] "955"  "956"  "957"  "958"  "959"  "960"  "961"  "962"  "963" 
-##  [964] "964"  "965"  "966"  "967"  "968"  "969"  "970"  "971"  "972" 
-##  [973] "973"  "974"  "975"  "976"  "977"  "978"  "979"  "980"  "981" 
-##  [982] "982"  "983"  "984"  "985"  "986"  "987"  "988"  "989"  "990" 
-##  [991] "991"  "992"  "993"  "994"  "995"  "996"  "997"  "998"  "999" 
-## [1000] "1000"
+##    [1] "1"    "2"    "3"    "4"    "5"    "6"    "7"    "8"    "9"    "10"  
+##   [11] "11"   "12"   "13"   "14"   "15"   "16"   "17"   "18"   "19"   "20"  
+##   [21] "21"   "22"   "23"   "24"   "25"   "26"   "27"   "28"   "29"   "30"  
+##   [31] "31"   "32"   "33"   "34"   "35"   "36"   "37"   "38"   "39"   "40"  
+##   [41] "41"   "42"   "43"   "44"   "45"   "46"   "47"   "48"   "49"   "50"  
+##   [51] "51"   "52"   "53"   "54"   "55"   "56"   "57"   "58"   "59"   "60"  
+##   [61] "61"   "62"   "63"   "64"   "65"   "66"   "67"   "68"   "69"   "70"  
+##   [71] "71"   "72"   "73"   "74"   "75"   "76"   "77"   "78"   "79"   "80"  
+##   [81] "81"   "82"   "83"   "84"   "85"   "86"   "87"   "88"   "89"   "90"  
+##   [91] "91"   "92"   "93"   "94"   "95"   "96"   "97"   "98"   "99"   "100" 
+##  [101] "101"  "102"  "103"  "104"  "105"  "106"  "107"  "108"  "109"  "110" 
+##  [111] "111"  "112"  "113"  "114"  "115"  "116"  "117"  "118"  "119"  "120" 
+##  [121] "121"  "122"  "123"  "124"  "125"  "126"  "127"  "128"  "129"  "130" 
+##  [131] "131"  "132"  "133"  "134"  "135"  "136"  "137"  "138"  "139"  "140" 
+##  [141] "141"  "142"  "143"  "144"  "145"  "146"  "147"  "148"  "149"  "150" 
+##  [151] "151"  "152"  "153"  "154"  "155"  "156"  "157"  "158"  "159"  "160" 
+##  [161] "161"  "162"  "163"  "164"  "165"  "166"  "167"  "168"  "169"  "170" 
+##  [171] "171"  "172"  "173"  "174"  "175"  "176"  "177"  "178"  "179"  "180" 
+##  [181] "181"  "182"  "183"  "184"  "185"  "186"  "187"  "188"  "189"  "190" 
+##  [191] "191"  "192"  "193"  "194"  "195"  "196"  "197"  "198"  "199"  "200" 
+##  [201] "201"  "202"  "203"  "204"  "205"  "206"  "207"  "208"  "209"  "210" 
+##  [211] "211"  "212"  "213"  "214"  "215"  "216"  "217"  "218"  "219"  "220" 
+##  [221] "221"  "222"  "223"  "224"  "225"  "226"  "227"  "228"  "229"  "230" 
+##  [231] "231"  "232"  "233"  "234"  "235"  "236"  "237"  "238"  "239"  "240" 
+##  [241] "241"  "242"  "243"  "244"  "245"  "246"  "247"  "248"  "249"  "250" 
+##  [251] "251"  "252"  "253"  "254"  "255"  "256"  "257"  "258"  "259"  "260" 
+##  [261] "261"  "262"  "263"  "264"  "265"  "266"  "267"  "268"  "269"  "270" 
+##  [271] "271"  "272"  "273"  "274"  "275"  "276"  "277"  "278"  "279"  "280" 
+##  [281] "281"  "282"  "283"  "284"  "285"  "286"  "287"  "288"  "289"  "290" 
+##  [291] "291"  "292"  "293"  "294"  "295"  "296"  "297"  "298"  "299"  "300" 
+##  [301] "301"  "302"  "303"  "304"  "305"  "306"  "307"  "308"  "309"  "310" 
+##  [311] "311"  "312"  "313"  "314"  "315"  "316"  "317"  "318"  "319"  "320" 
+##  [321] "321"  "322"  "323"  "324"  "325"  "326"  "327"  "328"  "329"  "330" 
+##  [331] "331"  "332"  "333"  "334"  "335"  "336"  "337"  "338"  "339"  "340" 
+##  [341] "341"  "342"  "343"  "344"  "345"  "346"  "347"  "348"  "349"  "350" 
+##  [351] "351"  "352"  "353"  "354"  "355"  "356"  "357"  "358"  "359"  "360" 
+##  [361] "361"  "362"  "363"  "364"  "365"  "366"  "367"  "368"  "369"  "370" 
+##  [371] "371"  "372"  "373"  "374"  "375"  "376"  "377"  "378"  "379"  "380" 
+##  [381] "381"  "382"  "383"  "384"  "385"  "386"  "387"  "388"  "389"  "390" 
+##  [391] "391"  "392"  "393"  "394"  "395"  "396"  "397"  "398"  "399"  "400" 
+##  [401] "401"  "402"  "403"  "404"  "405"  "406"  "407"  "408"  "409"  "410" 
+##  [411] "411"  "412"  "413"  "414"  "415"  "416"  "417"  "418"  "419"  "420" 
+##  [421] "421"  "422"  "423"  "424"  "425"  "426"  "427"  "428"  "429"  "430" 
+##  [431] "431"  "432"  "433"  "434"  "435"  "436"  "437"  "438"  "439"  "440" 
+##  [441] "441"  "442"  "443"  "444"  "445"  "446"  "447"  "448"  "449"  "450" 
+##  [451] "451"  "452"  "453"  "454"  "455"  "456"  "457"  "458"  "459"  "460" 
+##  [461] "461"  "462"  "463"  "464"  "465"  "466"  "467"  "468"  "469"  "470" 
+##  [471] "471"  "472"  "473"  "474"  "475"  "476"  "477"  "478"  "479"  "480" 
+##  [481] "481"  "482"  "483"  "484"  "485"  "486"  "487"  "488"  "489"  "490" 
+##  [491] "491"  "492"  "493"  "494"  "495"  "496"  "497"  "498"  "499"  "500" 
+##  [501] "501"  "502"  "503"  "504"  "505"  "506"  "507"  "508"  "509"  "510" 
+##  [511] "511"  "512"  "513"  "514"  "515"  "516"  "517"  "518"  "519"  "520" 
+##  [521] "521"  "522"  "523"  "524"  "525"  "526"  "527"  "528"  "529"  "530" 
+##  [531] "531"  "532"  "533"  "534"  "535"  "536"  "537"  "538"  "539"  "540" 
+##  [541] "541"  "542"  "543"  "544"  "545"  "546"  "547"  "548"  "549"  "550" 
+##  [551] "551"  "552"  "553"  "554"  "555"  "556"  "557"  "558"  "559"  "560" 
+##  [561] "561"  "562"  "563"  "564"  "565"  "566"  "567"  "568"  "569"  "570" 
+##  [571] "571"  "572"  "573"  "574"  "575"  "576"  "577"  "578"  "579"  "580" 
+##  [581] "581"  "582"  "583"  "584"  "585"  "586"  "587"  "588"  "589"  "590" 
+##  [591] "591"  "592"  "593"  "594"  "595"  "596"  "597"  "598"  "599"  "600" 
+##  [601] "601"  "602"  "603"  "604"  "605"  "606"  "607"  "608"  "609"  "610" 
+##  [611] "611"  "612"  "613"  "614"  "615"  "616"  "617"  "618"  "619"  "620" 
+##  [621] "621"  "622"  "623"  "624"  "625"  "626"  "627"  "628"  "629"  "630" 
+##  [631] "631"  "632"  "633"  "634"  "635"  "636"  "637"  "638"  "639"  "640" 
+##  [641] "641"  "642"  "643"  "644"  "645"  "646"  "647"  "648"  "649"  "650" 
+##  [651] "651"  "652"  "653"  "654"  "655"  "656"  "657"  "658"  "659"  "660" 
+##  [661] "661"  "662"  "663"  "664"  "665"  "666"  "667"  "668"  "669"  "670" 
+##  [671] "671"  "672"  "673"  "674"  "675"  "676"  "677"  "678"  "679"  "680" 
+##  [681] "681"  "682"  "683"  "684"  "685"  "686"  "687"  "688"  "689"  "690" 
+##  [691] "691"  "692"  "693"  "694"  "695"  "696"  "697"  "698"  "699"  "700" 
+##  [701] "701"  "702"  "703"  "704"  "705"  "706"  "707"  "708"  "709"  "710" 
+##  [711] "711"  "712"  "713"  "714"  "715"  "716"  "717"  "718"  "719"  "720" 
+##  [721] "721"  "722"  "723"  "724"  "725"  "726"  "727"  "728"  "729"  "730" 
+##  [731] "731"  "732"  "733"  "734"  "735"  "736"  "737"  "738"  "739"  "740" 
+##  [741] "741"  "742"  "743"  "744"  "745"  "746"  "747"  "748"  "749"  "750" 
+##  [751] "751"  "752"  "753"  "754"  "755"  "756"  "757"  "758"  "759"  "760" 
+##  [761] "761"  "762"  "763"  "764"  "765"  "766"  "767"  "768"  "769"  "770" 
+##  [771] "771"  "772"  "773"  "774"  "775"  "776"  "777"  "778"  "779"  "780" 
+##  [781] "781"  "782"  "783"  "784"  "785"  "786"  "787"  "788"  "789"  "790" 
+##  [791] "791"  "792"  "793"  "794"  "795"  "796"  "797"  "798"  "799"  "800" 
+##  [801] "801"  "802"  "803"  "804"  "805"  "806"  "807"  "808"  "809"  "810" 
+##  [811] "811"  "812"  "813"  "814"  "815"  "816"  "817"  "818"  "819"  "820" 
+##  [821] "821"  "822"  "823"  "824"  "825"  "826"  "827"  "828"  "829"  "830" 
+##  [831] "831"  "832"  "833"  "834"  "835"  "836"  "837"  "838"  "839"  "840" 
+##  [841] "841"  "842"  "843"  "844"  "845"  "846"  "847"  "848"  "849"  "850" 
+##  [851] "851"  "852"  "853"  "854"  "855"  "856"  "857"  "858"  "859"  "860" 
+##  [861] "861"  "862"  "863"  "864"  "865"  "866"  "867"  "868"  "869"  "870" 
+##  [871] "871"  "872"  "873"  "874"  "875"  "876"  "877"  "878"  "879"  "880" 
+##  [881] "881"  "882"  "883"  "884"  "885"  "886"  "887"  "888"  "889"  "890" 
+##  [891] "891"  "892"  "893"  "894"  "895"  "896"  "897"  "898"  "899"  "900" 
+##  [901] "901"  "902"  "903"  "904"  "905"  "906"  "907"  "908"  "909"  "910" 
+##  [911] "911"  "912"  "913"  "914"  "915"  "916"  "917"  "918"  "919"  "920" 
+##  [921] "921"  "922"  "923"  "924"  "925"  "926"  "927"  "928"  "929"  "930" 
+##  [931] "931"  "932"  "933"  "934"  "935"  "936"  "937"  "938"  "939"  "940" 
+##  [941] "941"  "942"  "943"  "944"  "945"  "946"  "947"  "948"  "949"  "950" 
+##  [951] "951"  "952"  "953"  "954"  "955"  "956"  "957"  "958"  "959"  "960" 
+##  [961] "961"  "962"  "963"  "964"  "965"  "966"  "967"  "968"  "969"  "970" 
+##  [971] "971"  "972"  "973"  "974"  "975"  "976"  "977"  "978"  "979"  "980" 
+##  [981] "981"  "982"  "983"  "984"  "985"  "986"  "987"  "988"  "989"  "990" 
+##  [991] "991"  "992"  "993"  "994"  "995"  "996"  "997"  "998"  "999"  "1000"
 \end{verbatim}
 
 \begin{Shaded}
@@ -3726,6 +3877,5 @@ In the following, I will try to add the random effect.
 \end{verbatim}
 
 \bibliography{book.bib,packages.bib}
-
 
 \end{document}

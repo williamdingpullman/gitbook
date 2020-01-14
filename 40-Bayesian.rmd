@@ -198,5 +198,30 @@ To determine the prior of $\alpha$ and $\beta$:
 
 (1) As we know, beta prior lead the Bernoulli trial to a beta posterior. That is, we know $f(\theta|y)=\frac{f(y|\theta) f(\theta)}{f(y)}$. What is the prior predictive distribution of $f(y)$?
 
-(2) If Beta(3,3,), what is the prior predictive probablity that we wil observe $y=0$ in the next trial?
+(2) If Beta is Beta (3,3), what is the prior predictive probablity that we wil observe $y=0$ in the next trial?
 
+## Exponential data
+
+For instance, suppose that on average you need to wait for 10 minutes for a fast food delivery, and thus we can assume that $y \sim Exp(\lambda)$. Furthermore, we assume that the prior $\lambda$ follows Gamma distribution $Gamma(\alpha, \beta)$, thus it is with a mean of $\frac{\alpha}{\beta}=\frac{1}{10}$. 
+
+$$if \; \; \Gamma (100, 1000)$$
+(Note that, it has a mean of $\frac{100}{1000}=\frac{1}{10}$).
+
+
+Thus, we can get:
+
+$$\begin{aligned} f(\lambda | y) &\propto f(y|\lambda) f(\lambda) \\ &\propto \lambda e^{-\lambda y} \lambda^{\alpha-1}e^{-\beta \lambda} \\ &\propto \lambda^{(\alpha+1)-1} e^{-(\beta+y)\lambda } \end{aligned}$$
+Thus, we get 
+
+$$\lambda |y \sim \Gamma (\alpha+1,\beta+y)$$
+Thus, if we observe a data point that we need to wait for 12 minutes for a fast food delivery, we can update the posterior:
+
+$$\lambda |y \sim \Gamma (101,1012)$$
+Thus, the mean for the posterior is 
+
+$$\frac{101}{1012}=\frac{1}{10.02}$$
+
+__Note:__
+(1) Typically, we know that the pdf of Gamma is $\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}$. We replace $x$ with $\lambda$ since now the random variable of $x$ is to represent the parameter $\lambda$ in the exponential distribution.
+
+(2) In the above, we drop the constant part ($\frac{\beta^{\alpha}}{\Gamma(\alpha)}$) in the Gamma distribution as long as it does not include $x$ (i.e., $\lambda$).
