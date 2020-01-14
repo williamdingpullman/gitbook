@@ -222,6 +222,17 @@ Thus, the mean for the posterior is
 $$\frac{101}{1012}=\frac{1}{10.02}$$
 
 __Note:__
+
+
 (1) Typically, we know that the pdf of Gamma is $\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}$. We replace $x$ with $\lambda$ since now the random variable of $x$ is to represent the parameter $\lambda$ in the exponential distribution.
 
+
 (2) In the above, we drop the constant part ($\frac{\beta^{\alpha}}{\Gamma(\alpha)}$) in the Gamma distribution as long as it does not include $x$ (i.e., $\lambda$).
+
+
+(3) Suppose that you have 4 observations in total, then 
+
+$$\begin{aligned} f(\lambda | y) &\propto f(y_1|\lambda)f(y_2|\lambda)f(y_3|\lambda)f(y_4|\lambda)    f(\lambda) \\ &\propto \lambda e^{-\lambda y_1} \lambda e^{-\lambda y_2}\lambda e^{-\lambda y_3} \lambda e^{-\lambda y_4}   \lambda^{\alpha-1}e^{-\beta \lambda} \\ &\propto \lambda^{(\alpha+4)-1} e^{-(\beta+\sum_{i=1}^4 y_i)\lambda } \end{aligned}$$
+Thus, the generalized form is as follows:
+
+$$\lambda^{(\alpha+n)-1} e^{-(\beta+\sum_{i=1}^n y_i)\lambda }$$

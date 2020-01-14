@@ -356,10 +356,14 @@ x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv
 <p><span class="math display">\[\lambda |y \sim \Gamma (\alpha+1,\beta+y)\]</span> Thus, if we observe a data point that we need to wait for 12 minutes for a fast food delivery, we can update the posterior:</p>
 <p><span class="math display">\[\lambda |y \sim \Gamma (101,1012)\]</span> Thus, the mean for the posterior is</p>
 <p><span class="math display">\[\frac{101}{1012}=\frac{1}{10.02}\]</span></p>
-<p><strong>Note:</strong> (1) Typically, we know that the pdf of Gamma is <span class="math inline">\(\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\)</span>. We replace <span class="math inline">\(x\)</span> with <span class="math inline">\(\lambda\)</span> since now the random variable of <span class="math inline">\(x\)</span> is to represent the parameter <span class="math inline">\(\lambda\)</span> in the exponential distribution.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>In the above, we drop the constant part (<span class="math inline">\(\frac{\beta^{\alpha}}{\Gamma(\alpha)}\)</span>) in the Gamma distribution as long as it does not include <span class="math inline">\(x\)</span> (i.e., <span class="math inline">\(\lambda\)</span>).</li>
+<p><strong>Note:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Typically, we know that the pdf of Gamma is <span class="math inline">\(\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\)</span>. We replace <span class="math inline">\(x\)</span> with <span class="math inline">\(\lambda\)</span> since now the random variable of <span class="math inline">\(x\)</span> is to represent the parameter <span class="math inline">\(\lambda\)</span> in the exponential distribution.</p></li>
+<li><p>In the above, we drop the constant part (<span class="math inline">\(\frac{\beta^{\alpha}}{\Gamma(\alpha)}\)</span>) in the Gamma distribution as long as it does not include <span class="math inline">\(x\)</span> (i.e., <span class="math inline">\(\lambda\)</span>).</p></li>
+<li><p>Suppose that you have 4 observations in total, then</p></li>
 </ol>
+<p><span class="math display">\[\begin{aligned} f(\lambda | y) &amp;\propto f(y_1|\lambda)f(y_2|\lambda)f(y_3|\lambda)f(y_4|\lambda)    f(\lambda) \\ &amp;\propto \lambda e^{-\lambda y_1} \lambda e^{-\lambda y_2}\lambda e^{-\lambda y_3} \lambda e^{-\lambda y_4}   \lambda^{\alpha-1}e^{-\beta \lambda} \\ &amp;\propto \lambda^{(\alpha+4)-1} e^{-(\beta+\sum_{i=1}^4 y_i)\lambda } \end{aligned}\]</span> Thus, the generalized form is as follows:</p>
+<p><span class="math display">\[\lambda^{(\alpha+n)-1} e^{-(\beta+\sum_{i=1}^n y_i)\lambda }\]</span></p>
 
 </div>
 </div>
