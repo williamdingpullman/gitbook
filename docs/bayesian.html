@@ -199,6 +199,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="11.4" data-path="bayesian.html"><a href="bayesian.html#bernoullibinomial-likelihood-with-uniform-prior"><i class="fa fa-check"></i><b>11.4</b> Bernoulli/binomial likelihood with uniform prior</a></li>
 <li class="chapter" data-level="11.5" data-path="bayesian.html"><a href="bayesian.html#conjugate-priors"><i class="fa fa-check"></i><b>11.5</b> Conjugate priors</a></li>
+<li class="chapter" data-level="11.6" data-path="bayesian.html"><a href="bayesian.html#poisson-distribution"><i class="fa fa-check"></i><b>11.6</b> Poisson distribution</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
 <li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>12.1</b> The Basic Idea</a></li>
@@ -314,6 +315,32 @@ x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv
 <span class="kw">hist</span>(x2,<span class="dt">prob =</span> <span class="ot">TRUE</span>)
 <span class="kw">lines</span>(<span class="kw">density</span>(x2))</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
+</div>
+<div id="poisson-distribution" class="section level2">
+<h2><span class="header-section-number">11.6</span> Poisson distribution</h2>
+<p>Pmf of Poisson distribution:</p>
+<p><span class="math display">\[Pois (\lambda) \sim \frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
+<p>We can replace <span class="math inline">\(k\)</span> with the notation of <span class="math inline">\(y\)</span>, and assume that we observe <span class="math inline">\(n\)</span> <span class="math inline">\(y_i\)</span>: <span class="math display">\[y_i \sim \frac{\lambda^{y_i} e^{-\lambda}}{y_i!}\]</span></p>
+<p><span class="math display">\[f(y|\lambda)=\frac{\lambda^{\sum y_i} e^{- n \lambda}}{\prod_{i=1}^n y_i !}\]</span></p>
+<p>We assume that <span class="math inline">\(\lambda\)</span> follows Gamma distribution (i.e.,Gamma prior):</p>
+<p><span class="math display">\[\lambda \sim \Gamma(\alpha, \beta)\]</span> The pdf for Gamma distribution is:</p>
+<p><span class="math display">\[\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\]</span></p>
+<p>Thus, the posterior is as follows:</p>
+<p><span class="math display">\[\begin{aligned} f(\lambda | y) &amp;\propto f(y|\lambda)f(\lambda) \\ &amp;=\frac{\lambda^{\sum y_i} e^{- n \lambda}}{\prod_{i=1}^n y_i !} \times \frac{\beta^{\alpha}}{\Gamma(\alpha)}\lambda^{\alpha-1}e^{-\beta \lambda} \\ &amp;\propto \lambda^{\sum y_i}e^{- n \lambda} \times \lambda^{\alpha-1}e^{-\beta \lambda} \\ &amp;=\lambda^{(\alpha+\sum y_i)-1}e^{- (\beta+n) \lambda} \end{aligned}\]</span> Thus, the posterior is:</p>
+<p><span class="math display">\[\Gamma(\alpha + \sum y_i, \beta+n)\]</span></p>
+<p>As we know that, the mean of prior for Gamma is <span class="math inline">\(\frac{\alpha}{\beta}\)</span>. Thus, we can get the mean for the posterior for Gamma is:</p>
+<p><span class="math display">\[\begin{aligned} &amp;=\frac{\alpha+\sum y_i}{\beta+n} \\ &amp;= \frac{\beta}{\beta+n} \frac{\alpha}{\beta}+\frac{n}{\beta+n} \frac{\sum y_i}{n} \end{aligned}\]</span> To determine the prior of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Prior mean <span class="math inline">\(\frac{\alpha}{\beta}\)</span></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Prior std. dev. <span class="math inline">\(\frac{\sqrt \alpha}{\beta}\)</span></li>
+<li>Effective sample size <span class="math inline">\(\beta\)</span></li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>Vague prior Small <span class="math inline">\(\varepsilon &gt;0\)</span>: <span class="math inline">\(\Gamma (\varepsilon,\varepsilon)\)</span> . Thus, the posterior mean is primarily driven by the data:</li>
+</ol>
+<p><span class="math display">\[\frac{\varepsilon + \sum y_i}{\varepsilon + n} \approx \frac{ \sum y_i}{n} \]</span></p>
 
 </div>
 </div>

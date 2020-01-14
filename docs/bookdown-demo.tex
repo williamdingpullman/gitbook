@@ -3397,6 +3397,68 @@ Beta distribution:
 
 \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-36-2.pdf}
 
+\section{Poisson distribution}\label{poisson-distribution}
+
+Pmf of Poisson distribution:
+
+\[Pois (\lambda) \sim \frac{\lambda^k e^{-\lambda}}{k!}\]
+
+We can replace \(k\) with the notation of \(y\), and assume that we
+observe \(n\) \(y_i\):
+\[y_i \sim \frac{\lambda^{y_i} e^{-\lambda}}{y_i!}\]
+
+\[f(y|\lambda)=\frac{\lambda^{\sum y_i} e^{- n \lambda}}{\prod_{i=1}^n y_i !}\]
+
+We assume that \(\lambda\) follows Gamma distribution (i.e.,Gamma
+prior):
+
+\[\lambda \sim \Gamma(\alpha, \beta)\] The pdf for Gamma distribution
+is:
+
+\[\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\]
+
+Thus, the posterior is as follows:
+
+\[\begin{aligned} f(\lambda | y) &\propto f(y|\lambda)f(\lambda) \\ &=\frac{\lambda^{\sum y_i} e^{- n \lambda}}{\prod_{i=1}^n y_i !} \times \frac{\beta^{\alpha}}{\Gamma(\alpha)}\lambda^{\alpha-1}e^{-\beta \lambda} \\ &\propto \lambda^{\sum y_i}e^{- n \lambda} \times \lambda^{\alpha-1}e^{-\beta \lambda} \\ &=\lambda^{(\alpha+\sum y_i)-1}e^{- (\beta+n) \lambda} \end{aligned}\]
+Thus, the posterior is:
+
+\[\Gamma(\alpha + \sum y_i, \beta+n)\]
+
+As we know that, the mean of prior for Gamma is
+\(\frac{\alpha}{\beta}\). Thus, we can get the mean for the posterior
+for Gamma is:
+
+\[\begin{aligned} &=\frac{\alpha+\sum y_i}{\beta+n} \\ &= \frac{\beta}{\beta+n} \frac{\alpha}{\beta}+\frac{n}{\beta+n} \frac{\sum y_i}{n} \end{aligned}\]
+To determine the prior of \(\alpha\) and \(\beta\):
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  Prior mean \(\frac{\alpha}{\beta}\)
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Prior std. dev. \(\frac{\sqrt \alpha}{\beta}\)
+\item
+  Effective sample size \(\beta\)
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Vague prior Small \(\varepsilon >0\):
+  \(\Gamma (\varepsilon,\varepsilon)\) . Thus, the posterior mean is
+  primarily driven by the data:
+\end{enumerate}
+
+\[\frac{\varepsilon + \sum y_i}{\varepsilon + n} \approx \frac{ \sum y_i}{n} \]
+
 \chapter{Trying}\label{trying}
 
 \section{The Basic Idea}\label{the-basic-idea}
