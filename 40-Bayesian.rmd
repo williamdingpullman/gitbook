@@ -195,3 +195,8 @@ To determine the prior of $\alpha$ and $\beta$:
   Small $\varepsilon >0$: $\Gamma (\varepsilon,\varepsilon)$ . Thus, the posterior mean is primarily driven by the data:
   
   $$\frac{\varepsilon + \sum y_i}{\varepsilon + n} \approx \frac{ \sum y_i}{n} $$
+
+(1) As we know, beta prior lead the Bernoulli trial to a beta posterior. That is, we know $f(\theta|y)=\frac{f(y|\theta) f(\theta)}{f(y)}$. What is the prior predictive distribution of $f(y)$?
+
+(2) If Beta(3,3,), what is the prior predictive probablity that we wil observe $y=0$ in the next trial?
+

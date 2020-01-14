@@ -52,41 +52,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -233,89 +258,92 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">8.1</span> Model</h2>
 <p>Suppose that a Twitter user is presented with a choice between following or not following another target <span class="math inline">\(j \in \{ 1, ..., m\}\)</span>. Let <span class="math inline">\(y_{j}=1\)</span> if the user decides to follow <span class="math inline">\(j\)</span>, and <span class="math inline">\(y_{j}=0\)</span> otherwise.</p>
 <p><span class="math display">\[y_{j}=\begin{cases} 1 &amp; Following \\ 0 &amp; Not Following \end{cases}\]</span></p>
-<p><span class="math display">\[p(y_{j}=1|\theta) = \frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)}\]</span> We additionally know the priors of <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[p(y_{j}=1|\theta) = \frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)}\]</span>
+We additionally know the priors of <span class="math inline">\(\theta\)</span>.</p>
 <p><span class="math display">\[\theta_i \sim N(0,10^2) (i = 0, 1)\]</span></p>
 <p>The likelihood function is as follows.</p>
-<p><span class="math display">\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]</span> Thus, the posterior is as follows.</p>
-<p><span class="math display">\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]</span> <span class="math display">\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Establish the function for logistic regression</span>
-Expit&lt;-<span class="cf">function</span>(x){<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))}
-
-<span class="co">#Construct the posterior - in a log-format</span>
-<span class="co">#To make sure that the estimate of theta_1 is stable, </span>
-<span class="co">#the following code wants to make sure that theta_0 is always greater than zero.</span>
-
-log_post&lt;-<span class="cf">function</span>(Y, X, theta)
-  {
-  <span class="cf">if</span>(theta[<span class="dv">1</span>]<span class="op">&lt;=</span><span class="dv">0</span>){post=<span class="op">-</span><span class="ot">Inf</span>}
-  <span class="cf">if</span>(theta[<span class="dv">1</span>]<span class="op">&gt;</span><span class="dv">0</span>){
-  prob1&lt;-<span class="kw">Expit</span>(<span class="op">-</span>theta[<span class="dv">1</span>]<span class="op">*</span>((theta[<span class="dv">2</span>]<span class="op">-</span>X)<span class="op">^</span><span class="dv">2</span>))
-  likelihood&lt;-<span class="kw">sum</span>(<span class="kw">dbinom</span>(Y,<span class="dv">1</span>,prob1,<span class="dt">log =</span> <span class="ot">TRUE</span>))
-  priors&lt;-<span class="kw">sum</span>(<span class="kw">dnorm</span>(theta,<span class="dv">0</span>,<span class="dv">10</span>,<span class="dt">log=</span><span class="ot">TRUE</span>))
-  post=likelihood<span class="op">+</span>priors}
-  <span class="kw">return</span>(post)
-   }
-
-Bayes_logit&lt;-<span class="cf">function</span> (Y,X,<span class="dt">n_samples=</span><span class="dv">2000</span>)
-{
-<span class="co">#Initial values</span>
-  theta&lt;-<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">5</span>)
-<span class="co">#store data</span>
-  keep.theta&lt;-<span class="kw">matrix</span>(<span class="dv">0</span>,n_samples,<span class="dv">2</span>)
-  keep.theta[<span class="dv">1</span>,]&lt;-theta
-  
-<span class="co">#acceptance and rejection  </span>
-  acc&lt;-att&lt;-<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">2</span>)
-<span class="co">#current log posterior</span>
-  current_lp&lt;-<span class="kw">log_post</span>(Y,X,theta)
-
-  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>n_samples)  
-  {
-    
-    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)
-    {
-      <span class="co">#attempt + 1</span>
-      att[j]&lt;-att[j]<span class="op">+</span><span class="dv">1</span>
-      can_theta&lt;-theta
-      can_theta[j]&lt;-<span class="kw">rnorm</span>(<span class="dv">1</span>,theta[j],<span class="fl">0.5</span>)
-      <span class="co">#candidate of log posterior</span>
-      candidate_lp&lt;-<span class="kw">log_post</span>(Y,X,can_theta)
-      Rho&lt;-<span class="kw">min</span>(<span class="kw">exp</span>(candidate_lp<span class="op">-</span>current_lp),<span class="dv">1</span>)
-      Random_probability&lt;-<span class="kw">runif</span>(<span class="dv">1</span>)
-      <span class="cf">if</span> (Random_probability<span class="op">&lt;</span>Rho)
-      {
-        theta&lt;-can_theta
-        current_lp&lt;-candidate_lp
-        <span class="co">#acceptance + 1, as long as Random_probability&lt;Rho</span>
-        acc[j]&lt;-acc[j]<span class="op">+</span><span class="dv">1</span>
-      }
-    }
-    <span class="co">#save theta</span>
-    keep.theta[i,]&lt;-theta
-  }
-<span class="co">#Return: including theta and acceptance rate</span>
-  <span class="kw">list</span>(<span class="dt">theta=</span>keep.theta,<span class="dt">acceptance_rate=</span>acc<span class="op">/</span>att)
-}</code></pre></div>
+<p><span class="math display">\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]</span>
+Thus, the posterior is as follows.</p>
+<p><span class="math display">\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]</span>
+<span class="math display">\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]</span></p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1"><span class="co">#Establish the function for logistic regression</span></a>
+<a class="sourceLine" id="cb105-2" title="2">Expit&lt;-<span class="cf">function</span>(x){<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))}</a>
+<a class="sourceLine" id="cb105-3" title="3"></a>
+<a class="sourceLine" id="cb105-4" title="4"><span class="co">#Construct the posterior - in a log-format</span></a>
+<a class="sourceLine" id="cb105-5" title="5"><span class="co">#To make sure that the estimate of theta_1 is stable, </span></a>
+<a class="sourceLine" id="cb105-6" title="6"><span class="co">#the following code wants to make sure that theta_0 is always greater than zero.</span></a>
+<a class="sourceLine" id="cb105-7" title="7"></a>
+<a class="sourceLine" id="cb105-8" title="8">log_post&lt;-<span class="cf">function</span>(Y, X, theta)</a>
+<a class="sourceLine" id="cb105-9" title="9">  {</a>
+<a class="sourceLine" id="cb105-10" title="10">  <span class="cf">if</span>(theta[<span class="dv">1</span>]<span class="op">&lt;=</span><span class="dv">0</span>){post=<span class="op">-</span><span class="ot">Inf</span>}</a>
+<a class="sourceLine" id="cb105-11" title="11">  <span class="cf">if</span>(theta[<span class="dv">1</span>]<span class="op">&gt;</span><span class="dv">0</span>){</a>
+<a class="sourceLine" id="cb105-12" title="12">  prob1&lt;-<span class="kw">Expit</span>(<span class="op">-</span>theta[<span class="dv">1</span>]<span class="op">*</span>((theta[<span class="dv">2</span>]<span class="op">-</span>X)<span class="op">^</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb105-13" title="13">  likelihood&lt;-<span class="kw">sum</span>(<span class="kw">dbinom</span>(Y,<span class="dv">1</span>,prob1,<span class="dt">log =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb105-14" title="14">  priors&lt;-<span class="kw">sum</span>(<span class="kw">dnorm</span>(theta,<span class="dv">0</span>,<span class="dv">10</span>,<span class="dt">log=</span><span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb105-15" title="15">  post=likelihood<span class="op">+</span>priors}</a>
+<a class="sourceLine" id="cb105-16" title="16">  <span class="kw">return</span>(post)</a>
+<a class="sourceLine" id="cb105-17" title="17">   }</a>
+<a class="sourceLine" id="cb105-18" title="18"></a>
+<a class="sourceLine" id="cb105-19" title="19">Bayes_logit&lt;-<span class="cf">function</span> (Y,X,<span class="dt">n_samples=</span><span class="dv">2000</span>)</a>
+<a class="sourceLine" id="cb105-20" title="20">{</a>
+<a class="sourceLine" id="cb105-21" title="21"><span class="co">#Initial values</span></a>
+<a class="sourceLine" id="cb105-22" title="22">  theta&lt;-<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb105-23" title="23"><span class="co">#store data</span></a>
+<a class="sourceLine" id="cb105-24" title="24">  keep.theta&lt;-<span class="kw">matrix</span>(<span class="dv">0</span>,n_samples,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb105-25" title="25">  keep.theta[<span class="dv">1</span>,]&lt;-theta</a>
+<a class="sourceLine" id="cb105-26" title="26">  </a>
+<a class="sourceLine" id="cb105-27" title="27"><span class="co">#acceptance and rejection  </span></a>
+<a class="sourceLine" id="cb105-28" title="28">  acc&lt;-att&lt;-<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb105-29" title="29"><span class="co">#current log posterior</span></a>
+<a class="sourceLine" id="cb105-30" title="30">  current_lp&lt;-<span class="kw">log_post</span>(Y,X,theta)</a>
+<a class="sourceLine" id="cb105-31" title="31"></a>
+<a class="sourceLine" id="cb105-32" title="32">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>n_samples)  </a>
+<a class="sourceLine" id="cb105-33" title="33">  {</a>
+<a class="sourceLine" id="cb105-34" title="34">    </a>
+<a class="sourceLine" id="cb105-35" title="35">    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb105-36" title="36">    {</a>
+<a class="sourceLine" id="cb105-37" title="37">      <span class="co">#attempt + 1</span></a>
+<a class="sourceLine" id="cb105-38" title="38">      att[j]&lt;-att[j]<span class="op">+</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb105-39" title="39">      can_theta&lt;-theta</a>
+<a class="sourceLine" id="cb105-40" title="40">      can_theta[j]&lt;-<span class="kw">rnorm</span>(<span class="dv">1</span>,theta[j],<span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb105-41" title="41">      <span class="co">#candidate of log posterior</span></a>
+<a class="sourceLine" id="cb105-42" title="42">      candidate_lp&lt;-<span class="kw">log_post</span>(Y,X,can_theta)</a>
+<a class="sourceLine" id="cb105-43" title="43">      Rho&lt;-<span class="kw">min</span>(<span class="kw">exp</span>(candidate_lp<span class="op">-</span>current_lp),<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb105-44" title="44">      Random_probability&lt;-<span class="kw">runif</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb105-45" title="45">      <span class="cf">if</span> (Random_probability<span class="op">&lt;</span>Rho)</a>
+<a class="sourceLine" id="cb105-46" title="46">      {</a>
+<a class="sourceLine" id="cb105-47" title="47">        theta&lt;-can_theta</a>
+<a class="sourceLine" id="cb105-48" title="48">        current_lp&lt;-candidate_lp</a>
+<a class="sourceLine" id="cb105-49" title="49">        <span class="co">#acceptance + 1, as long as Random_probability&lt;Rho</span></a>
+<a class="sourceLine" id="cb105-50" title="50">        acc[j]&lt;-acc[j]<span class="op">+</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb105-51" title="51">      }</a>
+<a class="sourceLine" id="cb105-52" title="52">    }</a>
+<a class="sourceLine" id="cb105-53" title="53">    <span class="co">#save theta</span></a>
+<a class="sourceLine" id="cb105-54" title="54">    keep.theta[i,]&lt;-theta</a>
+<a class="sourceLine" id="cb105-55" title="55">  }</a>
+<a class="sourceLine" id="cb105-56" title="56"><span class="co">#Return: including theta and acceptance rate</span></a>
+<a class="sourceLine" id="cb105-57" title="57">  <span class="kw">list</span>(<span class="dt">theta=</span>keep.theta,<span class="dt">acceptance_rate=</span>acc<span class="op">/</span>att)</a>
+<a class="sourceLine" id="cb105-58" title="58">}</a></code></pre></div>
 </div>
 <div id="simulating-data-of-senators-on-twitter" class="section level2">
 <h2><span class="header-section-number">8.2</span> Simulating Data of Senators on Twitter</h2>
 <p>Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know their ideology. Assume that Democrats have negative ideology scores to indicate that they are more liberal, whereas Republicans have positive scores to indicate that they are more conservative. The following is data simulation for senators.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Republicans are more conservative, and they have positive numbers.</span>
-Republicans&lt;-<span class="kw">c</span>()
-Republicans&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="dv">1</span>,<span class="fl">0.5</span>)
-No_Republicans&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,<span class="dv">1</span>)
-Part_<span class="dv">1</span>&lt;-<span class="kw">cbind</span>(No_Republicans,Republicans)
-
-<span class="co"># Democrats are more liberal, and they have negative numbers.</span>
-Democrats&lt;-<span class="kw">c</span>()
-Democrats&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="op">-</span><span class="dv">1</span>,<span class="fl">0.5</span>)
-No_Democrats&lt;-<span class="kw">rep</span>(<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">1</span>)
-Part_<span class="dv">2</span>&lt;-<span class="kw">cbind</span>(No_Democrats,Democrats)
-Data_Elites&lt;-<span class="kw">rbind</span>(Part_<span class="dv">1</span>,Part_<span class="dv">2</span>)
-Data_Elites&lt;-<span class="kw">as.data.frame</span>(Data_Elites)
-<span class="kw">colnames</span>(Data_Elites) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Elite_No&quot;</span>,<span class="st">&quot;Elite_ideology&quot;</span>)
-
-<span class="kw">head</span>(Data_Elites)</code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1"><span class="co"># Republicans are more conservative, and they have positive numbers.</span></a>
+<a class="sourceLine" id="cb106-2" title="2">Republicans&lt;-<span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb106-3" title="3">Republicans&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="dv">1</span>,<span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb106-4" title="4">No_Republicans&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb106-5" title="5">Part_<span class="dv">1</span>&lt;-<span class="kw">cbind</span>(No_Republicans,Republicans)</a>
+<a class="sourceLine" id="cb106-6" title="6"></a>
+<a class="sourceLine" id="cb106-7" title="7"><span class="co"># Democrats are more liberal, and they have negative numbers.</span></a>
+<a class="sourceLine" id="cb106-8" title="8">Democrats&lt;-<span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb106-9" title="9">Democrats&lt;-<span class="kw">rnorm</span>(<span class="dv">50</span>,<span class="op">-</span><span class="dv">1</span>,<span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb106-10" title="10">No_Democrats&lt;-<span class="kw">rep</span>(<span class="dv">51</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb106-11" title="11">Part_<span class="dv">2</span>&lt;-<span class="kw">cbind</span>(No_Democrats,Democrats)</a>
+<a class="sourceLine" id="cb106-12" title="12">Data_Elites&lt;-<span class="kw">rbind</span>(Part_<span class="dv">1</span>,Part_<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb106-13" title="13">Data_Elites&lt;-<span class="kw">as.data.frame</span>(Data_Elites)</a>
+<a class="sourceLine" id="cb106-14" title="14"><span class="kw">colnames</span>(Data_Elites) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Elite_No&quot;</span>,<span class="st">&quot;Elite_ideology&quot;</span>)</a>
+<a class="sourceLine" id="cb106-15" title="15"></a>
+<a class="sourceLine" id="cb106-16" title="16"><span class="kw">head</span>(Data_Elites)</a></code></pre></div>
 <pre><code>##   Elite_No Elite_ideology
 ## 1        1      1.0541992
 ## 2        2      0.3805544
@@ -327,50 +355,50 @@ Data_Elites&lt;-<span class="kw">as.data.frame</span>(Data_Elites)
 <div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
 <h2><span class="header-section-number">8.3</span> Simulating Data of Conservative Users on Twitter and Model Testing</h2>
 <p>Assume that we observe one Twitter user, who is more conservative. To simulate Twitter following data for this user, I assign this user to follow more Republican senators. Thus, if the Metropolis Hastings algorithm works as intended, we would expect to see a positive estimated value for their ideology. Importantly, as we can see in the histogram below, the estimated value indeed is positive, providing preliminary evidence for the statistical model and the algorithm. In addition, for the acceptance rate, we can see that the constant has a lower number than ideology, since we only accept a constant when it is positive.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This user approximately follows 45 Republican Senators and 10 Democrat Senators. </span>
-Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)
-<span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;R_User&quot;</span>)
-Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)
-
-X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology
-Y_data&lt;-Data_combined<span class="op">$</span>R_User
-
-fit_C&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
-fit_C<span class="op">$</span>acceptance_rate</code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1"><span class="co">#This user approximately follows 45 Republican Senators and 10 Democrat Senators. </span></a>
+<a class="sourceLine" id="cb108-2" title="2">Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb108-3" title="3"><span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;R_User&quot;</span>)</a>
+<a class="sourceLine" id="cb108-4" title="4">Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)</a>
+<a class="sourceLine" id="cb108-5" title="5"></a>
+<a class="sourceLine" id="cb108-6" title="6">X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology</a>
+<a class="sourceLine" id="cb108-7" title="7">Y_data&lt;-Data_combined<span class="op">$</span>R_User</a>
+<a class="sourceLine" id="cb108-8" title="8"></a>
+<a class="sourceLine" id="cb108-9" title="9">fit_C&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)</a>
+<a class="sourceLine" id="cb108-10" title="10">fit_C<span class="op">$</span>acceptance_rate</a></code></pre></div>
 <pre><code>## [1] 0.1320660 0.5557779</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Conservative Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Conservative Users)&quot;</span>,</a>
+<a class="sourceLine" id="cb110-2" title="2">     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1"><span class="kw">plot</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,</a>
+<a class="sourceLine" id="cb111-2" title="2">     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1"><span class="kw">hist</span>(fit_C<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Conservative Users)&quot;</span>,</a>
+<a class="sourceLine" id="cb112-2" title="2">     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</a></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-3.png" width="672" /></p>
 </div>
 <div id="simulating-data-of-liberal-users-on-twitter-and-model-testing" class="section level2">
 <h2><span class="header-section-number">8.4</span> Simulating Data of Liberal Users on Twitter and Model Testing</h2>
 <p>To further verify the Metropolis Hastings algorithm, I plan to test the opposite estimate. Specifically, assume that we observe another user, who is more liberal. To simulate Twitter following data for this user, I assign this user to follow more Democrat senators. In this case, we would expect to see a negative value for their estimated ideology. As we can see in the histogram shown below, as expected, the estimated value is negative, providing convergent evidence for the model and the algorithm.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#This user approximately follows 10 Republican Senators and 45 Democrat Senators. </span>
-Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)
-<span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;L_User&quot;</span>)
-Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)
-
-X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology
-Y_data&lt;-Data_combined<span class="op">$</span>L_User
-
-
-fit_L&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)
-fit_L<span class="op">$</span>acceptance_rate</code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1"><span class="co">#This user approximately follows 10 Republican Senators and 45 Democrat Senators. </span></a>
+<a class="sourceLine" id="cb113-2" title="2">Data_user&lt;-<span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">8</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">ifelse</span>(<span class="kw">runif</span>(<span class="dv">50</span>)<span class="op">&lt;</span>.<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))), <span class="dv">100</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb113-3" title="3"><span class="kw">colnames</span>(Data_user)&lt;-<span class="kw">c</span>(<span class="st">&quot;L_User&quot;</span>)</a>
+<a class="sourceLine" id="cb113-4" title="4">Data_combined&lt;-<span class="kw">cbind</span>(Data_Elites,Data_user)</a>
+<a class="sourceLine" id="cb113-5" title="5"></a>
+<a class="sourceLine" id="cb113-6" title="6">X_data&lt;-Data_combined<span class="op">$</span>Elite_ideology</a>
+<a class="sourceLine" id="cb113-7" title="7">Y_data&lt;-Data_combined<span class="op">$</span>L_User</a>
+<a class="sourceLine" id="cb113-8" title="8"></a>
+<a class="sourceLine" id="cb113-9" title="9"></a>
+<a class="sourceLine" id="cb113-10" title="10">fit_L&lt;-<span class="kw">Bayes_logit</span>(Y_data,X_data)</a>
+<a class="sourceLine" id="cb113-11" title="11">fit_L<span class="op">$</span>acceptance_rate</a></code></pre></div>
 <pre><code>## [1] 0.1585793 0.5092546</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Liberal Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Constant (Liberal Users)&quot;</span>,</a>
+<a class="sourceLine" id="cb115-2" title="2">     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Estimated Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1"><span class="kw">plot</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,</a>
+<a class="sourceLine" id="cb116-2" title="2">     <span class="dt">xlab=</span><span class="st">&quot;Iteration Process&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,
-     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1"><span class="kw">hist</span>(fit_L<span class="op">$</span>theta[,<span class="dv">2</span>],<span class="dt">main=</span><span class="st">&quot;Estimated Ideology Scores (Liberal Users)&quot;</span>,</a>
+<a class="sourceLine" id="cb117-2" title="2">     <span class="dt">xlab=</span><span class="st">&quot;Ideology Scores&quot;</span>,<span class="dt">breaks =</span> <span class="dv">100</span>)</a></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-3.png" width="672" /></p>
 
 </div>
@@ -436,7 +464,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

@@ -52,41 +52,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -232,61 +257,64 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="monte-carlo-approximation" class="section level2">
 <h2><span class="header-section-number">6.1</span> Monte carlo approximation</h2>
 <p>Example: calculate the integral of <span class="math inline">\(p(z&gt;2)\)</span> when <span class="math inline">\(z \sim N(0,1)\)</span>. To use Monte Carlo approximation, we can have an indicator function, which will determine whether the sample from <span class="math inline">\(N(0,1)\)</span> will be included into the calculation of the integral.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Nsim=<span class="dv">10</span><span class="op">^</span><span class="dv">4</span>
-
-indicator=<span class="cf">function</span>(x){
-y=<span class="kw">ifelse</span>((x<span class="op">&gt;</span><span class="dv">2</span>),<span class="dv">1</span>,<span class="dv">0</span>)
-<span class="kw">return</span>(y)}
-
-newdata&lt;-<span class="kw">rnorm</span>(Nsim, <span class="dv">0</span>,<span class="dv">1</span> )
-
-mc=<span class="kw">c</span>(); v=<span class="kw">c</span>(); upper=<span class="kw">c</span>(); lower=<span class="kw">c</span>()
-
-<span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nsim)
-{
-mc[j]=<span class="kw">mean</span>(<span class="kw">indicator</span>(newdata[<span class="dv">1</span><span class="op">:</span>j]))
-v[j]=(j<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>})<span class="op">*</span><span class="kw">var</span>(<span class="kw">indicator</span>(newdata[<span class="dv">1</span><span class="op">:</span>j]))
-upper[j]=mc[j]<span class="op">+</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
-lower[j]=mc[j]<span class="op">-</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
-}
-
-<span class="kw">library</span>(ggplot2)
-values=<span class="kw">c</span>(mc,upper,lower)
-type=<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mc&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;upper&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;lower&quot;</span>,Nsim))
-iter=<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>Nsim),<span class="dv">3</span>)
-data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <span class="dt">tp=</span>type, <span class="dt">itr=</span>iter)
-Rcode&lt;-<span class="kw">ggplot</span>(data,<span class="kw">aes</span>(itr,val,<span class="dt">col=</span>tp))<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">0.5</span>)
-Rcode<span class="op">+</span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>),<span class="dt">color=</span><span class="st">&quot;green&quot;</span>,<span class="dt">size=</span><span class="fl">0.5</span>)</code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">Nsim=<span class="dv">10</span><span class="op">^</span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb94-2" title="2"></a>
+<a class="sourceLine" id="cb94-3" title="3">indicator=<span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb94-4" title="4">y=<span class="kw">ifelse</span>((x<span class="op">&gt;</span><span class="dv">2</span>),<span class="dv">1</span>,<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb94-5" title="5"><span class="kw">return</span>(y)}</a>
+<a class="sourceLine" id="cb94-6" title="6"></a>
+<a class="sourceLine" id="cb94-7" title="7">newdata&lt;-<span class="kw">rnorm</span>(Nsim, <span class="dv">0</span>,<span class="dv">1</span> )</a>
+<a class="sourceLine" id="cb94-8" title="8"></a>
+<a class="sourceLine" id="cb94-9" title="9">mc=<span class="kw">c</span>(); v=<span class="kw">c</span>(); upper=<span class="kw">c</span>(); lower=<span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb94-10" title="10"></a>
+<a class="sourceLine" id="cb94-11" title="11"><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nsim)</a>
+<a class="sourceLine" id="cb94-12" title="12">{</a>
+<a class="sourceLine" id="cb94-13" title="13">mc[j]=<span class="kw">mean</span>(<span class="kw">indicator</span>(newdata[<span class="dv">1</span><span class="op">:</span>j]))</a>
+<a class="sourceLine" id="cb94-14" title="14">v[j]=(j<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>})<span class="op">*</span><span class="kw">var</span>(<span class="kw">indicator</span>(newdata[<span class="dv">1</span><span class="op">:</span>j]))</a>
+<a class="sourceLine" id="cb94-15" title="15">upper[j]=mc[j]<span class="op">+</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])</a>
+<a class="sourceLine" id="cb94-16" title="16">lower[j]=mc[j]<span class="op">-</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])</a>
+<a class="sourceLine" id="cb94-17" title="17">}</a>
+<a class="sourceLine" id="cb94-18" title="18"></a>
+<a class="sourceLine" id="cb94-19" title="19"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.1</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">values=<span class="kw">c</span>(mc,upper,lower)</a>
+<a class="sourceLine" id="cb96-2" title="2">type=<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mc&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;upper&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;lower&quot;</span>,Nsim))</a>
+<a class="sourceLine" id="cb96-3" title="3">iter=<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>Nsim),<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb96-4" title="4">data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <span class="dt">tp=</span>type, <span class="dt">itr=</span>iter)</a>
+<a class="sourceLine" id="cb96-5" title="5">Rcode&lt;-<span class="kw">ggplot</span>(data,<span class="kw">aes</span>(itr,val,<span class="dt">col=</span>tp))<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb96-6" title="6">Rcode<span class="op">+</span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>),<span class="dt">color=</span><span class="st">&quot;green&quot;</span>,<span class="dt">size=</span><span class="fl">0.5</span>)</a></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_path).</code></pre>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 <div id="importance-sampling" class="section level2">
 <h2><span class="header-section-number">6.2</span> Importance sampling</h2>
 <p>Importance sampling has samples generated from a different distribution than the distribution of interest. Specifically, assume that we want to calculate the expected value of <span class="math inline">\(h(x)\)</span>, and <span class="math inline">\(x \sim f(x)\)</span>.</p>
-<p><span class="math display">\[E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx \]</span> We can sample <span class="math inline">\(x_i\)</span> from <span class="math inline">\(g(x)\)</span> and then calculate the mean of <span class="math inline">\(h(x_i) \frac{f(x_i)}{g(x_i)}\)</span>.</p>
+<p><span class="math display">\[E(h(x))=\int h(x) f(x) dx = \int h(x) \frac{f(x)}{g(x)} g(x) dx \]</span>
+We can sample <span class="math inline">\(x_i\)</span> from <span class="math inline">\(g(x)\)</span> and then calculate the mean of <span class="math inline">\(h(x_i) \frac{f(x_i)}{g(x_i)}\)</span>.</p>
 <p>Using the same explane above, we can use a shifted exponential distribution to help calculate the intergral for normal distribution. Specifically,</p>
-<p><span class="math display">\[\int_2^{\infty} \frac{1}{2 \pi} e^{-\frac{1}{2}x^2}dx = \int_2^{\infty} \frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}} e^{-(x-2)}dx \]</span> The idea is that, we can generate <span class="math inline">\(x_i\)</span> from exponential distribution of <span class="math inline">\(e^{-(x-2)}\)</span>, and then insert them into the targeted “expected (value) function” of <span class="math inline">\(\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}\)</span>. Thus, as you can see, importance sampling is based on the law of large numbers (i.e., If the same experiment or study is repeated independently a large number of times, the average of the results of the trials must be close to the expected value). We can use it to calculate integral based on link of the definition of expected value.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Nsim=<span class="dv">10</span><span class="op">^</span><span class="dv">4</span>
-normal_density=<span class="cf">function</span>(x)
-{y=(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi))<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>(x<span class="op">^</span><span class="dv">2</span>))
-<span class="kw">return</span>(y)}
-x=<span class="dv">2</span><span class="op">-</span><span class="kw">log</span>(<span class="kw">runif</span>(Nsim))
-ImpS=<span class="kw">c</span>(); v=<span class="kw">c</span>(); upper=<span class="kw">c</span>(); lower=<span class="kw">c</span>()
-<span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nsim)
-{
-ImpS[j]=<span class="kw">mean</span>(<span class="kw">normal_density</span>(x[<span class="dv">1</span><span class="op">:</span>j])<span class="op">/</span><span class="kw">exp</span>(<span class="op">-</span>(x[<span class="dv">1</span><span class="op">:</span>j]<span class="op">-</span><span class="dv">2</span>)))
-v[j]=(j<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>})<span class="op">*</span><span class="kw">var</span>(<span class="kw">normal_density</span>(x[<span class="dv">1</span><span class="op">:</span>j])<span class="op">/</span><span class="kw">exp</span>(<span class="op">-</span>(x[<span class="dv">1</span><span class="op">:</span>j]<span class="op">-</span><span class="dv">2</span>)))
-upper[j]=ImpS[j]<span class="op">+</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
-lower[j]=ImpS[j]<span class="op">-</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])
-}
-
-<span class="kw">library</span>(ggplot2)
-values=<span class="kw">c</span>(ImpS,upper,lower)
-type=<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mc&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;upper&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;lower&quot;</span>,Nsim))
-iter=<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>Nsim),<span class="dv">3</span>)
-data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <span class="dt">tp=</span>type, <span class="dt">itr=</span>iter)
-<span class="kw">ggplot</span>(data,<span class="kw">aes</span>(itr,val,<span class="dt">col=</span>tp))<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span>
-<span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>),<span class="dt">color=</span><span class="st">&quot;green&quot;</span>,<span class="dt">size=</span><span class="fl">0.5</span>)</code></pre></div>
+<p><span class="math display">\[\int_2^{\infty} \frac{1}{2 \pi} e^{-\frac{1}{2}x^2}dx = \int_2^{\infty} \frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}} e^{-(x-2)}dx \]</span>
+The idea is that, we can generate <span class="math inline">\(x_i\)</span> from exponential distribution of <span class="math inline">\(e^{-(x-2)}\)</span>, and then insert them into the targeted “expected (value) function” of <span class="math inline">\(\frac{\frac{1}{2 \pi} e^{-\frac{1}{2}x^2}}{e^{-(x-2)}}\)</span>. Thus, as you can see, importance sampling is based on the law of large numbers (i.e., If the same experiment or study is repeated independently a large number of times, the average of the results of the trials must be close to the expected value). We can use it to calculate integral based on link of the definition of expected value.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1">Nsim=<span class="dv">10</span><span class="op">^</span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb98-2" title="2">normal_density=<span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb98-3" title="3">{y=(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi))<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>(x<span class="op">^</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb98-4" title="4"><span class="kw">return</span>(y)}</a>
+<a class="sourceLine" id="cb98-5" title="5">x=<span class="dv">2</span><span class="op">-</span><span class="kw">log</span>(<span class="kw">runif</span>(Nsim))</a>
+<a class="sourceLine" id="cb98-6" title="6">ImpS=<span class="kw">c</span>(); v=<span class="kw">c</span>(); upper=<span class="kw">c</span>(); lower=<span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb98-7" title="7"><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nsim)</a>
+<a class="sourceLine" id="cb98-8" title="8">{</a>
+<a class="sourceLine" id="cb98-9" title="9">ImpS[j]=<span class="kw">mean</span>(<span class="kw">normal_density</span>(x[<span class="dv">1</span><span class="op">:</span>j])<span class="op">/</span><span class="kw">exp</span>(<span class="op">-</span>(x[<span class="dv">1</span><span class="op">:</span>j]<span class="op">-</span><span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb98-10" title="10">v[j]=(j<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>})<span class="op">*</span><span class="kw">var</span>(<span class="kw">normal_density</span>(x[<span class="dv">1</span><span class="op">:</span>j])<span class="op">/</span><span class="kw">exp</span>(<span class="op">-</span>(x[<span class="dv">1</span><span class="op">:</span>j]<span class="op">-</span><span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb98-11" title="11">upper[j]=ImpS[j]<span class="op">+</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])</a>
+<a class="sourceLine" id="cb98-12" title="12">lower[j]=ImpS[j]<span class="op">-</span><span class="fl">1.96</span><span class="op">*</span><span class="kw">sqrt</span>(v[j])</a>
+<a class="sourceLine" id="cb98-13" title="13">}</a>
+<a class="sourceLine" id="cb98-14" title="14"></a>
+<a class="sourceLine" id="cb98-15" title="15"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb98-16" title="16">values=<span class="kw">c</span>(ImpS,upper,lower)</a>
+<a class="sourceLine" id="cb98-17" title="17">type=<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mc&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;upper&quot;</span>,Nsim),<span class="kw">rep</span>(<span class="st">&quot;lower&quot;</span>,Nsim))</a>
+<a class="sourceLine" id="cb98-18" title="18">iter=<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>Nsim),<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb98-19" title="19">data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <span class="dt">tp=</span>type, <span class="dt">itr=</span>iter)</a>
+<a class="sourceLine" id="cb98-20" title="20"><span class="kw">ggplot</span>(data,<span class="kw">aes</span>(itr,val,<span class="dt">col=</span>tp))<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">0.5</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb98-21" title="21"><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>),<span class="dt">color=</span><span class="st">&quot;green&quot;</span>,<span class="dt">size=</span><span class="fl">0.5</span>)</a></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_path).</code></pre>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
@@ -299,28 +327,32 @@ data=<span class="kw">data.frame</span>(<span class="dt">val=</span>values, <spa
 <p class="caption">Credit of this figure: <a href="https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf" class="uri">https://www.math.ubc.ca/~anstee/math104/newtonmethod.pdf</a></p>
 </div>
 <p>Specifically, suppose that you want to calculate the root of a function <span class="math inline">\(f(x)=0\)</span>. We assume the root is <span class="math inline">\(r\)</span>. However, we do not that, and we randomly guess a point of <span class="math inline">\(a\)</span>. Thus, we can get a tangent line with slope of <span class="math inline">\(f^{&#39;}(a)\)</span> and a point of <span class="math inline">\((a,f(a))\)</span>. Since we know the slope and one of its points, we can write the function for this tangent line.</p>
-<p><span class="math display">\[y-f(a)=f^{&#39;}(a)(x-a)\]</span> To calculate the <span class="math inline">\(x-intercept\)</span>, namely <span class="math inline">\(b\)</span> in the figure, we can set <span class="math inline">\(y=0\)</span>, and get the following:</p>
-<p><span class="math display">\[-f(a)=f^{&#39;}(a)(x-a) \Rightarrow x (or, b)= a-\frac{f(a)}{f^{&#39;}(a)}\]</span> If there is significant difference of <span class="math inline">\(|a-b|\)</span>, we know that our orginal guess of <span class="math inline">\(a\)</span> is not good. We better use <span class="math inline">\(b\)</span> as the next guess, and calculate its tangent line again. To generalize, we can write it as follows. <span class="math display">\[x_{t+1}=x_{t}-\frac{f(x_t)}{f^{&#39;}(x_t)}\]</span></p>
+<p><span class="math display">\[y-f(a)=f^{&#39;}(a)(x-a)\]</span>
+To calculate the <span class="math inline">\(x-intercept\)</span>, namely <span class="math inline">\(b\)</span> in the figure, we can set <span class="math inline">\(y=0\)</span>, and get the following:</p>
+<p><span class="math display">\[-f(a)=f^{&#39;}(a)(x-a) \Rightarrow x (or, b)= a-\frac{f(a)}{f^{&#39;}(a)}\]</span>
+If there is significant difference of <span class="math inline">\(|a-b|\)</span>, we know that our orginal guess of <span class="math inline">\(a\)</span> is not good. We better use <span class="math inline">\(b\)</span> as the next guess, and calculate its tangent line again. To generalize, we can write it as follows.
+<span class="math display">\[x_{t+1}=x_{t}-\frac{f(x_t)}{f^{&#39;}(x_t)}\]</span></p>
 <p>Okay, this method above is to calculate the root. For MLE, we can also use this method to calculate the root for the <span class="math inline">\(\ell ^{&#39;}=0\)</span>. We can write it as follows.</p>
-<p><span class="math display">\[x_{t+1}=x_{t}-\frac{\ell^{&#39;}(x_t)}{\ell^{&#39;&#39;}(x_t)}\]</span> Often, <span class="math inline">\(x\)</span> is not just a single unknow parameter, but a vector. For this case, we can write it as follows.</p>
+<p><span class="math display">\[x_{t+1}=x_{t}-\frac{\ell^{&#39;}(x_t)}{\ell^{&#39;&#39;}(x_t)}\]</span>
+Often, <span class="math inline">\(x\)</span> is not just a single unknow parameter, but a vector. For this case, we can write it as follows.</p>
 <p><span class="math display">\[\beta_{t+1}=\beta_{t}-\frac{\ell^{&#39;}(\beta_t)}{\ell^{&#39;&#39;}(\beta_t)}\]</span></p>
 <div id="calculate-the-root" class="section level3">
 <h3><span class="header-section-number">6.3.1</span> Calculate the root</h3>
 <p><span class="math inline">\(x^3-5=0\)</span></p>
 <p>Note that, this is obviously not a maximization problem. In contrast, it involves a function with zero. As we can see, we can think it as the first order of Taylor approximation. That is, <span class="math inline">\(f^{&#39;}(x)=x^3-5=0\)</span>. As we can see the following plot, it converts very quickly.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f_firstorder=<span class="cf">function</span>(x){x<span class="op">^</span><span class="dv">3</span><span class="op">-</span><span class="dv">5</span>}
-f_secondorder=<span class="cf">function</span>(x){<span class="dv">3</span><span class="op">*</span>x}
-x_old=<span class="dv">1</span>;tolerance=<span class="fl">1e-3</span>
-max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
-c_iteration&lt;-<span class="kw">c</span>() ## to collect numbers generated in the iteration process 
-<span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its){
-  x_updated=x_old<span class="op">-</span>(<span class="kw">f_firstorder</span>(x_old)<span class="op">/</span><span class="kw">f_secondorder</span>(x_old))
-  difference=<span class="kw">abs</span>(x_updated<span class="op">-</span>x_old);
-  iteration=iteration<span class="op">+</span><span class="dv">1</span>;
-  x_old=x_updated
-  c_iteration&lt;-<span class="kw">c</span>(c_iteration,x_updated)}
-
-<span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">f_firstorder=<span class="cf">function</span>(x){x<span class="op">^</span><span class="dv">3-5</span>}</a>
+<a class="sourceLine" id="cb100-2" title="2">f_secondorder=<span class="cf">function</span>(x){<span class="dv">3</span><span class="op">*</span>x}</a>
+<a class="sourceLine" id="cb100-3" title="3">x_old=<span class="dv">1</span>;tolerance=<span class="fl">1e-3</span></a>
+<a class="sourceLine" id="cb100-4" title="4">max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span></a>
+<a class="sourceLine" id="cb100-5" title="5">c_iteration&lt;-<span class="kw">c</span>() <span class="co">## to collect numbers generated in the iteration process </span></a>
+<a class="sourceLine" id="cb100-6" title="6"><span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its){</a>
+<a class="sourceLine" id="cb100-7" title="7">  x_updated=x_old<span class="op">-</span>(<span class="kw">f_firstorder</span>(x_old)<span class="op">/</span><span class="kw">f_secondorder</span>(x_old))</a>
+<a class="sourceLine" id="cb100-8" title="8">  difference=<span class="kw">abs</span>(x_updated<span class="op">-</span>x_old);</a>
+<a class="sourceLine" id="cb100-9" title="9">  iteration=iteration<span class="op">+</span><span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb100-10" title="10">  x_old=x_updated</a>
+<a class="sourceLine" id="cb100-11" title="11">  c_iteration&lt;-<span class="kw">c</span>(c_iteration,x_updated)}</a>
+<a class="sourceLine" id="cb100-12" title="12"></a>
+<a class="sourceLine" id="cb100-13" title="13"><span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
 <div id="logistic-regression" class="section level3">
@@ -352,8 +384,11 @@ x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; ... &amp; x_{nm}
 <p>Using the content from the MLE chapter, we can get:</p>
 <p><span class="math display">\[\mathbf{L}=\prod_{i=1}^{n} p_i^{ y_i}(1-p_i)^{(1-y_i)}\]</span></p>
 <p>Further, we can get a log-transformed format.</p>
-<p><span class="math display">\[log (\mathbf{L})=\sum_{i=1}^{n}[y_i log (p_i) + (1-y_i) log(1-p_i)]\]</span> Given that <span class="math inline">\(p_i=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}=\frac{e^{\beta^Tx}}{1+e^{\beta^Tx}}\)</span>, we can rewrite it as follows:</p>
-<p><span class="math display">\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}})]\]</span> Before doing the derivative, we set. <span class="math display">\[\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}} = p(\beta ^T x_i)\]</span></p>
+<p><span class="math display">\[log (\mathbf{L})=\sum_{i=1}^{n}[y_i log (p_i) + (1-y_i) log(1-p_i)]\]</span>
+Given that <span class="math inline">\(p_i=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}=\frac{e^{\beta^Tx}}{1+e^{\beta^Tx}}\)</span>, we can rewrite it as follows:</p>
+<p><span class="math display">\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}) + (1-y_i) log(1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}})]\]</span>
+Before doing the derivative, we set.
+<span class="math display">\[\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}} = p(\beta ^T x_i)\]</span></p>
 <p><span class="math display">\[log (\mathbf{L})=\ell=\sum_{i=1}^{n}[y_i log (p(\beta ^T x_i)) + (1-y_i) log(1-p(\beta ^T x_i))]\]</span></p>
 <p>Note that, <span class="math inline">\(\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)} = p(\beta ^T x_i)(1-p(\beta ^T x_i))\)</span>. We will use it later.</p>
 <p><span class="math display">\[\begin{aligned}
@@ -373,75 +408,76 @@ x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; ... &amp; x_{nm}
 &amp;=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i)(1-p(\beta ^T x_i))x_i
 \end{aligned}\]</span></p>
 <p>The following are the data simulation (3 IVs and 1 DV) and Newton Raphson analysis.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data generation</span>
-<span class="kw">set.seed</span>(<span class="dv">123</span>)
-n=<span class="dv">500</span>
-x1_norm&lt;-<span class="kw">rnorm</span>(n)
-x2_norm&lt;-<span class="kw">rnorm</span>(n,<span class="dv">3</span>,<span class="dv">4</span>)
-x3_norm&lt;-<span class="kw">rnorm</span>(n,<span class="dv">4</span>,<span class="dv">6</span>)
-x_combined&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,x1_norm,x2_norm,x3_norm) <span class="co"># dimension: n*4</span>
-coefficients_new&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)  <span class="co">#true regression coefficient</span>
-inv_logit&lt;-<span class="cf">function</span>(x,b){<span class="kw">exp</span>(x<span class="op">%*%</span>b)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x<span class="op">%*%</span>b))}
-prob_generated&lt;-<span class="kw">inv_logit</span>(x_combined,coefficients_new)
-y&lt;-<span class="kw">c</span>()
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {y[i]&lt;-<span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,prob_generated[i])}
-
-<span class="co"># Newton Raphson</span>
-
-<span class="co">#We need to set random starting values.</span>
-beta_old&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)
-tolerance=<span class="fl">1e-3</span>
-max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
-W&lt;-<span class="kw">matrix</span>(<span class="dv">0</span>,n,n)
-
-<span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its)
-  {
-  <span class="co"># The first order</span>
-  f_firstorder&lt;-<span class="kw">t</span>(x_combined)<span class="op">%*%</span>(y<span class="op">-</span><span class="kw">inv_logit</span>(x_combined,beta_old))
-  <span class="co"># The second order</span>
-  <span class="kw">diag</span>(W) =<span class="st"> </span><span class="kw">inv_logit</span>(x_combined,beta_old)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">inv_logit</span>(x_combined,beta_old))
-  f_secondorder&lt;-<span class="op">-</span><span class="kw">t</span>(x_combined)<span class="op">%*%</span>W<span class="op">%*%</span>x_combined
-  <span class="co"># Calculate the beta_updated</span>
-  beta_updated=beta_old<span class="op">-</span>(<span class="kw">solve</span>(f_secondorder)<span class="op">%*%</span>f_firstorder)
-  difference=<span class="kw">max</span>(<span class="kw">abs</span>(beta_updated<span class="op">-</span>beta_old));
-  iteration=iteration<span class="op">+</span><span class="dv">1</span>;
-  beta_old=beta_updated}
-
-beta_old</code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="co"># Data generation</span></a>
+<a class="sourceLine" id="cb101-2" title="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb101-3" title="3">n=<span class="dv">500</span></a>
+<a class="sourceLine" id="cb101-4" title="4">x1_norm&lt;-<span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb101-5" title="5">x2_norm&lt;-<span class="kw">rnorm</span>(n,<span class="dv">3</span>,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb101-6" title="6">x3_norm&lt;-<span class="kw">rnorm</span>(n,<span class="dv">4</span>,<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb101-7" title="7">x_combined&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,x1_norm,x2_norm,x3_norm) <span class="co"># dimension: n*4</span></a>
+<a class="sourceLine" id="cb101-8" title="8">coefficients_new&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)  <span class="co">#true regression coefficient</span></a>
+<a class="sourceLine" id="cb101-9" title="9">inv_logit&lt;-<span class="cf">function</span>(x,b){<span class="kw">exp</span>(x<span class="op">%*%</span>b)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x<span class="op">%*%</span>b))}</a>
+<a class="sourceLine" id="cb101-10" title="10">prob_generated&lt;-<span class="kw">inv_logit</span>(x_combined,coefficients_new)</a>
+<a class="sourceLine" id="cb101-11" title="11">y&lt;-<span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb101-12" title="12"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {y[i]&lt;-<span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,prob_generated[i])}</a>
+<a class="sourceLine" id="cb101-13" title="13"></a>
+<a class="sourceLine" id="cb101-14" title="14"><span class="co"># Newton Raphson</span></a>
+<a class="sourceLine" id="cb101-15" title="15"></a>
+<a class="sourceLine" id="cb101-16" title="16"><span class="co">#We need to set random starting values.</span></a>
+<a class="sourceLine" id="cb101-17" title="17">beta_old&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb101-18" title="18">tolerance=<span class="fl">1e-3</span></a>
+<a class="sourceLine" id="cb101-19" title="19">max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span></a>
+<a class="sourceLine" id="cb101-20" title="20">W&lt;-<span class="kw">matrix</span>(<span class="dv">0</span>,n,n)</a>
+<a class="sourceLine" id="cb101-21" title="21"></a>
+<a class="sourceLine" id="cb101-22" title="22"><span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its)</a>
+<a class="sourceLine" id="cb101-23" title="23">  {</a>
+<a class="sourceLine" id="cb101-24" title="24">  <span class="co"># The first order</span></a>
+<a class="sourceLine" id="cb101-25" title="25">  f_firstorder&lt;-<span class="kw">t</span>(x_combined)<span class="op">%*%</span>(y<span class="op">-</span><span class="kw">inv_logit</span>(x_combined,beta_old))</a>
+<a class="sourceLine" id="cb101-26" title="26">  <span class="co"># The second order</span></a>
+<a class="sourceLine" id="cb101-27" title="27">  <span class="kw">diag</span>(W) =<span class="st"> </span><span class="kw">inv_logit</span>(x_combined,beta_old)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">inv_logit</span>(x_combined,beta_old))</a>
+<a class="sourceLine" id="cb101-28" title="28">  f_secondorder&lt;-<span class="op">-</span><span class="kw">t</span>(x_combined)<span class="op">%*%</span>W<span class="op">%*%</span>x_combined</a>
+<a class="sourceLine" id="cb101-29" title="29">  <span class="co"># Calculate the beta_updated</span></a>
+<a class="sourceLine" id="cb101-30" title="30">  beta_updated=beta_old<span class="op">-</span>(<span class="kw">solve</span>(f_secondorder)<span class="op">%*%</span>f_firstorder)</a>
+<a class="sourceLine" id="cb101-31" title="31">  difference=<span class="kw">max</span>(<span class="kw">abs</span>(beta_updated<span class="op">-</span>beta_old));</a>
+<a class="sourceLine" id="cb101-32" title="32">  iteration=iteration<span class="op">+</span><span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb101-33" title="33">  beta_old=beta_updated}</a>
+<a class="sourceLine" id="cb101-34" title="34"></a>
+<a class="sourceLine" id="cb101-35" title="35">beta_old</a></code></pre></div>
 <pre><code>##              [,1]
 ##         0.9590207
 ## x1_norm 1.7974165
 ## x2_norm 3.0072303
 ## x3_norm 3.9578107</code></pre>
-<p><span class="math display">\[\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] \]</span> <span class="math display">\[=\sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \phi (\beta ^T x_i)-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}\phi (\beta ^T x_i)]x_i\]</span></p>
+<p><span class="math display">\[\frac{\partial \ell} {\partial \beta} = \sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}+(1-y_i) \frac{1}{1-p(\beta ^T x_i)}(-1)\frac{\partial p(\beta ^T x_i)}{\partial (\beta ^T x_i)}\frac{\partial (\beta ^T x_i)}{\partial \beta}] \]</span>
+<span class="math display">\[=\sum_{i=1}^{n} [y_i \frac{1}{p(\beta ^T x_i)} \phi (\beta ^T x_i)-(1-y_i) \frac{1}{1-p(\beta ^T x_i)}\phi (\beta ^T x_i)]x_i\]</span></p>
 <p><span class="math display">\[\Phi(\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3)= p(y=1)\]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data generation</span>
-n=<span class="dv">500</span>
-x1_norm&lt;-<span class="kw">rnorm</span>(n)
-x2_norm&lt;-<span class="kw">rnorm</span>(n)
-x3_norm&lt;-<span class="kw">rnorm</span>(n)
-x_combined&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,x1_norm,x2_norm,x3_norm)
-coefficients_new&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>)  <span class="co">#true regression coefficient</span>
-inv_norm&lt;-<span class="cf">function</span>(x,b){<span class="kw">pnorm</span>(x<span class="op">%*%</span>b)}
-prob_generated&lt;-<span class="kw">inv_norm</span>(x_combined,coefficients_new)
-y&lt;-<span class="kw">c</span>()
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {y[i]&lt;-<span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,prob_generated[i])}
-
-<span class="co"># Newton Raphson</span>
-
-<span class="co">#We need to set random starting values.</span>
-x_old&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)
-tolerance=<span class="fl">1e-3</span>
-max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span>
-
-<span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its){
-  x_updated=x_old<span class="op">-</span>(<span class="kw">f_firstorder</span>(x_old)<span class="op">/</span><span class="kw">f_secondorder</span>(x_old))
-  difference=<span class="kw">abs</span>(x_updated<span class="op">-</span>x_old);
-  iteration=iteration<span class="op">+</span><span class="dv">1</span>;
-  x_old=x_updated
-  c_iteration&lt;-<span class="kw">c</span>(c_iteration,x_updated)}
-
-<span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1"><span class="co"># Data generation</span></a>
+<a class="sourceLine" id="cb103-2" title="2">n=<span class="dv">500</span></a>
+<a class="sourceLine" id="cb103-3" title="3">x1_norm&lt;-<span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb103-4" title="4">x2_norm&lt;-<span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb103-5" title="5">x3_norm&lt;-<span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb103-6" title="6">x_combined&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,x1_norm,x2_norm,x3_norm)</a>
+<a class="sourceLine" id="cb103-7" title="7">coefficients_new&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>)  <span class="co">#true regression coefficient</span></a>
+<a class="sourceLine" id="cb103-8" title="8">inv_norm&lt;-<span class="cf">function</span>(x,b){<span class="kw">pnorm</span>(x<span class="op">%*%</span>b)}</a>
+<a class="sourceLine" id="cb103-9" title="9">prob_generated&lt;-<span class="kw">inv_norm</span>(x_combined,coefficients_new)</a>
+<a class="sourceLine" id="cb103-10" title="10">y&lt;-<span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb103-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {y[i]&lt;-<span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dv">1</span>,prob_generated[i])}</a>
+<a class="sourceLine" id="cb103-12" title="12"></a>
+<a class="sourceLine" id="cb103-13" title="13"><span class="co"># Newton Raphson</span></a>
+<a class="sourceLine" id="cb103-14" title="14"></a>
+<a class="sourceLine" id="cb103-15" title="15"><span class="co">#We need to set random starting values.</span></a>
+<a class="sourceLine" id="cb103-16" title="16">x_old&lt;-<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb103-17" title="17">tolerance=<span class="fl">1e-3</span></a>
+<a class="sourceLine" id="cb103-18" title="18">max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;difference=<span class="dv">2</span></a>
+<a class="sourceLine" id="cb103-19" title="19"></a>
+<a class="sourceLine" id="cb103-20" title="20"><span class="cf">while</span>(difference<span class="op">&gt;</span>tolerance <span class="op">&amp;</span><span class="st"> </span>iteration<span class="op">&lt;</span>max_its){</a>
+<a class="sourceLine" id="cb103-21" title="21">  x_updated=x_old<span class="op">-</span>(<span class="kw">f_firstorder</span>(x_old)<span class="op">/</span><span class="kw">f_secondorder</span>(x_old))</a>
+<a class="sourceLine" id="cb103-22" title="22">  difference=<span class="kw">abs</span>(x_updated<span class="op">-</span>x_old);</a>
+<a class="sourceLine" id="cb103-23" title="23">  iteration=iteration<span class="op">+</span><span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb103-24" title="24">  x_old=x_updated</a>
+<a class="sourceLine" id="cb103-25" title="25">  c_iteration&lt;-<span class="kw">c</span>(c_iteration,x_updated)}</a>
+<a class="sourceLine" id="cb103-26" title="26"></a>
+<a class="sourceLine" id="cb103-27" title="27"><span class="kw">plot</span>(c_iteration,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="metropolis-hastings" class="section level2">
@@ -461,21 +497,21 @@ max_its=<span class="dv">2000</span>;iteration=<span class="dv">1</span>;differe
 <li><p>Repeat <span class="math inline">\(n\)</span> times (<span class="math inline">\(n\)</span> is set subjectively.)</p></li>
 </ol>
 <p>Use normal pdf to sample gamma distribution</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha=<span class="fl">2.7</span>; beta=<span class="fl">6.3</span> <span class="co"># I randomly chose alpha and beta values for the target gamma function</span>
-
-Nsim=<span class="dv">5000</span>  ## define the number of iteration 
-
-X=<span class="kw">c</span>(<span class="kw">rgamma</span>(<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># initialize the chain from random starting numbers</span>
-mygamma&lt;-<span class="cf">function</span>(Nsim,alpha,beta){
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>Nsim){
-  Y=<span class="kw">rnorm</span>(<span class="dv">1</span>)
-  rho=<span class="kw">dgamma</span>(Y,alpha,beta)<span class="op">*</span><span class="kw">dnorm</span>(X[i<span class="op">-</span><span class="dv">1</span>])<span class="op">/</span>(<span class="kw">dgamma</span>(X[i<span class="op">-</span><span class="dv">1</span>],alpha,beta)<span class="op">*</span><span class="kw">dnorm</span>(Y))
-  X[i]=X[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>(Y<span class="op">-</span>X[i<span class="op">-</span><span class="dv">1</span>])<span class="op">*</span>(<span class="kw">runif</span>(<span class="dv">1</span>)<span class="op">&lt;</span>rho)
-}
-X
-}
-
-<span class="kw">hist</span>(<span class="kw">mygamma</span>(Nsim,alpha,beta), <span class="dt">breaks =</span> <span class="dv">100</span>)</code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1">alpha=<span class="fl">2.7</span>; beta=<span class="fl">6.3</span> <span class="co"># I randomly chose alpha and beta values for the target gamma function</span></a>
+<a class="sourceLine" id="cb104-2" title="2"></a>
+<a class="sourceLine" id="cb104-3" title="3">Nsim=<span class="dv">5000</span>  <span class="co">## define the number of iteration </span></a>
+<a class="sourceLine" id="cb104-4" title="4"></a>
+<a class="sourceLine" id="cb104-5" title="5">X=<span class="kw">c</span>(<span class="kw">rgamma</span>(<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># initialize the chain from random starting numbers</span></a>
+<a class="sourceLine" id="cb104-6" title="6">mygamma&lt;-<span class="cf">function</span>(Nsim,alpha,beta){</a>
+<a class="sourceLine" id="cb104-7" title="7"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>Nsim){</a>
+<a class="sourceLine" id="cb104-8" title="8">  Y=<span class="kw">rnorm</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb104-9" title="9">  rho=<span class="kw">dgamma</span>(Y,alpha,beta)<span class="op">*</span><span class="kw">dnorm</span>(X[i<span class="dv">-1</span>])<span class="op">/</span>(<span class="kw">dgamma</span>(X[i<span class="dv">-1</span>],alpha,beta)<span class="op">*</span><span class="kw">dnorm</span>(Y))</a>
+<a class="sourceLine" id="cb104-10" title="10">  X[i]=X[i<span class="dv">-1</span>] <span class="op">+</span><span class="st"> </span>(Y<span class="op">-</span>X[i<span class="dv">-1</span>])<span class="op">*</span>(<span class="kw">runif</span>(<span class="dv">1</span>)<span class="op">&lt;</span>rho)</a>
+<a class="sourceLine" id="cb104-11" title="11">}</a>
+<a class="sourceLine" id="cb104-12" title="12">X</a>
+<a class="sourceLine" id="cb104-13" title="13">}</a>
+<a class="sourceLine" id="cb104-14" title="14"></a>
+<a class="sourceLine" id="cb104-15" title="15"><span class="kw">hist</span>(<span class="kw">mygamma</span>(Nsim,alpha,beta), <span class="dt">breaks =</span> <span class="dv">100</span>)</a></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 </div>
 <div id="em" class="section level2">
@@ -483,7 +519,8 @@ X
 <p>EM algorithm is an iterative method to find ML or maximum a posteriori (MAP) estimates of parameters.</p>
 <p>Direct Ref: <a href="http://www.di.fc.ul.pt/~jpn/r/EM/EM.html" class="uri">http://www.di.fc.ul.pt/~jpn/r/EM/EM.html</a></p>
 <p>Suppose that we only observe <span class="math inline">\(X\)</span>, and do not know <span class="math inline">\(Z\)</span>. We thus need to construct the complete data of <span class="math inline">\((X, Z)\)</span>. Given <span class="math inline">\(p(Z|X,\theta)\)</span>, we can compute the likelihood of the complete dataset:</p>
-<p><span class="math display">\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\]</span> The EM algorithm:</p>
+<p><span class="math display">\[p(X, Z|\theta)=p(Z|X,\theta)p(X|\theta)\]</span>
+The EM algorithm:</p>
 <ol start="0" style="list-style-type: decimal">
 <li><p>We got <span class="math inline">\(X\)</span> and <span class="math inline">\(p(Z|X,\theta)\)</span></p></li>
 <li><p>Random assign a <span class="math inline">\(\theta_0\)</span>, since we do not know any of them.</p></li>
@@ -577,7 +614,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
