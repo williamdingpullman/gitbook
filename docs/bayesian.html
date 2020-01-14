@@ -201,6 +201,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.5" data-path="bayesian.html"><a href="bayesian.html#conjugate-priors"><i class="fa fa-check"></i><b>11.5</b> Conjugate priors</a></li>
 <li class="chapter" data-level="11.6" data-path="bayesian.html"><a href="bayesian.html#poisson-distribution"><i class="fa fa-check"></i><b>11.6</b> Poisson distribution</a></li>
 <li class="chapter" data-level="11.7" data-path="bayesian.html"><a href="bayesian.html#exponential-data"><i class="fa fa-check"></i><b>11.7</b> Exponential data</a></li>
+<li class="chapter" data-level="11.8" data-path="bayesian.html"><a href="bayesian.html#normal-likelihood"><i class="fa fa-check"></i><b>11.8</b> Normal likelihood</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="bayesian.html"><a href="bayesian.html#when-variance-is-known"><i class="fa fa-check"></i><b>11.8.1</b> When variance is known</a></li>
+<li class="chapter" data-level="11.8.2" data-path="bayesian.html"><a href="bayesian.html#when-variance-is-unknown"><i class="fa fa-check"></i><b>11.8.2</b> When variance is unknown</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
 <li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>12.1</b> The Basic Idea</a></li>
@@ -364,7 +368,37 @@ x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv
 </ol>
 <p><span class="math display">\[\begin{aligned} f(\lambda | y) &amp;\propto f(y_1|\lambda)f(y_2|\lambda)f(y_3|\lambda)f(y_4|\lambda)    f(\lambda) \\ &amp;\propto \lambda e^{-\lambda y_1} \lambda e^{-\lambda y_2}\lambda e^{-\lambda y_3} \lambda e^{-\lambda y_4}   \lambda^{\alpha-1}e^{-\beta \lambda} \\ &amp;\propto \lambda^{(\alpha+4)-1} e^{-(\beta+\sum_{i=1}^4 y_i)\lambda } \end{aligned}\]</span> Thus, the generalized form is as follows:</p>
 <p><span class="math display">\[\lambda^{(\alpha+n)-1} e^{-(\beta+\sum_{i=1}^n y_i)\lambda }\]</span></p>
+</div>
+<div id="normal-likelihood" class="section level2">
+<h2><span class="header-section-number">11.8</span> Normal likelihood</h2>
+<div id="when-variance-is-known" class="section level3">
+<h3><span class="header-section-number">11.8.1</span> When variance is known</h3>
+<p><span class="math display">\[x_i \sim N(\mu, \sigma_0^2)\]</span> (<span class="math inline">\(\sigma_0\)</span> is assumed to be known. Thus, the only unknown parameter is <span class="math inline">\(\mu\)</span>.)</p>
+<p>The conjugate prior for normal distribution is normal distribution itself.</p>
+<p><span class="math display">\[f(\mu |x) \sim f(x|\mu) f(\mu)\]</span></p>
+<p><span class="math display">\[\mu|x \sim N(\frac{\frac{n \bar{x}}{\sigma_o^2}+\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}},\frac{1}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}})\]</span></p>
+<p>Thus, where</p>
+<p><span class="math display">\[\begin{aligned} \frac{\frac{n \bar{x}}{\sigma_o^2}+\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}&amp;=\frac{\frac{n \bar{x}}{\sigma_o^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}+\frac{\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}\\ &amp;=\frac{n}{n+\frac{\sigma_0^2}{s_0^2}} \bar{x}+\frac{\frac{\sigma_0^2}{S_0^2}}{n+\frac{\sigma_0^2}{s_0^2}}m_o \end{aligned}\]</span> <strong>Note:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>As we can see, the posterior mean is a weighted mean – a combination of prior mean and sample mean.</p></li>
+<li><p>When n is larger, the sample mean <span class="math inline">\(\bar{x}\)</span> gets more weight.</p></li>
+<li><p>For the prior mean <span class="math inline">\(m_0\)</span>, the smaller the prior variance <span class="math inline">\(s_0^2\)</span> is, the prior mean gets more weight. If the prior variance <span class="math inline">\(s_0^2\)</span> is big, the prior mean will get less weight in the final posterior mean.</p></li>
+</ol>
+</div>
+<div id="when-variance-is-unknown" class="section level3">
+<h3><span class="header-section-number">11.8.2</span> When variance is unknown</h3>
+<p><span class="math display">\[x_i | \mu, \sigma^2 \sim N (\mu, \sigma^2)\]</span></p>
+<p><span class="math display">\[\mu | \sigma^2 \sim N(m, \frac{\sigma^2}{w})\]</span></p>
+<p><strong>Side note</strong> <span class="math inline">\(w=\frac{\sigma^2}{\sigma_{\mu}^2}\)</span> effective sample size</p>
+<p><span class="math display">\[\sigma^2 \sim \Gamma^{-1}(\alpha, \beta)\]</span></p>
+<p>Thus, we can get that,</p>
+<p><span class="math display">\[\sigma^2 | x\sim \Gamma^{-1}(\alpha+\frac{n}{2}, \beta+\frac{1}{2} \sum_{i=1}^{n}(x_i-\bar{x})^2+\frac{nw}{2(n+w)}(\bar{x}-m)^2)\]</span></p>
+<p><span class="math display">\[\mu| \sigma^2,x \sim N(\frac{n \bar{x}+wm}{n+w},\frac{\sigma^2}{n+w})\]</span></p>
+<p>Where,</p>
+<p><span class="math display">\[\frac{n \bar{x}+wm}{n+w} = \frac{w}{n+w}m+\frac{n}{n+w}\bar{x}\]</span></p>
+<p><span class="math display">\[\mu |x \sim t - distribution \]</span></p>
 
+</div>
 </div>
 </div>
             </section>

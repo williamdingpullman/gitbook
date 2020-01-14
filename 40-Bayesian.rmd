@@ -236,3 +236,53 @@ $$\begin{aligned} f(\lambda | y) &\propto f(y_1|\lambda)f(y_2|\lambda)f(y_3|\lam
 Thus, the generalized form is as follows:
 
 $$\lambda^{(\alpha+n)-1} e^{-(\beta+\sum_{i=1}^n y_i)\lambda }$$
+
+## Normal likelihood 
+
+### When variance is known
+
+$$x_i \sim N(\mu, \sigma_0^2)$$
+($\sigma_0$ is assumed to be known. Thus, the only unknown parameter is $\mu$.)
+
+The conjugate prior for normal distribution is normal distribution itself. 
+
+$$f(\mu |x) \sim f(x|\mu) f(\mu)$$
+
+$$\mu|x \sim N(\frac{\frac{n \bar{x}}{\sigma_o^2}+\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}},\frac{1}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}})$$
+
+Thus, where
+
+$$\begin{aligned} \frac{\frac{n \bar{x}}{\sigma_o^2}+\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}&=\frac{\frac{n \bar{x}}{\sigma_o^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}+\frac{\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}\\ &=\frac{n}{n+\frac{\sigma_0^2}{s_0^2}} \bar{x}+\frac{\frac{\sigma_0^2}{S_0^2}}{n+\frac{\sigma_0^2}{s_0^2}}m_o \end{aligned}$$
+__Note:__
+
+
+(1) As we can see, the posterior mean is a weighted mean -- a combination of prior mean and sample mean. 
+
+
+(2) When n is larger, the sample mean $\bar{x}$ gets more weight.
+
+
+(3) For the prior mean $m_0$, the smaller the prior variance $s_0^2$ is, the prior mean gets more weight. If the prior variance $s_0^2$ is big, the prior mean will get less weight in the final posterior mean. 
+
+### When variance is unknown
+
+$$x_i | \mu, \sigma^2 \sim N (\mu, \sigma^2)$$
+
+$$\mu | \sigma^2 \sim N(m, \frac{\sigma^2}{w})$$
+
+__Side note__
+$w=\frac{\sigma^2}{\sigma_{\mu}^2}$ effective sample size
+
+$$\sigma^2 \sim \Gamma^{-1}(\alpha, \beta)$$
+
+Thus, we can get that,
+
+$$\sigma^2 | x\sim \Gamma^{-1}(\alpha+\frac{n}{2}, \beta+\frac{1}{2} \sum_{i=1}^{n}(x_i-\bar{x})^2+\frac{nw}{2(n+w)}(\bar{x}-m)^2)$$
+
+$$\mu| \sigma^2,x \sim N(\frac{n \bar{x}+wm}{n+w},\frac{\sigma^2}{n+w})$$
+
+Where, 
+
+$$\frac{n \bar{x}+wm}{n+w} = \frac{w}{n+w}m+\frac{n}{n+w}\bar{x}$$
+
+$$\mu |x \sim t - distribution $$
