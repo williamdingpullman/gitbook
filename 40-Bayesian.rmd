@@ -380,3 +380,45 @@ https://stats.stackexchange.com/questions/394648/differences-between-prior-distr
 Stochastic Processes
 
 https://www.youtube.com/watch?v=TuTmC8aOQJE
+
+
+## Linear regression 
+
+### Review
+For single covariate of $x$:
+
+$$E[y]=\beta_0+\beta_1 x$$
+Thus, 
+
+$$Y \sim N(\beta_0+\beta_1 x, \sigma^2)$$
+For multiple covariates,
+
+$$E[y]=\beta_0+\beta_1 x_1+\beta_2 x_2 + ...+ \beta_kx_k$$
+__Side Note__
+It is interesting to think $y$ as the expected value of of the combination of $\beta x$.
+
+### When $\sigma^2$ is known
+
+If we use a Jeffreys prior and assume $\sigma^2$ is known, we will get $\beta$ that has the same mean as the standard OLS. Assuming we only has one covariate:
+
+$$\beta_1|y \sim N(\frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i-\bar{x})^2},\frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2})$$
+
+For mutiple covariates, we can use matrix notation, 
+
+$$\beta|y \sim N((X^tX)^{-1}X^ty,(X^tX)^{-1}\sigma^2)$$
+
+
+### When $\sigma^2$ is unknown
+
+When both $\beta$ and $\sigma^2$ are unknown, the standard prior is the non-informative Jeffreys prior:
+
+$$f(\beta, \sigma^2) \propto \frac{1}{\sigma^2}$$
+
+The posterior mean for $\beta$ is the same as standard OLS estimates. The posterior for $\beta$ conditional on $\sigma^2$ is the same normal distribution when $\sigma^2$ is known. However, the marginal posteior distribution for $\beta$, with $\sigma^2$ integrated out, is a $t$ distribution. 
+
+
+The $t$ distribution has the mean of $(X^tX)^{-1}X^ty$ and variance matrix, $s^2(X^tX)^{-1}$, where $s^2=\sum_{i=1}^n(y_i-\hat{y_i})^2/(n-k-1)$
+
+The variance of $\sigma^2$ is an inverse gamma distribution
+
+$$\sigma^2|y \sim \Gamma^{-1}(\frac{n-k-1}{2},\frac{n-k-1}{2}s^2)$$

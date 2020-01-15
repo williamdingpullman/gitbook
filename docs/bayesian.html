@@ -215,6 +215,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.10.3" data-path="bayesian.html"><a href="bayesian.html#side-note-fisher-information"><i class="fa fa-check"></i><b>11.10.3</b> Side Note: Fisher Information</a></li>
 <li class="chapter" data-level="11.10.4" data-path="bayesian.html"><a href="bayesian.html#prior-predictive-distribution"><i class="fa fa-check"></i><b>11.10.4</b> Prior predictive distribution</a></li>
 </ul></li>
+<li class="chapter" data-level="11.11" data-path="bayesian.html"><a href="bayesian.html#linear-regression"><i class="fa fa-check"></i><b>11.11</b> Linear regression</a><ul>
+<li class="chapter" data-level="11.11.1" data-path="bayesian.html"><a href="bayesian.html#review"><i class="fa fa-check"></i><b>11.11.1</b> Review</a></li>
+<li class="chapter" data-level="11.11.2" data-path="bayesian.html"><a href="bayesian.html#when-sigma2-is-known"><i class="fa fa-check"></i><b>11.11.2</b> When <span class="math inline">\(\sigma^2\)</span> is known</a></li>
+<li class="chapter" data-level="11.11.3" data-path="bayesian.html"><a href="bayesian.html#when-sigma2-is-unknown"><i class="fa fa-check"></i><b>11.11.3</b> When <span class="math inline">\(\sigma^2\)</span> is unknown</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
 <li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>12.1</b> The Basic Idea</a></li>
@@ -466,6 +471,32 @@ x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv
 <p><a href="https://stats.stackexchange.com/questions/394648/differences-between-prior-distribution-and-prior-predictive-distribution" class="uri">https://stats.stackexchange.com/questions/394648/differences-between-prior-distribution-and-prior-predictive-distribution</a></p>
 <p>Stochastic Processes</p>
 <p><a href="https://www.youtube.com/watch?v=TuTmC8aOQJE" class="uri">https://www.youtube.com/watch?v=TuTmC8aOQJE</a></p>
+</div>
+</div>
+<div id="linear-regression" class="section level2">
+<h2><span class="header-section-number">11.11</span> Linear regression</h2>
+<div id="review" class="section level3">
+<h3><span class="header-section-number">11.11.1</span> Review</h3>
+<p>For single covariate of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[E[y]=\beta_0+\beta_1 x\]</span> Thus,</p>
+<p><span class="math display">\[Y \sim N(\beta_0+\beta_1 x, \sigma^2)\]</span> For multiple covariates,</p>
+<p><span class="math display">\[E[y]=\beta_0+\beta_1 x_1+\beta_2 x_2 + ...+ \beta_kx_k\]</span> <strong>Side Note</strong> It is interesting to think <span class="math inline">\(y\)</span> as the expected value of of the combination of <span class="math inline">\(\beta x\)</span>.</p>
+</div>
+<div id="when-sigma2-is-known" class="section level3">
+<h3><span class="header-section-number">11.11.2</span> When <span class="math inline">\(\sigma^2\)</span> is known</h3>
+<p>If we use a Jeffreys prior and assume <span class="math inline">\(\sigma^2\)</span> is known, we will get <span class="math inline">\(\beta\)</span> that has the same mean as the standard OLS. Assuming we only has one covariate:</p>
+<p><span class="math display">\[\beta_1|y \sim N(\frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i-\bar{x})^2},\frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2})\]</span></p>
+<p>For mutiple covariates, we can use matrix notation,</p>
+<p><span class="math display">\[\beta|y \sim N((X^tX)^{-1}X^ty,(X^tX)^{-1}\sigma^2)\]</span></p>
+</div>
+<div id="when-sigma2-is-unknown" class="section level3">
+<h3><span class="header-section-number">11.11.3</span> When <span class="math inline">\(\sigma^2\)</span> is unknown</h3>
+<p>When both <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span> are unknown, the standard prior is the non-informative Jeffreys prior:</p>
+<p><span class="math display">\[f(\beta, \sigma^2) \propto \frac{1}{\sigma^2}\]</span></p>
+<p>The posterior mean for <span class="math inline">\(\beta\)</span> is the same as standard OLS estimates. The posterior for <span class="math inline">\(\beta\)</span> conditional on <span class="math inline">\(\sigma^2\)</span> is the same normal distribution when <span class="math inline">\(\sigma^2\)</span> is known. However, the marginal posteior distribution for <span class="math inline">\(\beta\)</span>, with <span class="math inline">\(\sigma^2\)</span> integrated out, is a <span class="math inline">\(t\)</span> distribution.</p>
+<p>The <span class="math inline">\(t\)</span> distribution has the mean of <span class="math inline">\((X^tX)^{-1}X^ty\)</span> and variance matrix, <span class="math inline">\(s^2(X^tX)^{-1}\)</span>, where <span class="math inline">\(s^2=\sum_{i=1}^n(y_i-\hat{y_i})^2/(n-k-1)\)</span></p>
+<p>The variance of <span class="math inline">\(\sigma^2\)</span> is an inverse gamma distribution</p>
+<p><span class="math display">\[\sigma^2|y \sim \Gamma^{-1}(\frac{n-k-1}{2},\frac{n-k-1}{2}s^2)\]</span></p>
 
 </div>
 </div>
