@@ -213,6 +213,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.10.1" data-path="bayesian.html"><a href="bayesian.html#gaussian-1"><i class="fa fa-check"></i><b>11.10.1</b> Gaussian</a></li>
 <li class="chapter" data-level="11.10.2" data-path="bayesian.html"><a href="bayesian.html#bernoulli-1"><i class="fa fa-check"></i><b>11.10.2</b> Bernoulli</a></li>
 <li class="chapter" data-level="11.10.3" data-path="bayesian.html"><a href="bayesian.html#side-note-fisher-information"><i class="fa fa-check"></i><b>11.10.3</b> Side Note: Fisher Information</a></li>
+<li class="chapter" data-level="11.10.4" data-path="bayesian.html"><a href="bayesian.html#prior-predictive-distribution"><i class="fa fa-check"></i><b>11.10.4</b> Prior predictive distribution</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
@@ -457,11 +458,14 @@ x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv
 <p>The Fisher information (for one paramter):</p>
 <p><span class="math display">\[?(\theta)=E[(\frac{d}{d\theta} log(f(X|\theta)))^2]\]</span> The Expectation is with respect to <span class="math inline">\(X\)</span> with a PDF <span class="math inline">\(f(x|\theta)\)</span>.</p>
 <p>For instance, suppose the <span class="math inline">\(X|\theta \sim N(\theta,1)\)</span></p>
-<p><span class="math display">\[f(x|\theta)=\frac{1}{\sqrt{2 \pi}} exp[-\frac{1}{2}(x-\theta)^2]\]</span></p>
-<p><span class="math display">\[log(f(x|\theta)) = log(\frac{1}{\sqrt{2 \pi}})-\frac{1}{2}(x-\theta)^2 \]</span></p>
-<p><span class="math display">\[\frac{d}{d\theta}log(f(x|\theta))=x-\theta\]</span></p>
-<p><span class="math display">\[(\frac{d}{d\theta}log(f(x|\theta)))^2=(x-\theta)^2\]</span></p>
-<p><span class="math display">\[E[(\frac{d}{d\theta}log(f(x|\theta)))^2]=(x-\theta)^2=Var(X)=1\]</span></p>
+<p><span class="math display">\[\begin{aligned} f(x|\theta) &amp;=\frac{1}{\sqrt{2 \pi}} exp[-\frac{1}{2}(x-\theta)^2] \\ log(f(x|\theta)) &amp;= log(\frac{1}{\sqrt{2 \pi}})-\frac{1}{2}(x-\theta)^2 \\ \frac{d}{d\theta}log(f(x|\theta)) &amp;=x-\theta \\ (\frac{d}{d\theta}log(f(x|\theta)))^2 &amp;=(x-\theta)^2 \\E[(\frac{d}{d\theta}log(f(x|\theta)))^2]&amp;=(x-\theta)^2=Var(X)=1 \end{aligned}\]</span></p>
+</div>
+<div id="prior-predictive-distribution" class="section level3">
+<h3><span class="header-section-number">11.10.4</span> Prior predictive distribution</h3>
+<p>Prior distribution vs. prior predictive distribution</p>
+<p><a href="https://stats.stackexchange.com/questions/394648/differences-between-prior-distribution-and-prior-predictive-distribution" class="uri">https://stats.stackexchange.com/questions/394648/differences-between-prior-distribution-and-prior-predictive-distribution</a></p>
+<p>Stochastic Processes</p>
+<p><a href="https://www.youtube.com/watch?v=TuTmC8aOQJE" class="uri">https://www.youtube.com/watch?v=TuTmC8aOQJE</a></p>
 
 </div>
 </div>

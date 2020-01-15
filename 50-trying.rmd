@@ -55,7 +55,8 @@ The Newton Raphson algorithm needs the second order.
 $$\begin{aligned} \nabla^2 \ell &=\frac{\partial \sum_{i=1}^{n} x_i^T[y_i-p(\beta ^T x_i+b_i)]}{\partial \beta} \\ &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial \beta}\\ &=-\sum_{i=1}^{n} x_i^T\frac{\partial p(\beta ^T x_i+b_i) }{\partial (\beta^Tx_i+b_i)} \frac{\partial (\beta^Tx_i+b_i)}{\partial \beta}\\ &=-\sum_{i=1}^{n} x_i^T p(\beta ^T x_i+b_i)(1-p(\beta ^T x_i+b_i))x_i \\ &=-\sum_{i=1}^{n} x_i^T \frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}}(1-\frac{e^{\beta^Tx_i+b_i}}{1+e^{\beta^Tx_i+b_i}})x_i \end{aligned}$$
 Using the Newton Raphson, the following code calculates the basic logistic model, without any random effects. As we can see, it produces the same result as the R generic function of GLM. Note that, the function of Expit and the variables of y and are from the last block of R code.
 
-```{R}
+```{R eval = FALSE}
+#n<-10
 x_intercept<-rep(1,n)
 x_intercept<-as.matrix(x_intercept)
 
@@ -90,6 +91,7 @@ glm(y~1, family=binomial)$coefficients
 
 
 ```{R eval = FALSE}
+
 #install.packages("CVTuningCov")
 library(CVTuningCov) # Will be used to generate AR1 matrix
 
@@ -200,7 +202,7 @@ beta_old
 
 ## glmmTMB package
 
-```{r}
+```{r eval = FALSE}
 # https://becarioprecario.bitbucket.io/inla-gitbook/ch-intro.html
 #https://cran.r-project.org/web/packages/glmmTMB/vignettes/covstruct.html
 #install.packages("glmmTMB")
