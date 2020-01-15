@@ -248,6 +248,10 @@ The conjugate prior for normal distribution is normal distribution itself.
 
 $$f(\mu |x) \sim f(x|\mu) f(\mu)$$
 
+Assume that 
+$$\mu \sim N(m_0,s_0^2)$$
+
+
 $$\mu|x \sim N(\frac{\frac{n \bar{x}}{\sigma_o^2}+\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}},\frac{1}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}})$$
 
 Thus, where
@@ -270,7 +274,8 @@ $$x_i | \mu, \sigma^2 \sim N (\mu, \sigma^2)$$
 
 $$\mu | \sigma^2 \sim N(m, \frac{\sigma^2}{w})$$
 
-__Side note__
+__Side note：__
+
 $w=\frac{\sigma^2}{\sigma_{\mu}^2}$ effective sample size
 
 $$\sigma^2 \sim \Gamma^{-1}(\alpha, \beta)$$
@@ -283,6 +288,74 @@ $$\mu| \sigma^2,x \sim N(\frac{n \bar{x}+wm}{n+w},\frac{\sigma^2}{n+w})$$
 
 Where, 
 
-$$\frac{n \bar{x}+wm}{n+w} = \frac{w}{n+w}m+\frac{n}{n+w}\bar{x}$$
+$\frac{n \bar{x}+wm}{n+w} = \frac{w}{n+w}m+\frac{n}{n+w}\bar{x}$
 
 $$\mu |x \sim t - distribution $$
+
+## Non-informative priors
+
+### Bernoulli 
+$Y_i \sim B(\theta)$
+
+$$\theta \sim U[0,1]= Beta (1,1)$$ 
+(Effective sample size is 1+1=2)
+
+If we get $Beta(\frac{1}{2},\frac{1}{2})$ and $Beta(0.001, 0.001)$ have less impact on the posterior. 
+
+Improper prior, for instance,
+THe prior $$Beta (0,0)$$
+$$f(\theta) \propto \theta ^{-1}(1-\theta)^{-1}$$
+
+In this case, 
+
+$$f(\theta| y) \propto \theta^{y-1}(1-\theta)^{n-y-1} \sim Beta(y, n-y)$$
+
+Posterior mean: $\frac{y}{n}=\hat{\theta}$
+
+### Gaussian
+
+$$Y_i \sim N(\mu, \sigma^2)$$
+
+Vague prior:
+
+$$\mu \sim N(0, 1000000^2)$$
+or,
+
+$$f(\mu) \sim 1$$
+
+$$\begin{aligned} f(\mu | y) &\propto f(y|\mu)f(\mu) \\ &\propto exp(-\frac{1}{2 \sigma^2} \sum (y_i-\mu)^2) \times 1 \\ &\propto exp(-\frac{1}{2 \frac{\sigma^2}{n}} \sum (y_i-\bar{y})^2) \end{aligned}$$
+
+Thus,
+
+$$\mu | y \sim N(\bar{y}, \frac{\sigma^2}{n})$$
+
+This is exactly the same as the esitimate from MLE estimate. 
+
+__NOTE__
+
+
+In case that the variance is unknown, 
+
+$$f(\sigma^2) \propto \frac{1}{\sigma^2}$$
+
+This is equivalent to the following:
+
+$$\Gamma ^{-1}(0,1)$$
+Thus the posteiro for $\sigma^2$
+
+$$\sigma^2|y \sim \Gamma ^{-1} (\frac{n-1}{2},\frac{1}{2} \sum (y_i-\bar{y})^2)$$
+
+## Jeffreys Priors
+
+Jeffreys Prior
+
+$$f(\theta) \propto \sqrt{I(\theta)}$$
+For instance,
+
+### Gaussian 
+
+$$Y_i \sim (\mu, \sigma^2) \rightarrow f(\mu) \propto 1, f(\sigma^2)\propto \frac{1}{\sigma^2}$$
+
+### Bernoulli 
+
+$$Y_i \sim B(\theta) \rightarrow f(\theta) \propto \theta ^{-\frac{1}{2}}(1-\theta)^{-\frac{1}{2}}\sim Beta(\frac{1}{2},\frac{1}{2})$$

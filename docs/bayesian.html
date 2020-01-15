@@ -205,6 +205,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.8.1" data-path="bayesian.html"><a href="bayesian.html#when-variance-is-known"><i class="fa fa-check"></i><b>11.8.1</b> When variance is known</a></li>
 <li class="chapter" data-level="11.8.2" data-path="bayesian.html"><a href="bayesian.html#when-variance-is-unknown"><i class="fa fa-check"></i><b>11.8.2</b> When variance is unknown</a></li>
 </ul></li>
+<li class="chapter" data-level="11.9" data-path="bayesian.html"><a href="bayesian.html#non-informative-priors"><i class="fa fa-check"></i><b>11.9</b> Non-informative priors</a><ul>
+<li class="chapter" data-level="11.9.1" data-path="bayesian.html"><a href="bayesian.html#bernoulli"><i class="fa fa-check"></i><b>11.9.1</b> Bernoulli</a></li>
+<li class="chapter" data-level="11.9.2" data-path="bayesian.html"><a href="bayesian.html#gaussian"><i class="fa fa-check"></i><b>11.9.2</b> Gaussian</a></li>
+</ul></li>
+<li class="chapter" data-level="11.10" data-path="bayesian.html"><a href="bayesian.html#jeffreys-prior"><i class="fa fa-check"></i><b>11.10</b> Jeffreys Prior</a><ul>
+<li class="chapter" data-level="11.10.1" data-path="bayesian.html"><a href="bayesian.html#gaussian-1"><i class="fa fa-check"></i><b>11.10.1</b> Gaussian</a></li>
+<li class="chapter" data-level="11.10.2" data-path="bayesian.html"><a href="bayesian.html#bernoulli-1"><i class="fa fa-check"></i><b>11.10.2</b> Bernoulli</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
 <li class="chapter" data-level="12.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>12.1</b> The Basic Idea</a></li>
@@ -376,6 +384,7 @@ x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv
 <p><span class="math display">\[x_i \sim N(\mu, \sigma_0^2)\]</span> (<span class="math inline">\(\sigma_0\)</span> is assumed to be known. Thus, the only unknown parameter is <span class="math inline">\(\mu\)</span>.)</p>
 <p>The conjugate prior for normal distribution is normal distribution itself.</p>
 <p><span class="math display">\[f(\mu |x) \sim f(x|\mu) f(\mu)\]</span></p>
+<p>Assume that <span class="math display">\[\mu \sim N(m_0,s_0^2)\]</span></p>
 <p><span class="math display">\[\mu|x \sim N(\frac{\frac{n \bar{x}}{\sigma_o^2}+\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}},\frac{1}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}})\]</span></p>
 <p>Thus, where</p>
 <p><span class="math display">\[\begin{aligned} \frac{\frac{n \bar{x}}{\sigma_o^2}+\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}&amp;=\frac{\frac{n \bar{x}}{\sigma_o^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}+\frac{\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}\\ &amp;=\frac{n}{n+\frac{\sigma_0^2}{s_0^2}} \bar{x}+\frac{\frac{\sigma_0^2}{S_0^2}}{n+\frac{\sigma_0^2}{s_0^2}}m_o \end{aligned}\]</span> <strong>Note:</strong></p>
@@ -389,14 +398,58 @@ x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv
 <h3><span class="header-section-number">11.8.2</span> When variance is unknown</h3>
 <p><span class="math display">\[x_i | \mu, \sigma^2 \sim N (\mu, \sigma^2)\]</span></p>
 <p><span class="math display">\[\mu | \sigma^2 \sim N(m, \frac{\sigma^2}{w})\]</span></p>
-<p><strong>Side note</strong> <span class="math inline">\(w=\frac{\sigma^2}{\sigma_{\mu}^2}\)</span> effective sample size</p>
+<p><strong>Side note：</strong></p>
+<p><span class="math inline">\(w=\frac{\sigma^2}{\sigma_{\mu}^2}\)</span> effective sample size</p>
 <p><span class="math display">\[\sigma^2 \sim \Gamma^{-1}(\alpha, \beta)\]</span></p>
 <p>Thus, we can get that,</p>
 <p><span class="math display">\[\sigma^2 | x\sim \Gamma^{-1}(\alpha+\frac{n}{2}, \beta+\frac{1}{2} \sum_{i=1}^{n}(x_i-\bar{x})^2+\frac{nw}{2(n+w)}(\bar{x}-m)^2)\]</span></p>
 <p><span class="math display">\[\mu| \sigma^2,x \sim N(\frac{n \bar{x}+wm}{n+w},\frac{\sigma^2}{n+w})\]</span></p>
 <p>Where,</p>
-<p><span class="math display">\[\frac{n \bar{x}+wm}{n+w} = \frac{w}{n+w}m+\frac{n}{n+w}\bar{x}\]</span></p>
+<p><span class="math inline">\(\frac{n \bar{x}+wm}{n+w} = \frac{w}{n+w}m+\frac{n}{n+w}\bar{x}\)</span></p>
 <p><span class="math display">\[\mu |x \sim t - distribution \]</span></p>
+</div>
+</div>
+<div id="non-informative-priors" class="section level2">
+<h2><span class="header-section-number">11.9</span> Non-informative priors</h2>
+<div id="bernoulli" class="section level3">
+<h3><span class="header-section-number">11.9.1</span> Bernoulli</h3>
+<p><span class="math inline">\(Y_i \sim B(\theta)\)</span></p>
+<p><span class="math display">\[\theta \sim U[0,1]= Beta (1,1)\]</span> (Effective sample size is 1+1=2)</p>
+<p>If we get <span class="math inline">\(Beta(\frac{1}{2},\frac{1}{2})\)</span> and <span class="math inline">\(Beta(0.001, 0.001)\)</span> have less impact on the posterior.</p>
+<p>Improper prior, for instance, THe prior <span class="math display">\[Beta (0,0)\]</span> <span class="math display">\[f(\theta) \propto \theta ^{-1}(1-\theta)^{-1}\]</span></p>
+<p>In this case,</p>
+<p><span class="math display">\[f(\theta| y) \propto \theta^{y-1}(1-\theta)^{n-y-1} \sim Beta(y, n-y)\]</span></p>
+<p>Posterior mean: <span class="math inline">\(\frac{y}{n}=\hat{\theta}\)</span></p>
+</div>
+<div id="gaussian" class="section level3">
+<h3><span class="header-section-number">11.9.2</span> Gaussian</h3>
+<p><span class="math display">\[Y_i \sim N(\mu, \sigma^2)\]</span></p>
+<p>Vague prior:</p>
+<p><span class="math display">\[\mu \sim N(0, 1000000^2)\]</span> or,</p>
+<p><span class="math display">\[f(\mu) \sim 1\]</span></p>
+<p><span class="math display">\[\begin{aligned} f(\mu | y) &amp;\propto f(y|\mu)f(\mu) \\ &amp;\propto exp(-\frac{1}{2 \sigma^2} \sum (y_i-\mu)^2) \times 1 \\ &amp;\propto exp(-\frac{1}{2 \frac{\sigma^2}{n}} \sum (y_i-\bar{y})^2) \end{aligned}\]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[\mu | y \sim N(\bar{y}, \frac{\sigma^2}{n})\]</span></p>
+<p>This is exactly the same as the esitimate from MLE estimate.</p>
+<p><strong>NOTE</strong></p>
+<p>In case that the variance is unknown,</p>
+<p><span class="math display">\[f(\sigma^2) \propto \frac{1}{\sigma^2}\]</span></p>
+<p>This is equivalent to the following:</p>
+<p><span class="math display">\[\Gamma ^{-1}(0,1)\]</span> Thus the posteiro for <span class="math inline">\(\sigma^2\)</span></p>
+<p><span class="math display">\[\sigma^2|y \sim \Gamma ^{-1} (\frac{n-1}{2},\frac{1}{2} \sum (y_i-\bar{y})^2)\]</span></p>
+</div>
+</div>
+<div id="jeffreys-prior" class="section level2">
+<h2><span class="header-section-number">11.10</span> Jeffreys Prior</h2>
+<p>Jeffreys Prior</p>
+<p><span class="math display">\[f(\theta) \propto \sqrt{I(\theta)}\]</span> For instance,</p>
+<div id="gaussian-1" class="section level3">
+<h3><span class="header-section-number">11.10.1</span> Gaussian</h3>
+<p><span class="math display">\[Y_i \sim (\mu, \sigma^2) \rightarrow f(\mu) \propto 1, f(\sigma^2)\propto \frac{1}{\sigma^2}\]</span></p>
+</div>
+<div id="bernoulli-1" class="section level3">
+<h3><span class="header-section-number">11.10.2</span> Bernoulli</h3>
+<p><span class="math display">\[Y_i \sim B(\theta) \rightarrow f(\theta) \propto \theta ^{-\frac{1}{2}}(1-\theta)^{-\frac{1}{2}}\sim Beta(\frac{1}{2},\frac{1}{2})\]</span></p>
 
 </div>
 </div>
