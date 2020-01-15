@@ -209,9 +209,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.9.1" data-path="bayesian.html"><a href="bayesian.html#bernoulli"><i class="fa fa-check"></i><b>11.9.1</b> Bernoulli</a></li>
 <li class="chapter" data-level="11.9.2" data-path="bayesian.html"><a href="bayesian.html#gaussian"><i class="fa fa-check"></i><b>11.9.2</b> Gaussian</a></li>
 </ul></li>
-<li class="chapter" data-level="11.10" data-path="bayesian.html"><a href="bayesian.html#jeffreys-prior"><i class="fa fa-check"></i><b>11.10</b> Jeffreys Prior</a><ul>
+<li class="chapter" data-level="11.10" data-path="bayesian.html"><a href="bayesian.html#jeffreys-priors"><i class="fa fa-check"></i><b>11.10</b> Jeffreys Priors</a><ul>
 <li class="chapter" data-level="11.10.1" data-path="bayesian.html"><a href="bayesian.html#gaussian-1"><i class="fa fa-check"></i><b>11.10.1</b> Gaussian</a></li>
 <li class="chapter" data-level="11.10.2" data-path="bayesian.html"><a href="bayesian.html#bernoulli-1"><i class="fa fa-check"></i><b>11.10.2</b> Bernoulli</a></li>
+<li class="chapter" data-level="11.10.3" data-path="bayesian.html"><a href="bayesian.html#side-note-fisher-information"><i class="fa fa-check"></i><b>11.10.3</b> Side Note: Fisher Information</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>12</b> Trying</a><ul>
@@ -439,8 +440,8 @@ x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv
 <p><span class="math display">\[\sigma^2|y \sim \Gamma ^{-1} (\frac{n-1}{2},\frac{1}{2} \sum (y_i-\bar{y})^2)\]</span></p>
 </div>
 </div>
-<div id="jeffreys-prior" class="section level2">
-<h2><span class="header-section-number">11.10</span> Jeffreys Prior</h2>
+<div id="jeffreys-priors" class="section level2">
+<h2><span class="header-section-number">11.10</span> Jeffreys Priors</h2>
 <p>Jeffreys Prior</p>
 <p><span class="math display">\[f(\theta) \propto \sqrt{I(\theta)}\]</span> For instance,</p>
 <div id="gaussian-1" class="section level3">
@@ -450,6 +451,17 @@ x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv
 <div id="bernoulli-1" class="section level3">
 <h3><span class="header-section-number">11.10.2</span> Bernoulli</h3>
 <p><span class="math display">\[Y_i \sim B(\theta) \rightarrow f(\theta) \propto \theta ^{-\frac{1}{2}}(1-\theta)^{-\frac{1}{2}}\sim Beta(\frac{1}{2},\frac{1}{2})\]</span></p>
+</div>
+<div id="side-note-fisher-information" class="section level3">
+<h3><span class="header-section-number">11.10.3</span> Side Note: Fisher Information</h3>
+<p>The Fisher information (for one paramter):</p>
+<p><span class="math display">\[?(\theta)=E[(\frac{d}{d\theta} log(f(X|\theta)))^2]\]</span> The Expectation is with respect to <span class="math inline">\(X\)</span> with a PDF <span class="math inline">\(f(x|\theta)\)</span>.</p>
+<p>For instance, suppose the <span class="math inline">\(X|\theta \sim N(\theta,1)\)</span></p>
+<p><span class="math display">\[f(x|\theta)=\frac{1}{\sqrt{2 \pi}} exp[-\frac{1}{2}(x-\theta)^2]\]</span></p>
+<p><span class="math display">\[log(f(x|\theta)) = log(\frac{1}{\sqrt{2 \pi}})-\frac{1}{2}(x-\theta)^2 \]</span></p>
+<p><span class="math display">\[\frac{d}{d\theta}log(f(x|\theta))=x-\theta\]</span></p>
+<p><span class="math display">\[(\frac{d}{d\theta}log(f(x|\theta)))^2=(x-\theta)^2\]</span></p>
+<p><span class="math display">\[E[(\frac{d}{d\theta}log(f(x|\theta)))^2]=(x-\theta)^2=Var(X)=1\]</span></p>
 
 </div>
 </div>

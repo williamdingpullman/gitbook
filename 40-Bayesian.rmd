@@ -359,3 +359,23 @@ $$Y_i \sim (\mu, \sigma^2) \rightarrow f(\mu) \propto 1, f(\sigma^2)\propto \fra
 ### Bernoulli 
 
 $$Y_i \sim B(\theta) \rightarrow f(\theta) \propto \theta ^{-\frac{1}{2}}(1-\theta)^{-\frac{1}{2}}\sim Beta(\frac{1}{2},\frac{1}{2})$$
+
+### Side Note: Fisher Information
+
+The Fisher information (for one paramter):
+
+$$?(\theta)=E[(\frac{d}{d\theta} log(f(X|\theta)))^2]$$
+The Expectation is with respect to $X$ with a PDF $f(x|\theta)$.
+
+For instance, suppose the $X|\theta \sim N(\theta,1)$
+
+$$f(x|\theta)=\frac{1}{\sqrt{2 \pi}} exp[-\frac{1}{2}(x-\theta)^2]$$
+
+$$log(f(x|\theta)) = log(\frac{1}{\sqrt{2 \pi}})-\frac{1}{2}(x-\theta)^2 $$
+
+$$\frac{d}{d\theta}log(f(x|\theta))=x-\theta$$
+
+
+$$(\frac{d}{d\theta}log(f(x|\theta)))^2=(x-\theta)^2$$
+
+$$E[(\frac{d}{d\theta}log(f(x|\theta)))^2]=(x-\theta)^2=Var(X)=1$$

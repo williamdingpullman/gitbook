@@ -3627,7 +3627,7 @@ This is equivalent to the following:
 
 \[\sigma^2|y \sim \Gamma ^{-1} (\frac{n-1}{2},\frac{1}{2} \sum (y_i-\bar{y})^2)\]
 
-\section{Jeffreys Prior}\label{jeffreys-prior}
+\section{Jeffreys Priors}\label{jeffreys-priors}
 
 Jeffreys Prior
 
@@ -3640,6 +3640,26 @@ Jeffreys Prior
 \subsection{Bernoulli}\label{bernoulli-1}
 
 \[Y_i \sim B(\theta) \rightarrow f(\theta) \propto \theta ^{-\frac{1}{2}}(1-\theta)^{-\frac{1}{2}}\sim Beta(\frac{1}{2},\frac{1}{2})\]
+
+\subsection{Side Note: Fisher
+Information}\label{side-note-fisher-information}
+
+The Fisher information (for one paramter):
+
+\[?(\theta)=E[(\frac{d}{d\theta} log(f(X|\theta)))^2]\] The Expectation
+is with respect to \(X\) with a PDF \(f(x|\theta)\).
+
+For instance, suppose the \(X|\theta \sim N(\theta,1)\)
+
+\[f(x|\theta)=\frac{1}{\sqrt{2 \pi}} exp[-\frac{1}{2}(x-\theta)^2]\]
+
+\[log(f(x|\theta)) = log(\frac{1}{\sqrt{2 \pi}})-\frac{1}{2}(x-\theta)^2 \]
+
+\[\frac{d}{d\theta}log(f(x|\theta))=x-\theta\]
+
+\[(\frac{d}{d\theta}log(f(x|\theta)))^2=(x-\theta)^2\]
+
+\[E[(\frac{d}{d\theta}log(f(x|\theta)))^2]=(x-\theta)^2=Var(X)=1\]
 
 \chapter{Trying}\label{trying}
 
