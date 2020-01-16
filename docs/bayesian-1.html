@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Bayesian - 1 | GLMM, Concepts, &amp; R</title>
+  <meta name="description" content="The webpages are mainly about logit models." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 Bayesian - 1 | GLMM, Concepts, &amp; R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="The webpages are mainly about logit models." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Bayesian - 1 | GLMM, Concepts, &amp; R" />
+  
+  <meta name="twitter:description" content="The webpages are mainly about logit models." />
+  
+
+<meta name="author" content="Bill Last Updated:" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="project-draft.html"/>
+<link rel="next" href="bayesian-2.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bill's Stat Project</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface: Motivation</a></li>
+<li class="chapter" data-level="1" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>1</b> Basics</a><ul>
+<li class="chapter" data-level="1.1" data-path="basics.html"><a href="basics.html#logit"><i class="fa fa-check"></i><b>1.1</b> Logit</a></li>
+<li class="chapter" data-level="1.2" data-path="basics.html"><a href="basics.html#probit"><i class="fa fa-check"></i><b>1.2</b> Probit</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> MLE</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#basic-idea-of-mle"><i class="fa fa-check"></i><b>2.1</b> Basic idea of MLE</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#coin-flip-example-probit-and-logit"><i class="fa fa-check"></i><b>2.2</b> Coin flip example, probit, and logit</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="intro.html"><a href="intro.html#probit-1"><i class="fa fa-check"></i><b>2.2.1</b> Probit</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro.html"><a href="intro.html#logit-1"><i class="fa fa-check"></i><b>2.2.2</b> Logit</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#further-on-logit"><i class="fa fa-check"></i><b>2.3</b> Further on logit</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#references"><i class="fa fa-check"></i><b>2.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>3</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lm-and-glm"><i class="fa fa-check"></i><b>3.1</b> LM and GLM</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lm"><i class="fa fa-check"></i><b>3.1.1</b> LM</a></li>
+<li class="chapter" data-level="3.1.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#glm-definition"><i class="fa fa-check"></i><b>3.1.2</b> GLM-Definition</a></li>
+<li class="chapter" data-level="3.1.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#glm-log-link-example"><i class="fa fa-check"></i><b>3.1.3</b> GLM-log link example</a></li>
+<li class="chapter" data-level="3.1.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#glm-reciprocal-link"><i class="fa fa-check"></i><b>3.1.4</b> GLM-Reciprocal link:</a></li>
+<li class="chapter" data-level="3.1.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#glm-exponential-family"><i class="fa fa-check"></i><b>3.1.5</b> GLM-exponential family:</a></li>
+<li class="chapter" data-level="3.1.6" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-exponential-family"><i class="fa fa-check"></i><b>3.1.6</b> Canonical exponential family</a></li>
+<li class="chapter" data-level="3.1.7" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-exponential-family---expected-value-and-variance"><i class="fa fa-check"></i><b>3.1.7</b> Canonical exponential family - Expected value and variance</a></li>
+<li class="chapter" data-level="3.1.8" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#expected-value-and-variance---possion-example"><i class="fa fa-check"></i><b>3.1.8</b> Expected value and variance - Possion Example</a></li>
+<li class="chapter" data-level="3.1.9" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-link"><i class="fa fa-check"></i><b>3.1.9</b> Canonical link</a></li>
+<li class="chapter" data-level="3.1.10" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-link---bernoulli"><i class="fa fa-check"></i><b>3.1.10</b> Canonical link - Bernoulli</a></li>
+<li class="chapter" data-level="3.1.11" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#nr---bernoulli"><i class="fa fa-check"></i><b>3.1.11</b> NR - Bernoulli</a></li>
+<li class="chapter" data-level="3.1.12" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#iteratively-re-weighted-least-squares"><i class="fa fa-check"></i><b>3.1.12</b> Iteratively Re-weighted Least Squares</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lmm"><i class="fa fa-check"></i><b>3.2</b> LMM</a></li>
+<li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.3</b> Calculate mean</a></li>
+<li class="chapter" data-level="3.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>3.4</b> Test the treatment effect</a></li>
+<li class="chapter" data-level="3.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>3.5</b> Another example</a></li>
+<li class="chapter" data-level="3.6" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>3.6</b> Full LMM model</a></li>
+<li class="chapter" data-level="3.7" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>3.7</b> Serial correlations in time and space</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Stat Concepts</a><ul>
+<li class="chapter" data-level="4.1" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#score"><i class="fa fa-check"></i><b>4.1</b> Score</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#gradient-and-jacobian"><i class="fa fa-check"></i><b>4.2</b> Gradient and Jacobian</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#hessian-and-fisher-information"><i class="fa fa-check"></i><b>4.3</b> Hessian and Fisher Information</a></li>
+<li class="chapter" data-level="4.4" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.4</b> Canonical link function</a></li>
+<li class="chapter" data-level="4.5" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.5</b> Ordinary Least Squares (OLS)</a></li>
+<li class="chapter" data-level="4.6" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#taylor-series"><i class="fa fa-check"></i><b>4.6</b> Taylor series</a></li>
+<li class="chapter" data-level="4.7" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#fisher-scoring"><i class="fa fa-check"></i><b>4.7</b> Fisher scoring</a></li>
+<li class="chapter" data-level="4.8" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#references-1"><i class="fa fa-check"></i><b>4.8</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="basic-r.html"><a href="basic-r.html"><i class="fa fa-check"></i><b>5</b> Basic R</a><ul>
+<li class="chapter" data-level="5.1" data-path="basic-r.html"><a href="basic-r.html#apply-lapply-sapply"><i class="fa fa-check"></i><b>5.1</b> apply, lapply, sapply</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="basic-r.html"><a href="basic-r.html#apply"><i class="fa fa-check"></i><b>5.1.1</b> apply</a></li>
+<li class="chapter" data-level="5.1.2" data-path="basic-r.html"><a href="basic-r.html#lapply"><i class="fa fa-check"></i><b>5.1.2</b> lapply</a></li>
+<li class="chapter" data-level="5.1.3" data-path="basic-r.html"><a href="basic-r.html#sapply"><i class="fa fa-check"></i><b>5.1.3</b> sapply</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="basic-r.html"><a href="basic-r.html#c"><i class="fa fa-check"></i><b>5.2</b> C</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>6</b> Computing Techniques</a><ul>
+<li class="chapter" data-level="6.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>6.1</b> Monte carlo approximation</a></li>
+<li class="chapter" data-level="6.2" data-path="computing-techniques.html"><a href="computing-techniques.html#importance-sampling"><i class="fa fa-check"></i><b>6.2</b> Importance sampling</a></li>
+<li class="chapter" data-level="6.3" data-path="computing-techniques.html"><a href="computing-techniques.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>6.3</b> Newton Raphson algorithm</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="computing-techniques.html"><a href="computing-techniques.html#calculate-the-root"><i class="fa fa-check"></i><b>6.3.1</b> Calculate the root</a></li>
+<li class="chapter" data-level="6.3.2" data-path="computing-techniques.html"><a href="computing-techniques.html#logistic-regression"><i class="fa fa-check"></i><b>6.3.2</b> Logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="computing-techniques.html"><a href="computing-techniques.html#metropolis-hastings"><i class="fa fa-check"></i><b>6.4</b> Metropolis Hastings</a></li>
+<li class="chapter" data-level="6.5" data-path="computing-techniques.html"><a href="computing-techniques.html#em"><i class="fa fa-check"></i><b>6.5</b> EM</a></li>
+<li class="chapter" data-level="6.6" data-path="computing-techniques.html"><a href="computing-techniques.html#references-2"><i class="fa fa-check"></i><b>6.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Mixed Models</a><ul>
+<li class="chapter" data-level="7.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>7.1</b> Basics of GLMM</a></li>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>7.2</b> Some References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>8</b> Twitter Example</a><ul>
+<li class="chapter" data-level="8.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>8.1</b> Model</a></li>
+<li class="chapter" data-level="8.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>8.2</b> Simulating Data of Senators on Twitter</a></li>
+<li class="chapter" data-level="8.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="8.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html"><i class="fa fa-check"></i><b>9</b> Practice: Learning on the Battle Field</a><ul>
+<li class="chapter" data-level="9.1" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html#r-code"><i class="fa fa-check"></i><b>9.1</b> R code</a></li>
+<li class="chapter" data-level="9.2" data-path="practice-learning-on-the-battle-field.html"><a href="practice-learning-on-the-battle-field.html#references-3"><i class="fa fa-check"></i><b>9.2</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="project-draft.html"><a href="project-draft.html"><i class="fa fa-check"></i><b>10</b> Project Draft</a><ul>
+<li class="chapter" data-level="10.1" data-path="project-draft.html"><a href="project-draft.html#background"><i class="fa fa-check"></i><b>10.1</b> Background</a></li>
+<li class="chapter" data-level="10.2" data-path="project-draft.html"><a href="project-draft.html#important-examples-with-r-code"><i class="fa fa-check"></i><b>10.2</b> Important Examples with R code</a></li>
+<li class="chapter" data-level="10.3" data-path="project-draft.html"><a href="project-draft.html#references-4"><i class="fa fa-check"></i><b>10.3</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="bayesian-1.html"><a href="bayesian-1.html"><i class="fa fa-check"></i><b>11</b> Bayesian - 1</a><ul>
+<li class="chapter" data-level="11.1" data-path="bayesian-1.html"><a href="bayesian-1.html#frequentist-perspective"><i class="fa fa-check"></i><b>11.1</b> Frequentist perspective</a></li>
+<li class="chapter" data-level="11.2" data-path="bayesian-1.html"><a href="bayesian-1.html#bayesian-perspective"><i class="fa fa-check"></i><b>11.2</b> Bayesian perspective</a></li>
+<li class="chapter" data-level="11.3" data-path="bayesian-1.html"><a href="bayesian-1.html#continous-parameters"><i class="fa fa-check"></i><b>11.3</b> Continous parameters</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="bayesian-1.html"><a href="bayesian-1.html#uniform"><i class="fa fa-check"></i><b>11.3.1</b> Uniform</a></li>
+<li class="chapter" data-level="11.3.2" data-path="bayesian-1.html"><a href="bayesian-1.html#uniform-prior-versus-posterior"><i class="fa fa-check"></i><b>11.3.2</b> Uniform: prior versus posterior</a></li>
+<li class="chapter" data-level="11.3.3" data-path="bayesian-1.html"><a href="bayesian-1.html#uniform-equal-tailed-versus-hpd"><i class="fa fa-check"></i><b>11.3.3</b> Uniform: equal tailed versus HPD</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="bayesian-1.html"><a href="bayesian-1.html#bernoullibinomial-likelihood-with-uniform-prior"><i class="fa fa-check"></i><b>11.4</b> Bernoulli/binomial likelihood with uniform prior</a></li>
+<li class="chapter" data-level="11.5" data-path="bayesian-1.html"><a href="bayesian-1.html#conjugate-priors"><i class="fa fa-check"></i><b>11.5</b> Conjugate priors</a></li>
+<li class="chapter" data-level="11.6" data-path="bayesian-1.html"><a href="bayesian-1.html#poisson-distribution"><i class="fa fa-check"></i><b>11.6</b> Poisson distribution</a></li>
+<li class="chapter" data-level="11.7" data-path="bayesian-1.html"><a href="bayesian-1.html#exponential-data"><i class="fa fa-check"></i><b>11.7</b> Exponential data</a></li>
+<li class="chapter" data-level="11.8" data-path="bayesian-1.html"><a href="bayesian-1.html#normal-likelihood"><i class="fa fa-check"></i><b>11.8</b> Normal likelihood</a><ul>
+<li class="chapter" data-level="11.8.1" data-path="bayesian-1.html"><a href="bayesian-1.html#when-variance-is-known"><i class="fa fa-check"></i><b>11.8.1</b> When variance is known</a></li>
+<li class="chapter" data-level="11.8.2" data-path="bayesian-1.html"><a href="bayesian-1.html#when-variance-is-unknown"><i class="fa fa-check"></i><b>11.8.2</b> When variance is unknown</a></li>
+</ul></li>
+<li class="chapter" data-level="11.9" data-path="bayesian-1.html"><a href="bayesian-1.html#non-informative-priors"><i class="fa fa-check"></i><b>11.9</b> Non-informative priors</a><ul>
+<li class="chapter" data-level="11.9.1" data-path="bayesian-1.html"><a href="bayesian-1.html#bernoulli"><i class="fa fa-check"></i><b>11.9.1</b> Bernoulli</a></li>
+<li class="chapter" data-level="11.9.2" data-path="bayesian-1.html"><a href="bayesian-1.html#gaussian"><i class="fa fa-check"></i><b>11.9.2</b> Gaussian</a></li>
+</ul></li>
+<li class="chapter" data-level="11.10" data-path="bayesian-1.html"><a href="bayesian-1.html#jeffreys-priors"><i class="fa fa-check"></i><b>11.10</b> Jeffreys Priors</a><ul>
+<li class="chapter" data-level="11.10.1" data-path="bayesian-1.html"><a href="bayesian-1.html#gaussian-1"><i class="fa fa-check"></i><b>11.10.1</b> Gaussian</a></li>
+<li class="chapter" data-level="11.10.2" data-path="bayesian-1.html"><a href="bayesian-1.html#bernoulli-1"><i class="fa fa-check"></i><b>11.10.2</b> Bernoulli</a></li>
+<li class="chapter" data-level="11.10.3" data-path="bayesian-1.html"><a href="bayesian-1.html#side-note-fisher-information"><i class="fa fa-check"></i><b>11.10.3</b> Side Note: Fisher Information</a></li>
+<li class="chapter" data-level="11.10.4" data-path="bayesian-1.html"><a href="bayesian-1.html#prior-predictive-distribution"><i class="fa fa-check"></i><b>11.10.4</b> Prior predictive distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="11.11" data-path="bayesian-1.html"><a href="bayesian-1.html#linear-regression"><i class="fa fa-check"></i><b>11.11</b> Linear regression</a><ul>
+<li class="chapter" data-level="11.11.1" data-path="bayesian-1.html"><a href="bayesian-1.html#review"><i class="fa fa-check"></i><b>11.11.1</b> Review</a></li>
+<li class="chapter" data-level="11.11.2" data-path="bayesian-1.html"><a href="bayesian-1.html#when-sigma2-is-known"><i class="fa fa-check"></i><b>11.11.2</b> When <span class="math inline">\(\sigma^2\)</span> is known</a></li>
+<li class="chapter" data-level="11.11.3" data-path="bayesian-1.html"><a href="bayesian-1.html#when-sigma2-is-unknown"><i class="fa fa-check"></i><b>11.11.3</b> When <span class="math inline">\(\sigma^2\)</span> is unknown</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="bayesian-2.html"><a href="bayesian-2.html"><i class="fa fa-check"></i><b>12</b> Bayesian - 2</a></li>
+<li class="chapter" data-level="13" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>13</b> Trying</a><ul>
+<li class="chapter" data-level="13.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>13.1</b> The Basic Idea</a></li>
+<li class="chapter" data-level="13.2" data-path="trying.html"><a href="trying.html#model-and-r-code"><i class="fa fa-check"></i><b>13.2</b> Model and R Code</a></li>
+<li class="chapter" data-level="13.3" data-path="trying.html"><a href="trying.html#glmmtmb-package"><i class="fa fa-check"></i><b>13.3</b> glmmTMB package</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">GLMM, Concepts, &amp; R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bayesian---1" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Bayesian - 1</h1>
+<p>The following is the part of the class note that I took from the online course of “Bayesian Statistics: From Concept to Data Analysis.” (<a href="https://www.coursera.org/learn/bayesian-statistics/home/welcome" class="uri">https://www.coursera.org/learn/bayesian-statistics/home/welcome</a>)</p>
+<p>Important note: All the notes here are just for my own study purpose. I do not clain any copyright. You can use it for study purpose as well, but not for any business purposes.</p>
+<div id="frequentist-perspective" class="section level2">
+<h2><span class="header-section-number">11.1</span> Frequentist perspective</h2>
+<p><span class="math display">\[\theta = \{ fair , loaded \}\]</span> <span class="math display">\[x \sim Bin (5, \theta)\]</span> <span class="math display">\[\begin{aligned} f(x|\theta) &amp;=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 &amp; if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} &amp; if \;  \theta=loaded  \end{cases} \\ &amp;= \binom{5}{x} (\frac{1}{2})^5 I_{\{\theta=fair \}}+\binom{5}{x} (0.7)^x(0.3)^{5-x}I_{\{\theta=loaded \}}\end{aligned}\]</span></p>
+<p>When <span class="math inline">\(x=2\)</span></p>
+<p><span class="math display">\[f(\theta | x=2)=\begin{cases} \binom{5}{x} (\frac{1}{2})^5 = 0.3125&amp; if \; \theta=fair  \\ \binom{5}{x} (0.7)^x(0.3)^{5-x} = 0.1323&amp; if \;  \theta=loaded  \end{cases}\]</span> Thus, based on MLE, it suggests that it should be “fair”, since it has a greater probablity if we observe 2 head out of 5 trials.</p>
+<p>However, we can not know the following probability: given that we observe <span class="math inline">\(x=2\)</span>, what is the probability that <span class="math inline">\(\theta\)</span> is fair?</p>
+<p><span class="math display">\[P(\theta=fair | X=2)\]</span> From the frequentist’s perspective, the coin is the fixed coin. And thus, the probablity of <span class="math inline">\(P(\theta=fair|x=2)\)</span> is equal to <span class="math inline">\(P(\theta=fair)\)</span>.</p>
+<p><span class="math display">\[P(\theta=fair|x=2)=P(\theta=fair)\]</span> As,</p>
+<p><span class="math display">\[P(\theta=fair) \in C(0,1) (i.e., either \; 0 \; or \; 1)\]</span></p>
+</div>
+<div id="bayesian-perspective" class="section level2">
+<h2><span class="header-section-number">11.2</span> Bayesian perspective</h2>
+<p>Prior <span class="math inline">\(P(loaded)=0.6\)</span></p>
+<p><span class="math display">\[\begin{aligned} f(\theta | X) &amp;= \frac{f(x|\theta) f(\theta)}{\sum_{\theta} f(x|\theta)f(\theta)} \\ &amp;=\frac{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 \times I_{\{\theta=fair \}}+ (0.7)^x(0.3)^{5-x} \times 0.6 \times I_{\{\theta=loaded \}}]}{\binom{5}{x} [(\frac{1}{2})^5 \times 0.4 + (0.7)^x(0.3)^{5-x} \times 0.6]}  \end{aligned}\]</span></p>
+<p><span class="math display">\[\begin{aligned} f(\theta |X=2) &amp;=\frac{0.0125 I_{\{\theta=fair \}}+0.0079 I_{\{\theta=loaded \}} }{0.0125+0.0079} \\ &amp;= 0.612 I_{\{\theta=fair \}} + 0.388 I_{\{\theta=loaded \}} \end{aligned}\]</span></p>
+<p>Thus, we can say that:</p>
+<p><span class="math display">\[P(\theta=loaded | X=2)=0.388\]</span> We can change the prior, and get different posterior probabilities:</p>
+<p><span class="math display">\[P(\theta=loaded)=\frac{1}{2} \rightarrow P(\theta=loaded | X=2)=0.297\]</span> <span class="math display">\[P(\theta=loaded)=\frac{9}{10} \rightarrow P(\theta=loaded | X=2)=0.792\]</span></p>
+</div>
+<div id="continous-parameters" class="section level2">
+<h2><span class="header-section-number">11.3</span> Continous parameters</h2>
+<p>In the examples above, <span class="math inline">\(\theta\)</span> is discrete. In contrast, the examples below use continous <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[f(\theta |y)=\frac{f(y|\theta) f(\theta)}{f(y)}=\frac{f(y|\theta) f(\theta)}{\int f(y|\theta)f(\theta)d\theta}=\frac{likelihood \times prior}{normalizing-constant} \propto likelihood \times prior\]</span></p>
+<p>Note that, the posterior is a PDF of <span class="math inline">\(\theta\)</span>, which is not in the function of <span class="math inline">\(f(y)\)</span>. Thus, removing the denominator (i.e., the normalizing constant) does not change the form of the posterior.</p>
+<div id="uniform" class="section level3">
+<h3><span class="header-section-number">11.3.1</span> Uniform</h3>
+<p>Suppose that <span class="math inline">\(\theta\)</span> is the probablity of a coin getting head. We could assign a uniform distribution.</p>
+<p><span class="math display">\[\theta \sim U[0,1]\]</span></p>
+<p><span class="math display">\[f(\theta)=I_{ \{0 \leqq \theta \leqslant 1 \}}\]</span> (It is interesting to see how to write the pdf for uniform distribution.)</p>
+<p><span class="math display">\[f(\theta | Y=1)= \frac{\theta^1(1-\theta)^0 I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^1(1-\theta)^0 I_{\{0 \leqq \theta \leqslant 1\}} d\theta}=\frac{\theta I_{\{0 \leqq \theta \leqslant 1 \}}}{\int_0^1 \theta d\theta}=2\theta I_{ \{0 \leqq \theta \leqslant 1\}}\]</span></p>
+<p>If we ignore the normalizing constant, we will get</p>
+<p><span class="math display">\[f(\theta | Y=1) \propto \theta^1(1-\theta)^0 I_{ \{0 \leqq \theta \leqslant 1\} }=\theta I_{ \{0 \leqq \theta \leqslant 1\} }\]</span></p>
+<p>Thus, we can see that with vs. without the noramlizing constant is the “2”.</p>
+</div>
+<div id="uniform-prior-versus-posterior" class="section level3">
+<h3><span class="header-section-number">11.3.2</span> Uniform: prior versus posterior</h3>
+<p>When <span class="math inline">\(\theta\)</span> follows uniform distribution:</p>
+<p><strong>Prior</strong></p>
+<p><span class="math display">\[P(0.025 &lt;\theta&lt;0.975)=0.95\]</span> <span class="math display">\[P( 0.05&lt; \theta )=0.95\]</span> <strong>Posterior</strong></p>
+<p><span class="math display">\[P(0.025&lt;\theta&lt;0.975)=\int_{0.025}^{0.975} 2\theta d\theta=0.95\]</span> <span class="math display">\[P(0.05&lt;\theta)=1-P(\theta &lt;0.05)=\int_{0}^{0.05} 2\theta d\theta=1-0.05^2=0.9975\]</span></p>
+<p>Thus, we can see that, while <span class="math inline">\(P(0.025&lt;\theta&lt;0.975)\)</span> is the same for prior and posterior, <span class="math inline">\(P(0.05&lt;\theta)\)</span> is not the same.</p>
+</div>
+<div id="uniform-equal-tailed-versus-hpd" class="section level3">
+<h3><span class="header-section-number">11.3.3</span> Uniform: equal tailed versus HPD</h3>
+<p><strong>Equal tailed</strong></p>
+<p><span class="math display">\[P(\theta &lt; q|Y=1)=\int_0^q 2\theta d\theta=q^2\]</span> <span class="math display">\[P(\sqrt{0.025}&lt;\theta&lt;\sqrt{0.975}|Y=1)=P(0.158&lt;\theta&lt;0.987)=0.95\]</span> We can say that: there’s a 95% probability that <span class="math inline">\(\theta\)</span> is in between 0.158 and 0.987.</p>
+<p><strong>Highest Posterior Density</strong></p>
+<p><span class="math display">\[P(\theta &gt; \sqrt{0.05}|Y=1)=P(\theta &gt;0.224|Y=1)=0.95\]</span></p>
+</div>
+</div>
+<div id="bernoullibinomial-likelihood-with-uniform-prior" class="section level2">
+<h2><span class="header-section-number">11.4</span> Bernoulli/binomial likelihood with uniform prior</h2>
+<p><span class="math display">\[\begin{aligned}  f(\theta | Y=1) &amp;= \frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\int_{-\infty}^{+\infty} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &amp;=\frac{\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}}{\frac{\Gamma(\sum y_i+1)\Gamma(n-\sum y_i+1)}{\Gamma(n+2)} \int_{-\infty}^{+\infty} \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_i+1)} \theta^{\sum y_i}(1-\theta)^{n-\sum y_i} I_{\{0 \leqq \theta \leqslant 1\}} d\theta} \\ &amp;= \frac{\Gamma(n+2)}{\Gamma(\sum y_i+1)\Gamma(n-\sum y_i+1)}\theta^{\sum y_i}(1-\theta)^{\sum n-y_i} I_{\{0 \leqq \theta \leqslant 1\}}  \end{aligned} \]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[\theta | y \sim Beta (\sum y_i+1, n-\sum y_i +1)\]</span></p>
+<p><strong>Side note:</strong> <span class="math inline">\(Beta(1,1)=Uniform(0,1)\)</span>:</p>
+<p><span class="math inline">\(Beta(\alpha,\beta)=\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq x \leqslant 1\}}\)</span></p>
+<p>Thus, we can get the following since the support for beta distribution is <span class="math inline">\([0,1]\)</span>:</p>
+<p><span class="math inline">\(Beta(1,1)=\frac{x^0(1-x)^0}{B(\alpha,\beta)}=1\times I_{\{0 \leqq x \leqslant 1\}}\)</span></p>
+</div>
+<div id="conjugate-priors" class="section level2">
+<h2><span class="header-section-number">11.5</span> Conjugate priors</h2>
+<p>As noted above, beta prior (or, Uniform) leads to beta posterior. In a more general sense, Beta prior always leads to beta posterior.</p>
+<p>For instance,</p>
+<p><span class="math display">\[\begin{aligned} f(\theta |y) \propto f(y|\theta)f(\theta)&amp;=\theta^{\sum y_i}(1-\theta)^{\sum n-y_i}\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)} I_{\{0 \leqq \theta \leqslant 1\}} \\ &amp;=\frac{1}{B(\alpha, \beta)}\theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \\ &amp;\propto  \theta^{\sum y_i+\alpha-1}(1-\theta)^{\sum n-y_i+\beta-1} I_{\{0 \leqq \theta \leqslant 1\}} \end{aligned}\]</span> Thus,</p>
+<p><span class="math display">\[f(\theta |y) \sim Beta(\alpha+\sum y_i,\beta+\sum n-y_i)\]</span> Conjugate prior: prior and posterior share the same distribution. As we can see, both the data and the prior contribute to the posterior.</p>
+<p>For the prior of <span class="math inline">\(Beta(\alpha, \beta)\)</span>, the mean is</p>
+<p><span class="math display">\[Mean_{prior}=\frac{\alpha}{\alpha+\beta}\]</span></p>
+<p>Posterior mean is,</p>
+<p><span class="math display">\[\begin{aligned} Mean_{posterior}&amp;= \frac{\alpha+\sum y_i}{\alpha+\sum y_i+\beta+n-\sum y_i} \\ &amp;=\frac{\alpha+\sum y_i}{\alpha+\beta+n} \\ &amp;= \frac{\alpha+\beta}{\alpha+\beta+n}\frac{\alpha}{\alpha+\beta}+\frac{n}{\alpha+\beta+n}\frac{\sum y_i}{n} \\ &amp;= Weight_{prior} \times Mean_{prior}+Weight_{data} \times Mean_{data}\end{aligned}\]</span></p>
+<p><strong>Side Note</strong></p>
+<ol style="list-style-type: decimal">
+<li>Binomial proportion confidence interval:</li>
+</ol>
+<p><span class="math display">\[\hat{p} +/- 1.96 \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]</span> (2) Mean of Beta distribution:</p>
+<p><span class="math display">\[\frac{\alpha}{\alpha+\beta}\]</span> (3) Plot of Beta distribution</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Method 1</span>
+x&lt;-<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">length=</span><span class="dv">200</span>)
+<span class="kw">plot</span>(x,<span class="kw">dbeta</span>(x,<span class="dv">1</span>,<span class="dv">5</span>),<span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Method 2</span>
+x2&lt;-<span class="kw">rbeta</span>(<span class="dv">200</span>,<span class="dv">1</span>,<span class="dv">5</span>)
+<span class="kw">hist</span>(x2,<span class="dt">prob =</span> <span class="ot">TRUE</span>)
+<span class="kw">lines</span>(<span class="kw">density</span>(x2))</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
+</div>
+<div id="poisson-distribution" class="section level2">
+<h2><span class="header-section-number">11.6</span> Poisson distribution</h2>
+<p>Pmf of Poisson distribution:</p>
+<p><span class="math display">\[Pois (\lambda) \sim \frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
+<p>We can replace <span class="math inline">\(k\)</span> with the notation of <span class="math inline">\(y\)</span>, and assume that we observe <span class="math inline">\(n\)</span> <span class="math inline">\(y_i\)</span>: <span class="math display">\[y_i \sim \frac{\lambda^{y_i} e^{-\lambda}}{y_i!}\]</span></p>
+<p><span class="math display">\[f(y|\lambda)=\frac{\lambda^{\sum y_i} e^{- n \lambda}}{\prod_{i=1}^n y_i !}\]</span></p>
+<p>We assume that <span class="math inline">\(\lambda\)</span> follows Gamma distribution (i.e.,Gamma prior):</p>
+<p><span class="math display">\[\lambda \sim \Gamma(\alpha, \beta)\]</span> The pdf for Gamma distribution is:</p>
+<p><span class="math display">\[\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\]</span></p>
+<p>Thus, the posterior is as follows:</p>
+<p><span class="math display">\[\begin{aligned} f(\lambda | y) &amp;\propto f(y|\lambda)f(\lambda) \\ &amp;=\frac{\lambda^{\sum y_i} e^{- n \lambda}}{\prod_{i=1}^n y_i !} \times \frac{\beta^{\alpha}}{\Gamma(\alpha)}\lambda^{\alpha-1}e^{-\beta \lambda} \\ &amp;\propto \lambda^{\sum y_i}e^{- n \lambda} \times \lambda^{\alpha-1}e^{-\beta \lambda} \\ &amp;=\lambda^{(\alpha+\sum y_i)-1}e^{- (\beta+n) \lambda} \end{aligned}\]</span> Thus, the posterior is:</p>
+<p><span class="math display">\[\Gamma(\alpha + \sum y_i, \beta+n)\]</span></p>
+<p>As we know that, the mean of prior for Gamma is <span class="math inline">\(\frac{\alpha}{\beta}\)</span>. Thus, we can get the mean for the posterior for Gamma is:</p>
+<p><span class="math display">\[\begin{aligned} &amp;=\frac{\alpha+\sum y_i}{\beta+n} \\ &amp;= \frac{\beta}{\beta+n} \frac{\alpha}{\beta}+\frac{n}{\beta+n} \frac{\sum y_i}{n} \end{aligned}\]</span> To determine the prior of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Prior mean <span class="math inline">\(\frac{\alpha}{\beta}\)</span></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Prior std. dev. <span class="math inline">\(\frac{\sqrt \alpha}{\beta}\)</span></li>
+<li>Effective sample size <span class="math inline">\(\beta\)</span></li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>Vague prior Small <span class="math inline">\(\varepsilon &gt;0\)</span>: <span class="math inline">\(\Gamma (\varepsilon,\varepsilon)\)</span> . Thus, the posterior mean is primarily driven by the data:</li>
+</ol>
+<p><span class="math display">\[\frac{\varepsilon + \sum y_i}{\varepsilon + n} \approx \frac{ \sum y_i}{n} \]</span></p>
+<ol style="list-style-type: decimal">
+<li><p>As we know, beta prior lead the Bernoulli trial to a beta posterior. That is, we know <span class="math inline">\(f(\theta|y)=\frac{f(y|\theta) f(\theta)}{f(y)}\)</span>. What is the prior predictive distribution of <span class="math inline">\(f(y)\)</span>?</p></li>
+<li><p>If Beta is Beta (3,3), what is the prior predictive probablity that we wil observe <span class="math inline">\(y=0\)</span> in the next trial?</p></li>
+</ol>
+</div>
+<div id="exponential-data" class="section level2">
+<h2><span class="header-section-number">11.7</span> Exponential data</h2>
+<p>For instance, suppose that on average you need to wait for 10 minutes for a fast food delivery, and thus we can assume that <span class="math inline">\(y \sim Exp(\lambda)\)</span>. Furthermore, we assume that the prior <span class="math inline">\(\lambda\)</span> follows Gamma distribution <span class="math inline">\(Gamma(\alpha, \beta)\)</span>, thus it is with a mean of <span class="math inline">\(\frac{\alpha}{\beta}=\frac{1}{10}\)</span>.</p>
+<p><span class="math display">\[if \; \; \Gamma (100, 1000)\]</span> (Note that, it has a mean of <span class="math inline">\(\frac{100}{1000}=\frac{1}{10}\)</span>).</p>
+<p>Thus, we can get:</p>
+<p><span class="math display">\[\begin{aligned} f(\lambda | y) &amp;\propto f(y|\lambda) f(\lambda) \\ &amp;\propto \lambda e^{-\lambda y} \lambda^{\alpha-1}e^{-\beta \lambda} \\ &amp;\propto \lambda^{(\alpha+1)-1} e^{-(\beta+y)\lambda } \end{aligned}\]</span> Thus, we get</p>
+<p><span class="math display">\[\lambda |y \sim \Gamma (\alpha+1,\beta+y)\]</span> Thus, if we observe a data point that we need to wait for 12 minutes for a fast food delivery, we can update the posterior:</p>
+<p><span class="math display">\[\lambda |y \sim \Gamma (101,1012)\]</span> Thus, the mean for the posterior is</p>
+<p><span class="math display">\[\frac{101}{1012}=\frac{1}{10.02}\]</span></p>
+<p><strong>Note:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Typically, we know that the pdf of Gamma is <span class="math inline">\(\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\)</span>. We replace <span class="math inline">\(x\)</span> with <span class="math inline">\(\lambda\)</span> since now the random variable of <span class="math inline">\(x\)</span> is to represent the parameter <span class="math inline">\(\lambda\)</span> in the exponential distribution.</p></li>
+<li><p>In the above, we drop the constant part (<span class="math inline">\(\frac{\beta^{\alpha}}{\Gamma(\alpha)}\)</span>) in the Gamma distribution as long as it does not include <span class="math inline">\(x\)</span> (i.e., <span class="math inline">\(\lambda\)</span>).</p></li>
+<li><p>Suppose that you have 4 observations in total, then</p></li>
+</ol>
+<p><span class="math display">\[\begin{aligned} f(\lambda | y) &amp;\propto f(y_1|\lambda)f(y_2|\lambda)f(y_3|\lambda)f(y_4|\lambda)    f(\lambda) \\ &amp;\propto \lambda e^{-\lambda y_1} \lambda e^{-\lambda y_2}\lambda e^{-\lambda y_3} \lambda e^{-\lambda y_4}   \lambda^{\alpha-1}e^{-\beta \lambda} \\ &amp;\propto \lambda^{(\alpha+4)-1} e^{-(\beta+\sum_{i=1}^4 y_i)\lambda } \end{aligned}\]</span> Thus, the generalized form is as follows:</p>
+<p><span class="math display">\[\lambda^{(\alpha+n)-1} e^{-(\beta+\sum_{i=1}^n y_i)\lambda }\]</span></p>
+</div>
+<div id="normal-likelihood" class="section level2">
+<h2><span class="header-section-number">11.8</span> Normal likelihood</h2>
+<div id="when-variance-is-known" class="section level3">
+<h3><span class="header-section-number">11.8.1</span> When variance is known</h3>
+<p><span class="math display">\[x_i \sim N(\mu, \sigma_0^2)\]</span> (<span class="math inline">\(\sigma_0\)</span> is assumed to be known. Thus, the only unknown parameter is <span class="math inline">\(\mu\)</span>.)</p>
+<p>The conjugate prior for normal distribution is normal distribution itself.</p>
+<p><span class="math display">\[f(\mu |x) \sim f(x|\mu) f(\mu)\]</span></p>
+<p>Assume that <span class="math display">\[\mu \sim N(m_0,s_0^2)\]</span></p>
+<p><span class="math display">\[\mu|x \sim N(\frac{\frac{n \bar{x}}{\sigma_o^2}+\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}},\frac{1}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}})\]</span></p>
+<p>Thus, where</p>
+<p><span class="math display">\[\begin{aligned} \frac{\frac{n \bar{x}}{\sigma_o^2}+\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}&amp;=\frac{\frac{n \bar{x}}{\sigma_o^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}+\frac{\frac{m_o}{S_0^2}}{\frac{n}{\sigma_0^2}+\frac{1}{s_0^2}}\\ &amp;=\frac{n}{n+\frac{\sigma_0^2}{s_0^2}} \bar{x}+\frac{\frac{\sigma_0^2}{S_0^2}}{n+\frac{\sigma_0^2}{s_0^2}}m_o \end{aligned}\]</span> <strong>Note:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>As we can see, the posterior mean is a weighted mean – a combination of prior mean and sample mean.</p></li>
+<li><p>When n is larger, the sample mean <span class="math inline">\(\bar{x}\)</span> gets more weight.</p></li>
+<li><p>For the prior mean <span class="math inline">\(m_0\)</span>, the smaller the prior variance <span class="math inline">\(s_0^2\)</span> is, the prior mean gets more weight. If the prior variance <span class="math inline">\(s_0^2\)</span> is big, the prior mean will get less weight in the final posterior mean.</p></li>
+</ol>
+</div>
+<div id="when-variance-is-unknown" class="section level3">
+<h3><span class="header-section-number">11.8.2</span> When variance is unknown</h3>
+<p><span class="math display">\[x_i | \mu, \sigma^2 \sim N (\mu, \sigma^2)\]</span></p>
+<p><span class="math display">\[\mu | \sigma^2 \sim N(m, \frac{\sigma^2}{w})\]</span></p>
+<p><strong>Side note：</strong></p>
+<p><span class="math inline">\(w=\frac{\sigma^2}{\sigma_{\mu}^2}\)</span> effective sample size</p>
+<p><span class="math display">\[\sigma^2 \sim \Gamma^{-1}(\alpha, \beta)\]</span></p>
+<p>Thus, we can get that,</p>
+<p><span class="math display">\[\sigma^2 | x\sim \Gamma^{-1}(\alpha+\frac{n}{2}, \beta+\frac{1}{2} \sum_{i=1}^{n}(x_i-\bar{x})^2+\frac{nw}{2(n+w)}(\bar{x}-m)^2)\]</span></p>
+<p><span class="math display">\[\mu| \sigma^2,x \sim N(\frac{n \bar{x}+wm}{n+w},\frac{\sigma^2}{n+w})\]</span></p>
+<p>Where,</p>
+<p><span class="math inline">\(\frac{n \bar{x}+wm}{n+w} = \frac{w}{n+w}m+\frac{n}{n+w}\bar{x}\)</span></p>
+<p><span class="math display">\[\mu |x \sim t - distribution \]</span></p>
+</div>
+</div>
+<div id="non-informative-priors" class="section level2">
+<h2><span class="header-section-number">11.9</span> Non-informative priors</h2>
+<div id="bernoulli" class="section level3">
+<h3><span class="header-section-number">11.9.1</span> Bernoulli</h3>
+<p><span class="math inline">\(Y_i \sim B(\theta)\)</span></p>
+<p><span class="math display">\[\theta \sim U[0,1]= Beta (1,1)\]</span> (Effective sample size is 1+1=2)</p>
+<p>If we get <span class="math inline">\(Beta(\frac{1}{2},\frac{1}{2})\)</span> and <span class="math inline">\(Beta(0.001, 0.001)\)</span> have less impact on the posterior.</p>
+<p>Improper prior, for instance, THe prior <span class="math display">\[Beta (0,0)\]</span> <span class="math display">\[f(\theta) \propto \theta ^{-1}(1-\theta)^{-1}\]</span></p>
+<p>In this case,</p>
+<p><span class="math display">\[f(\theta| y) \propto \theta^{y-1}(1-\theta)^{n-y-1} \sim Beta(y, n-y)\]</span></p>
+<p>Posterior mean: <span class="math inline">\(\frac{y}{n}=\hat{\theta}\)</span></p>
+</div>
+<div id="gaussian" class="section level3">
+<h3><span class="header-section-number">11.9.2</span> Gaussian</h3>
+<p><span class="math display">\[Y_i \sim N(\mu, \sigma^2)\]</span></p>
+<p>Vague prior:</p>
+<p><span class="math display">\[\mu \sim N(0, 1000000^2)\]</span> or,</p>
+<p><span class="math display">\[f(\mu) \sim 1\]</span></p>
+<p><span class="math display">\[\begin{aligned} f(\mu | y) &amp;\propto f(y|\mu)f(\mu) \\ &amp;\propto exp(-\frac{1}{2 \sigma^2} \sum (y_i-\mu)^2) \times 1 \\ &amp;\propto exp(-\frac{1}{2 \frac{\sigma^2}{n}} \sum (y_i-\bar{y})^2) \end{aligned}\]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[\mu | y \sim N(\bar{y}, \frac{\sigma^2}{n})\]</span></p>
+<p>This is exactly the same as the esitimate from MLE estimate.</p>
+<p><strong>NOTE</strong></p>
+<p>In case that the variance is unknown,</p>
+<p><span class="math display">\[f(\sigma^2) \propto \frac{1}{\sigma^2}\]</span></p>
+<p>This is equivalent to the following:</p>
+<p><span class="math display">\[\Gamma ^{-1}(0,1)\]</span> Thus the posteiro for <span class="math inline">\(\sigma^2\)</span></p>
+<p><span class="math display">\[\sigma^2|y \sim \Gamma ^{-1} (\frac{n-1}{2},\frac{1}{2} \sum (y_i-\bar{y})^2)\]</span></p>
+</div>
+</div>
+<div id="jeffreys-priors" class="section level2">
+<h2><span class="header-section-number">11.10</span> Jeffreys Priors</h2>
+<p>Jeffreys Prior</p>
+<p><span class="math display">\[f(\theta) \propto \sqrt{I(\theta)}\]</span> For instance,</p>
+<div id="gaussian-1" class="section level3">
+<h3><span class="header-section-number">11.10.1</span> Gaussian</h3>
+<p><span class="math display">\[Y_i \sim (\mu, \sigma^2) \rightarrow f(\mu) \propto 1, f(\sigma^2)\propto \frac{1}{\sigma^2}\]</span></p>
+</div>
+<div id="bernoulli-1" class="section level3">
+<h3><span class="header-section-number">11.10.2</span> Bernoulli</h3>
+<p><span class="math display">\[Y_i \sim B(\theta) \rightarrow f(\theta) \propto \theta ^{-\frac{1}{2}}(1-\theta)^{-\frac{1}{2}}\sim Beta(\frac{1}{2},\frac{1}{2})\]</span></p>
+</div>
+<div id="side-note-fisher-information" class="section level3">
+<h3><span class="header-section-number">11.10.3</span> Side Note: Fisher Information</h3>
+<p>The Fisher information (for one paramter):</p>
+<p><span class="math display">\[?(\theta)=E[(\frac{d}{d\theta} log(f(X|\theta)))^2]\]</span> The Expectation is with respect to <span class="math inline">\(X\)</span> with a PDF <span class="math inline">\(f(x|\theta)\)</span>.</p>
+<p>For instance, suppose the <span class="math inline">\(X|\theta \sim N(\theta,1)\)</span></p>
+<p><span class="math display">\[\begin{aligned} f(x|\theta) &amp;=\frac{1}{\sqrt{2 \pi}} exp[-\frac{1}{2}(x-\theta)^2] \\ log(f(x|\theta)) &amp;= log(\frac{1}{\sqrt{2 \pi}})-\frac{1}{2}(x-\theta)^2 \\ \frac{d}{d\theta}log(f(x|\theta)) &amp;=x-\theta \\ (\frac{d}{d\theta}log(f(x|\theta)))^2 &amp;=(x-\theta)^2 \\E[(\frac{d}{d\theta}log(f(x|\theta)))^2]&amp;=(x-\theta)^2=Var(X)=1 \end{aligned}\]</span></p>
+</div>
+<div id="prior-predictive-distribution" class="section level3">
+<h3><span class="header-section-number">11.10.4</span> Prior predictive distribution</h3>
+<p>Prior distribution vs. prior predictive distribution</p>
+<p><a href="https://stats.stackexchange.com/questions/394648/differences-between-prior-distribution-and-prior-predictive-distribution" class="uri">https://stats.stackexchange.com/questions/394648/differences-between-prior-distribution-and-prior-predictive-distribution</a></p>
+<p>Stochastic Processes</p>
+<p><a href="https://www.youtube.com/watch?v=TuTmC8aOQJE" class="uri">https://www.youtube.com/watch?v=TuTmC8aOQJE</a></p>
+</div>
+</div>
+<div id="linear-regression" class="section level2">
+<h2><span class="header-section-number">11.11</span> Linear regression</h2>
+<div id="review" class="section level3">
+<h3><span class="header-section-number">11.11.1</span> Review</h3>
+<p>For single covariate of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[E[y]=\beta_0+\beta_1 x\]</span> Thus,</p>
+<p><span class="math display">\[Y \sim N(\beta_0+\beta_1 x, \sigma^2)\]</span> For multiple covariates,</p>
+<p><span class="math display">\[E[y]=\beta_0+\beta_1 x_1+\beta_2 x_2 + ...+ \beta_kx_k\]</span> <strong>Side Note</strong> It is interesting to think <span class="math inline">\(y\)</span> as the expected value of of the combination of <span class="math inline">\(\beta x\)</span>.</p>
+</div>
+<div id="when-sigma2-is-known" class="section level3">
+<h3><span class="header-section-number">11.11.2</span> When <span class="math inline">\(\sigma^2\)</span> is known</h3>
+<p>If we use a Jeffreys prior and assume <span class="math inline">\(\sigma^2\)</span> is known, we will get <span class="math inline">\(\beta\)</span> that has the same mean as the standard OLS. Assuming we only has one covariate:</p>
+<p><span class="math display">\[\beta_1|y \sim N(\frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i-\bar{x})^2},\frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2})\]</span></p>
+<p>For mutiple covariates, we can use matrix notation,</p>
+<p><span class="math display">\[\beta|y \sim N((X^tX)^{-1}X^ty,(X^tX)^{-1}\sigma^2)\]</span></p>
+</div>
+<div id="when-sigma2-is-unknown" class="section level3">
+<h3><span class="header-section-number">11.11.3</span> When <span class="math inline">\(\sigma^2\)</span> is unknown</h3>
+<p>When both <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span> are unknown, the standard prior is the non-informative Jeffreys prior:</p>
+<p><span class="math display">\[f(\beta, \sigma^2) \propto \frac{1}{\sigma^2}\]</span></p>
+<p>The posterior mean for <span class="math inline">\(\beta\)</span> is the same as standard OLS estimates. The posterior for <span class="math inline">\(\beta\)</span> conditional on <span class="math inline">\(\sigma^2\)</span> is the same normal distribution when <span class="math inline">\(\sigma^2\)</span> is known. However, the marginal posteior distribution for <span class="math inline">\(\beta\)</span>, with <span class="math inline">\(\sigma^2\)</span> integrated out, is a <span class="math inline">\(t\)</span> distribution.</p>
+<p>The <span class="math inline">\(t\)</span> distribution has the mean of <span class="math inline">\((X^tX)^{-1}X^ty\)</span> and variance matrix, <span class="math inline">\(s^2(X^tX)^{-1}\)</span>, where <span class="math inline">\(s^2=\sum_{i=1}^n(y_i-\hat{y_i})^2/(n-k-1)\)</span></p>
+<p>The variance of <span class="math inline">\(\sigma^2\)</span> is an inverse gamma distribution</p>
+<p><span class="math display">\[\sigma^2|y \sim \Gamma^{-1}(\frac{n-k-1}{2},\frac{n-k-1}{2}s^2)\]</span></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="project-draft.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bayesian-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/40-Bayesian.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

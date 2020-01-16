@@ -1,4 +1,4 @@
-# Bayesian
+# Bayesian - 1
 
 The following is the part of the class note that I took from the online course of "Bayesian Statistics: From Concept to Data Analysis." (https://www.coursera.org/learn/bayesian-statistics/home/welcome) 
 
