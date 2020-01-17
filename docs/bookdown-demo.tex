@@ -119,7 +119,7 @@
 
 \title{GLMM, Concepts, \& R}
 \author{Bill Last Updated:}
-\date{15 January, 2020}
+\date{16 January, 2020}
 
 \begin{document}
 \maketitle
@@ -3714,6 +3714,25 @@ The variance of \(\sigma^2\) is an inverse gamma distribution
 \[\sigma^2|y \sim \Gamma^{-1}(\frac{n-k-1}{2},\frac{n-k-1}{2}s^2)\]
 
 \chapter{Bayesian - 2}\label{bayesian---2}
+
+\section{Components of Bayesian
+models}\label{components-of-bayesian-models}
+
+\[y_i=\mu+\epsilon_i\]
+
+Where,
+
+\[\epsilon_i \sim N(0, \sigma^2)\]
+
+\[y_i \sim N(\mu, \sigma^2)\]
+
+\textbf{Likelihood:} \(P(y|\theta)\)
+(\(P(y,\theta)=P(\theta)P(y|\theta)\))
+
+\textbf{Prior:}\(P(\theta)\)
+
+\textbf{Posterior:}
+\[P(\theta|y)=\frac{P(\theta, y)}{P(y)}=\frac{P(\theta, y)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta)P(y|\theta)d\theta}\]
 
 \chapter{Trying}\label{trying}
 

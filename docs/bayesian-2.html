@@ -221,7 +221,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.11.3" data-path="bayesian-1.html"><a href="bayesian-1.html#when-sigma2-is-unknown"><i class="fa fa-check"></i><b>11.11.3</b> When <span class="math inline">\(\sigma^2\)</span> is unknown</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="bayesian-2.html"><a href="bayesian-2.html"><i class="fa fa-check"></i><b>12</b> Bayesian - 2</a></li>
+<li class="chapter" data-level="12" data-path="bayesian-2.html"><a href="bayesian-2.html"><i class="fa fa-check"></i><b>12</b> Bayesian - 2</a><ul>
+<li class="chapter" data-level="12.1" data-path="bayesian-2.html"><a href="bayesian-2.html#components-of-bayesian-models"><i class="fa fa-check"></i><b>12.1</b> Components of Bayesian models</a></li>
+</ul></li>
 <li class="chapter" data-level="13" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>13</b> Trying</a><ul>
 <li class="chapter" data-level="13.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>13.1</b> The Basic Idea</a></li>
 <li class="chapter" data-level="13.2" data-path="trying.html"><a href="trying.html#model-and-r-code"><i class="fa fa-check"></i><b>13.2</b> Model and R Code</a></li>
@@ -249,7 +251,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="bayesian---2" class="section level1">
 <h1><span class="header-section-number">Chapter 12</span> Bayesian - 2</h1>
+<div id="components-of-bayesian-models" class="section level2">
+<h2><span class="header-section-number">12.1</span> Components of Bayesian models</h2>
+<p><span class="math display">\[y_i=\mu+\epsilon_i\]</span></p>
+<p>Where,</p>
+<p><span class="math display">\[\epsilon_i \sim N(0, \sigma^2)\]</span></p>
+<p><span class="math display">\[y_i \sim N(\mu, \sigma^2)\]</span></p>
+<p><strong>Likelihood:</strong> <span class="math inline">\(P(y|\theta)\)</span> (<span class="math inline">\(P(y,\theta)=P(\theta)P(y|\theta)\)</span>)</p>
+<p><strong>Prior:</strong><span class="math inline">\(P(\theta)\)</span></p>
+<p><strong>Posterior:</strong> <span class="math display">\[P(\theta|y)=\frac{P(\theta, y)}{P(y)}=\frac{P(\theta, y)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta)P(y|\theta)d\theta}\]</span></p>
 
+</div>
 </div>
             </section>
 
