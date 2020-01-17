@@ -9,13 +9,25 @@ Where,
 $$\epsilon_i \sim N(0, \sigma^2)$$
 
 $$y_i \sim N(\mu, \sigma^2)$$
+(Thus, $y_i$ is $=$ to a fixed $\mu$ plus with a $\epsilon_i$, whereas $y_i \sim N(\mu, \sigma^2)$. These two expressions are not exactly the same, but they are connected.)
+
 
 __Likelihood:__ $P(y|\theta)$   ($P(y,\theta)=P(\theta)P(y|\theta)$)
 
 
-__Prior:__$P(\theta)$
+__Prior:__ $P(\theta)$
 
 
 __Posterior:__ 
-$$P(\theta|y)=\frac{P(\theta, y)}{P(y)}=\frac{P(\theta, y)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta)P(y|\theta)d\theta}$$
 
+$$P(\theta|y)=\frac{P(\theta, y)}{P(y)}=\frac{P(\theta, y)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta)P(y|\theta)d\theta}$$
+__Markts__
+
+(1) The only random variables in frequentist models are the data. In contrast, Bayesian paradigm also uses probability to describe one's uncertainty about unknown model parameters.
+
+
+(2) Consider the following model for binary outcome $y$:
+
+$y_i|\theta_i \sim Bern (\theta_i), i=1,2,3...6$
+
+$\theta_i |\alpha \sim Beta(a, b_0)$

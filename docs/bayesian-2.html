@@ -256,10 +256,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[y_i=\mu+\epsilon_i\]</span></p>
 <p>Where,</p>
 <p><span class="math display">\[\epsilon_i \sim N(0, \sigma^2)\]</span></p>
-<p><span class="math display">\[y_i \sim N(\mu, \sigma^2)\]</span></p>
+<p><span class="math display">\[y_i \sim N(\mu, \sigma^2)\]</span> (Thus, <span class="math inline">\(y_i\)</span> is <span class="math inline">\(=\)</span> to a fixed <span class="math inline">\(\mu\)</span> plus with a <span class="math inline">\(\epsilon_i\)</span>, whereas <span class="math inline">\(y_i \sim N(\mu, \sigma^2)\)</span>. These two expressions are not exactly the same, but they are connected.)</p>
 <p><strong>Likelihood:</strong> <span class="math inline">\(P(y|\theta)\)</span> (<span class="math inline">\(P(y,\theta)=P(\theta)P(y|\theta)\)</span>)</p>
-<p><strong>Prior:</strong><span class="math inline">\(P(\theta)\)</span></p>
-<p><strong>Posterior:</strong> <span class="math display">\[P(\theta|y)=\frac{P(\theta, y)}{P(y)}=\frac{P(\theta, y)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta)P(y|\theta)d\theta}\]</span></p>
+<p><strong>Prior:</strong> <span class="math inline">\(P(\theta)\)</span></p>
+<p><strong>Posterior:</strong></p>
+<p><span class="math display">\[P(\theta|y)=\frac{P(\theta, y)}{P(y)}=\frac{P(\theta, y)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta)P(y|\theta)d\theta}\]</span> <strong>Markts</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>The only random variables in frequentist models are the data. In contrast, Bayesian paradigm also uses probability to describe one’s uncertainty about unknown model parameters.</p></li>
+<li><p>Consider the following model for binary outcome <span class="math inline">\(y\)</span>:</p></li>
+</ol>
+<p><span class="math inline">\(y_i|\theta_i \sim Bern (\theta_i), i=1,2,3...6\)</span></p>
+<p><span class="math inline">\(\theta_i |\alpha \sim Beta(a, b_0)\)</span></p>
 
 </div>
 </div>

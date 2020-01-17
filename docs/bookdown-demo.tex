@@ -119,7 +119,7 @@
 
 \title{GLMM, Concepts, \& R}
 \author{Bill Last Updated:}
-\date{16 January, 2020}
+\date{17 January, 2020}
 
 \begin{document}
 \maketitle
@@ -3724,15 +3724,33 @@ Where,
 
 \[\epsilon_i \sim N(0, \sigma^2)\]
 
-\[y_i \sim N(\mu, \sigma^2)\]
+\[y_i \sim N(\mu, \sigma^2)\] (Thus, \(y_i\) is \(=\) to a fixed \(\mu\)
+plus with a \(\epsilon_i\), whereas \(y_i \sim N(\mu, \sigma^2)\). These
+two expressions are not exactly the same, but they are connected.)
 
 \textbf{Likelihood:} \(P(y|\theta)\)
 (\(P(y,\theta)=P(\theta)P(y|\theta)\))
 
-\textbf{Prior:}\(P(\theta)\)
+\textbf{Prior:} \(P(\theta)\)
 
 \textbf{Posterior:}
+
 \[P(\theta|y)=\frac{P(\theta, y)}{P(y)}=\frac{P(\theta, y)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta, y)d\theta}=\frac{P(\theta)P(y|\theta)}{\int P(\theta)P(y|\theta)d\theta}\]
+\textbf{Markts}
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  The only random variables in frequentist models are the data. In
+  contrast, Bayesian paradigm also uses probability to describe one's
+  uncertainty about unknown model parameters.
+\item
+  Consider the following model for binary outcome \(y\):
+\end{enumerate}
+
+\(y_i|\theta_i \sim Bern (\theta_i), i=1,2,3...6\)
+
+\(\theta_i |\alpha \sim Beta(a, b_0)\)
 
 \chapter{Trying}\label{trying}
 
