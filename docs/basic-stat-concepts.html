@@ -52,41 +52,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -228,6 +253,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="12.2.2" data-path="bayesian-2.html"><a href="bayesian-2.html#expected-value-and-probability"><i class="fa fa-check"></i><b>12.2.2</b> Expected value and probability</a></li>
 <li class="chapter" data-level="12.2.3" data-path="bayesian-2.html"><a href="bayesian-2.html#quantile"><i class="fa fa-check"></i><b>12.2.3</b> Quantile</a></li>
 </ul></li>
+<li class="chapter" data-level="12.3" data-path="bayesian-2.html"><a href="bayesian-2.html#prior-predictive-distributions"><i class="fa fa-check"></i><b>12.3</b> Prior predictive distributions</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>13</b> Trying</a><ul>
 <li class="chapter" data-level="13.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>13.1</b> The Basic Idea</a></li>
@@ -259,10 +285,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="score" class="section level2">
 <h2><span class="header-section-number">4.1</span> Score</h2>
 <p>The score is the gradient (the vector of partial derivatives) of <span class="math inline">\(log L(\theta)\)</span>, with respect to an m-dimensional parameter vector <span class="math inline">\(\theta\)</span>.</p>
-<p><span class="math display">\[S(\theta) = \frac{\partial\ell}{\partial \theta}\]</span> Typically, they use <span class="math inline">\(\nabla\)</span> to denote the partical derivative.</p>
+<p><span class="math display">\[S(\theta) = \frac{\partial\ell}{\partial \theta}\]</span>
+Typically, they use <span class="math inline">\(\nabla\)</span> to denote the partical derivative.</p>
 <p><span class="math display">\[\nabla \ell\]</span></p>
 <p>Such differentiation will generate a <span class="math inline">\(m \times 1\)</span> row vector, which indicates the sensitivity of the likelihood.</p>
-<p>Quote from Steffen Lauritzen’s slides: “Generally the solution to this equation must be calculated by iterative methods. One of the most common methods is the Newton–Raphson method and this is based on successive approximations to the solution, using Taylor’s theorem to approximate the equation.”</p>
+<p>Quote from Steffen Lauritzen’s slides: “Generally the solution to this equation must be calculated by iterative methods. One of the most common methods is the Newton–Raphson
+method and this is based on successive approximations to the solution, using Taylor’s theorem to approximate the equation.”</p>
 <p>For instance, using logit link, we can get the first derivative of log likelihood logistic regression as follows. We can not really find <span class="math inline">\(\beta\)</span> easily to make the equation to be 0.</p>
 <p><span class="math display">\[\begin{aligned}
 \frac{\partial \ell} {\partial \beta} 
@@ -275,7 +303,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><strong>Remarks</strong>: This part discusses gradient in a more general sense.</p>
 <p>When <span class="math inline">\(f(x)\)</span> is only in a single dimension space:</p>
 <p><span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R}\)</span></p>
-<p><span class="math display">\[\nabla f(x)=[\frac{\partial f}{\partial x_1},\frac{\partial f}{\partial x_2},...,\frac{\partial f}{\partial x_n}]\]</span> When <span class="math inline">\(f(x)\)</span> is only in a m-dimension space (i.e., Jacobian): <span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R^m}\)</span></p>
+<p><span class="math display">\[\nabla f(x)=[\frac{\partial f}{\partial x_1},\frac{\partial f}{\partial x_2},...,\frac{\partial f}{\partial x_n}]\]</span>
+When <span class="math inline">\(f(x)\)</span> is only in a m-dimension space (i.e., Jacobian):
+<span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R^m}\)</span></p>
 <p><span class="math display">\[Jac(f)=\begin{bmatrix}
 \frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_1}{\partial x_2} &amp; \frac{\partial f_1}{\partial x_3} &amp; ... &amp; \frac{\partial f_1}{\partial x_n}\\
 \frac{\partial f_2}{\partial x_1} &amp; \frac{\partial f_2}{\partial x_2} &amp; \frac{\partial f_2}{\partial x_3} &amp; ... &amp; \frac{\partial f_2}{\partial x_n} \\
@@ -284,8 +314,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \end{bmatrix}\]</span></p>
 <p>For instance,</p>
 <p><span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R}\)</span>:</p>
-<p><span class="math display">\[f(x,y)=x^2+2y\]</span> <span class="math display">\[\nabla f(x,y)=[\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}]=[2x,2]\]</span> <span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R^m}\)</span></p>
-<p><span class="math display">\[f(x,y)=(x^2+2y,x^3)\]</span> <span class="math display">\[Jac(f)=\begin{bmatrix}
+<p><span class="math display">\[f(x,y)=x^2+2y\]</span>
+<span class="math display">\[\nabla f(x,y)=[\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}]=[2x,2]\]</span>
+<span class="math inline">\(\mathbb{R}^n \rightarrow \mathbb{R^m}\)</span></p>
+<p><span class="math display">\[f(x,y)=(x^2+2y,x^3)\]</span>
+<span class="math display">\[Jac(f)=\begin{bmatrix}
 2x &amp; 2\\
 2x^2 &amp; 0 
 \end{bmatrix}\]</span></p>
@@ -317,7 +350,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ...\\
 \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_1} &amp; \frac{\partial^2 \ell}{\partial \theta_m \theta_2 } &amp; \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_3} &amp; ... &amp; \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_m} 
 \end{bmatrix}\]</span></p>
-<p>“In statistics, the observed information, or observed Fisher information, is the negative of the second derivative (the Hessian matrix) of the”log-likelihood&quot; (the logarithm of the likelihood function). It is a sample-based version of the Fisher information.&quot; (Direct quote from Wikipedia.)</p>
+<p>“In statistics, the observed information, or observed Fisher information, is the negative of the second derivative (the Hessian matrix) of the”log-likelihood" (the logarithm of the likelihood function). It is a sample-based version of the Fisher information." (Direct quote from Wikipedia.)</p>
 <p>Thus, the observed information matrix:</p>
 <p><span class="math display">\[-Hessian=-\nabla ^2(\ell) \]</span></p>
 <p>Expected (Fisher) information matrix:</p>
@@ -328,8 +361,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Inspired by a Stack Exchange post, I created the following figure:</p>
 <p><span class="math display">\[ \frac{Paramter}{\theta} \longrightarrow \gamma^{&#39;}(\theta) = \mu \longrightarrow \frac{Mean}{\mu} \longrightarrow g(\mu) = \eta \longrightarrow \frac{ Linear predictor}{\eta} \]</span></p>
 <p>For the case of <span class="math inline">\(n\)</span> time Bernoulli (i.e., Binomial), its canonical link function is logit. Specifically,</p>
-<p><span class="math display">\[ \frac{Paramter}{\theta=\beta^Tx_i}  \longrightarrow \gamma^{&#39;}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}\]</span> Thus, we can see that,</p>
-<p><span class="math display">\[\theta \equiv \eta \]</span> The link function <span class="math inline">\(g(\mu)\)</span> relates the linear predictor <span class="math inline">\(\eta = \beta^Tx_i\)</span> to the mean <span class="math inline">\(\mu\)</span>.</p>
+<p><span class="math display">\[ \frac{Paramter}{\theta=\beta^Tx_i}  \longrightarrow \gamma^{&#39;}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}\]</span>
+Thus, we can see that,</p>
+<p><span class="math display">\[\theta \equiv \eta \]</span>
+The link function <span class="math inline">\(g(\mu)\)</span> relates the linear predictor <span class="math inline">\(\eta = \beta^Tx_i\)</span> to the mean <span class="math inline">\(\mu\)</span>.</p>
 <p><strong>Remarks</strong>:</p>
 <ol style="list-style-type: decimal">
 <li><p>Parameter is <span class="math inline">\(\theta = \beta ^T x_i\)</span> (Not <span class="math inline">\(\mu\)</span>!).</p></li>
@@ -350,12 +385,16 @@ x_{21} &amp; x_{22} &amp; x_{23} &amp; ... &amp; x_{2m} \\
 x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; ... &amp; x_{nm}
 \end{bmatrix}\]</span></p>
 <p>Thus, we can write it as the following <span class="math inline">\(n\)</span> equations.</p>
-<p><span class="math display">\[y_1=\beta_0+\beta_1 x_{11}+\beta_2 x_{12}+...+ \beta_m x_{1m}\]</span> <span class="math display">\[y_2=\beta_0+\beta_1 x_{21}+\beta_2 x_{22}+...+ \beta_m x_{2m}\]</span> <span class="math display">\[y_3=\beta_0+\beta_1 x_{31}+\beta_2 x_{32}+...+ \beta_m x_{3m}\]</span> <span class="math display">\[...\]</span></p>
+<p><span class="math display">\[y_1=\beta_0+\beta_1 x_{11}+\beta_2 x_{12}+...+ \beta_m x_{1m}\]</span>
+<span class="math display">\[y_2=\beta_0+\beta_1 x_{21}+\beta_2 x_{22}+...+ \beta_m x_{2m}\]</span>
+<span class="math display">\[y_3=\beta_0+\beta_1 x_{31}+\beta_2 x_{32}+...+ \beta_m x_{3m}\]</span>
+<span class="math display">\[...\]</span></p>
 <p><span class="math display">\[y_n=\beta_0+\beta_1 x_{n1}+\beta_2 x_{n2}+...+ \beta_m x_{nm}\]</span></p>
 <p>We can combine all the <span class="math inline">\(n\)</span> equations as the following one:</p>
 <p><span class="math display">\[y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+...+ \beta_m x_{im}  (i \in [1,n])\]</span></p>
 <p>We can further rewrite it as a matrix format as follows.</p>
-<p><span class="math display">\[y= X \beta\]</span> Where,</p>
+<p><span class="math display">\[y= X \beta\]</span>
+Where,</p>
 <p><span class="math display">\[y = \begin{bmatrix}y_1 \\
 y_2 \\
 y_3 \\
@@ -379,20 +418,21 @@ y_n \\
 <p>Since later we need the inverse of <span class="math inline">\(X\)</span>, we need to make it into a square matrix.</p>
 <p><span class="math display">\[X^Ty=X^TX \hat{\beta} \Rightarrow \hat{\beta} = (X^TX)^{-1} X^Ty\]</span></p>
 <p>We can use R to implement this calculation. As we can see, there is no need to do any iterations at all, but rather just pure matrix calculation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">X&lt;-<span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>),<span class="dt">ncol=</span><span class="dv">2</span>) <span class="co"># we define a 2 column matrix, with 500 rows</span>
-X&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,X) <span class="co"># add a 1 constant</span>
-beta_true&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>) <span class="co"># True regression coefficients</span>
-beta_true&lt;-<span class="kw">as.matrix</span>(beta_true)
-y=X<span class="op">%*%</span>beta_true<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">500</span>)
-
-transposed_X&lt;-<span class="kw">t</span>(X)
-beta_hat&lt;-<span class="kw">solve</span>(transposed_X<span class="op">%*%</span>X)<span class="op">%*%</span>transposed_X<span class="op">%*%</span>y
-beta_hat</code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1">X&lt;-<span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>),<span class="dt">ncol=</span><span class="dv">2</span>) <span class="co"># we define a 2 column matrix, with 500 rows</span></a>
+<a class="sourceLine" id="cb64-2" title="2">X&lt;-<span class="kw">cbind</span>(<span class="dv">1</span>,X) <span class="co"># add a 1 constant</span></a>
+<a class="sourceLine" id="cb64-3" title="3">beta_true&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>) <span class="co"># True regression coefficients</span></a>
+<a class="sourceLine" id="cb64-4" title="4">beta_true&lt;-<span class="kw">as.matrix</span>(beta_true)</a>
+<a class="sourceLine" id="cb64-5" title="5">y=X<span class="op">%*%</span>beta_true<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb64-6" title="6"></a>
+<a class="sourceLine" id="cb64-7" title="7">transposed_X&lt;-<span class="kw">t</span>(X)</a>
+<a class="sourceLine" id="cb64-8" title="8">beta_hat&lt;-<span class="kw">solve</span>(transposed_X<span class="op">%*%</span>X)<span class="op">%*%</span>transposed_X<span class="op">%*%</span>y</a>
+<a class="sourceLine" id="cb64-9" title="9">beta_hat</a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 2.017690
 ## [2,] 1.054682
 ## [3,] 2.037671</code></pre>
-<p><strong>Side Notes</strong> The function of as.matrix will automatically make c(2,1,2) become the dimension of <span class="math inline">\(3 \times 1\)</span>, you do not need to transpose the <span class="math inline">\(\beta\)</span>.</p>
+<p><strong>Side Notes</strong>
+The function of as.matrix will automatically make c(2,1,2) become the dimension of <span class="math inline">\(3 \times 1\)</span>, you do not need to transpose the <span class="math inline">\(\beta\)</span>.</p>
 </div>
 <div id="taylor-series" class="section level2">
 <h2><span class="header-section-number">4.6</span> Taylor series</h2>
@@ -407,7 +447,8 @@ e^x |_{a=0} &amp;= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}
 <p>if <span class="math inline">\(x=2\)</span></p>
 <p><span class="math inline">\(e^2 = 7.389056\)</span></p>
 <p><span class="math inline">\(e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\)</span></p>
-<p><span class="math inline">\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\)</span> …</p>
+<p><span class="math inline">\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\)</span>
+…</p>
 <p><span class="math inline">\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\)</span></p>
 </div>
 <div id="fisher-scoring" class="section level2">
@@ -447,7 +488,7 @@ e^x |_{a=0} &amp;= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}
 <ol start="7" style="list-style-type: decimal">
 <li>Fisher information</li>
 </ol>
-<p><a href="https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf">https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf</a></p>
+<p><a href="https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf" class="uri">https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture%20notes/Fisher_info.pdf</a></p>
 <ol start="8" style="list-style-type: decimal">
 <li>Link function</li>
 </ol>
@@ -517,7 +558,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

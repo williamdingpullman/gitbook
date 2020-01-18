@@ -44,7 +44,10 @@ $$\prod_{i=1}^{6}[\theta_i^{y_i}(1-\theta_i)^{1-y_i}\frac{\Gamma(a+b_0)}{\Gamma(
 
 ### Sample Mean: Application of Central Limit Theorem
 
-If we simulate 100 samples from a Gamma(2,1), what is the approximate distribution of the sample average $\bar{x^*}=\frac{1}{100} \sum_{i=1}^{100} x_i^*$ As we know, based on the central limit theorem, the approximating distribution is normal with the mean equal to the sample mean, and the variance equal to the variance of the orignal variable divided by the sample size. We know that the mean for Gamma(2,1) is $\frac{2}{1}=2$ and variance is $\frac{2}{1^2}=2$. Thus, we know that the mean for the distribution for $\bar{x^*}$ is 2, whereas the variance is $\frac{2}{100}$. Thus, it is $N(2,0.02)$.
+If we simulate 100 samples from a Gamma(2,1), what is the approximate distribution of the sample average $\bar{x^*}=\frac{1}{100} \sum_{i=1}^{100} x_i^*$?
+
+
+As we know, based on the central limit theorem, the approximating distribution is normal with the mean equal to the sample mean, and the variance equal to the variance of the orignal variable divided by the sample size. We know that the mean for Gamma(2,1) is $\frac{2}{1}=2$ and variance is $\frac{2}{1^2}=2$. Thus, we know that the mean for the distribution for $\bar{x^*}$ is 2, whereas the variance is $\frac{2}{100}$. Thus, it is $N(2,0.02)$.
 
 Thus, we can get the generalized formula as follows:
 
@@ -59,7 +62,7 @@ mean(sample_data_gamma)
 var(sample_data_gamma)
 ```
 
-The following R code is for the $\bar{\theta^*}$. As we can see, the variance is 0.0008, which is close the theoretical value of $\frac{1}{10000}=0.001$. 
+The following R code is for the $\bar{\theta^*}$. As we can see, the variance is 0.0016, which is close the theoretical value of $\frac{1}{1000}=0.001$. 
 ```{R}
 set.seed(123)
 mean_c<-c()
@@ -93,3 +96,14 @@ quantile(sample_data2,0.3)
 qnorm(0.3)
 pnorm(-0.52)
 ```
+
+
+##  Prior predictive distributions
+
+$$y|\theta \sim Bin(10, \theta)$$
+$$\theta \sim Beta(2,2)$$
+
+Simulate:
+(1) $\theta^*$ from beta
+(2) Given $\theta$, draw $y_i^* \sim Bin(10, \theta_i^*)$
+(3) Get pairs ($y_i^*$,$\theta_i^*$)
