@@ -3759,6 +3759,143 @@ Thus, the joint distribution of all variable:
 \[\prod_{i=1}^{6}[\theta_i^{y_i}(1-\theta_i)^{1-y_i}\frac{\Gamma(a+b_0)}{\Gamma(a)\Gamma(b_0)}\theta_i^{a-1}(1-\theta_i)^{b_0-1}]r_0e^{-r_0 \alpha}\]
 (Question: Why not write it as \(a_i\)?)
 
+\section{Monte Carlo Estimation}\label{monte-carlo-estimation}
+
+\subsection{Sample Mean: Application of Central Limit
+Theorem}\label{sample-mean-application-of-central-limit-theorem}
+
+If we simulate 100 samples from a Gamma(2,1), what is the approximate
+distribution of the sample average
+\(\bar{x^*}=\frac{1}{100} \sum_{i=1}^{100} x_i^*\) As we know, based on
+the central limit theorem, the approximating distribution is normal with
+the mean equal to the sample mean, and the variance equal to the
+variance of the orignal variable divided by the sample size. We know
+that the mean for Gamma(2,1) is \(\frac{2}{1}=2\) and variance is
+\(\frac{2}{1^2}=2\). Thus, we know that the mean for the distribution
+for \(\bar{x^*}\) is 2, whereas the variance is \(\frac{2}{100}\). Thus,
+it is \(N(2,0.02)\).
+
+Thus, we can get the generalized formula as follows:
+
+\[\bar{\theta^*} \sim N(E(\theta), \frac{Var(\theta)}{m})\] Note that,
+it is the variance for \(\bar{\theta^*}\), not \(\theta\). The
+approximate for the variance for \(\theta\) is
+\(\frac{1}{m}\sum(\theta_i^*-\bar{\theta^*})^2\).
+
+The following R code is for the \(\theta\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample_data_gamma<-}\KeywordTok{rgamma}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\KeywordTok{mean}\NormalTok{(sample_data_gamma)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.003884
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{(sample_data_gamma)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.996932
+\end{verbatim}
+
+The following R code is for the \(\bar{\theta^*}\). As we can see, the
+variance is 0.0008, which is close the theoretical value of
+\(\frac{1}{10000}=0.001\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{mean_c<-}\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{\{mean_c[i]<-}\KeywordTok{mean}\NormalTok{(}\KeywordTok{rgamma}\NormalTok{(}\DecValTok{1000}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{))\}}
+\KeywordTok{var}\NormalTok{(mean_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.001634891
+\end{verbatim}
+
+\subsection{Expected value and
+probability}\label{expected-value-and-probability}
+
+If you know that \(\theta \sim Beta(5,3)\), what is the approximate for
+the \(E(\frac{\theta}{1-\theta})\)? You can use the following R code to
+calculate it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample_data<-}\KeywordTok{rbeta}\NormalTok{(}\DecValTok{1000}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\KeywordTok{mean}\NormalTok{(sample_data}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{sample_data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.789685
+\end{verbatim}
+
+If you want to calculate the approximate for the probability that
+\(\frac{\theta}{1-\theta}\) is greater 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{((sample_data}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{sample_data))}\OperatorTok{>}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.789
+\end{verbatim}
+
+\subsection{Quantile}\label{quantile}
+
+Use Monte Carlo to approximate the 0.3 quantile of N(0,1). Note that,
+the idea of quantile is to quantify the probability. Thus, the number we
+will get for 0.3 quantile if the value for the random variable's cdf
+\(\int_{-\infty}^{quantile-number}dx\). As we can see below,
+\(quantile(sample_data2,0.3)\) gets the result of -0.52, which is the
+same from the \(qnorm(0.3)\). Note that, the cdf of \(pnorm(-0.52)\)
+will get the probablity of \(0.3\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample_data2<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\KeywordTok{quantile}\NormalTok{(sample_data2,}\FloatTok{0.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        30% 
+## -0.5260847
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.5244005
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pnorm}\NormalTok{(}\OperatorTok{-}\FloatTok{0.52}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3015318
+\end{verbatim}
+
 \chapter{Trying}\label{trying}
 
 \section{The Basic Idea}\label{the-basic-idea}

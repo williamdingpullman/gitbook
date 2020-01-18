@@ -223,6 +223,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="12" data-path="bayesian-2.html"><a href="bayesian-2.html"><i class="fa fa-check"></i><b>12</b> Bayesian - 2</a><ul>
 <li class="chapter" data-level="12.1" data-path="bayesian-2.html"><a href="bayesian-2.html#components-of-bayesian-models"><i class="fa fa-check"></i><b>12.1</b> Components of Bayesian models</a></li>
+<li class="chapter" data-level="12.2" data-path="bayesian-2.html"><a href="bayesian-2.html#monte-carlo-estimation"><i class="fa fa-check"></i><b>12.2</b> Monte Carlo Estimation</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="bayesian-2.html"><a href="bayesian-2.html#sample-mean-application-of-central-limit-theorem"><i class="fa fa-check"></i><b>12.2.1</b> Sample Mean: Application of Central Limit Theorem</a></li>
+<li class="chapter" data-level="12.2.2" data-path="bayesian-2.html"><a href="bayesian-2.html#expected-value-and-probability"><i class="fa fa-check"></i><b>12.2.2</b> Expected value and probability</a></li>
+<li class="chapter" data-level="12.2.3" data-path="bayesian-2.html"><a href="bayesian-2.html#quantile"><i class="fa fa-check"></i><b>12.2.3</b> Quantile</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>13</b> Trying</a><ul>
 <li class="chapter" data-level="13.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>13.1</b> The Basic Idea</a></li>
@@ -270,7 +275,51 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math inline">\(\alpha \sim Exp(r_0)\)</span></p>
 <p>Thus, the joint distribution of all variable:</p>
 <p><span class="math display">\[\prod_{i=1}^{6}[\theta_i^{y_i}(1-\theta_i)^{1-y_i}\frac{\Gamma(a+b_0)}{\Gamma(a)\Gamma(b_0)}\theta_i^{a-1}(1-\theta_i)^{b_0-1}]r_0e^{-r_0 \alpha}\]</span> (Question: Why not write it as <span class="math inline">\(a_i\)</span>?)</p>
+</div>
+<div id="monte-carlo-estimation" class="section level2">
+<h2><span class="header-section-number">12.2</span> Monte Carlo Estimation</h2>
+<div id="sample-mean-application-of-central-limit-theorem" class="section level3">
+<h3><span class="header-section-number">12.2.1</span> Sample Mean: Application of Central Limit Theorem</h3>
+<p>If we simulate 100 samples from a Gamma(2,1), what is the approximate distribution of the sample average <span class="math inline">\(\bar{x^*}=\frac{1}{100} \sum_{i=1}^{100} x_i^*\)</span> As we know, based on the central limit theorem, the approximating distribution is normal with the mean equal to the sample mean, and the variance equal to the variance of the orignal variable divided by the sample size. We know that the mean for Gamma(2,1) is <span class="math inline">\(\frac{2}{1}=2\)</span> and variance is <span class="math inline">\(\frac{2}{1^2}=2\)</span>. Thus, we know that the mean for the distribution for <span class="math inline">\(\bar{x^*}\)</span> is 2, whereas the variance is <span class="math inline">\(\frac{2}{100}\)</span>. Thus, it is <span class="math inline">\(N(2,0.02)\)</span>.</p>
+<p>Thus, we can get the generalized formula as follows:</p>
+<p><span class="math display">\[\bar{\theta^*} \sim N(E(\theta), \frac{Var(\theta)}{m})\]</span> Note that, it is the variance for <span class="math inline">\(\bar{\theta^*}\)</span>, not <span class="math inline">\(\theta\)</span>. The approximate for the variance for <span class="math inline">\(\theta\)</span> is <span class="math inline">\(\frac{1}{m}\sum(\theta_i^*-\bar{\theta^*})^2\)</span>.</p>
+<p>The following R code is for the <span class="math inline">\(\theta\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data_gamma&lt;-<span class="kw">rgamma</span>(<span class="dv">10000</span>,<span class="dv">4</span>,<span class="dv">2</span>)
+<span class="kw">mean</span>(sample_data_gamma)</code></pre></div>
+<pre><code>## [1] 2.003884</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(sample_data_gamma)</code></pre></div>
+<pre><code>## [1] 0.996932</code></pre>
+<p>The following R code is for the <span class="math inline">\(\bar{\theta^*}\)</span>. As we can see, the variance is 0.0008, which is close the theoretical value of <span class="math inline">\(\frac{1}{10000}=0.001\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
+mean_c&lt;-<span class="kw">c</span>()
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
+{mean_c[i]&lt;-<span class="kw">mean</span>(<span class="kw">rgamma</span>(<span class="dv">1000</span>,<span class="dv">4</span>,<span class="dv">2</span>))}
+<span class="kw">var</span>(mean_c)</code></pre></div>
+<pre><code>## [1] 0.001634891</code></pre>
+</div>
+<div id="expected-value-and-probability" class="section level3">
+<h3><span class="header-section-number">12.2.2</span> Expected value and probability</h3>
+<p>If you know that <span class="math inline">\(\theta \sim Beta(5,3)\)</span>, what is the approximate for the <span class="math inline">\(E(\frac{\theta}{1-\theta})\)</span>? You can use the following R code to calculate it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data&lt;-<span class="kw">rbeta</span>(<span class="dv">1000</span>,<span class="dv">5</span>,<span class="dv">3</span>)
+<span class="kw">mean</span>(sample_data<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>sample_data))</code></pre></div>
+<pre><code>## [1] 2.789685</code></pre>
+<p>If you want to calculate the approximate for the probability that <span class="math inline">\(\frac{\theta}{1-\theta}\)</span> is greater 1.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>((sample_data<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>sample_data))<span class="op">&gt;</span><span class="dv">1</span>)</code></pre></div>
+<pre><code>## [1] 0.789</code></pre>
+</div>
+<div id="quantile" class="section level3">
+<h3><span class="header-section-number">12.2.3</span> Quantile</h3>
+<p>Use Monte Carlo to approximate the 0.3 quantile of N(0,1). Note that, the idea of quantile is to quantify the probability. Thus, the number we will get for 0.3 quantile if the value for the random variable’s cdf <span class="math inline">\(\int_{-\infty}^{quantile-number}dx\)</span>. As we can see below, <span class="math inline">\(quantile(sample_data2,0.3)\)</span> gets the result of -0.52, which is the same from the <span class="math inline">\(qnorm(0.3)\)</span>. Note that, the cdf of <span class="math inline">\(pnorm(-0.52)\)</span> will get the probablity of <span class="math inline">\(0.3\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_data2&lt;-<span class="kw">rnorm</span>(<span class="dv">10000</span>,<span class="dv">0</span>,<span class="dv">1</span>)
+<span class="kw">quantile</span>(sample_data2,<span class="fl">0.3</span>)</code></pre></div>
+<pre><code>##        30% 
+## -0.5260847</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qnorm</span>(<span class="fl">0.3</span>)</code></pre></div>
+<pre><code>## [1] -0.5244005</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">0.52</span>)</code></pre></div>
+<pre><code>## [1] 0.3015318</code></pre>
 
+</div>
 </div>
 </div>
             </section>

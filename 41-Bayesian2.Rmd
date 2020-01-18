@@ -38,3 +38,58 @@ Thus, the joint distribution of all variable:
 
 $$\prod_{i=1}^{6}[\theta_i^{y_i}(1-\theta_i)^{1-y_i}\frac{\Gamma(a+b_0)}{\Gamma(a)\Gamma(b_0)}\theta_i^{a-1}(1-\theta_i)^{b_0-1}]r_0e^{-r_0 \alpha}$$
 (Question: Why not write it as $a_i$?)
+
+
+## Monte Carlo Estimation
+
+### Sample Mean: Application of Central Limit Theorem
+
+If we simulate 100 samples from a Gamma(2,1), what is the approximate distribution of the sample average $\bar{x^*}=\frac{1}{100} \sum_{i=1}^{100} x_i^*$ As we know, based on the central limit theorem, the approximating distribution is normal with the mean equal to the sample mean, and the variance equal to the variance of the orignal variable divided by the sample size. We know that the mean for Gamma(2,1) is $\frac{2}{1}=2$ and variance is $\frac{2}{1^2}=2$. Thus, we know that the mean for the distribution for $\bar{x^*}$ is 2, whereas the variance is $\frac{2}{100}$. Thus, it is $N(2,0.02)$.
+
+Thus, we can get the generalized formula as follows:
+
+$$\bar{\theta^*} \sim N(E(\theta), \frac{Var(\theta)}{m})$$
+Note that, it is the variance for $\bar{\theta^*}$, not $\theta$. The approximate for the variance for $\theta$ is $\frac{1}{m}\sum(\theta_i^*-\bar{\theta^*})^2$.
+
+
+The following R code is for the $\theta$: 
+```{R}
+sample_data_gamma<-rgamma(10000,4,2)
+mean(sample_data_gamma)
+var(sample_data_gamma)
+```
+
+The following R code is for the $\bar{\theta^*}$. As we can see, the variance is 0.0008, which is close the theoretical value of $\frac{1}{10000}=0.001$. 
+```{R}
+set.seed(123)
+mean_c<-c()
+for(i in 1:10)
+{mean_c[i]<-mean(rgamma(1000,4,2))}
+var(mean_c)
+```
+
+### Expected value and probability
+
+If you know that $\theta \sim Beta(5,3)$, what is the approximate for the $E(\frac{\theta}{1-\theta})$? You can use the following R code to calculate it.
+
+```{R}
+sample_data<-rbeta(1000,5,3)
+mean(sample_data/(1-sample_data))
+```
+
+If you want to calculate the approximate for the probability that $\frac{\theta}{1-\theta}$ is greater 1.
+
+```{R}
+mean((sample_data/(1-sample_data))>1)
+```
+
+### Quantile
+
+Use Monte Carlo to approximate the 0.3 quantile of N(0,1). Note that, the idea of quantile is to quantify the probability. Thus, the number we will get for 0.3 quantile if the value for the random variable's cdf $\int_{-\infty}^{quantile-number}dx$. As we can see below, $quantile(sample_data2,0.3)$ gets the result of -0.52, which is the same from the $qnorm(0.3)$. Note that, the cdf of $pnorm(-0.52)$ will get the probablity of $0.3$.
+
+```{R}
+sample_data2<-rnorm(10000,0,1)
+quantile(sample_data2,0.3)
+qnorm(0.3)
+pnorm(-0.52)
+```
