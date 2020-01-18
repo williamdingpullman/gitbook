@@ -37,3 +37,4 @@ $\alpha \sim Exp(r_0)$
 Thus, the joint distribution of all variable:
 
 $$\prod_{i=1}^{6}[\theta_i^{y_i}(1-\theta_i)^{1-y_i}\frac{\Gamma(a+b_0)}{\Gamma(a)\Gamma(b_0)}\theta_i^{a-1}(1-\theta_i)^{b_0-1}]r_0e^{-r_0 \alpha}$$
+(Question: Why not write it as $a_i$?)
