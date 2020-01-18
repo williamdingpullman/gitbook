@@ -30,4 +30,10 @@ __Markts__
 
 $y_i|\theta_i \sim Bern (\theta_i), i=1,2,3...6$
 
-$\theta_i |\alpha \sim Beta(a, b_0)$
+$\theta_i |\alpha \sim Beta(a, b_0), i=1,2,3...6$
+
+$\alpha \sim Exp(r_0)$
+
+Thus, the joint distribution of all variable:
+
+$$\prod_{i=1}^{6}[\theta_i^{y_i}(1-\theta_i)^{1-y_i}\frac{\Gamma(a+b_0)}{\Gamma(a)\Gamma(b_0)}\theta_i^{a-1}(1-\theta_i)^{b_0-1}]r_0e^{-r_0 \alpha}$$

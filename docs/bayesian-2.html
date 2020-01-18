@@ -266,7 +266,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p>Consider the following model for binary outcome <span class="math inline">\(y\)</span>:</p></li>
 </ol>
 <p><span class="math inline">\(y_i|\theta_i \sim Bern (\theta_i), i=1,2,3...6\)</span></p>
-<p><span class="math inline">\(\theta_i |\alpha \sim Beta(a, b_0)\)</span></p>
+<p><span class="math inline">\(\theta_i |\alpha \sim Beta(a, b_0), i=1,2,3...6\)</span></p>
+<p><span class="math inline">\(\alpha \sim Exp(r_0)\)</span></p>
+<p>Thus, the joint distribution of all variable:</p>
+<p><span class="math display">\[\prod_{i=1}^{6}[\theta_i^{y_i}(1-\theta_i)^{1-y_i}\frac{\Gamma(a+b_0)}{\Gamma(a)\Gamma(b_0)}\theta_i^{a-1}(1-\theta_i)^{b_0-1}]r_0e^{-r_0 \alpha}\]</span></p>
 
 </div>
 </div>
