@@ -253,8 +253,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.2.2" data-path="bayesian-2.html"><a href="bayesian-2.html#monte-carlo-error-standard-error"><i class="fa fa-check"></i><b>12.2.2</b> Monte Carlo error (Standard Error)</a></li>
 <li class="chapter" data-level="12.2.3" data-path="bayesian-2.html"><a href="bayesian-2.html#expected-value-and-probability"><i class="fa fa-check"></i><b>12.2.3</b> Expected value and probability</a></li>
 <li class="chapter" data-level="12.2.4" data-path="bayesian-2.html"><a href="bayesian-2.html#quantile"><i class="fa fa-check"></i><b>12.2.4</b> Quantile</a></li>
+<li class="chapter" data-level="12.2.5" data-path="bayesian-2.html"><a href="bayesian-2.html#prior-predictive-distributions-marginalization"><i class="fa fa-check"></i><b>12.2.5</b> Prior predictive distributions (Marginalization)</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="bayesian-2.html"><a href="bayesian-2.html#prior-predictive-distributions"><i class="fa fa-check"></i><b>12.3</b> Prior predictive distributions</a></li>
+<li class="chapter" data-level="12.3" data-path="bayesian-2.html"><a href="bayesian-2.html#markov-chains"><i class="fa fa-check"></i><b>12.3</b> Markov chains</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>13</b> Trying</a><ul>
 <li class="chapter" data-level="13.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>13.1</b> The Basic Idea</a></li>
@@ -384,9 +385,8 @@ Thus, we can use <span class="math inline">\(Var\)</span> function in <span clas
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">0.52</span>)</a></code></pre></div>
 <pre><code>## [1] 0.3015318</code></pre>
 </div>
-</div>
-<div id="prior-predictive-distributions" class="section level2">
-<h2><span class="header-section-number">12.3</span> Prior predictive distributions</h2>
+<div id="prior-predictive-distributions-marginalization" class="section level3">
+<h3><span class="header-section-number">12.2.5</span> Prior predictive distributions (Marginalization)</h3>
 <p><span class="math display">\[y|\theta \sim Bin(10, \theta)\]</span>
 <span class="math display">\[\theta \sim Beta(2,2)\]</span></p>
 <p>Simulate:</p>
@@ -423,6 +423,18 @@ Thus, we can use <span class="math inline">\(Var\)</span> function in <span clas
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="co"># the marginal expected value of y</span></a>
 <a class="sourceLine" id="cb173-2" title="2"><span class="kw">mean</span>(y)</a></code></pre></div>
 <pre><code>## [1] 5.04</code></pre>
+</div>
+</div>
+<div id="markov-chains" class="section level2">
+<h2><span class="header-section-number">12.3</span> Markov chains</h2>
+<p>A sequence of random variable <span class="math inline">\(X_1, X_2,...,X_n\)</span>, with <span class="math inline">\(1, 2, ...,3\)</span> indicating the successitve points in time. Thus, based on the chain rule, we can write the following:</p>
+<p><span class="math display">\[p(X_1,X_2,...,X_n)=p(X_1)p(X_2|X_1)p(X_3|X_2,X_1)...p(X_n|X_{n-1},X_{n-2},...,X_2,X_1)\]</span></p>
+<p>For Markov chains, it puts an assumption, called Markov assumption: The random variable at the next time step only depends on the current variable. Mathematically,</p>
+<p><span class="math display">\[p(X_{t+1}|X_t,X_{t-1},...,X_2,X_1)=p(X_{t+1}|X_t)\]</span></p>
+<p>where,</p>
+<p><span class="math display">\[t=2, ...n\]</span></p>
+<p>Thus, we can write the expression above as follows.</p>
+<p><span class="math display">\[p(X_1,X_2,...,X_n)=p(X_1)p(X_2|X_1)p(X_3|X_2)P(X_4|X_3)...p(X_n|X_{n-1})\]</span></p>
 
 </div>
 </div>

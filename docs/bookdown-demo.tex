@@ -3840,8 +3840,8 @@ Use Monte Carlo to approximate the 0.3 quantile of N(0,1). Note that, the idea o
 ## [1] 0.3015318
 \end{verbatim}
 
-\hypertarget{prior-predictive-distributions}{%
-\section{Prior predictive distributions}\label{prior-predictive-distributions}}
+\hypertarget{prior-predictive-distributions-marginalization}{%
+\subsection{Prior predictive distributions (Marginalization)}\label{prior-predictive-distributions-marginalization}}
 
 \[y|\theta \sim Bin(10, \theta)\]
 \[\theta \sim Beta(2,2)\]
@@ -3913,6 +3913,25 @@ Simulate:
 \begin{verbatim}
 ## [1] 5.04
 \end{verbatim}
+
+\hypertarget{markov-chains}{%
+\section{Markov chains}\label{markov-chains}}
+
+A sequence of random variable \(X_1, X_2,...,X_n\), with \(1, 2, ...,3\) indicating the successitve points in time. Thus, based on the chain rule, we can write the following:
+
+\[p(X_1,X_2,...,X_n)=p(X_1)p(X_2|X_1)p(X_3|X_2,X_1)...p(X_n|X_{n-1},X_{n-2},...,X_2,X_1)\]
+
+For Markov chains, it puts an assumption, called Markov assumption: The random variable at the next time step only depends on the current variable. Mathematically,
+
+\[p(X_{t+1}|X_t,X_{t-1},...,X_2,X_1)=p(X_{t+1}|X_t)\]
+
+where,
+
+\[t=2, ...n\]
+
+Thus, we can write the expression above as follows.
+
+\[p(X_1,X_2,...,X_n)=p(X_1)p(X_2|X_1)p(X_3|X_2)P(X_4|X_3)...p(X_n|X_{n-1})\]
 
 \hypertarget{trying}{%
 \chapter{Trying}\label{trying}}

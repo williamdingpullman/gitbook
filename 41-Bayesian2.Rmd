@@ -139,7 +139,7 @@ pnorm(-0.52)
 ```
 
 
-##  Prior predictive distributions
+### Prior predictive distributions (Marginalization)
 
 $$y|\theta \sim Bin(10, \theta)$$
 $$\theta \sim Beta(2,2)$$
@@ -180,3 +180,22 @@ plot(prop.table(table(y)), ylab="P(y)", main="Marginal distribution of y")
 mean(y)
 
 ```
+
+
+## Markov chains
+
+A sequence of random variable $X_1, X_2,...,X_n$, with $1, 2, ...,3$ indicating the successitve points in time. Thus, based on the chain rule, we can write the following:
+
+$$p(X_1,X_2,...,X_n)=p(X_1)p(X_2|X_1)p(X_3|X_2,X_1)...p(X_n|X_{n-1},X_{n-2},...,X_2,X_1)$$
+
+For Markov chains, it puts an assumption, called Markov assumption: The random variable at the next time step only depends on the current variable. Mathematically,
+
+$$p(X_{t+1}|X_t,X_{t-1},...,X_2,X_1)=p(X_{t+1}|X_t)$$
+
+where, 
+
+$$t=2, ...n$$
+
+Thus, we can write the expression above as follows.
+
+$$p(X_1,X_2,...,X_n)=p(X_1)p(X_2|X_1)p(X_3|X_2)P(X_4|X_3)...p(X_n|X_{n-1})$$
