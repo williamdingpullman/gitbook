@@ -3753,9 +3753,62 @@ Use Monte Carlo to approximate the 0.3 quantile of N(0,1). Note that, the idea o
 \[\theta \sim Beta(2,2)\]
 
 Simulate:
-(1) \(\theta^*\) from beta
-(2) Given \(\theta\), draw \(y_i^* \sim Bin(10, \theta_i^*)\)
-(3) Get pairs (\(y_i^*\),\(\theta_i^*\))
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  \(\theta^*\) from beta
+\item
+  Given \(\theta\), draw \(y_i^* \sim Bin(10, \theta_i^*)\)
+\item
+  Get pairs (\(y_i^*\),\(\theta_i^*\))
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m=}\DecValTok{1000}
+
+\NormalTok{y=}\KeywordTok{numeric}\NormalTok{(m)}
+\NormalTok{phi=}\KeywordTok{numeric}\NormalTok{(m)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{m)}
+\NormalTok{\{}
+\NormalTok{  phi[i]=}\KeywordTok{rbeta}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DataTypeTok{shape1=}\DecValTok{2}\NormalTok{,}\DataTypeTok{shape2 =} \DecValTok{2}\NormalTok{)}
+\NormalTok{  y[i]=}\KeywordTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DataTypeTok{size=}\DecValTok{10}\NormalTok{,}\DataTypeTok{prob =}\NormalTok{ phi[i])}
+\NormalTok{\}}
+
+\CommentTok{# we can use vector method}
+
+\NormalTok{phi=}\KeywordTok{rbeta}\NormalTok{(m,}\DataTypeTok{shape1 =} \DecValTok{2}\NormalTok{,}\DataTypeTok{shape2 =} \DecValTok{2}\NormalTok{)}
+\NormalTok{y=}\KeywordTok{rbinom}\NormalTok{(m,}\DataTypeTok{size=}\DecValTok{10}\NormalTok{,}\DataTypeTok{prob =}\NormalTok{ phi)}
+\KeywordTok{table}\NormalTok{(y)}\OperatorTok{/}\NormalTok{m}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y
+##     0     1     2     3     4     5     6     7     8     9    10 
+## 0.038 0.064 0.100 0.110 0.124 0.112 0.131 0.117 0.093 0.069 0.042
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{table}\NormalTok{(y)}\OperatorTok{/}\NormalTok{m)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-42-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# the marginal expected value of y}
+\KeywordTok{mean}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.04
+\end{verbatim}
 
 \hypertarget{trying}{%
 \chapter{Trying}\label{trying}}
