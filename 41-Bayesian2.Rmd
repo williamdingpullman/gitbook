@@ -85,6 +85,33 @@ When we using samples from the simulation, we will get the following:
 $$V(x)=\int (x-\mu)^2 f(x)dx= \frac{1}{m} \sum (x_i^*-\bar{x^*})^2$$
 Thus, we can use $Var$ function in $R$ with simulated sample to calculate the variance. 
 
+### Monte Carlo error (Standard Error)
+
+For the $\bar{x^*}$, we can use the CLT to approximate how accurate the Monte Carlo estimates are. 
+
+$$\frac{SD(sample)}{\sqrt{m}}$$
+
+```{R}
+set.seed(123)
+sample_data_gamma<-rgamma(10000,4,2)
+
+hist(sample_data_gamma, freq=FALSE)
+curve(dgamma(x=x, shape=4, rate=2), col="blue", add=TRUE)
+
+var(sample_data_gamma)
+sqrt(var(sample_data_gamma))
+sd(sample_data_gamma) 
+sd(sample_data_gamma) / sqrt(10000)
+```
+
+We can also calculate Standard Error for the probablity
+
+```{R}
+hist(sample_data_gamma)
+se = sd(sample_data_gamma<5) / sqrt(10000)
+se
+```
+
 ### Expected value and probability
 
 If you know that $\theta \sim Beta(5,3)$, what is the approximate for the $E(\frac{\theta}{1-\theta})$? You can use the following R code to calculate it.
@@ -145,6 +172,9 @@ table(y)/m
 
 # The marginal distribution of y
 plot(table(y)/m)
+
+# Another way to plot 
+plot(prop.table(table(y)), ylab="P(y)", main="Marginal distribution of y")
 
 # the marginal expected value of y
 mean(y)

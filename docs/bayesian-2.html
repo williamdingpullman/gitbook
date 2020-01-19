@@ -250,8 +250,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.1" data-path="bayesian-2.html"><a href="bayesian-2.html#components-of-bayesian-models"><i class="fa fa-check"></i><b>12.1</b> Components of Bayesian models</a></li>
 <li class="chapter" data-level="12.2" data-path="bayesian-2.html"><a href="bayesian-2.html#monte-carlo-estimation"><i class="fa fa-check"></i><b>12.2</b> Monte Carlo Estimation</a><ul>
 <li class="chapter" data-level="12.2.1" data-path="bayesian-2.html"><a href="bayesian-2.html#mean-and-variance-application-of-central-limit-theorem"><i class="fa fa-check"></i><b>12.2.1</b> Mean and Variance: Application of Central Limit Theorem</a></li>
-<li class="chapter" data-level="12.2.2" data-path="bayesian-2.html"><a href="bayesian-2.html#expected-value-and-probability"><i class="fa fa-check"></i><b>12.2.2</b> Expected value and probability</a></li>
-<li class="chapter" data-level="12.2.3" data-path="bayesian-2.html"><a href="bayesian-2.html#quantile"><i class="fa fa-check"></i><b>12.2.3</b> Quantile</a></li>
+<li class="chapter" data-level="12.2.2" data-path="bayesian-2.html"><a href="bayesian-2.html#monte-carlo-error-standard-error"><i class="fa fa-check"></i><b>12.2.2</b> Monte Carlo error (Standard Error)</a></li>
+<li class="chapter" data-level="12.2.3" data-path="bayesian-2.html"><a href="bayesian-2.html#expected-value-and-probability"><i class="fa fa-check"></i><b>12.2.3</b> Expected value and probability</a></li>
+<li class="chapter" data-level="12.2.4" data-path="bayesian-2.html"><a href="bayesian-2.html#quantile"><i class="fa fa-check"></i><b>12.2.4</b> Quantile</a></li>
 </ul></li>
 <li class="chapter" data-level="12.3" data-path="bayesian-2.html"><a href="bayesian-2.html#prior-predictive-distributions"><i class="fa fa-check"></i><b>12.3</b> Prior predictive distributions</a></li>
 </ul></li>
@@ -336,26 +337,51 @@ When we using samples from the simulation, we will get the following:</p>
 <p><span class="math display">\[V(x)=\int (x-\mu)^2 f(x)dx= \frac{1}{m} \sum (x_i^*-\bar{x^*})^2\]</span>
 Thus, we can use <span class="math inline">\(Var\)</span> function in <span class="math inline">\(R\)</span> with simulated sample to calculate the variance.</p>
 </div>
+<div id="monte-carlo-error-standard-error" class="section level3">
+<h3><span class="header-section-number">12.2.2</span> Monte Carlo error (Standard Error)</h3>
+<p>For the <span class="math inline">\(\bar{x^*}\)</span>, we can use the CLT to approximate how accurate the Monte Carlo estimates are.</p>
+<p><span class="math display">\[\frac{SD(sample)}{\sqrt{m}}\]</span></p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb147-2" title="2">sample_data_gamma&lt;-<span class="kw">rgamma</span>(<span class="dv">10000</span>,<span class="dv">4</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb147-3" title="3"></a>
+<a class="sourceLine" id="cb147-4" title="4"><span class="kw">hist</span>(sample_data_gamma, <span class="dt">freq=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb147-5" title="5"><span class="kw">curve</span>(<span class="kw">dgamma</span>(<span class="dt">x=</span>x, <span class="dt">shape=</span><span class="dv">4</span>, <span class="dt">rate=</span><span class="dv">2</span>), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="kw">var</span>(sample_data_gamma)</a></code></pre></div>
+<pre><code>## [1] 0.9682145</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1"><span class="kw">sqrt</span>(<span class="kw">var</span>(sample_data_gamma))</a></code></pre></div>
+<pre><code>## [1] 0.9839789</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1"><span class="kw">sd</span>(sample_data_gamma) </a></code></pre></div>
+<pre><code>## [1] 0.9839789</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1"><span class="kw">sd</span>(sample_data_gamma) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10000</span>)</a></code></pre></div>
+<pre><code>## [1] 0.009839789</code></pre>
+<p>We can also calculate Standard Error for the probablity</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">hist</span>(sample_data_gamma)</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1">se =<span class="st"> </span><span class="kw">sd</span>(sample_data_gamma<span class="op">&lt;</span><span class="dv">5</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb157-2" title="2">se</a></code></pre></div>
+<pre><code>## [1] 0.0009547917</code></pre>
+</div>
 <div id="expected-value-and-probability" class="section level3">
-<h3><span class="header-section-number">12.2.2</span> Expected value and probability</h3>
+<h3><span class="header-section-number">12.2.3</span> Expected value and probability</h3>
 <p>If you know that <span class="math inline">\(\theta \sim Beta(5,3)\)</span>, what is the approximate for the <span class="math inline">\(E(\frac{\theta}{1-\theta})\)</span>? You can use the following R code to calculate it.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">sample_data&lt;-<span class="kw">rbeta</span>(<span class="dv">1000</span>,<span class="dv">5</span>,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb147-2" title="2"><span class="kw">mean</span>(sample_data<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>sample_data))</a></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1">sample_data&lt;-<span class="kw">rbeta</span>(<span class="dv">1000</span>,<span class="dv">5</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb159-2" title="2"><span class="kw">mean</span>(sample_data<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>sample_data))</a></code></pre></div>
 <pre><code>## [1] 2.789685</code></pre>
 <p>If you want to calculate the approximate for the probability that <span class="math inline">\(\frac{\theta}{1-\theta}\)</span> is greater 1.</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1"><span class="kw">mean</span>((sample_data<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>sample_data))<span class="op">&gt;</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="kw">mean</span>((sample_data<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>sample_data))<span class="op">&gt;</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.789</code></pre>
 </div>
 <div id="quantile" class="section level3">
-<h3><span class="header-section-number">12.2.3</span> Quantile</h3>
+<h3><span class="header-section-number">12.2.4</span> Quantile</h3>
 <p>Use Monte Carlo to approximate the 0.3 quantile of N(0,1). Note that, the idea of quantile is to quantify the probability. Thus, the number we will get for 0.3 quantile if the value for the random variable’s cdf <span class="math inline">\(\int_{-\infty}^{quantile-number}dx\)</span>. As we can see below, <span class="math inline">\(quantile(sample_data2,0.3)\)</span> gets the result of -0.52, which is the same from the <span class="math inline">\(qnorm(0.3)\)</span>. Note that, the cdf of <span class="math inline">\(pnorm(-0.52)\)</span> will get the probablity of <span class="math inline">\(0.3\)</span>.</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1">sample_data2&lt;-<span class="kw">rnorm</span>(<span class="dv">10000</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb151-2" title="2"><span class="kw">quantile</span>(sample_data2,<span class="fl">0.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1">sample_data2&lt;-<span class="kw">rnorm</span>(<span class="dv">10000</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb163-2" title="2"><span class="kw">quantile</span>(sample_data2,<span class="fl">0.3</span>)</a></code></pre></div>
 <pre><code>##        30% 
 ## -0.5260847</code></pre>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="kw">qnorm</span>(<span class="fl">0.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="kw">qnorm</span>(<span class="fl">0.3</span>)</a></code></pre></div>
 <pre><code>## [1] -0.5244005</code></pre>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1"><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">0.52</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">0.52</span>)</a></code></pre></div>
 <pre><code>## [1] 0.3015318</code></pre>
 </div>
 </div>
@@ -369,30 +395,33 @@ Thus, we can use <span class="math inline">\(Var\)</span> function in <span clas
 <li><p>Given <span class="math inline">\(\theta\)</span>, draw <span class="math inline">\(y_i^* \sim Bin(10, \theta_i^*)\)</span></p></li>
 <li><p>Get pairs (<span class="math inline">\(y_i^*\)</span>,<span class="math inline">\(\theta_i^*\)</span>)</p></li>
 </ol>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1">m=<span class="dv">1000</span></a>
-<a class="sourceLine" id="cb157-2" title="2"></a>
-<a class="sourceLine" id="cb157-3" title="3">y=<span class="kw">numeric</span>(m)</a>
-<a class="sourceLine" id="cb157-4" title="4">phi=<span class="kw">numeric</span>(m)</a>
-<a class="sourceLine" id="cb157-5" title="5"></a>
-<a class="sourceLine" id="cb157-6" title="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>m)</a>
-<a class="sourceLine" id="cb157-7" title="7">{</a>
-<a class="sourceLine" id="cb157-8" title="8">  phi[i]=<span class="kw">rbeta</span>(<span class="dv">1</span>,<span class="dt">shape1=</span><span class="dv">2</span>,<span class="dt">shape2 =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb157-9" title="9">  y[i]=<span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dt">size=</span><span class="dv">10</span>,<span class="dt">prob =</span> phi[i])</a>
-<a class="sourceLine" id="cb157-10" title="10">}</a>
-<a class="sourceLine" id="cb157-11" title="11"></a>
-<a class="sourceLine" id="cb157-12" title="12"><span class="co"># we can use vector method</span></a>
-<a class="sourceLine" id="cb157-13" title="13"></a>
-<a class="sourceLine" id="cb157-14" title="14">phi=<span class="kw">rbeta</span>(m,<span class="dt">shape1 =</span> <span class="dv">2</span>,<span class="dt">shape2 =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb157-15" title="15">y=<span class="kw">rbinom</span>(m,<span class="dt">size=</span><span class="dv">10</span>,<span class="dt">prob =</span> phi)</a>
-<a class="sourceLine" id="cb157-16" title="16"><span class="kw">table</span>(y)<span class="op">/</span>m</a></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1">m=<span class="dv">1000</span></a>
+<a class="sourceLine" id="cb169-2" title="2"></a>
+<a class="sourceLine" id="cb169-3" title="3">y=<span class="kw">numeric</span>(m)</a>
+<a class="sourceLine" id="cb169-4" title="4">phi=<span class="kw">numeric</span>(m)</a>
+<a class="sourceLine" id="cb169-5" title="5"></a>
+<a class="sourceLine" id="cb169-6" title="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>m)</a>
+<a class="sourceLine" id="cb169-7" title="7">{</a>
+<a class="sourceLine" id="cb169-8" title="8">  phi[i]=<span class="kw">rbeta</span>(<span class="dv">1</span>,<span class="dt">shape1=</span><span class="dv">2</span>,<span class="dt">shape2 =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb169-9" title="9">  y[i]=<span class="kw">rbinom</span>(<span class="dv">1</span>,<span class="dt">size=</span><span class="dv">10</span>,<span class="dt">prob =</span> phi[i])</a>
+<a class="sourceLine" id="cb169-10" title="10">}</a>
+<a class="sourceLine" id="cb169-11" title="11"></a>
+<a class="sourceLine" id="cb169-12" title="12"><span class="co"># we can use vector method</span></a>
+<a class="sourceLine" id="cb169-13" title="13"></a>
+<a class="sourceLine" id="cb169-14" title="14">phi=<span class="kw">rbeta</span>(m,<span class="dt">shape1 =</span> <span class="dv">2</span>,<span class="dt">shape2 =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb169-15" title="15">y=<span class="kw">rbinom</span>(m,<span class="dt">size=</span><span class="dv">10</span>,<span class="dt">prob =</span> phi)</a>
+<a class="sourceLine" id="cb169-16" title="16"><span class="kw">table</span>(y)<span class="op">/</span>m</a></code></pre></div>
 <pre><code>## y
 ##     0     1     2     3     4     5     6     7     8     9    10 
 ## 0.038 0.064 0.100 0.110 0.124 0.112 0.131 0.117 0.093 0.069 0.042</code></pre>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="co"># The marginal distribution of y</span></a>
-<a class="sourceLine" id="cb159-2" title="2"><span class="kw">plot</span>(<span class="kw">table</span>(y)<span class="op">/</span>m)</a></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1"><span class="co"># the marginal expected value of y</span></a>
-<a class="sourceLine" id="cb160-2" title="2"><span class="kw">mean</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="co"># The marginal distribution of y</span></a>
+<a class="sourceLine" id="cb171-2" title="2"><span class="kw">plot</span>(<span class="kw">table</span>(y)<span class="op">/</span>m)</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="co"># Another way to plot </span></a>
+<a class="sourceLine" id="cb172-2" title="2"><span class="kw">plot</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(y)), <span class="dt">ylab=</span><span class="st">&quot;P(y)&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Marginal distribution of y&quot;</span>)</a></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-2.png" width="672" /></p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="co"># the marginal expected value of y</span></a>
+<a class="sourceLine" id="cb173-2" title="2"><span class="kw">mean</span>(y)</a></code></pre></div>
 <pre><code>## [1] 5.04</code></pre>
 
 </div>

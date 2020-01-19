@@ -3695,6 +3695,86 @@ When we using samples from the simulation, we will get the following:
 \[V(x)=\int (x-\mu)^2 f(x)dx= \frac{1}{m} \sum (x_i^*-\bar{x^*})^2\]
 Thus, we can use \(Var\) function in \(R\) with simulated sample to calculate the variance.
 
+\hypertarget{monte-carlo-error-standard-error}{%
+\subsection{Monte Carlo error (Standard Error)}\label{monte-carlo-error-standard-error}}
+
+For the \(\bar{x^*}\), we can use the CLT to approximate how accurate the Monte Carlo estimates are.
+
+\[\frac{SD(sample)}{\sqrt{m}}\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{sample_data_gamma<-}\KeywordTok{rgamma}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+
+\KeywordTok{hist}\NormalTok{(sample_data_gamma, }\DataTypeTok{freq=}\OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dgamma}\NormalTok{(}\DataTypeTok{x=}\NormalTok{x, }\DataTypeTok{shape=}\DecValTok{4}\NormalTok{, }\DataTypeTok{rate=}\DecValTok{2}\NormalTok{), }\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{, }\DataTypeTok{add=}\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{(sample_data_gamma)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9682145
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{var}\NormalTok{(sample_data_gamma))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9839789
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sd}\NormalTok{(sample_data_gamma) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9839789
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sd}\NormalTok{(sample_data_gamma) }\OperatorTok{/}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.009839789
+\end{verbatim}
+
+We can also calculate Standard Error for the probablity
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(sample_data_gamma)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-40-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{se =}\StringTok{ }\KeywordTok{sd}\NormalTok{(sample_data_gamma}\OperatorTok{<}\DecValTok{5}\NormalTok{) }\OperatorTok{/}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\NormalTok{se}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0009547917
+\end{verbatim}
+
 \hypertarget{expected-value-and-probability}{%
 \subsection{Expected value and probability}\label{expected-value-and-probability}}
 
@@ -3812,7 +3892,16 @@ Simulate:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-44-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Another way to plot }
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(}\KeywordTok{table}\NormalTok{(y)), }\DataTypeTok{ylab=}\StringTok{"P(y)"}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Marginal distribution of y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-44-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
