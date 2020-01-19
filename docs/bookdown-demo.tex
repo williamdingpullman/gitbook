@@ -3630,8 +3630,8 @@ Thus, the joint distribution of all variable:
 \hypertarget{monte-carlo-estimation}{%
 \section{Monte Carlo Estimation}\label{monte-carlo-estimation}}
 
-\hypertarget{sample-mean-application-of-central-limit-theorem}{%
-\subsection{Sample Mean: Application of Central Limit Theorem}\label{sample-mean-application-of-central-limit-theorem}}
+\hypertarget{mean-and-variance-application-of-central-limit-theorem}{%
+\subsection{Mean and Variance: Application of Central Limit Theorem}\label{mean-and-variance-application-of-central-limit-theorem}}
 
 If we simulate 100 samples from a Gamma(2,1), what is the approximate distribution of the sample average \(\bar{x^*}=\frac{1}{100} \sum_{i=1}^{100} x_i^*\)?
 
@@ -3680,6 +3680,20 @@ The following R code is for the \(\bar{\theta^*}\). As we can see, the variance 
 \begin{verbatim}
 ## [1] 0.001634891
 \end{verbatim}
+
+\textbf{Side Note}
+
+Note that the definition of variance is:
+
+\[V(x)=E[(x-\mu)^2]\]
+
+Thus, we can calculate the variance using integral:
+
+\[V(x)=\int (x-\mu)^2 f(x)dx\]
+When we using samples from the simulation, we will get the following:
+
+\[V(x)=\int (x-\mu)^2 f(x)dx= \frac{1}{m} \sum (x_i^*-\bar{x^*})^2\]
+Thus, we can use \(Var\) function in \(R\) with simulated sample to calculate the variance.
 
 \hypertarget{expected-value-and-probability}{%
 \subsection{Expected value and probability}\label{expected-value-and-probability}}
@@ -3793,6 +3807,7 @@ Simulate:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# The marginal distribution of y}
 \KeywordTok{plot}\NormalTok{(}\KeywordTok{table}\NormalTok{(y)}\OperatorTok{/}\NormalTok{m)}
 \end{Highlighting}
 \end{Shaded}

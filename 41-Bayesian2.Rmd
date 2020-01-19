@@ -42,7 +42,7 @@ $$\prod_{i=1}^{6}[\theta_i^{y_i}(1-\theta_i)^{1-y_i}\frac{\Gamma(a+b_0)}{\Gamma(
 
 ## Monte Carlo Estimation
 
-### Sample Mean: Application of Central Limit Theorem
+### Mean and Variance: Application of Central Limit Theorem
 
 If we simulate 100 samples from a Gamma(2,1), what is the approximate distribution of the sample average $\bar{x^*}=\frac{1}{100} \sum_{i=1}^{100} x_i^*$?
 
@@ -70,6 +70,20 @@ for(i in 1:10)
 {mean_c[i]<-mean(rgamma(1000,4,2))}
 var(mean_c)
 ```
+
+__Side Note__
+
+Note that the definition of variance is:
+
+$$V(x)=E[(x-\mu)^2]$$
+
+Thus, we can calculate the variance using integral:
+
+$$V(x)=\int (x-\mu)^2 f(x)dx$$
+When we using samples from the simulation, we will get the following:
+
+$$V(x)=\int (x-\mu)^2 f(x)dx= \frac{1}{m} \sum (x_i^*-\bar{x^*})^2$$
+Thus, we can use $Var$ function in $R$ with simulated sample to calculate the variance. 
 
 ### Expected value and probability
 
@@ -128,6 +142,8 @@ for (i in 1:m)
 phi=rbeta(m,shape1 = 2,shape2 = 2)
 y=rbinom(m,size=10,prob = phi)
 table(y)/m
+
+# The marginal distribution of y
 plot(table(y)/m)
 
 # the marginal expected value of y
