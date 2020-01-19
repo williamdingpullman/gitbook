@@ -3,7 +3,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Bill's Stat Project</a></li>
+        <li><a href="https://williamdingpullman.github.io/" target="blank">Bill's Stats Notes</a></li>
       after: |
         <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
     edit: https://github.com/rstudio/bookdown-demo/edit/master/%s

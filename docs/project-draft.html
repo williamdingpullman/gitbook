@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="practice-learning-on-the-battle-field.html"/>
-<link rel="next" href="bayesian-1.html"/>
+<link rel="next" href="trying.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -52,66 +52,41 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -127,7 +102,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Bill's Stat Project</a></li>
+<li><a href="https://williamdingpullman.github.io/" target="blank">Bill's Stats Notes</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface: Motivation</a></li>
@@ -214,53 +189,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2" data-path="project-draft.html"><a href="project-draft.html#important-examples-with-r-code"><i class="fa fa-check"></i><b>10.2</b> Important Examples with R code</a></li>
 <li class="chapter" data-level="10.3" data-path="project-draft.html"><a href="project-draft.html#references-4"><i class="fa fa-check"></i><b>10.3</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bayesian-1.html"><a href="bayesian-1.html"><i class="fa fa-check"></i><b>11</b> Bayesian - 1</a><ul>
-<li class="chapter" data-level="11.1" data-path="bayesian-1.html"><a href="bayesian-1.html#frequentist-perspective"><i class="fa fa-check"></i><b>11.1</b> Frequentist perspective</a></li>
-<li class="chapter" data-level="11.2" data-path="bayesian-1.html"><a href="bayesian-1.html#bayesian-perspective"><i class="fa fa-check"></i><b>11.2</b> Bayesian perspective</a></li>
-<li class="chapter" data-level="11.3" data-path="bayesian-1.html"><a href="bayesian-1.html#continous-parameters"><i class="fa fa-check"></i><b>11.3</b> Continous parameters</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="bayesian-1.html"><a href="bayesian-1.html#uniform"><i class="fa fa-check"></i><b>11.3.1</b> Uniform</a></li>
-<li class="chapter" data-level="11.3.2" data-path="bayesian-1.html"><a href="bayesian-1.html#uniform-prior-versus-posterior"><i class="fa fa-check"></i><b>11.3.2</b> Uniform: prior versus posterior</a></li>
-<li class="chapter" data-level="11.3.3" data-path="bayesian-1.html"><a href="bayesian-1.html#uniform-equal-tailed-versus-hpd"><i class="fa fa-check"></i><b>11.3.3</b> Uniform: equal tailed versus HPD</a></li>
-</ul></li>
-<li class="chapter" data-level="11.4" data-path="bayesian-1.html"><a href="bayesian-1.html#bernoullibinomial-likelihood-with-uniform-prior"><i class="fa fa-check"></i><b>11.4</b> Bernoulli/binomial likelihood with uniform prior</a></li>
-<li class="chapter" data-level="11.5" data-path="bayesian-1.html"><a href="bayesian-1.html#conjugate-priors"><i class="fa fa-check"></i><b>11.5</b> Conjugate priors</a></li>
-<li class="chapter" data-level="11.6" data-path="bayesian-1.html"><a href="bayesian-1.html#poisson-distribution"><i class="fa fa-check"></i><b>11.6</b> Poisson distribution</a></li>
-<li class="chapter" data-level="11.7" data-path="bayesian-1.html"><a href="bayesian-1.html#exponential-data"><i class="fa fa-check"></i><b>11.7</b> Exponential data</a></li>
-<li class="chapter" data-level="11.8" data-path="bayesian-1.html"><a href="bayesian-1.html#normal-likelihood"><i class="fa fa-check"></i><b>11.8</b> Normal likelihood</a><ul>
-<li class="chapter" data-level="11.8.1" data-path="bayesian-1.html"><a href="bayesian-1.html#when-variance-is-known"><i class="fa fa-check"></i><b>11.8.1</b> When variance is known</a></li>
-<li class="chapter" data-level="11.8.2" data-path="bayesian-1.html"><a href="bayesian-1.html#when-variance-is-unknown"><i class="fa fa-check"></i><b>11.8.2</b> When variance is unknown</a></li>
-</ul></li>
-<li class="chapter" data-level="11.9" data-path="bayesian-1.html"><a href="bayesian-1.html#non-informative-priors"><i class="fa fa-check"></i><b>11.9</b> Non-informative priors</a><ul>
-<li class="chapter" data-level="11.9.1" data-path="bayesian-1.html"><a href="bayesian-1.html#bernoulli"><i class="fa fa-check"></i><b>11.9.1</b> Bernoulli</a></li>
-<li class="chapter" data-level="11.9.2" data-path="bayesian-1.html"><a href="bayesian-1.html#gaussian"><i class="fa fa-check"></i><b>11.9.2</b> Gaussian</a></li>
-</ul></li>
-<li class="chapter" data-level="11.10" data-path="bayesian-1.html"><a href="bayesian-1.html#jeffreys-priors"><i class="fa fa-check"></i><b>11.10</b> Jeffreys Priors</a><ul>
-<li class="chapter" data-level="11.10.1" data-path="bayesian-1.html"><a href="bayesian-1.html#gaussian-1"><i class="fa fa-check"></i><b>11.10.1</b> Gaussian</a></li>
-<li class="chapter" data-level="11.10.2" data-path="bayesian-1.html"><a href="bayesian-1.html#bernoulli-1"><i class="fa fa-check"></i><b>11.10.2</b> Bernoulli</a></li>
-<li class="chapter" data-level="11.10.3" data-path="bayesian-1.html"><a href="bayesian-1.html#side-note-fisher-information"><i class="fa fa-check"></i><b>11.10.3</b> Side Note: Fisher Information</a></li>
-<li class="chapter" data-level="11.10.4" data-path="bayesian-1.html"><a href="bayesian-1.html#prior-predictive-distribution"><i class="fa fa-check"></i><b>11.10.4</b> Prior predictive distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="11.11" data-path="bayesian-1.html"><a href="bayesian-1.html#linear-regression"><i class="fa fa-check"></i><b>11.11</b> Linear regression</a><ul>
-<li class="chapter" data-level="11.11.1" data-path="bayesian-1.html"><a href="bayesian-1.html#review"><i class="fa fa-check"></i><b>11.11.1</b> Review</a></li>
-<li class="chapter" data-level="11.11.2" data-path="bayesian-1.html"><a href="bayesian-1.html#when-sigma2-is-known"><i class="fa fa-check"></i><b>11.11.2</b> When <span class="math inline">\(\sigma^2\)</span> is known</a></li>
-<li class="chapter" data-level="11.11.3" data-path="bayesian-1.html"><a href="bayesian-1.html#when-sigma2-is-unknown"><i class="fa fa-check"></i><b>11.11.3</b> When <span class="math inline">\(\sigma^2\)</span> is unknown</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="bayesian-2.html"><a href="bayesian-2.html"><i class="fa fa-check"></i><b>12</b> Bayesian - 2</a><ul>
-<li class="chapter" data-level="12.1" data-path="bayesian-2.html"><a href="bayesian-2.html#components-of-bayesian-models"><i class="fa fa-check"></i><b>12.1</b> Components of Bayesian models</a></li>
-<li class="chapter" data-level="12.2" data-path="bayesian-2.html"><a href="bayesian-2.html#monte-carlo-estimation"><i class="fa fa-check"></i><b>12.2</b> Monte Carlo Estimation</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="bayesian-2.html"><a href="bayesian-2.html#mean-and-variance-application-of-central-limit-theorem"><i class="fa fa-check"></i><b>12.2.1</b> Mean and Variance: Application of Central Limit Theorem</a></li>
-<li class="chapter" data-level="12.2.2" data-path="bayesian-2.html"><a href="bayesian-2.html#monte-carlo-error-standard-error"><i class="fa fa-check"></i><b>12.2.2</b> Monte Carlo error (Standard Error)</a></li>
-<li class="chapter" data-level="12.2.3" data-path="bayesian-2.html"><a href="bayesian-2.html#expected-value-and-probability"><i class="fa fa-check"></i><b>12.2.3</b> Expected value and probability</a></li>
-<li class="chapter" data-level="12.2.4" data-path="bayesian-2.html"><a href="bayesian-2.html#quantile"><i class="fa fa-check"></i><b>12.2.4</b> Quantile</a></li>
-<li class="chapter" data-level="12.2.5" data-path="bayesian-2.html"><a href="bayesian-2.html#prior-predictive-distributions-marginalization"><i class="fa fa-check"></i><b>12.2.5</b> Prior predictive distributions (Marginalization)</a></li>
-</ul></li>
-<li class="chapter" data-level="12.3" data-path="bayesian-2.html"><a href="bayesian-2.html#markov-chains"><i class="fa fa-check"></i><b>12.3</b> Markov chains</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>13</b> Trying</a><ul>
-<li class="chapter" data-level="13.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>13.1</b> The Basic Idea</a></li>
-<li class="chapter" data-level="13.2" data-path="trying.html"><a href="trying.html#model-and-r-code"><i class="fa fa-check"></i><b>13.2</b> Model and R Code</a></li>
-<li class="chapter" data-level="13.3" data-path="trying.html"><a href="trying.html#glmmtmb-package"><i class="fa fa-check"></i><b>13.3</b> glmmTMB package</a></li>
+<li class="chapter" data-level="11" data-path="trying.html"><a href="trying.html"><i class="fa fa-check"></i><b>11</b> Trying</a><ul>
+<li class="chapter" data-level="11.1" data-path="trying.html"><a href="trying.html#the-basic-idea"><i class="fa fa-check"></i><b>11.1</b> The Basic Idea</a></li>
+<li class="chapter" data-level="11.2" data-path="trying.html"><a href="trying.html#model-and-r-code"><i class="fa fa-check"></i><b>11.2</b> Model and R Code</a></li>
+<li class="chapter" data-level="11.3" data-path="trying.html"><a href="trying.html#glmmtmb-package"><i class="fa fa-check"></i><b>11.3</b> glmmTMB package</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -284,8 +216,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="project-draft" class="section level1">
 <h1><span class="header-section-number">Chapter 10</span> Project Draft</h1>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1">mydata3&lt;-<span class="kw">read.csv</span>(<span class="st">&#39;Schnibbe 1502 Binary Data.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb128-2" title="2"><span class="kw">head</span>(mydata3)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata3&lt;-<span class="kw">read.csv</span>(<span class="st">&#39;Schnibbe 1502 Binary Data.csv&#39;</span>)
+<span class="kw">head</span>(mydata3)</code></pre></div>
 <pre><code>##   X0
 ## 1  0
 ## 2  1
@@ -293,9 +225,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4  0
 ## 5  1
 ## 6  0</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1">NO_new&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">222</span>)</a>
-<a class="sourceLine" id="cb130-2" title="2">mydata4&lt;-<span class="kw">cbind</span>(mydata3,NO_new)</a>
-<a class="sourceLine" id="cb130-3" title="3"><span class="kw">head</span>(mydata4)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NO_new&lt;-<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">222</span>)
+mydata4&lt;-<span class="kw">cbind</span>(mydata3,NO_new)
+<span class="kw">head</span>(mydata4)</code></pre></div>
 <pre><code>##   X0 NO_new
 ## 1  0      1
 ## 2  1      2
@@ -303,8 +235,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4  0      4
 ## 5  1      5
 ## 6  0      6</code></pre>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1">a1 =<span class="st"> </span><span class="kw">glmer</span>(X0 <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>NO_new), <span class="dt">data =</span> mydata4,<span class="dt">family=</span>binomial)</a>
-<a class="sourceLine" id="cb132-2" title="2"><span class="kw">summary</span>(a1)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1 =<span class="st"> </span><span class="kw">glmer</span>(X0 <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>NO_new), <span class="dt">data =</span> mydata4,<span class="dt">family=</span>binomial)
+<span class="kw">summary</span>(a1)</code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: binomial  ( logit )
@@ -328,8 +260,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## (Intercept)  -1.2098     0.1603  -7.549 4.38e-14 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1">a2 =<span class="st"> </span><span class="kw">glm</span>(X0 <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> mydata4,<span class="dt">family=</span>binomial)</a>
-<a class="sourceLine" id="cb134-2" title="2"><span class="kw">summary</span>(a2)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a2 =<span class="st"> </span><span class="kw">glm</span>(X0 <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> mydata4,<span class="dt">family=</span>binomial)
+<span class="kw">summary</span>(a2)</code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = X0 ~ 1, family = binomial, data = mydata4)
@@ -356,45 +288,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The following code is from this website: <a href="http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html" class="uri">http://www.biostat.umn.edu/~baolin/teaching/probmods/GLMM_mcmc.html</a>. I will remove it on this page after I complete my practice and learning.</p>
 <p>In this example, it simulates a longitudinal data with 4 variables for each of 1000 separate individuals. Specifically, there are three continuous covariates (varying over time) and one ordinal covariate (constant over time). We will consider a random intercept model (mean zero and variance 100), and fit the data with glmer() from lme4 R package.</p>
 <p>The R code:</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1">n =<span class="st"> </span><span class="dv">1000</span>; p =<span class="st"> </span><span class="dv">3</span>; K =<span class="st"> </span><span class="dv">4</span>; sig =<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb136-2" title="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb136-3" title="3"></a>
-<a class="sourceLine" id="cb136-4" title="4"><span class="co">## time varying covariates</span></a>
-<a class="sourceLine" id="cb136-5" title="5">Xl =<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;list&#39;</span>, K)</a>
-<a class="sourceLine" id="cb136-6" title="6"><span class="co"># 4 list, each 1000 individuals</span></a>
-<a class="sourceLine" id="cb136-7" title="7"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K) Xl[[i]] =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p), n,p)</a>
-<a class="sourceLine" id="cb136-8" title="8"></a>
-<a class="sourceLine" id="cb136-9" title="9"><span class="co">## constant covariate</span></a>
-<a class="sourceLine" id="cb136-10" title="10">Z =<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dv">2</span>,<span class="fl">0.2</span>)</a>
-<a class="sourceLine" id="cb136-11" title="11"></a>
-<a class="sourceLine" id="cb136-12" title="12"><span class="co">## random effects</span></a>
-<a class="sourceLine" id="cb136-13" title="13"><span class="co">#just 1000 random numubers?</span></a>
-<a class="sourceLine" id="cb136-14" title="14">U =<span class="st"> </span><span class="kw">rnorm</span>(n)<span class="op">*</span>sig</a>
-<a class="sourceLine" id="cb136-15" title="15"></a>
-<a class="sourceLine" id="cb136-16" title="16"><span class="co">## fixed effects</span></a>
-<a class="sourceLine" id="cb136-17" title="17"><span class="co"># It ends a 1000*4 matrix</span></a>
-<a class="sourceLine" id="cb136-18" title="18">etaX =<span class="st"> </span><span class="kw">sapply</span>(Xl, rowSums)</a>
-<a class="sourceLine" id="cb136-19" title="19"></a>
-<a class="sourceLine" id="cb136-20" title="20"><span class="co">## random errors</span></a>
-<a class="sourceLine" id="cb136-21" title="21">eps =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>K), n,K)</a>
-<a class="sourceLine" id="cb136-22" title="22"></a>
-<a class="sourceLine" id="cb136-23" title="23"><span class="co">## logit model</span></a>
-<a class="sourceLine" id="cb136-24" title="24">eta =<span class="st"> </span>etaX <span class="op">+</span><span class="st"> </span>U <span class="op">+</span><span class="st"> </span>eps</a>
-<a class="sourceLine" id="cb136-25" title="25"><span class="co"># calculate probability</span></a>
-<a class="sourceLine" id="cb136-26" title="26">prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta))</a>
-<a class="sourceLine" id="cb136-27" title="27">D =<span class="st"> </span><span class="dv">1</span><span class="op">*</span>(<span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>K),n,K)<span class="op">&lt;</span>prb) <span class="co"># comparing it to prb, and change to 1 and 0; 1000*4</span></a>
-<a class="sourceLine" id="cb136-28" title="28"><span class="co"># Select the first list from &quot;Xl&quot;, and then add other 3 lists--&gt; 4000 * 3</span></a>
-<a class="sourceLine" id="cb136-29" title="29">Xs =<span class="st"> </span>Xl[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb136-30" title="30"><span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>K) Xs =<span class="st"> </span><span class="kw">rbind</span>(Xs, Xl[[k]])</a>
-<a class="sourceLine" id="cb136-31" title="31"></a>
-<a class="sourceLine" id="cb136-32" title="32"><span class="co">## GLMM model</span></a>
-<a class="sourceLine" id="cb136-33" title="33"><span class="kw">library</span>(lme4)</a>
-<a class="sourceLine" id="cb136-34" title="34">sid =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, K) <span class="co"># a vector of 1-1000, 4 repetitions</span></a>
-<a class="sourceLine" id="cb136-35" title="35"><span class="co">## model fit with GLMMM (default to Laplace approximation)</span></a>
-<a class="sourceLine" id="cb136-36" title="36"><span class="co"># subjects as the random effect</span></a>
-<a class="sourceLine" id="cb136-37" title="37">a1 =<span class="st"> </span><span class="kw">glmer</span>(<span class="kw">c</span>(D) <span class="op">~</span><span class="st"> </span>Xs <span class="op">+</span><span class="st"> </span>Z[sid] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>sid), <span class="dt">family=</span>binomial)</a>
-<a class="sourceLine" id="cb136-38" title="38"></a>
-<a class="sourceLine" id="cb136-39" title="39">a1</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="dv">1000</span>; p =<span class="st"> </span><span class="dv">3</span>; K =<span class="st"> </span><span class="dv">4</span>; sig =<span class="st"> </span><span class="dv">10</span>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+
+## time varying covariates
+Xl =<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;list&#39;</span>, K)
+<span class="co"># 4 list, each 1000 individuals</span>
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K) Xl[[i]] =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p), n,p)
+
+## constant covariate
+Z =<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dv">2</span>,<span class="fl">0.2</span>)
+
+## random effects
+<span class="co">#just 1000 random numubers?</span>
+U =<span class="st"> </span><span class="kw">rnorm</span>(n)<span class="op">*</span>sig
+
+## fixed effects
+<span class="co"># It ends a 1000*4 matrix</span>
+etaX =<span class="st"> </span><span class="kw">sapply</span>(Xl, rowSums)
+
+## random errors
+eps =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>K), n,K)
+
+## logit model
+eta =<span class="st"> </span>etaX <span class="op">+</span><span class="st"> </span>U <span class="op">+</span><span class="st"> </span>eps
+<span class="co"># calculate probability</span>
+prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta))
+D =<span class="st"> </span><span class="dv">1</span><span class="op">*</span>(<span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span>K),n,K)<span class="op">&lt;</span>prb) <span class="co"># comparing it to prb, and change to 1 and 0; 1000*4</span>
+<span class="co"># Select the first list from &quot;Xl&quot;, and then add other 3 lists--&gt; 4000 * 3</span>
+Xs =<span class="st"> </span>Xl[[<span class="dv">1</span>]]
+<span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>K) Xs =<span class="st"> </span><span class="kw">rbind</span>(Xs, Xl[[k]])
+
+## GLMM model
+<span class="kw">library</span>(lme4)
+sid =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, K) <span class="co"># a vector of 1-1000, 4 repetitions</span>
+## model fit with GLMMM (default to Laplace approximation)
+<span class="co"># subjects as the random effect</span>
+a1 =<span class="st"> </span><span class="kw">glmer</span>(<span class="kw">c</span>(D) <span class="op">~</span><span class="st"> </span>Xs <span class="op">+</span><span class="st"> </span>Z[sid] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>sid), <span class="dt">family=</span>binomial)
+
+a1</code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: binomial  ( logit )
@@ -408,106 +340,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Fixed Effects:
 ## (Intercept)          Xs1          Xs2          Xs3       Z[sid]  
 ##      0.1537       0.6650       0.6429       0.6074       0.0199</code></pre>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="co">## MH sampling of random effects | data</span></a>
-<a class="sourceLine" id="cb138-2" title="2"><span class="co">## logit\Pr(D_i|eta_i,U) = eta_i+U; U \sim N(0,Vu)</span></a>
-<a class="sourceLine" id="cb138-3" title="3"><span class="co">## proposal dist: N(Uc,Vc)</span></a>
-<a class="sourceLine" id="cb138-4" title="4"></a>
-<a class="sourceLine" id="cb138-5" title="5">U.mh &lt;-<span class="st"> </span><span class="cf">function</span>(Di,eta, Vu, Uc,Vc, <span class="dt">B=</span><span class="dv">100</span>){</a>
-<a class="sourceLine" id="cb138-6" title="6">  ub =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, B)</a>
-<a class="sourceLine" id="cb138-7" title="7">  ub[<span class="dv">1</span>] =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)<span class="op">*</span><span class="kw">sqrt</span>(Vc)<span class="op">+</span>Uc <span class="co"># random starting value</span></a>
-<a class="sourceLine" id="cb138-8" title="8">  prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta<span class="op">-</span>ub[<span class="dv">1</span>]))</a>
-<a class="sourceLine" id="cb138-9" title="9">  llk0 =<span class="st"> </span><span class="kw">dnorm</span>(ub[<span class="dv">1</span>],<span class="dt">sd=</span><span class="kw">sqrt</span>(Vu), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(Di<span class="op">*</span>prb<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>Di)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>prb))) <span class="op">-</span><span class="st"> </span><span class="kw">dnorm</span>(ub[<span class="dv">1</span>],Uc,<span class="kw">sqrt</span>(Vc), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="co"># likelihood function? </span></a>
-<a class="sourceLine" id="cb138-10" title="10">  <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>B){</a>
-<a class="sourceLine" id="cb138-11" title="11">    ub[k] =<span class="st"> </span>ub[k<span class="dv">-1</span>]</a>
-<a class="sourceLine" id="cb138-12" title="12">    uk =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)<span class="op">*</span><span class="kw">sqrt</span>(Vc)<span class="op">+</span>Uc</a>
-<a class="sourceLine" id="cb138-13" title="13">    prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta<span class="op">-</span>uk))</a>
-<a class="sourceLine" id="cb138-14" title="14">    llk1 =<span class="st"> </span><span class="kw">dnorm</span>(uk,<span class="dt">sd=</span><span class="kw">sqrt</span>(Vu), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(Di<span class="op">*</span>prb<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>Di)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>prb))) <span class="op">-</span><span class="st"> </span><span class="kw">dnorm</span>(uk,Uc,<span class="kw">sqrt</span>(Vc), <span class="dt">log=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb138-15" title="15">    alpha =<span class="st"> </span><span class="kw">exp</span>( llk1 <span class="op">-</span><span class="st"> </span>llk0  )</a>
-<a class="sourceLine" id="cb138-16" title="16">    <span class="cf">if</span>(alpha<span class="op">&gt;=</span><span class="dv">1</span>){</a>
-<a class="sourceLine" id="cb138-17" title="17">      ub[k] =<span class="st"> </span>uk</a>
-<a class="sourceLine" id="cb138-18" title="18">      llk0 =<span class="st"> </span>llk1</a>
-<a class="sourceLine" id="cb138-19" title="19">    } <span class="cf">else</span>{</a>
-<a class="sourceLine" id="cb138-20" title="20">      aa =<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb138-21" title="21">      <span class="cf">if</span>(aa<span class="op">&lt;</span>alpha){</a>
-<a class="sourceLine" id="cb138-22" title="22">        ub[k] =<span class="st"> </span>uk</a>
-<a class="sourceLine" id="cb138-23" title="23">        llk0 =<span class="st"> </span>llk1</a>
-<a class="sourceLine" id="cb138-24" title="24">      }</a>
-<a class="sourceLine" id="cb138-25" title="25">    }</a>
-<a class="sourceLine" id="cb138-26" title="26">  }</a>
-<a class="sourceLine" id="cb138-27" title="27">  <span class="kw">return</span>(ub)</a>
-<a class="sourceLine" id="cb138-28" title="28">}</a>
-<a class="sourceLine" id="cb138-29" title="29"></a>
-<a class="sourceLine" id="cb138-30" title="30"><span class="kw">library</span>(numDeriv)</a>
-<a class="sourceLine" id="cb138-31" title="31">UV.est &lt;-<span class="st"> </span><span class="cf">function</span>(Di,eta,Vu,Uc){</a>
-<a class="sourceLine" id="cb138-32" title="32">  llk0 =<span class="st"> </span><span class="cf">function</span>(xpar){</a>
-<a class="sourceLine" id="cb138-33" title="33">    Uc =<span class="st"> </span>xpar</a>
-<a class="sourceLine" id="cb138-34" title="34">    prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta<span class="op">-</span>Uc))</a>
-<a class="sourceLine" id="cb138-35" title="35">    res =<span class="st"> </span><span class="kw">dnorm</span>(Uc,<span class="dt">sd=</span><span class="kw">sqrt</span>(Vu), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(Di<span class="op">*</span>prb<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>Di)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>prb)))</a>
-<a class="sourceLine" id="cb138-36" title="36">    <span class="op">-</span>res</a>
-<a class="sourceLine" id="cb138-37" title="37">  }</a>
-<a class="sourceLine" id="cb138-38" title="38">  tmp =<span class="st"> </span><span class="kw">try</span>(<span class="kw">optim</span>(Uc, llk0, <span class="dt">method=</span><span class="st">&#39;Brent&#39;</span>, <span class="dt">lower=</span>Uc<span class="dv">-10</span>,<span class="dt">upper=</span>Uc<span class="op">+</span><span class="dv">10</span>) )</a>
-<a class="sourceLine" id="cb138-39" title="39">  <span class="cf">if</span>(<span class="kw">class</span>(tmp)<span class="op">==</span><span class="st">&#39;try-error&#39;</span>) tmp =<span class="st"> </span><span class="kw">optim</span>(Uc, llk0)</a>
-<a class="sourceLine" id="cb138-40" title="40">  Uc =<span class="st"> </span>tmp<span class="op">$</span>par</a>
-<a class="sourceLine" id="cb138-41" title="41">  Vc =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">hessian</span>(llk0, Uc)</a>
-<a class="sourceLine" id="cb138-42" title="42">  <span class="kw">c</span>(Uc,Vc)</a>
-<a class="sourceLine" id="cb138-43" title="43">}</a>
-<a class="sourceLine" id="cb138-44" title="44">UV.mh &lt;-<span class="st"> </span><span class="cf">function</span>(Vu,beta,Uc, D,X,subj){</a>
-<a class="sourceLine" id="cb138-45" title="45">  <span class="co">## Cov matrix</span></a>
-<a class="sourceLine" id="cb138-46" title="46">  sid =<span class="st"> </span><span class="kw">unique</span>(subj);  n =<span class="st"> </span><span class="kw">length</span>(sid)</a>
-<a class="sourceLine" id="cb138-47" title="47">  Uc =<span class="st"> </span>Vc =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</a>
-<a class="sourceLine" id="cb138-48" title="48">  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</a>
-<a class="sourceLine" id="cb138-49" title="49">    ij =<span class="st"> </span><span class="kw">which</span>(subj<span class="op">==</span>sid[i]);  ni =<span class="st"> </span><span class="kw">length</span>(ij)</a>
-<a class="sourceLine" id="cb138-50" title="50">    Xi =<span class="st"> </span>X[ij,,drop=<span class="ot">FALSE</span>]</a>
-<a class="sourceLine" id="cb138-51" title="51">    eta =<span class="st"> </span>Xi<span class="op">%*%</span>beta</a>
-<a class="sourceLine" id="cb138-52" title="52">    zi =<span class="st"> </span><span class="kw">UV.est</span>(D[ij],eta,Vu,Uc[i])</a>
-<a class="sourceLine" id="cb138-53" title="53">    Uc[i] =<span class="st"> </span>zi[<span class="dv">1</span>]; Vc[i] =<span class="st"> </span>zi[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb138-54" title="54">  }</a>
-<a class="sourceLine" id="cb138-55" title="55">  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">Uc=</span>Uc,<span class="dt">Vc=</span>Vc) )</a>
-<a class="sourceLine" id="cb138-56" title="56">}</a>
-<a class="sourceLine" id="cb138-57" title="57"></a>
-<a class="sourceLine" id="cb138-58" title="58"><span class="co">#Newton Raphson update</span></a>
-<a class="sourceLine" id="cb138-59" title="59"><span class="co"># Compute first/second derives of complete data log likelihood</span></a>
-<a class="sourceLine" id="cb138-60" title="60"><span class="co">## score and fisher information</span></a>
-<a class="sourceLine" id="cb138-61" title="61">SF.mh &lt;-<span class="st"> </span><span class="cf">function</span>(Vu,beta,Uc,Vc, D,X,subj){</a>
-<a class="sourceLine" id="cb138-62" title="62">  <span class="co">## S/hessian matrix</span></a>
-<a class="sourceLine" id="cb138-63" title="63">  sid =<span class="st"> </span><span class="kw">unique</span>(subj);  n =<span class="st"> </span><span class="kw">length</span>(sid)</a>
-<a class="sourceLine" id="cb138-64" title="64">  p =<span class="st"> </span><span class="kw">dim</span>(X)[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb138-65" title="65">  S =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, p)</a>
-<a class="sourceLine" id="cb138-66" title="66">  FI =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, p,p)</a>
-<a class="sourceLine" id="cb138-67" title="67">  sig2 =<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb138-68" title="68">  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)</a>
-<a class="sourceLine" id="cb138-69" title="69">    {</a>
-<a class="sourceLine" id="cb138-70" title="70">    ij =<span class="st"> </span><span class="kw">which</span>(subj<span class="op">==</span>sid[i]);  ni =<span class="st"> </span><span class="kw">length</span>(ij)</a>
-<a class="sourceLine" id="cb138-71" title="71">    Xi =<span class="st"> </span>X[ij,,drop=<span class="ot">FALSE</span>]</a>
-<a class="sourceLine" id="cb138-72" title="72">    eta =<span class="st"> </span>Xi<span class="op">%*%</span>beta</a>
-<a class="sourceLine" id="cb138-73" title="73">    zi =<span class="st"> </span><span class="kw">U.mh</span>(D[ij],eta,Vu,Uc[i],Vc[i], <span class="dt">B=</span><span class="fl">5e3</span>)[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="fl">1e3</span>)]</a>
-<a class="sourceLine" id="cb138-74" title="74">    theta =<span class="st"> </span><span class="kw">sapply</span>(eta, <span class="cf">function</span>(b0)  <span class="kw">mean</span>(<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>b0<span class="op">-</span>zi))) )</a>
-<a class="sourceLine" id="cb138-75" title="75">    theta2 =<span class="st"> </span><span class="kw">sapply</span>(eta, <span class="cf">function</span>(b0) <span class="kw">mean</span>(<span class="kw">exp</span>(b0<span class="op">+</span>zi)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(b0<span class="op">+</span>zi))<span class="op">^</span><span class="dv">2</span>) )</a>
-<a class="sourceLine" id="cb138-76" title="76">    FI =<span class="st"> </span>FI <span class="op">+</span><span class="st"> </span><span class="kw">t</span>(Xi)<span class="op">%*%</span>(theta2<span class="op">*</span>Xi)</a>
-<a class="sourceLine" id="cb138-77" title="77">    S =<span class="st"> </span>S<span class="op">+</span><span class="kw">colSums</span>((D[ij]<span class="op">-</span>theta)<span class="op">*</span>Xi)</a>
-<a class="sourceLine" id="cb138-78" title="78">    sig2 =<span class="st"> </span>sig2 <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(zi<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb138-79" title="79">    }</a>
-<a class="sourceLine" id="cb138-80" title="80">  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">S=</span>S, <span class="dt">FI=</span>FI, <span class="dt">sig2=</span>sig2<span class="op">/</span>n) )</a>
-<a class="sourceLine" id="cb138-81" title="81">}</a>
-<a class="sourceLine" id="cb138-82" title="82"></a>
-<a class="sourceLine" id="cb138-83" title="83"><span class="kw">library</span>(lme4)</a>
-<a class="sourceLine" id="cb138-84" title="84">sid =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, K)</a>
-<a class="sourceLine" id="cb138-85" title="85">a1 =<span class="st"> </span><span class="kw">glmer</span>(<span class="kw">c</span>(D) <span class="op">~</span><span class="st"> </span>Xs <span class="op">+</span><span class="st"> </span>Z[sid] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>sid), <span class="dt">family=</span>binomial)</a>
-<a class="sourceLine" id="cb138-86" title="86"><span class="co">## extract variance and fixed effects parameters; + mode/variance of (random effects|data)</span></a>
-<a class="sourceLine" id="cb138-87" title="87">Vu =<span class="st"> </span>(<span class="kw">getME</span>(a1,<span class="st">&#39;theta&#39;</span>))<span class="op">^</span><span class="dv">2</span>; beta =<span class="st"> </span><span class="kw">fixef</span>(a1); Um =<span class="st"> </span><span class="kw">ranef</span>(a1,<span class="dt">condVar=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb138-88" title="88">D =<span class="st"> </span><span class="kw">c</span>(D); X =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>,Xs,Z[sid]); subj =<span class="st"> </span>sid</a>
-<a class="sourceLine" id="cb138-89" title="89">Uc =<span class="st"> </span><span class="kw">unlist</span>(Um[[<span class="dv">1</span>]]); Vc =<span class="st"> </span><span class="kw">c</span>( <span class="kw">attr</span>(Um[[<span class="dv">1</span>]], <span class="st">&#39;postVar&#39;</span>) )</a>
-<a class="sourceLine" id="cb138-90" title="90"><span class="cf">for</span>(b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){</a>
-<a class="sourceLine" id="cb138-91" title="91">  <span class="co">## NR updates with MH sampling</span></a>
-<a class="sourceLine" id="cb138-92" title="92">  obj =<span class="st"> </span><span class="kw">SF.mh</span>(Vu,beta,Uc,Vc, D,X,subj)</a>
-<a class="sourceLine" id="cb138-93" title="93">  Vu =<span class="st"> </span>obj<span class="op">$</span>sig2</a>
-<a class="sourceLine" id="cb138-94" title="94">  tmp =<span class="st"> </span><span class="kw">solve</span>(obj<span class="op">$</span>FI,obj<span class="op">$</span>S)</a>
-<a class="sourceLine" id="cb138-95" title="95">  beta =<span class="st"> </span>beta <span class="op">+</span><span class="st"> </span>tmp</a>
-<a class="sourceLine" id="cb138-96" title="96">  <span class="co">## Proposal dist update</span></a>
-<a class="sourceLine" id="cb138-97" title="97">  tmp1 =<span class="st"> </span><span class="kw">UV.mh</span>(Vu,beta,Uc, D,X,subj)</a>
-<a class="sourceLine" id="cb138-98" title="98">  Uc =<span class="st"> </span>tmp1<span class="op">$</span>Uc; Vc =<span class="st"> </span>tmp1<span class="op">$</span>Vc</a>
-<a class="sourceLine" id="cb138-99" title="99">  <span class="kw">cat</span>(b, <span class="st">&#39;:&#39;</span>, tmp, <span class="st">&#39;;&#39;</span>, obj<span class="op">$</span>S<span class="op">/</span>n, <span class="st">&#39;</span><span class="ch">\n\t</span><span class="st">&#39;</span>, <span class="kw">sqrt</span>(Vu), beta, <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)</a>
-<a class="sourceLine" id="cb138-100" title="100">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## MH sampling of random effects | data
+## logit\Pr(D_i|eta_i,U) = eta_i+U; U \sim N(0,Vu)
+## proposal dist: N(Uc,Vc)
+
+U.mh &lt;-<span class="st"> </span><span class="cf">function</span>(Di,eta, Vu, Uc,Vc, <span class="dt">B=</span><span class="dv">100</span>){
+  ub =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, B)
+  ub[<span class="dv">1</span>] =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)<span class="op">*</span><span class="kw">sqrt</span>(Vc)<span class="op">+</span>Uc <span class="co"># random starting value</span>
+  prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta<span class="op">-</span>ub[<span class="dv">1</span>]))
+  llk0 =<span class="st"> </span><span class="kw">dnorm</span>(ub[<span class="dv">1</span>],<span class="dt">sd=</span><span class="kw">sqrt</span>(Vu), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(Di<span class="op">*</span>prb<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>Di)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>prb))) <span class="op">-</span><span class="st"> </span><span class="kw">dnorm</span>(ub[<span class="dv">1</span>],Uc,<span class="kw">sqrt</span>(Vc), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="co"># likelihood function? </span>
+  <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>B){
+    ub[k] =<span class="st"> </span>ub[k<span class="op">-</span><span class="dv">1</span>]
+    uk =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)<span class="op">*</span><span class="kw">sqrt</span>(Vc)<span class="op">+</span>Uc
+    prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta<span class="op">-</span>uk))
+    llk1 =<span class="st"> </span><span class="kw">dnorm</span>(uk,<span class="dt">sd=</span><span class="kw">sqrt</span>(Vu), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(Di<span class="op">*</span>prb<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>Di)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>prb))) <span class="op">-</span><span class="st"> </span><span class="kw">dnorm</span>(uk,Uc,<span class="kw">sqrt</span>(Vc), <span class="dt">log=</span><span class="ot">TRUE</span>)
+    alpha =<span class="st"> </span><span class="kw">exp</span>( llk1 <span class="op">-</span><span class="st"> </span>llk0  )
+    <span class="cf">if</span>(alpha<span class="op">&gt;=</span><span class="dv">1</span>){
+      ub[k] =<span class="st"> </span>uk
+      llk0 =<span class="st"> </span>llk1
+    } <span class="cf">else</span>{
+      aa =<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
+      <span class="cf">if</span>(aa<span class="op">&lt;</span>alpha){
+        ub[k] =<span class="st"> </span>uk
+        llk0 =<span class="st"> </span>llk1
+      }
+    }
+  }
+  <span class="kw">return</span>(ub)
+}
+
+<span class="kw">library</span>(numDeriv)
+UV.est &lt;-<span class="st"> </span><span class="cf">function</span>(Di,eta,Vu,Uc){
+  llk0 =<span class="st"> </span><span class="cf">function</span>(xpar){
+    Uc =<span class="st"> </span>xpar
+    prb =<span class="st"> </span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>eta<span class="op">-</span>Uc))
+    res =<span class="st"> </span><span class="kw">dnorm</span>(Uc,<span class="dt">sd=</span><span class="kw">sqrt</span>(Vu), <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(Di<span class="op">*</span>prb<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>Di)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>prb)))
+    <span class="op">-</span>res
+  }
+  tmp =<span class="st"> </span><span class="kw">try</span>(<span class="kw">optim</span>(Uc, llk0, <span class="dt">method=</span><span class="st">&#39;Brent&#39;</span>, <span class="dt">lower=</span>Uc<span class="op">-</span><span class="dv">10</span>,<span class="dt">upper=</span>Uc<span class="op">+</span><span class="dv">10</span>) )
+  <span class="cf">if</span>(<span class="kw">class</span>(tmp)<span class="op">==</span><span class="st">&#39;try-error&#39;</span>) tmp =<span class="st"> </span><span class="kw">optim</span>(Uc, llk0)
+  Uc =<span class="st"> </span>tmp<span class="op">$</span>par
+  Vc =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="kw">hessian</span>(llk0, Uc)
+  <span class="kw">c</span>(Uc,Vc)
+}
+UV.mh &lt;-<span class="st"> </span><span class="cf">function</span>(Vu,beta,Uc, D,X,subj){
+  ## Cov matrix
+  sid =<span class="st"> </span><span class="kw">unique</span>(subj);  n =<span class="st"> </span><span class="kw">length</span>(sid)
+  Uc =<span class="st"> </span>Vc =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)
+  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
+    ij =<span class="st"> </span><span class="kw">which</span>(subj<span class="op">==</span>sid[i]);  ni =<span class="st"> </span><span class="kw">length</span>(ij)
+    Xi =<span class="st"> </span>X[ij,,drop=<span class="ot">FALSE</span>]
+    eta =<span class="st"> </span>Xi<span class="op">%*%</span>beta
+    zi =<span class="st"> </span><span class="kw">UV.est</span>(D[ij],eta,Vu,Uc[i])
+    Uc[i] =<span class="st"> </span>zi[<span class="dv">1</span>]; Vc[i] =<span class="st"> </span>zi[<span class="dv">2</span>]
+  }
+  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">Uc=</span>Uc,<span class="dt">Vc=</span>Vc) )
+}
+
+<span class="co">#Newton Raphson update</span>
+<span class="co"># Compute first/second derives of complete data log likelihood</span>
+## score and fisher information
+SF.mh &lt;-<span class="st"> </span><span class="cf">function</span>(Vu,beta,Uc,Vc, D,X,subj){
+  ## S/hessian matrix
+  sid =<span class="st"> </span><span class="kw">unique</span>(subj);  n =<span class="st"> </span><span class="kw">length</span>(sid)
+  p =<span class="st"> </span><span class="kw">dim</span>(X)[<span class="dv">2</span>]
+  S =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, p)
+  FI =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, p,p)
+  sig2 =<span class="st"> </span><span class="dv">0</span>
+  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n)
+    {
+    ij =<span class="st"> </span><span class="kw">which</span>(subj<span class="op">==</span>sid[i]);  ni =<span class="st"> </span><span class="kw">length</span>(ij)
+    Xi =<span class="st"> </span>X[ij,,drop=<span class="ot">FALSE</span>]
+    eta =<span class="st"> </span>Xi<span class="op">%*%</span>beta
+    zi =<span class="st"> </span><span class="kw">U.mh</span>(D[ij],eta,Vu,Uc[i],Vc[i], <span class="dt">B=</span><span class="fl">5e3</span>)[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="fl">1e3</span>)]
+    theta =<span class="st"> </span><span class="kw">sapply</span>(eta, <span class="cf">function</span>(b0)  <span class="kw">mean</span>(<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>b0<span class="op">-</span>zi))) )
+    theta2 =<span class="st"> </span><span class="kw">sapply</span>(eta, <span class="cf">function</span>(b0) <span class="kw">mean</span>(<span class="kw">exp</span>(b0<span class="op">+</span>zi)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(b0<span class="op">+</span>zi))<span class="op">^</span><span class="dv">2</span>) )
+    FI =<span class="st"> </span>FI <span class="op">+</span><span class="st"> </span><span class="kw">t</span>(Xi)<span class="op">%*%</span>(theta2<span class="op">*</span>Xi)
+    S =<span class="st"> </span>S<span class="op">+</span><span class="kw">colSums</span>((D[ij]<span class="op">-</span>theta)<span class="op">*</span>Xi)
+    sig2 =<span class="st"> </span>sig2 <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(zi<span class="op">^</span><span class="dv">2</span>)
+    }
+  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">S=</span>S, <span class="dt">FI=</span>FI, <span class="dt">sig2=</span>sig2<span class="op">/</span>n) )
+}
+
+<span class="kw">library</span>(lme4)
+sid =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, K)
+a1 =<span class="st"> </span><span class="kw">glmer</span>(<span class="kw">c</span>(D) <span class="op">~</span><span class="st"> </span>Xs <span class="op">+</span><span class="st"> </span>Z[sid] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>sid), <span class="dt">family=</span>binomial)
+## extract variance and fixed effects parameters; + mode/variance of (random effects|data)
+Vu =<span class="st"> </span>(<span class="kw">getME</span>(a1,<span class="st">&#39;theta&#39;</span>))<span class="op">^</span><span class="dv">2</span>; beta =<span class="st"> </span><span class="kw">fixef</span>(a1); Um =<span class="st"> </span><span class="kw">ranef</span>(a1,<span class="dt">condVar=</span><span class="ot">TRUE</span>)
+D =<span class="st"> </span><span class="kw">c</span>(D); X =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>,Xs,Z[sid]); subj =<span class="st"> </span>sid
+Uc =<span class="st"> </span><span class="kw">unlist</span>(Um[[<span class="dv">1</span>]]); Vc =<span class="st"> </span><span class="kw">c</span>( <span class="kw">attr</span>(Um[[<span class="dv">1</span>]], <span class="st">&#39;postVar&#39;</span>) )
+<span class="cf">for</span>(b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){
+  ## NR updates with MH sampling
+  obj =<span class="st"> </span><span class="kw">SF.mh</span>(Vu,beta,Uc,Vc, D,X,subj)
+  Vu =<span class="st"> </span>obj<span class="op">$</span>sig2
+  tmp =<span class="st"> </span><span class="kw">solve</span>(obj<span class="op">$</span>FI,obj<span class="op">$</span>S)
+  beta =<span class="st"> </span>beta <span class="op">+</span><span class="st"> </span>tmp
+  ## Proposal dist update
+  tmp1 =<span class="st"> </span><span class="kw">UV.mh</span>(Vu,beta,Uc, D,X,subj)
+  Uc =<span class="st"> </span>tmp1<span class="op">$</span>Uc; Vc =<span class="st"> </span>tmp1<span class="op">$</span>Vc
+  <span class="kw">cat</span>(b, <span class="st">&#39;:&#39;</span>, tmp, <span class="st">&#39;;&#39;</span>, obj<span class="op">$</span>S<span class="op">/</span>n, <span class="st">&#39;</span><span class="ch">\n\t</span><span class="st">&#39;</span>, <span class="kw">sqrt</span>(Vu), beta, <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)
+}</code></pre></div>
 </div>
 <div id="important-examples-with-r-code" class="section level2">
 <h2><span class="header-section-number">10.2</span> Important Examples with R code</h2>
@@ -535,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="practice-learning-on-the-battle-field.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bayesian-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="trying.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -590,7 +522,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
