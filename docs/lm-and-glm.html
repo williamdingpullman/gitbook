@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 LM and GLM | GLMM, Concepts, &amp; R</title>
+  <title>Chapter 1 LM and GLM | GLMM, Concepts, &amp; R</title>
   <meta name="description" content="The webpages are mainly about logit models." />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 LM and GLM | GLMM, Concepts, &amp; R" />
+  <meta property="og:title" content="Chapter 1 LM and GLM | GLMM, Concepts, &amp; R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 LM and GLM | GLMM, Concepts, &amp; R" />
+  <meta name="twitter:title" content="Chapter 1 LM and GLM | GLMM, Concepts, &amp; R" />
   
   <meta name="twitter:description" content="The webpages are mainly about logit models." />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="basics.html"/>
+<link rel="prev" href="index.html"/>
 <link rel="next" href="linear-mixed-models.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -106,60 +106,31 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface: Motivation</a></li>
-<li class="chapter" data-level="1" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>1</b> Basics</a><ul>
-<li class="chapter" data-level="1.1" data-path="basics.html"><a href="basics.html#logit"><i class="fa fa-check"></i><b>1.1</b> Logit</a></li>
-<li class="chapter" data-level="1.2" data-path="basics.html"><a href="basics.html#probit"><i class="fa fa-check"></i><b>1.2</b> Probit</a></li>
+<li class="chapter" data-level="1" data-path="lm-and-glm.html"><a href="lm-and-glm.html"><i class="fa fa-check"></i><b>1</b> LM and GLM</a><ul>
+<li class="chapter" data-level="1.1" data-path="lm-and-glm.html"><a href="lm-and-glm.html#lm"><i class="fa fa-check"></i><b>1.1</b> LM</a></li>
+<li class="chapter" data-level="1.2" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-definition"><i class="fa fa-check"></i><b>1.2</b> GLM-Definition</a></li>
+<li class="chapter" data-level="1.3" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-log-link-example"><i class="fa fa-check"></i><b>1.3</b> GLM-log link example</a></li>
+<li class="chapter" data-level="1.4" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-reciprocal-link"><i class="fa fa-check"></i><b>1.4</b> GLM-Reciprocal link:</a></li>
+<li class="chapter" data-level="1.5" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-exponential-family"><i class="fa fa-check"></i><b>1.5</b> GLM-exponential family:</a></li>
+<li class="chapter" data-level="1.6" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-exponential-family"><i class="fa fa-check"></i><b>1.6</b> Canonical exponential family</a></li>
+<li class="chapter" data-level="1.7" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-exponential-family---expected-value-and-variance"><i class="fa fa-check"></i><b>1.7</b> Canonical exponential family - Expected value and variance</a></li>
+<li class="chapter" data-level="1.8" data-path="lm-and-glm.html"><a href="lm-and-glm.html#expected-value-and-variance---possion-example"><i class="fa fa-check"></i><b>1.8</b> Expected value and variance - Possion Example</a></li>
+<li class="chapter" data-level="1.9" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-link"><i class="fa fa-check"></i><b>1.9</b> Canonical link</a></li>
+<li class="chapter" data-level="1.10" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-link---bernoulli"><i class="fa fa-check"></i><b>1.10</b> Canonical link - Bernoulli</a></li>
+<li class="chapter" data-level="1.11" data-path="lm-and-glm.html"><a href="lm-and-glm.html#nr---bernoulli"><i class="fa fa-check"></i><b>1.11</b> NR - Bernoulli</a></li>
+<li class="chapter" data-level="1.12" data-path="lm-and-glm.html"><a href="lm-and-glm.html#iteratively-re-weighted-least-squares"><i class="fa fa-check"></i><b>1.12</b> Iteratively Re-weighted Least Squares</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="lm-and-glm.html"><a href="lm-and-glm.html"><i class="fa fa-check"></i><b>2</b> LM and GLM</a><ul>
-<li class="chapter" data-level="2.1" data-path="lm-and-glm.html"><a href="lm-and-glm.html#lm"><i class="fa fa-check"></i><b>2.1</b> LM</a></li>
-<li class="chapter" data-level="2.2" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-definition"><i class="fa fa-check"></i><b>2.2</b> GLM-Definition</a></li>
-<li class="chapter" data-level="2.3" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-log-link-example"><i class="fa fa-check"></i><b>2.3</b> GLM-log link example</a></li>
-<li class="chapter" data-level="2.4" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-reciprocal-link"><i class="fa fa-check"></i><b>2.4</b> GLM-Reciprocal link:</a></li>
-<li class="chapter" data-level="2.5" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-exponential-family"><i class="fa fa-check"></i><b>2.5</b> GLM-exponential family:</a></li>
-<li class="chapter" data-level="2.6" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-exponential-family"><i class="fa fa-check"></i><b>2.6</b> Canonical exponential family</a></li>
-<li class="chapter" data-level="2.7" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-exponential-family---expected-value-and-variance"><i class="fa fa-check"></i><b>2.7</b> Canonical exponential family - Expected value and variance</a></li>
-<li class="chapter" data-level="2.8" data-path="lm-and-glm.html"><a href="lm-and-glm.html#expected-value-and-variance---possion-example"><i class="fa fa-check"></i><b>2.8</b> Expected value and variance - Possion Example</a></li>
-<li class="chapter" data-level="2.9" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-link"><i class="fa fa-check"></i><b>2.9</b> Canonical link</a></li>
-<li class="chapter" data-level="2.10" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-link---bernoulli"><i class="fa fa-check"></i><b>2.10</b> Canonical link - Bernoulli</a></li>
-<li class="chapter" data-level="2.11" data-path="lm-and-glm.html"><a href="lm-and-glm.html#nr---bernoulli"><i class="fa fa-check"></i><b>2.11</b> NR - Bernoulli</a></li>
-<li class="chapter" data-level="2.12" data-path="lm-and-glm.html"><a href="lm-and-glm.html#iteratively-re-weighted-least-squares"><i class="fa fa-check"></i><b>2.12</b> Iteratively Re-weighted Least Squares</a></li>
+<li class="chapter" data-level="2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>2</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="2.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lmm"><i class="fa fa-check"></i><b>2.1</b> LMM</a></li>
+<li class="chapter" data-level="2.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>2.2</b> Calculate mean</a></li>
+<li class="chapter" data-level="2.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>2.3</b> Test the treatment effect</a></li>
+<li class="chapter" data-level="2.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>2.4</b> Another example</a></li>
+<li class="chapter" data-level="2.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>2.5</b> Full LMM model</a></li>
+<li class="chapter" data-level="2.6" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>2.6</b> Serial correlations in time and space</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>3</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lmm"><i class="fa fa-check"></i><b>3.1</b> LMM</a></li>
-<li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.2</b> Calculate mean</a></li>
-<li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>3.3</b> Test the treatment effect</a></li>
-<li class="chapter" data-level="3.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>3.4</b> Another example</a></li>
-<li class="chapter" data-level="3.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>3.5</b> Full LMM model</a></li>
-<li class="chapter" data-level="3.6" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>3.6</b> Serial correlations in time and space</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="basic-r.html"><a href="basic-r.html"><i class="fa fa-check"></i><b>4</b> Basic R</a><ul>
-<li class="chapter" data-level="4.1" data-path="basic-r.html"><a href="basic-r.html#apply-lapply-sapply"><i class="fa fa-check"></i><b>4.1</b> apply, lapply, sapply</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="basic-r.html"><a href="basic-r.html#apply"><i class="fa fa-check"></i><b>4.1.1</b> apply</a></li>
-<li class="chapter" data-level="4.1.2" data-path="basic-r.html"><a href="basic-r.html#lapply"><i class="fa fa-check"></i><b>4.1.2</b> lapply</a></li>
-<li class="chapter" data-level="4.1.3" data-path="basic-r.html"><a href="basic-r.html#sapply"><i class="fa fa-check"></i><b>4.1.3</b> sapply</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="basic-r.html"><a href="basic-r.html#c"><i class="fa fa-check"></i><b>4.2</b> C</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>5</b> Computing Techniques</a><ul>
-<li class="chapter" data-level="5.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>5.1</b> Monte carlo approximation</a></li>
-<li class="chapter" data-level="5.2" data-path="computing-techniques.html"><a href="computing-techniques.html#importance-sampling"><i class="fa fa-check"></i><b>5.2</b> Importance sampling</a></li>
-<li class="chapter" data-level="5.3" data-path="computing-techniques.html"><a href="computing-techniques.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>5.3</b> Newton Raphson algorithm</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="computing-techniques.html"><a href="computing-techniques.html#calculate-the-root"><i class="fa fa-check"></i><b>5.3.1</b> Calculate the root</a></li>
-<li class="chapter" data-level="5.3.2" data-path="computing-techniques.html"><a href="computing-techniques.html#logistic-regression"><i class="fa fa-check"></i><b>5.3.2</b> Logistic regression</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="computing-techniques.html"><a href="computing-techniques.html#metropolis-hastings"><i class="fa fa-check"></i><b>5.4</b> Metropolis Hastings</a></li>
-<li class="chapter" data-level="5.5" data-path="computing-techniques.html"><a href="computing-techniques.html#em"><i class="fa fa-check"></i><b>5.5</b> EM</a></li>
-<li class="chapter" data-level="5.6" data-path="computing-techniques.html"><a href="computing-techniques.html#references"><i class="fa fa-check"></i><b>5.6</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Mixed Models</a><ul>
-<li class="chapter" data-level="6.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>6.1</b> Basics of GLMM</a></li>
-<li class="chapter" data-level="6.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>6.2</b> Some References</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>7</b> Twitter Example</a><ul>
-<li class="chapter" data-level="7.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
-<li class="chapter" data-level="7.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>7.2</b> Simulating Data of Senators on Twitter</a></li>
-<li class="chapter" data-level="7.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
-<li class="chapter" data-level="7.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>3</b> Generalized Linear Mixed Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>3.1</b> Basics of GLMM</a></li>
+<li class="chapter" data-level="3.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>3.2</b> Some References</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -182,10 +153,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="lm-and-glm" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> LM and GLM</h1>
+<h1><span class="header-section-number">Chapter 1</span> LM and GLM</h1>
 <p>Before moving to LMM, I would like to review LM and GLM first.</p>
 <div id="lm" class="section level2">
-<h2><span class="header-section-number">2.1</span> LM</h2>
+<h2><span class="header-section-number">1.1</span> LM</h2>
 <p><span class="math display">\[Y|X \sim N(\mu(X),\sigma^2 I)\]</span></p>
 <p><span class="math display">\[E(Y|X)=\mu(X)=X^T \beta\]</span></p>
 <p>where,</p>
@@ -193,24 +164,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math inline">\(X^T \beta: covariates\)</span></p>
 </div>
 <div id="glm-definition" class="section level2">
-<h2><span class="header-section-number">2.2</span> GLM-Definition</h2>
+<h2><span class="header-section-number">1.2</span> GLM-Definition</h2>
 <p>Ref: <a href="https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf" class="uri">https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf</a></p>
 <p><span class="math display">\[Y \sim exponential family\]</span> Link function</p>
 <p><span class="math display">\[g(\mu(X))=X^T \beta\]</span></p>
 </div>
 <div id="glm-log-link-example" class="section level2">
-<h2><span class="header-section-number">2.3</span> GLM-log link example</h2>
+<h2><span class="header-section-number">1.3</span> GLM-log link example</h2>
 <p><span class="math display">\[\mu_i = \gamma e^{\delta t_i}\]</span> Link function is log link, and it becomes:</p>
 <p><span class="math display">\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\]</span> (This is somehow similar to Poisson distribution.)</p>
 </div>
 <div id="glm-reciprocal-link" class="section level2">
-<h2><span class="header-section-number">2.4</span> GLM-Reciprocal link:</h2>
+<h2><span class="header-section-number">1.4</span> GLM-Reciprocal link:</h2>
 <p><span class="math display">\[\mu_i=\frac{\alpha x_i}{h+x_i}\]</span></p>
 <p>Reciprocal link:</p>
 <p><span class="math display">\[g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}\]</span></p>
 </div>
 <div id="glm-exponential-family" class="section level2">
-<h2><span class="header-section-number">2.5</span> GLM-exponential family:</h2>
+<h2><span class="header-section-number">1.5</span> GLM-exponential family:</h2>
 <p>In a more general sense, for exponential family:</p>
 <p><span class="math display">\[\begin{aligned} P_{\theta}(X)=P(X, \theta)&amp;= e^{\sum \eta_i(\theta)T_i(X)} C(\theta)h(x)\\ &amp;=e^{\sum \eta_i(\theta)T_i(X)} e^{-log(\frac{1}{c(\theta)})}h(x) \\ &amp;= e^{\sum \eta_i(\theta)T_i(X)-log(\frac{1}{c(\theta)})} h(x)  \\&amp;= e^{\sum \eta_i(\theta)T_i(X)-B(\theta)} h(x) \end{aligned}\]</span> <strong>Normal distribution</strong></p>
 <p>For normal distributions, it belongs to exponential family.</p>
@@ -234,7 +205,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math inline">\(h(x) =1\)</span></p>
 </div>
 <div id="canonical-exponential-family" class="section level2">
-<h2><span class="header-section-number">2.6</span> Canonical exponential family</h2>
+<h2><span class="header-section-number">1.6</span> Canonical exponential family</h2>
 <p>Canonical exponential family:</p>
 <p><span class="math display">\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]</span> where, <span class="math inline">\(b(.)\)</span> and <span class="math inline">\(c(.,.)\)</span> are known.</p>
 <p><strong>Normal distribution</strong></p>
@@ -247,7 +218,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math inline">\(\begin{aligned} c(x, \phi) &amp;=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &amp;=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)</span></p>
 </div>
 <div id="canonical-exponential-family---expected-value-and-variance" class="section level2">
-<h2><span class="header-section-number">2.7</span> Canonical exponential family - Expected value and variance</h2>
+<h2><span class="header-section-number">1.7</span> Canonical exponential family - Expected value and variance</h2>
 <p><strong>First derivative</strong></p>
 <p>Canonical exponential family:</p>
 <p><span class="math display">\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]</span></p>
@@ -269,7 +240,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[Var(X)=b^{&#39;&#39;}(\theta) \phi\]</span></p>
 </div>
 <div id="expected-value-and-variance---possion-example" class="section level2">
-<h2><span class="header-section-number">2.8</span> Expected value and variance - Possion Example</h2>
+<h2><span class="header-section-number">1.8</span> Expected value and variance - Possion Example</h2>
 <p>Example of possion distribution</p>
 <p><span class="math display">\[P(\lambda)=\frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
 <p>If we put <span class="math inline">\(k\)</span> as <span class="math inline">\(y\)</span>, and <span class="math inline">\(\lambda\)</span> as <span class="math inline">\(\mu\)</span>, we can get:</p>
@@ -283,7 +254,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]</span> <span class="math display">\[Var(X)=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2}=\mu\]</span></p>
 </div>
 <div id="canonical-link" class="section level2">
-<h2><span class="header-section-number">2.9</span> Canonical link</h2>
+<h2><span class="header-section-number">1.9</span> Canonical link</h2>
 <p>A link functin can link <span class="math inline">\(X^T \beta\)</span> to the mean <span class="math inline">\(\mu\)</span>.</p>
 <p>That is,</p>
 <p><span class="math display">\[g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)\]</span> We know that</p>
@@ -293,7 +264,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[g=b^{&#39; -1}(\theta)\]</span></p>
 </div>
 <div id="canonical-link---bernoulli" class="section level2">
-<h2><span class="header-section-number">2.10</span> Canonical link - Bernoulli</h2>
+<h2><span class="header-section-number">1.10</span> Canonical link - Bernoulli</h2>
 <p>PMF of Bernoulli:</p>
 <p><span class="math display">\[ \begin{aligned} &amp;= p^y(1-p)^{1-y}  \\ &amp;=e^{log(p^y(1-p)^{1-y})} \\ &amp;= e^{ylog(p)+(1-y)log(1-p)}\\ &amp;= e^{ylog(p)-ylog(1-p)+log(1-p)}\\ &amp;=e^{ylog(\frac{p}{1-p})+log(1-p)} \end{aligned} \]</span> Copared to the following:</p>
 <p><span class="math display">\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]</span> We need to change the format of Bernoulli:</p>
@@ -309,7 +280,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta\]</span></p>
 </div>
 <div id="nr---bernoulli" class="section level2">
-<h2><span class="header-section-number">2.11</span> NR - Bernoulli</h2>
+<h2><span class="header-section-number">1.11</span> NR - Bernoulli</h2>
 <p>We know that the PMF for Bernoulli:</p>
 <p><span class="math display">\[\begin{aligned} &amp;= p^y(1-p)^{1-y} \\  &amp;=e^{y\theta-log(1+e^{\theta})} \\ &amp;=e^{yx^T \beta-log(1+e^{x^T \beta})} \end{aligned}\]</span> Thus,</p>
 <p><span class="math display">\[\ell(\beta|Y,X)=\sum_{i=1}^{n}(Y_iX_i^{T}\beta-log(1+e^{X_i^T \beta}))\]</span> Thus, teh gradient is:</p>
@@ -319,7 +290,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[\beta^{k+1}=\beta^k-(H_{\ell}(\beta^k))^{-1}\nabla_{\ell}(\beta^k) \]</span></p>
 </div>
 <div id="iteratively-re-weighted-least-squares" class="section level2">
-<h2><span class="header-section-number">2.12</span> Iteratively Re-weighted Least Squares</h2>
+<h2><span class="header-section-number">1.12</span> Iteratively Re-weighted Least Squares</h2>
 
 </div>
 </div>
@@ -328,7 +299,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="linear-mixed-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
