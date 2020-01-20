@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html"/>
-<link rel="next" href="basic-stat-concepts.html"/>
+<link rel="prev" href="lm-and-glm.html"/>
+<link rel="next" href="basic-r.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -110,75 +110,56 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1" data-path="basics.html"><a href="basics.html#logit"><i class="fa fa-check"></i><b>1.1</b> Logit</a></li>
 <li class="chapter" data-level="1.2" data-path="basics.html"><a href="basics.html#probit"><i class="fa fa-check"></i><b>1.2</b> Probit</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> MLE</a><ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#basic-idea-of-mle"><i class="fa fa-check"></i><b>2.1</b> Basic idea of MLE</a></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#coin-flip-example-probit-and-logit"><i class="fa fa-check"></i><b>2.2</b> Coin flip example, probit, and logit</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="intro.html"><a href="intro.html#probit-1"><i class="fa fa-check"></i><b>2.2.1</b> Probit</a></li>
-<li class="chapter" data-level="2.2.2" data-path="intro.html"><a href="intro.html#logit-1"><i class="fa fa-check"></i><b>2.2.2</b> Logit</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#further-on-logit"><i class="fa fa-check"></i><b>2.3</b> Further on logit</a></li>
-<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#references"><i class="fa fa-check"></i><b>2.4</b> References</a></li>
+<li class="chapter" data-level="2" data-path="lm-and-glm.html"><a href="lm-and-glm.html"><i class="fa fa-check"></i><b>2</b> LM and GLM</a><ul>
+<li class="chapter" data-level="2.1" data-path="lm-and-glm.html"><a href="lm-and-glm.html#lm"><i class="fa fa-check"></i><b>2.1</b> LM</a></li>
+<li class="chapter" data-level="2.2" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-definition"><i class="fa fa-check"></i><b>2.2</b> GLM-Definition</a></li>
+<li class="chapter" data-level="2.3" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-log-link-example"><i class="fa fa-check"></i><b>2.3</b> GLM-log link example</a></li>
+<li class="chapter" data-level="2.4" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-reciprocal-link"><i class="fa fa-check"></i><b>2.4</b> GLM-Reciprocal link:</a></li>
+<li class="chapter" data-level="2.5" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-exponential-family"><i class="fa fa-check"></i><b>2.5</b> GLM-exponential family:</a></li>
+<li class="chapter" data-level="2.6" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-exponential-family"><i class="fa fa-check"></i><b>2.6</b> Canonical exponential family</a></li>
+<li class="chapter" data-level="2.7" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-exponential-family---expected-value-and-variance"><i class="fa fa-check"></i><b>2.7</b> Canonical exponential family - Expected value and variance</a></li>
+<li class="chapter" data-level="2.8" data-path="lm-and-glm.html"><a href="lm-and-glm.html#expected-value-and-variance---possion-example"><i class="fa fa-check"></i><b>2.8</b> Expected value and variance - Possion Example</a></li>
+<li class="chapter" data-level="2.9" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-link"><i class="fa fa-check"></i><b>2.9</b> Canonical link</a></li>
+<li class="chapter" data-level="2.10" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-link---bernoulli"><i class="fa fa-check"></i><b>2.10</b> Canonical link - Bernoulli</a></li>
+<li class="chapter" data-level="2.11" data-path="lm-and-glm.html"><a href="lm-and-glm.html#nr---bernoulli"><i class="fa fa-check"></i><b>2.11</b> NR - Bernoulli</a></li>
+<li class="chapter" data-level="2.12" data-path="lm-and-glm.html"><a href="lm-and-glm.html#iteratively-re-weighted-least-squares"><i class="fa fa-check"></i><b>2.12</b> Iteratively Re-weighted Least Squares</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>3</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lm-and-glm"><i class="fa fa-check"></i><b>3.1</b> LM and GLM</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lm"><i class="fa fa-check"></i><b>3.1.1</b> LM</a></li>
-<li class="chapter" data-level="3.1.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#glm-definition"><i class="fa fa-check"></i><b>3.1.2</b> GLM-Definition</a></li>
-<li class="chapter" data-level="3.1.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#glm-log-link-example"><i class="fa fa-check"></i><b>3.1.3</b> GLM-log link example</a></li>
-<li class="chapter" data-level="3.1.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#glm-reciprocal-link"><i class="fa fa-check"></i><b>3.1.4</b> GLM-Reciprocal link:</a></li>
-<li class="chapter" data-level="3.1.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#glm-exponential-family"><i class="fa fa-check"></i><b>3.1.5</b> GLM-exponential family:</a></li>
-<li class="chapter" data-level="3.1.6" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-exponential-family"><i class="fa fa-check"></i><b>3.1.6</b> Canonical exponential family</a></li>
-<li class="chapter" data-level="3.1.7" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-exponential-family---expected-value-and-variance"><i class="fa fa-check"></i><b>3.1.7</b> Canonical exponential family - Expected value and variance</a></li>
-<li class="chapter" data-level="3.1.8" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#expected-value-and-variance---possion-example"><i class="fa fa-check"></i><b>3.1.8</b> Expected value and variance - Possion Example</a></li>
-<li class="chapter" data-level="3.1.9" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-link"><i class="fa fa-check"></i><b>3.1.9</b> Canonical link</a></li>
-<li class="chapter" data-level="3.1.10" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#canonical-link---bernoulli"><i class="fa fa-check"></i><b>3.1.10</b> Canonical link - Bernoulli</a></li>
-<li class="chapter" data-level="3.1.11" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#nr---bernoulli"><i class="fa fa-check"></i><b>3.1.11</b> NR - Bernoulli</a></li>
-<li class="chapter" data-level="3.1.12" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#iteratively-re-weighted-least-squares"><i class="fa fa-check"></i><b>3.1.12</b> Iteratively Re-weighted Least Squares</a></li>
+<li class="chapter" data-level="3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lmm"><i class="fa fa-check"></i><b>3.1</b> LMM</a></li>
+<li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.2</b> Calculate mean</a></li>
+<li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>3.3</b> Test the treatment effect</a></li>
+<li class="chapter" data-level="3.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>3.4</b> Another example</a></li>
+<li class="chapter" data-level="3.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>3.5</b> Full LMM model</a></li>
+<li class="chapter" data-level="3.6" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>3.6</b> Serial correlations in time and space</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lmm"><i class="fa fa-check"></i><b>3.2</b> LMM</a></li>
-<li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.3</b> Calculate mean</a></li>
-<li class="chapter" data-level="3.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>3.4</b> Test the treatment effect</a></li>
-<li class="chapter" data-level="3.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>3.5</b> Another example</a></li>
-<li class="chapter" data-level="3.6" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>3.6</b> Full LMM model</a></li>
-<li class="chapter" data-level="3.7" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>3.7</b> Serial correlations in time and space</a></li>
+<li class="chapter" data-level="4" data-path="basic-r.html"><a href="basic-r.html"><i class="fa fa-check"></i><b>4</b> Basic R</a><ul>
+<li class="chapter" data-level="4.1" data-path="basic-r.html"><a href="basic-r.html#apply-lapply-sapply"><i class="fa fa-check"></i><b>4.1</b> apply, lapply, sapply</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="basic-r.html"><a href="basic-r.html#apply"><i class="fa fa-check"></i><b>4.1.1</b> apply</a></li>
+<li class="chapter" data-level="4.1.2" data-path="basic-r.html"><a href="basic-r.html#lapply"><i class="fa fa-check"></i><b>4.1.2</b> lapply</a></li>
+<li class="chapter" data-level="4.1.3" data-path="basic-r.html"><a href="basic-r.html#sapply"><i class="fa fa-check"></i><b>4.1.3</b> sapply</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Stat Concepts</a><ul>
-<li class="chapter" data-level="4.1" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#score"><i class="fa fa-check"></i><b>4.1</b> Score</a></li>
-<li class="chapter" data-level="4.2" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#gradient-and-jacobian"><i class="fa fa-check"></i><b>4.2</b> Gradient and Jacobian</a></li>
-<li class="chapter" data-level="4.3" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#hessian-and-fisher-information"><i class="fa fa-check"></i><b>4.3</b> Hessian and Fisher Information</a></li>
-<li class="chapter" data-level="4.4" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#canonical-link-function"><i class="fa fa-check"></i><b>4.4</b> Canonical link function</a></li>
-<li class="chapter" data-level="4.5" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#ordinary-least-squares-ols"><i class="fa fa-check"></i><b>4.5</b> Ordinary Least Squares (OLS)</a></li>
-<li class="chapter" data-level="4.6" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#taylor-series"><i class="fa fa-check"></i><b>4.6</b> Taylor series</a></li>
-<li class="chapter" data-level="4.7" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#fisher-scoring"><i class="fa fa-check"></i><b>4.7</b> Fisher scoring</a></li>
-<li class="chapter" data-level="4.8" data-path="basic-stat-concepts.html"><a href="basic-stat-concepts.html#references-1"><i class="fa fa-check"></i><b>4.8</b> References</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-r.html"><a href="basic-r.html#c"><i class="fa fa-check"></i><b>4.2</b> C</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="basic-r.html"><a href="basic-r.html"><i class="fa fa-check"></i><b>5</b> Basic R</a><ul>
-<li class="chapter" data-level="5.1" data-path="basic-r.html"><a href="basic-r.html#apply-lapply-sapply"><i class="fa fa-check"></i><b>5.1</b> apply, lapply, sapply</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="basic-r.html"><a href="basic-r.html#apply"><i class="fa fa-check"></i><b>5.1.1</b> apply</a></li>
-<li class="chapter" data-level="5.1.2" data-path="basic-r.html"><a href="basic-r.html#lapply"><i class="fa fa-check"></i><b>5.1.2</b> lapply</a></li>
-<li class="chapter" data-level="5.1.3" data-path="basic-r.html"><a href="basic-r.html#sapply"><i class="fa fa-check"></i><b>5.1.3</b> sapply</a></li>
+<li class="chapter" data-level="5" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>5</b> Computing Techniques</a><ul>
+<li class="chapter" data-level="5.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>5.1</b> Monte carlo approximation</a></li>
+<li class="chapter" data-level="5.2" data-path="computing-techniques.html"><a href="computing-techniques.html#importance-sampling"><i class="fa fa-check"></i><b>5.2</b> Importance sampling</a></li>
+<li class="chapter" data-level="5.3" data-path="computing-techniques.html"><a href="computing-techniques.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>5.3</b> Newton Raphson algorithm</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="computing-techniques.html"><a href="computing-techniques.html#calculate-the-root"><i class="fa fa-check"></i><b>5.3.1</b> Calculate the root</a></li>
+<li class="chapter" data-level="5.3.2" data-path="computing-techniques.html"><a href="computing-techniques.html#logistic-regression"><i class="fa fa-check"></i><b>5.3.2</b> Logistic regression</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="basic-r.html"><a href="basic-r.html#c"><i class="fa fa-check"></i><b>5.2</b> C</a></li>
+<li class="chapter" data-level="5.4" data-path="computing-techniques.html"><a href="computing-techniques.html#metropolis-hastings"><i class="fa fa-check"></i><b>5.4</b> Metropolis Hastings</a></li>
+<li class="chapter" data-level="5.5" data-path="computing-techniques.html"><a href="computing-techniques.html#em"><i class="fa fa-check"></i><b>5.5</b> EM</a></li>
+<li class="chapter" data-level="5.6" data-path="computing-techniques.html"><a href="computing-techniques.html#references"><i class="fa fa-check"></i><b>5.6</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>6</b> Computing Techniques</a><ul>
-<li class="chapter" data-level="6.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>6.1</b> Monte carlo approximation</a></li>
-<li class="chapter" data-level="6.2" data-path="computing-techniques.html"><a href="computing-techniques.html#importance-sampling"><i class="fa fa-check"></i><b>6.2</b> Importance sampling</a></li>
-<li class="chapter" data-level="6.3" data-path="computing-techniques.html"><a href="computing-techniques.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>6.3</b> Newton Raphson algorithm</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="computing-techniques.html"><a href="computing-techniques.html#calculate-the-root"><i class="fa fa-check"></i><b>6.3.1</b> Calculate the root</a></li>
-<li class="chapter" data-level="6.3.2" data-path="computing-techniques.html"><a href="computing-techniques.html#logistic-regression"><i class="fa fa-check"></i><b>6.3.2</b> Logistic regression</a></li>
+<li class="chapter" data-level="6" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Mixed Models</a><ul>
+<li class="chapter" data-level="6.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>6.1</b> Basics of GLMM</a></li>
+<li class="chapter" data-level="6.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>6.2</b> Some References</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="computing-techniques.html"><a href="computing-techniques.html#metropolis-hastings"><i class="fa fa-check"></i><b>6.4</b> Metropolis Hastings</a></li>
-<li class="chapter" data-level="6.5" data-path="computing-techniques.html"><a href="computing-techniques.html#em"><i class="fa fa-check"></i><b>6.5</b> EM</a></li>
-<li class="chapter" data-level="6.6" data-path="computing-techniques.html"><a href="computing-techniques.html#references-2"><i class="fa fa-check"></i><b>6.6</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>7.1</b> Basics of GLMM</a></li>
-<li class="chapter" data-level="7.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>7.2</b> Some References</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>8</b> Twitter Example</a><ul>
-<li class="chapter" data-level="8.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>8.1</b> Model</a></li>
-<li class="chapter" data-level="8.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>8.2</b> Simulating Data of Senators on Twitter</a></li>
-<li class="chapter" data-level="8.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
-<li class="chapter" data-level="8.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>8.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="7" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>7</b> Twitter Example</a><ul>
+<li class="chapter" data-level="7.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
+<li class="chapter" data-level="7.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>7.2</b> Simulating Data of Senators on Twitter</a></li>
+<li class="chapter" data-level="7.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="7.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
@@ -202,148 +183,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="linear-mixed-models" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Linear Mixed Models</h1>
-<div id="lm-and-glm" class="section level2">
-<h2><span class="header-section-number">3.1</span> LM and GLM</h2>
-<p>Before moving to LMM, I would like to review LM and GLM first.</p>
-<div id="lm" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> LM</h3>
-<p><span class="math display">\[Y|X \sim N(\mu(X),\sigma^2 I)\]</span></p>
-<p><span class="math display">\[E(Y|X)=\mu(X)=X^T \beta\]</span></p>
-<p>where,</p>
-<p><span class="math inline">\(\mu(X): random component\)</span></p>
-<p><span class="math inline">\(X^T \beta: covariates\)</span></p>
-</div>
-<div id="glm-definition" class="section level3">
-<h3><span class="header-section-number">3.1.2</span> GLM-Definition</h3>
-<p>Ref: <a href="https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf" class="uri">https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf</a></p>
-<p><span class="math display">\[Y \sim exponential family\]</span> Link function</p>
-<p><span class="math display">\[g(\mu(X))=X^T \beta\]</span></p>
-</div>
-<div id="glm-log-link-example" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> GLM-log link example</h3>
-<p><span class="math display">\[\mu_i = \gamma e^{\delta t_i}\]</span> Link function is log link, and it becomes:</p>
-<p><span class="math display">\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\]</span> (This is somehow similar to Poisson distribution.)</p>
-</div>
-<div id="glm-reciprocal-link" class="section level3">
-<h3><span class="header-section-number">3.1.4</span> GLM-Reciprocal link:</h3>
-<p><span class="math display">\[\mu_i=\frac{\alpha x_i}{h+x_i}\]</span></p>
-<p>Reciprocal link:</p>
-<p><span class="math display">\[g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}\]</span></p>
-</div>
-<div id="glm-exponential-family" class="section level3">
-<h3><span class="header-section-number">3.1.5</span> GLM-exponential family:</h3>
-<p>In a more general sense, for exponential family:</p>
-<p><span class="math display">\[\begin{aligned} P_{\theta}(X)=P(X, \theta)&amp;= e^{\sum \eta_i(\theta)T_i(X)} C(\theta)h(x)\\ &amp;=e^{\sum \eta_i(\theta)T_i(X)} e^{-log(\frac{1}{c(\theta)})}h(x) \\ &amp;= e^{\sum \eta_i(\theta)T_i(X)-log(\frac{1}{c(\theta)})} h(x)  \\&amp;= e^{\sum \eta_i(\theta)T_i(X)-B(\theta)} h(x) \end{aligned}\]</span> <strong>Normal distribution</strong></p>
-<p>For normal distributions, it belongs to exponential family.</p>
-<p><span class="math display">\[\begin{aligned} P_{\theta}(X) &amp;= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}\\ &amp;=e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} e^{log(\frac{1}{\sigma\sqrt{2\pi}})} \\ &amp;= e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}-log (\sigma\sqrt{2\pi})} \\ &amp;= e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &amp;=e^{-\frac{1}{2\sigma^2}x^2+\frac{x\mu}{\sigma^2}-(\frac{1}{2\sigma^2} \mu^2+log(\sqrt{2\pi}\sigma))} \end{aligned}\]</span> Where,</p>
-<p><span class="math inline">\(\eta_1 =-\frac{1}{2\sigma^2}\)</span> and <span class="math inline">\(T_1(x)=x^2\)</span></p>
-<p><span class="math inline">\(\eta_2 =-\frac{\mu}{\sigma^2}\)</span> and <span class="math inline">\(T_2(x)=x\)</span></p>
-<p><span class="math inline">\(B(\theta)=\frac{1}{2\sigma^2} \mu^2+log(\sqrt{2\pi}\sigma)\)</span></p>
-<p><span class="math inline">\(h(x)=1\)</span></p>
-<p>In the case above, <span class="math inline">\(\theta=(\mu, \sigma^2)\)</span>. If <span class="math inline">\(\sigma^2\)</span> is known, <span class="math inline">\(\theta=\mu\)</span>. In this case, we can rewrite the normal pdf as follows.</p>
-<p><span class="math display">\[\begin{aligned} P_{\theta}(X) &amp;=e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &amp;=e^{\frac{x\mu}{\sigma^2}-\frac{1}{2\sigma^2} \mu^2}e^{-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)} \end{aligned}\]</span> Where,</p>
-<p><span class="math inline">\(\eta_1 =-\frac{\mu}{\sigma^2}\)</span> and <span class="math inline">\(T_1(x)=x\)</span></p>
-<p><span class="math inline">\(B(\theta)=\frac{1}{2\sigma^2} \mu^2\)</span></p>
-<p><span class="math inline">\(\begin{aligned} h(x) &amp;=e^{-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)} \\&amp;=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}\frac{x^2}{\sigma^2}} \end{aligned}\)</span></p>
-<p>Thus, we can see that <span class="math inline">\(h(x)\)</span> is a normal pdf <span class="math inline">\(\sim N(0, \sigma^2)\)</span>.</p>
-<p><strong>Bernoulli</strong></p>
-<p>Another example, <span class="math inline">\(x\)</span> is descrete. For example, Bernoulli:</p>
-<p><span class="math display">\[ \begin{aligned} &amp;= p^x(1-p)^{1-x}  \\ &amp;=e^{log(p^x(1-p)^{1-x})} \\ &amp;= e^{xlog(p)+(1-x)log(1-p)}\\ &amp;= e^{xlog(p)-xlog(1-p)+log(1-p)}\\ &amp;=e^{xlog(\frac{p}{1-p})+log(1-p)} \end{aligned}\]</span></p>
-<p>Where,</p>
-<p><span class="math inline">\(\eta_1 =log(\frac{p}{1-p})\)</span> and <span class="math inline">\(T_1(x)=x\)</span></p>
-<p><span class="math inline">\(B(\theta)=log(\frac{1}{1-p})\)</span></p>
-<p><span class="math inline">\(h(x) =1\)</span></p>
-</div>
-<div id="canonical-exponential-family" class="section level3">
-<h3><span class="header-section-number">3.1.6</span> Canonical exponential family</h3>
-<p>Canonical exponential family:</p>
-<p><span class="math display">\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]</span> where, <span class="math inline">\(b(.)\)</span> and <span class="math inline">\(c(.,.)\)</span> are known.</p>
-<p><strong>Normal distribution</strong></p>
-<p>Again, use the normal pdf:</p>
-<p><span class="math display">\[\begin{aligned} P_{\theta}(X) &amp;= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}\\ &amp;=e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} e^{log(\frac{1}{\sigma\sqrt{2\pi}})} \\ &amp;= e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}-log (\sigma\sqrt{2\pi})} \\ &amp;= e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &amp;= e^{\frac{x\mu}{\sigma^2}-\frac{\mu^2}{2\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \\ &amp;=e^{\frac{x\mu-\frac{1}{2}\mu^2}{\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \end{aligned}\]</span></p>
-<p>Where (we assume <span class="math inline">\(\sigma^2\)</span> is known.),</p>
-<p><span class="math inline">\(\theta=\mu\)</span></p>
-<p><span class="math inline">\(\phi =\sigma^2\)</span></p>
-<p><span class="math inline">\(b(\theta)=\frac{1}{2}\theta^2\)</span></p>
-<p><span class="math inline">\(\begin{aligned} c(x, \phi) &amp;=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &amp;=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)</span></p>
-</div>
-<div id="canonical-exponential-family---expected-value-and-variance" class="section level3">
-<h3><span class="header-section-number">3.1.7</span> Canonical exponential family - Expected value and variance</h3>
-<p><strong>First derivative</strong></p>
-<p>Canonical exponential family:</p>
-<p><span class="math display">\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]</span></p>
-<p>log likelihood (only one observation) <span class="math display">\[log f_{\theta}(x)\]</span></p>
-<p><span class="math display">\[\begin{aligned} E[\frac{\partial (logf_{\theta}(X))}{\partial \theta} ] &amp;=E[\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)}] \\ &amp;= \int \frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)} f_{\theta}(X) dx  \\ &amp;= \int \frac{\partial f_{\theta}(X)}{\partial \theta} dx \\ &amp;= \frac{\partial}{\partial \theta} \int f_{\theta}(X)dx \\ &amp;= \frac{\partial 1}{\partial \theta} \\ &amp;=0  \end{aligned}\]</span> <strong>Second derivative</strong></p>
-<p>Second derivative</p>
-<p><span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2} ] &amp;=E[ \frac{\partial}{\partial \theta}(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})] \\  
-&amp;=E[\frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f^2_{\theta}(X)}] \\ &amp;= \int \frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ &amp;=\int (\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} - \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)})dx  \\ 
-&amp;= \int \frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
-&amp;=\frac{\partial^2}{\partial \theta^2}\int f_{\theta}(X) dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
-&amp;=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\
-&amp;=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{(f_{\theta}(X))^2}f_{\theta}(x)dx \\ &amp;= - E[(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})^2]\\ &amp;= -E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \end{aligned}\]</span></p>
-<p>Based on the first derivative, we can get:</p>
-<p><span class="math display">\[log(f_{\theta}(X))=\frac{X\theta-b(\theta)}{\phi}+c(X,\phi)\]</span> <span class="math display">\[E[\frac{\partial (log(f_{\theta}(X)))}{\partial \theta}]= E[\frac{X-b^{&#39;}(\theta)}{\phi}]=\frac{E(X)-b^{&#39;}(\theta)}{\phi}=0\]</span> Thus, we can get,</p>
-<p><span class="math display">\[E(X)=b^{&#39;}(\theta)\]</span></p>
-<p>For second derivative, from the calculation above, we know that,</p>
-<p><span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&amp;=-E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \\ &amp;= -E[(\frac{X-b^{&#39;}(\theta)}{\phi})^2]\\ &amp;=-E[(\frac{X-E(X)}{\phi})^2] \\ &amp;= -\frac{Var(X)}{\phi^2}\end{aligned}\]</span> At the same time, <span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&amp;=E[\frac{\partial (\frac{X-b^{&#39;}(\theta)}{\phi})}{\partial \theta}] \\ &amp;= E[-\frac{b^{&#39;&#39;}(\theta)}{\phi}]\\ &amp;= - \frac{b^{&#39;&#39;}(\theta)}{\phi} \end{aligned}\]</span> Thus,</p>
-<p><span class="math display">\[Var(X)=b^{&#39;&#39;}(\theta) \phi\]</span></p>
-</div>
-<div id="expected-value-and-variance---possion-example" class="section level3">
-<h3><span class="header-section-number">3.1.8</span> Expected value and variance - Possion Example</h3>
-<p>Example of possion distribution</p>
-<p><span class="math display">\[P(\lambda)=\frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
-<p>If we put <span class="math inline">\(k\)</span> as <span class="math inline">\(y\)</span>, and <span class="math inline">\(\lambda\)</span> as <span class="math inline">\(\mu\)</span>, we can get:</p>
-<p><span class="math display">\[P(\mu)=\frac{\mu^y e^{-\mu}}{y!}\]</span> Compare to,</p>
-<p><span class="math display">\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]</span></p>
-<p>We can write it as the exponential format:</p>
-<p><span class="math display">\[\begin{aligned} P(\mu) &amp;=\frac{\mu^y e^{-\mu}}{y!}  \\ &amp;= e^{log(\mu^y)+log(e^{-\mu})-log(y!)} \\ &amp;= e^{ylog(\mu)-\mu-log(y!)}\end{aligned}\]</span></p>
-<p>We thus know that <span class="math inline">\(\theta=log(\mu)\)</span>. We can contintue to write the equation above as follows.</p>
-<p><span class="math display">\[=e^{y\theta-e^{\theta}-log(y!)}\]</span></p>
-<p>Thus, we can get:</p>
-<p><span class="math display">\[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]</span> <span class="math display">\[Var(X)=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2}=\mu\]</span></p>
-</div>
-<div id="canonical-link" class="section level3">
-<h3><span class="header-section-number">3.1.9</span> Canonical link</h3>
-<p>A link functin can link <span class="math inline">\(X^T \beta\)</span> to the mean <span class="math inline">\(\mu\)</span>.</p>
-<p>That is,</p>
-<p><span class="math display">\[g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)\]</span> We know that</p>
-<p><span class="math display">\[\mu = b^{&#39;}(\theta)\]</span></p>
-<p>Thus,</p>
-<p><span class="math display">\[ b^{&#39;}(\theta)=g^{-1}(X^T \beta)\]</span> Thus,</p>
-<p><span class="math display">\[g=b^{&#39; -1}(\theta)\]</span></p>
-</div>
-<div id="canonical-link---bernoulli" class="section level3">
-<h3><span class="header-section-number">3.1.10</span> Canonical link - Bernoulli</h3>
-<p>PMF of Bernoulli:</p>
-<p><span class="math display">\[ \begin{aligned} &amp;= p^y(1-p)^{1-y}  \\ &amp;=e^{log(p^y(1-p)^{1-y})} \\ &amp;= e^{ylog(p)+(1-y)log(1-p)}\\ &amp;= e^{ylog(p)-ylog(1-p)+log(1-p)}\\ &amp;=e^{ylog(\frac{p}{1-p})+log(1-p)} \end{aligned} \]</span> Copared to the following:</p>
-<p><span class="math display">\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]</span> We need to change the format of Bernoulli:</p>
-<p><span class="math display">\[\theta= log \frac{p}{1-p}\]</span> Thus, <span class="math display">\[e^{\theta}=\frac{p}{1-p} \rightarrow p=\frac{e^{\theta}}{1+e^{\theta}} \]</span> After that, we can contintue the Bernoulli:</p>
-<p><span class="math display">\[\begin{aligned} &amp;= e^{y\theta+log(1-\frac{e^{\theta}}{1+e^{\theta}})} \\ &amp;=e^{y\theta+log(\frac{1}{1+e^{\theta}})} \\ &amp;=e^{y\theta-log(1+e^{\theta})} \end{aligned}\]</span></p>
-<p>Where,</p>
-<p><span class="math display">\[b(\theta)=log(1+e^{\theta})\]</span></p>
-<p>We can then try to calculate the derivative:</p>
-<p><span class="math display">\[b^{&#39;}(\theta)=\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}\]</span> We know that</p>
-<p><span class="math display">\[b^{&#39;}(\theta)=\mu\]</span> Thus, we can get</p>
-<p><span class="math display">\[\mu=\frac{e^{\theta}}{1+e^{\theta}}\]</span> We can then calculate the inverse function:</p>
-<p><span class="math display">\[\theta=log(\frac{\mu}{1-\mu})\]</span> Thus,</p>
-<p><span class="math display">\[g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta\]</span></p>
-</div>
-<div id="nr---bernoulli" class="section level3">
-<h3><span class="header-section-number">3.1.11</span> NR - Bernoulli</h3>
-<p>We know that the PMF for Bernoulli:</p>
-<p><span class="math display">\[\begin{aligned} &amp;= p^y(1-p)^{1-y} \\  &amp;=e^{y\theta-log(1+e^{\theta})} \\ &amp;=e^{yx^T \beta-log(1+e^{x^T \beta})} \end{aligned}\]</span> Thus,</p>
-<p><span class="math display">\[\ell(\beta|Y,X)=\sum_{i=1}^{n}(Y_iX_i^{T}\beta-log(1+e^{X_i^T \beta}))\]</span> Thus, teh gradient is:</p>
-<p><span class="math display">\[\nabla_{\ell}(\beta)=\sum_{i=1}^{n}(Y_iX_i - \frac{e^{X_i^T \beta}}{1+e^{X_i^T \beta}})\]</span> The Hessian is:</p>
-<p><span class="math display">\[H_{\ell}(\beta)=-\sum_{i=1}^{n}\frac{e^{X_i^T \beta}}{(1+e^{X_i^T \beta})^2}X_iX_i^T\]</span></p>
-<p>Thus,</p>
-<p><span class="math display">\[\beta^{k+1}=\beta^k-(H_{\ell}(\beta^k))^{-1}\nabla_{\ell}(\beta^k) \]</span></p>
-</div>
-<div id="iteratively-re-weighted-least-squares" class="section level3">
-<h3><span class="header-section-number">3.1.12</span> Iteratively Re-weighted Least Squares</h3>
-</div>
-</div>
 <div id="lmm" class="section level2">
-<h2><span class="header-section-number">3.2</span> LMM</h2>
+<h2><span class="header-section-number">3.1</span> LMM</h2>
 <p>The following is a shortened version of Jonathan Rosenblatt’s LMM tutorial. <a href="http://www.john-ros.com/Rcourse/lme.html" class="uri">http://www.john-ros.com/Rcourse/lme.html</a>.</p>
 <p>In addition, another reference is from Douglas Bates’s R package document. <a href="https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf?fbclid=IwAR1nmmRP9A0BrhKdgBibNjM5acR_spTpXV8QlQGdmTWyQz3ZtV3LYn6kCbQ" class="uri">https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf?fbclid=IwAR1nmmRP9A0BrhKdgBibNjM5acR_spTpXV8QlQGdmTWyQz3ZtV3LYn6kCbQ</a></p>
 <p>Assume that <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(u\)</span>, where <span class="math inline">\(x\)</span> is the fixed effect and <span class="math inline">\(u\)</span> is the random effect. Thus, we can get,</p>
@@ -351,7 +192,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>For random effect, one example can be that you want to test the treatment effect, and sample 8 observations from 4 groups. You measure before and after the treatment. In this case, <span class="math inline">\(x\)</span> represents the treatment effect, whereas <span class="math inline">\(z\)</span> represents the group effect (i.e., random effect). Note that, in this case, it reminds the paired t-test. Remember in SPSS, why do we do paired t-test? Typically, it is the case when we measure a subject (or, participant) twice. In this case, we can consider each participant as an unit of random effect (rather than as group in the last example.)</p>
 </div>
 <div id="calculate-mean" class="section level2">
-<h2><span class="header-section-number">3.3</span> Calculate mean</h2>
+<h2><span class="header-section-number">3.2</span> Calculate mean</h2>
 <p>The following code generates 4 numbers (<span class="math inline">\(N(0,10)\)</span>) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations.</p>
 <p>Note that, in the following code, there are no “independent variables”. Both the linear model and mixed model are actually just trying to calculate the mean. Note that lmer(y~1+1|groups) and lmer(y~1|groups) will generate the same results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
@@ -414,7 +255,7 @@ lm.<span class="dv">5</span></code></pre></div>
 ##       4.283</code></pre>
 </div>
 <div id="test-the-treatment-effect" class="section level2">
-<h2><span class="header-section-number">3.4</span> Test the treatment effect</h2>
+<h2><span class="header-section-number">3.3</span> Test the treatment effect</h2>
 <p>As we can see that, LLM and paired t-test generate the same t-value.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">times&lt;-<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dv">4</span>) <span class="co"># first time and second time</span>
 times</code></pre></div>
@@ -454,7 +295,7 @@ lme_diff_times</code></pre></div>
 ## 0.2664793</code></pre>
 </div>
 <div id="another-example" class="section level2">
-<h2><span class="header-section-number">3.5</span> Another example</h2>
+<h2><span class="header-section-number">3.4</span> Another example</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Dyestuff, <span class="dt">package=</span><span class="st">&#39;lme4&#39;</span>)
 <span class="kw">attach</span>(Dyestuff)
 Dyestuff</code></pre></div>
@@ -512,7 +353,7 @@ Dyestuff</code></pre></div>
 ## (Intercept)  1527.50      19.38    78.8</code></pre>
 </div>
 <div id="full-lmm-model" class="section level2">
-<h2><span class="header-section-number">3.6</span> Full LMM model</h2>
+<h2><span class="header-section-number">3.5</span> Full LMM model</h2>
 <p>In the following, I used the data from the package of lme4. For Days + (1 | Subject), it only has random intercept; in contrast, Days + ( Days| Subject ) has both random intercept and random slope for Days. Note that, random effects do not generate specific slopes for each level of Days, but rather just a variance of all the slopes.</p>
 <p>Therefore, we can see that “Days + ( Days| Subject )” and “Days + ( 1+Days| Subject )” generate the same results. For more discussion, you can refer to the following link: <a href="https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r" class="uri">https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(sleepstudy, <span class="dt">package=</span><span class="st">&#39;lme4&#39;</span>)
@@ -600,7 +441,7 @@ fm1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(Reaction <span cl
 ## Days -0.138</code></pre>
 </div>
 <div id="serial-correlations-in-time-and-space" class="section level2">
-<h2><span class="header-section-number">3.7</span> Serial correlations in time and space</h2>
+<h2><span class="header-section-number">3.6</span> Serial correlations in time and space</h2>
 <p>The hierarchical model of <span class="math inline">\(y|x, u = x&#39;\beta+z&#39;u+\epsilon\)</span> can work well for correlations within blocks, but not for correlations in time as the correlations decay in time. The following uses nlme package to calculate time serial data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nlme)</code></pre></div>
 <pre><code>## 
@@ -706,8 +547,8 @@ fm1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(Reaction <span cl
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic-stat-concepts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lm-and-glm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basic-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

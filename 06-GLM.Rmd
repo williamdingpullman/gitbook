@@ -1,0 +1,262 @@
+# LM and GLM
+
+Before moving to LMM, I would like to review LM and GLM first.
+
+## LM
+
+$$Y|X \sim N(\mu(X),\sigma^2 I)$$
+
+$$E(Y|X)=\mu(X)=X^T \beta$$
+
+where, 
+
+$\mu(X): random component$
+
+$X^T \beta: covariates$
+
+
+## GLM-Definition
+
+Ref: https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf
+
+$$Y \sim exponential family$$
+ Link function
+ 
+ $$g(\mu(X))=X^T \beta$$
+
+## GLM-log link example 
+
+$$\mu_i = \gamma e^{\delta t_i}$$
+Link function is log link, and it becomes:
+
+$$log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i$$
+(This is somehow similar to Poisson distribution.)
+
+## GLM-Reciprocal link:
+
+$$\mu_i=\frac{\alpha x_i}{h+x_i}$$
+
+
+Reciprocal link:
+
+$$g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}$$
+
+## GLM-exponential family:
+
+In a more general sense, for exponential family:
+
+$$\begin{aligned} P_{\theta}(X)=P(X, \theta)&= e^{\sum \eta_i(\theta)T_i(X)} C(\theta)h(x)\\ &=e^{\sum \eta_i(\theta)T_i(X)} e^{-log(\frac{1}{c(\theta)})}h(x) \\ &= e^{\sum \eta_i(\theta)T_i(X)-log(\frac{1}{c(\theta)})} h(x)  \\&= e^{\sum \eta_i(\theta)T_i(X)-B(\theta)} h(x) \end{aligned}$$
+__Normal distribution__
+
+For normal distributions, it belongs to exponential family.
+
+$$\begin{aligned} P_{\theta}(X) &= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}\\ &=e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} e^{log(\frac{1}{\sigma\sqrt{2\pi}})} \\ &= e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}-log (\sigma\sqrt{2\pi})} \\ &= e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &=e^{-\frac{1}{2\sigma^2}x^2+\frac{x\mu}{\sigma^2}-(\frac{1}{2\sigma^2} \mu^2+log(\sqrt{2\pi}\sigma))} \end{aligned}$$
+Where,
+
+$\eta_1 =-\frac{1}{2\sigma^2}$ and $T_1(x)=x^2$
+
+$\eta_2 =-\frac{\mu}{\sigma^2}$ and $T_2(x)=x$
+
+$B(\theta)=\frac{1}{2\sigma^2} \mu^2+log(\sqrt{2\pi}\sigma)$
+
+$h(x)=1$
+
+In the case above, $\theta=(\mu, \sigma^2)$. If $\sigma^2$ is known, $\theta=\mu$. In this case, we can rewrite the normal pdf as follows.
+
+$$\begin{aligned} P_{\theta}(X) &=e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &=e^{\frac{x\mu}{\sigma^2}-\frac{1}{2\sigma^2} \mu^2}e^{-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)} \end{aligned}$$
+Where,
+
+$\eta_1 =-\frac{\mu}{\sigma^2}$ and $T_1(x)=x$
+
+$B(\theta)=\frac{1}{2\sigma^2} \mu^2$
+
+$\begin{aligned} h(x) &=e^{-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)} \\&=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}\frac{x^2}{\sigma^2}} \end{aligned}$
+
+Thus, we can see that $h(x)$ is a normal pdf $\sim N(0, \sigma^2)$.
+
+
+__Bernoulli__
+
+Another example, $x$ is descrete. For example, Bernoulli:
+
+$$ \begin{aligned} &= p^x(1-p)^{1-x}  \\ &=e^{log(p^x(1-p)^{1-x})} \\ &= e^{xlog(p)+(1-x)log(1-p)}\\ &= e^{xlog(p)-xlog(1-p)+log(1-p)}\\ &=e^{xlog(\frac{p}{1-p})+log(1-p)} \end{aligned}$$
+
+Where,
+
+$\eta_1 =log(\frac{p}{1-p})$ and $T_1(x)=x$
+
+$B(\theta)=log(\frac{1}{1-p})$
+
+$h(x) =1$
+
+
+## Canonical exponential family
+
+Canonical exponential family:
+
+$$f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}$$
+where, $b(.)$ and $c(.,.)$ are known. 
+
+__Normal distribution__
+
+Again, use the normal pdf:
+
+$$\begin{aligned} P_{\theta}(X) &= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}\\ &=e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} e^{log(\frac{1}{\sigma\sqrt{2\pi}})} \\ &= e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}-log (\sigma\sqrt{2\pi})} \\ &= e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &= e^{\frac{x\mu}{\sigma^2}-\frac{\mu^2}{2\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \\ &=e^{\frac{x\mu-\frac{1}{2}\mu^2}{\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \end{aligned}$$
+
+Where (we assume $\sigma^2$ is known.),
+
+$\theta=\mu$
+
+$\phi =\sigma^2$
+
+$b(\theta)=\frac{1}{2}\theta^2$
+
+$\begin{aligned} c(x, \phi) &=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}$
+
+
+
+## Canonical exponential family - Expected value and variance
+
+__First derivative__
+
+Canonical exponential family:
+
+$$f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}$$
+
+log likelihood (only one observation)
+$$log f_{\theta}(x)$$
+
+$$\begin{aligned} E[\frac{\partial (logf_{\theta}(X))}{\partial \theta} ] &=E[\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)}] \\ &= \int \frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)} f_{\theta}(X) dx  \\ &= \int \frac{\partial f_{\theta}(X)}{\partial \theta} dx \\ &= \frac{\partial}{\partial \theta} \int f_{\theta}(X)dx \\ &= \frac{\partial 1}{\partial \theta} \\ &=0  \end{aligned}$$
+__Second derivative__
+
+Second derivative
+
+$$\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2} ] &=E[ \frac{\partial}{\partial \theta}(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})] \\  
+&=E[\frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f^2_{\theta}(X)}] \\ &= \int \frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ &=\int (\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} - \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)})dx  \\ 
+&= \int \frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
+&=\frac{\partial^2}{\partial \theta^2}\int f_{\theta}(X) dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
+&=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\
+&=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{(f_{\theta}(X))^2}f_{\theta}(x)dx \\ &= - E[(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})^2]\\ &= -E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \end{aligned}$$
+
+
+Based on the first derivative, we can get:
+
+$$log(f_{\theta}(X))=\frac{X\theta-b(\theta)}{\phi}+c(X,\phi)$$
+$$E[\frac{\partial (log(f_{\theta}(X)))}{\partial \theta}]= E[\frac{X-b^{'}(\theta)}{\phi}]=\frac{E(X)-b^{'}(\theta)}{\phi}=0$$
+Thus, we can get,
+
+$$E(X)=b^{'}(\theta)$$
+
+For second derivative, from the calculation above, we know that, 
+
+$$\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&=-E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \\ &= -E[(\frac{X-b^{'}(\theta)}{\phi})^2]\\ &=-E[(\frac{X-E(X)}{\phi})^2] \\ &= -\frac{Var(X)}{\phi^2}\end{aligned}$$
+
+
+
+At the same time, 
+$$\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&=E[\frac{\partial (\frac{X-b^{'}(\theta)}{\phi})}{\partial \theta}] \\ &= E[-\frac{b^{''}(\theta)}{\phi}]\\ &= - \frac{b^{''}(\theta)}{\phi} \end{aligned}$$
+Thus, 
+
+$$Var(X)=b^{''}(\theta) \phi$$
+
+## Expected value and variance - Possion Example 
+
+Example of possion distribution
+
+$$P(\lambda)=\frac{\lambda^k e^{-\lambda}}{k!}$$
+
+If we put $k$ as $y$, and $\lambda$ as $\mu$, we can get:
+
+$$P(\mu)=\frac{\mu^y e^{-\mu}}{y!}$$
+Compare to,
+
+$$f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}$$
+
+We can write it as the exponential format:
+
+$$\begin{aligned} P(\mu) &=\frac{\mu^y e^{-\mu}}{y!}  \\ &= e^{log(\mu^y)+log(e^{-\mu})-log(y!)} \\ &= e^{ylog(\mu)-\mu-log(y!)}\end{aligned}$$
+
+We thus know that $\theta=log(\mu)$. We can contintue to write the equation above as follows. 
+
+$$=e^{y\theta-e^{\theta}-log(y!)}$$
+
+Thus, we can get:
+
+$$E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu$$
+$$Var(X)=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2}=\mu$$
+
+## Canonical link
+
+A link functin can link $X^T \beta$ to the mean $\mu$.
+
+That is,
+
+$$g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)$$
+We know that 
+
+$$\mu = b^{'}(\theta)$$
+
+Thus, 
+
+$$ b^{'}(\theta)=g^{-1}(X^T \beta)$$
+Thus, 
+
+$$g=b^{' -1}(\theta)$$
+
+## Canonical link - Bernoulli
+
+PMF of Bernoulli:
+
+$$ \begin{aligned} &= p^y(1-p)^{1-y}  \\ &=e^{log(p^y(1-p)^{1-y})} \\ &= e^{ylog(p)+(1-y)log(1-p)}\\ &= e^{ylog(p)-ylog(1-p)+log(1-p)}\\ &=e^{ylog(\frac{p}{1-p})+log(1-p)} \end{aligned} $$
+Copared to the following:
+
+$$f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}$$
+We need to change the format of Bernoulli:
+
+$$\theta= log \frac{p}{1-p}$$
+Thus, 
+$$e^{\theta}=\frac{p}{1-p} \rightarrow p=\frac{e^{\theta}}{1+e^{\theta}} $$
+After that, we can contintue the Bernoulli:
+
+$$\begin{aligned} &= e^{y\theta+log(1-\frac{e^{\theta}}{1+e^{\theta}})} \\ &=e^{y\theta+log(\frac{1}{1+e^{\theta}})} \\ &=e^{y\theta-log(1+e^{\theta})} \end{aligned}$$
+
+Where,
+
+$$b(\theta)=log(1+e^{\theta})$$
+
+We can then try to calculate the derivative:
+
+$$b^{'}(\theta)=\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}$$
+We know that
+
+$$b^{'}(\theta)=\mu$$
+Thus, we can get
+
+$$\mu=\frac{e^{\theta}}{1+e^{\theta}}$$
+We can then calculate the inverse function:
+
+$$\theta=log(\frac{\mu}{1-\mu})$$
+Thus,
+
+$$g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta$$
+
+## NR - Bernoulli
+
+We know that the PMF for Bernoulli:
+
+$$\begin{aligned} &= p^y(1-p)^{1-y} \\  &=e^{y\theta-log(1+e^{\theta})} \\ &=e^{yx^T \beta-log(1+e^{x^T \beta})} \end{aligned}$$
+Thus,
+
+$$\ell(\beta|Y,X)=\sum_{i=1}^{n}(Y_iX_i^{T}\beta-log(1+e^{X_i^T \beta}))$$
+Thus, teh gradient is:
+
+$$\nabla_{\ell}(\beta)=\sum_{i=1}^{n}(Y_iX_i - \frac{e^{X_i^T \beta}}{1+e^{X_i^T \beta}})$$
+The Hessian is:
+
+$$H_{\ell}(\beta)=-\sum_{i=1}^{n}\frac{e^{X_i^T \beta}}{(1+e^{X_i^T \beta})^2}X_iX_i^T$$
+
+Thus, 
+
+$$\beta^{k+1}=\beta^k-(H_{\ell}(\beta^k))^{-1}\nabla_{\ell}(\beta^k) $$
+
+## Iteratively Re-weighted Least Squares 

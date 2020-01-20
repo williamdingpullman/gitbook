@@ -290,238 +290,11 @@ assume \(\sigma =1\), then \(\epsilon \sim N(0,1)\). We know \(y_i\) and
 
 \[p(y=1|x_i)=\Phi(\beta^{'}X_i)\]
 
-\chapter{MLE}\label{intro}
-
-\section{Basic idea of MLE}\label{basic-idea-of-mle}
-
-Suppose that we flip a coin, \(y_i=0\) for tails and \(y_i=1\) for
-heads. If we get \(p\) heads from \(n\) trials, we can get the
-proportion of heads is \(p/n\), which is the sample mean. If we do not
-do any further calculation, this is our best guess.
-
-Suppose that the true proablity is \(\rho\), then we can get:
-
-\[
-\mathbf{L}(y_i)=\begin{cases} \rho \;\;\:   y_i = 1 \\ 1-\rho \;\;\:  y_i = 0 \end{cases}
-\] Thus, we can also write it as follows.
-\[\mathbf{L}(y_i) = \rho^{y_i}(1-\rho)^{1-y_i}\]
-
-Thus, we can get:
-
-\[\prod \mathbf{L}(y_i|\rho)=\rho^{\sum y_i}(1-\rho)^{\sum(1-y_i)}\]
-Further, we can get a log-transformed format.
-
-\[log (\prod \mathbf{L}(y_i|\rho))=\sum y_i log \rho + \sum(1-y_i) log(1-\rho)\]
-
-To maximize the log-function above, we can calculate the derivative with
-respect to \(\rho\).
-\[\frac{\partial log (\prod \mathbf{L}(y_i|\rho)) }{\partial \rho}=\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}\]
-Set the derivative to zero and solve for \(\rho\), we can get
-
-\[\sum y_i \frac{1}{\rho}-\sum(1-y_i) \frac{1}{1-\rho}=0\]
-\[\Rightarrow (1-\rho)\sum y_i - \rho \sum(1-y_i) =0\]
-\[\Rightarrow \sum y_i-\rho\sum y_i - n\rho +\rho\sum y_i =0\]
-\[\Rightarrow \sum y_i - n\rho  =0\]
-\[\Rightarrow \rho  = \frac{\sum y_i}{n}=\frac{p}{n}\] Thus, we can see
-that the \(\rho\) maximizing the likelihood function is equal to the
-sample mean.
-
-\section{Coin flip example, probit, and
-logit}\label{coin-flip-example-probit-and-logit}
-
-In the example above, we are not really trying to estimate a lot of
-regression coefficients. What we are doing actually is to calculate the
-sample mean, or intercept in the regresion sense. What does it mean?
-Let's use some data to explain it.
-
-Suppose that we flip a coin 20 times and observe 8 heads. We can use the
-R's glm function to esimate the \(\rho\). If the result is consistent
-with what we did above, we should observe that the \(cdf\) of the
-esimate of \(\beta_0\) (i.e., intercept) should be equal to
-\(8/20=0.4\).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{coins<-}\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DataTypeTok{times=}\DecValTok{8}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DataTypeTok{times=}\DecValTok{12}\NormalTok{))}
-\KeywordTok{table}\NormalTok{(coins)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## coins
-##  0  1 
-## 12  8
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{coins<-}\KeywordTok{as.data.frame}\NormalTok{(coins)}
-\end{Highlighting}
-\end{Shaded}
-
-\subsection{Probit}\label{probit-1}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{probitresults <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(coins }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"probit"}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ coins)}
-\NormalTok{probitresults}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:  glm(formula = coins ~ 1, family = binomial(link = "probit"), 
-##     data = coins)
-## 
-## Coefficients:
-## (Intercept)  
-##     -0.2533  
-## 
-## Degrees of Freedom: 19 Total (i.e. Null);  19 Residual
-## Null Deviance:       26.92 
-## Residual Deviance: 26.92     AIC: 28.92
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{pnorm}\NormalTok{(probitresults}\OperatorTok{$}\NormalTok{coefficients)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## (Intercept) 
-##         0.4
-\end{verbatim}
-
-As we can see the intercept is \(-0.2533\), and thus
-\(\Phi(-0.2533471)=0.4\)
-
-\subsection{Logit}\label{logit-1}
-
-We can also use logit link to calculate the intercept as well. Recall
-that
-
-\[p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]
-Thus,
-
-\[p(y=1)=\frac{e^{\beta_0}}{1+e^{\beta_0}}\]
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{logitresults <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(coins }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{family =} \KeywordTok{binomial}\NormalTok{(}\DataTypeTok{link =} \StringTok{"logit"}\NormalTok{), }\DataTypeTok{data =}\NormalTok{ coins)}
-\NormalTok{logitresults}\OperatorTok{$}\NormalTok{coefficients}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## (Intercept) 
-##  -0.4054651
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{exp}\NormalTok{(logitresults}\OperatorTok{$}\NormalTok{coefficients)}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(logitresults}\OperatorTok{$}\NormalTok{coefficients))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## (Intercept) 
-##         0.4
-\end{verbatim}
-
-Note that, the defaul link for the binomial in the glm function in
-logit.
-
-\section{Further on logit}\label{further-on-logit}
-
-The probablity of \(y=1\) is as follows:
-
-\[p=p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]
-
-Thus, the likelihood function is as follows:
-
-\[L=\prod p^{y_i}(1-p)^{1-y_i}=\prod (\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}})^{y_i}(\frac{1}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}})^{1-y_i}\]
-
-\[=\prod (1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)})^{-y_i}(1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n})^{-(1-y_i)}\]
-
-Thus, the log-likelihood is as follows:
-\[logL=\sum (-y_i \cdot log(1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)})-(1-y_i)\cdot log(1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}))\]
-
-Typically, optimisers minimize a function, so we use negative
-log-likelihood as minimising that is equivalent to maximising the
-log-likelihood or the likelihood itself.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#Source of R code: https://www.r-bloggers.com/logistic-regression/}
-
-\NormalTok{mle.logreg =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(fmla, data)}
-\NormalTok{\{}
-  \CommentTok{# Define the negative log likelihood function}
-\NormalTok{  logl <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(theta,x,y)\{}
-\NormalTok{    y <-}\StringTok{ }\NormalTok{y}
-\NormalTok{    x <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(x)}
-\NormalTok{    beta <-}\StringTok{ }\NormalTok{theta[}\DecValTok{1}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(x)]}
-    
-    \CommentTok{# Use the log-likelihood of the Bernouilli distribution, where p is}
-    \CommentTok{# defined as the logistic transformation of a linear combination}
-    \CommentTok{# of predictors, according to logit(p)=(x%*%beta)}
-\NormalTok{    loglik <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\OperatorTok{-}\NormalTok{y}\OperatorTok{*}\KeywordTok{log}\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(x}\OperatorTok{%*%}\NormalTok{beta))) }\OperatorTok{-}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{y)}\OperatorTok{*}\KeywordTok{log}\NormalTok{(}\DecValTok{1} \OperatorTok{+}\StringTok{ }\KeywordTok{exp}\NormalTok{(x}\OperatorTok{%*%}\NormalTok{beta)))}
-    \KeywordTok{return}\NormalTok{(}\OperatorTok{-}\NormalTok{loglik)}
-\NormalTok{  \}}
-  
-  \CommentTok{# Prepare the data}
-\NormalTok{  outcome =}\StringTok{ }\KeywordTok{rownames}\NormalTok{(}\KeywordTok{attr}\NormalTok{(}\KeywordTok{terms}\NormalTok{(fmla),}\StringTok{"factors"}\NormalTok{))[}\DecValTok{1}\NormalTok{]}
-\NormalTok{  dfrTmp =}\StringTok{ }\KeywordTok{model.frame}\NormalTok{(data)}
-\NormalTok{  x =}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(}\KeywordTok{model.matrix}\NormalTok{(fmla, }\DataTypeTok{data=}\NormalTok{dfrTmp))}
-\NormalTok{  y =}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(data[,}\KeywordTok{match}\NormalTok{(outcome,}\KeywordTok{colnames}\NormalTok{(data))]))}
-  
-  \CommentTok{# Define initial values for the parameters}
-\NormalTok{  theta.start =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,(}\KeywordTok{dim}\NormalTok{(x)[}\DecValTok{2}\NormalTok{]))}
-  \KeywordTok{names}\NormalTok{(theta.start) =}\StringTok{ }\KeywordTok{colnames}\NormalTok{(x)}
-  
-  \CommentTok{# Calculate the maximum likelihood}
-\NormalTok{  mle =}\StringTok{ }\KeywordTok{optim}\NormalTok{(theta.start,logl,}\DataTypeTok{x=}\NormalTok{x,}\DataTypeTok{y=}\NormalTok{y, }\DataTypeTok{method =} \StringTok{'BFGS'}\NormalTok{, }\DataTypeTok{hessian=}\NormalTok{T)}
-\NormalTok{  out =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{beta=}\NormalTok{mle}\OperatorTok{$}\NormalTok{par,}\DataTypeTok{vcov=}\KeywordTok{solve}\NormalTok{(mle}\OperatorTok{$}\NormalTok{hessian),}\DataTypeTok{ll=}\DecValTok{2}\OperatorTok{*}\NormalTok{mle}\OperatorTok{$}\NormalTok{value)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mydata =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\KeywordTok{url}\NormalTok{(}\StringTok{'https://stats.idre.ucla.edu/stat/data/binary.csv'}\NormalTok{))}
-\NormalTok{mylogit1 =}\StringTok{ }\KeywordTok{glm}\NormalTok{(admit}\OperatorTok{~}\NormalTok{gre}\OperatorTok{+}\NormalTok{gpa}\OperatorTok{+}\KeywordTok{as.factor}\NormalTok{(rank), }\DataTypeTok{family=}\NormalTok{binomial, }\DataTypeTok{data=}\NormalTok{mydata)}
-
-\NormalTok{mydata}\OperatorTok{$}\NormalTok{rank =}\StringTok{ }\KeywordTok{factor}\NormalTok{(mydata}\OperatorTok{$}\NormalTok{rank) }\CommentTok{#Treat rank as a categorical variable}
-\NormalTok{fmla =}\StringTok{ }\KeywordTok{as.formula}\NormalTok{(}\StringTok{"admit~gre+gpa+rank"}\NormalTok{) }\CommentTok{#Create model formula}
-\NormalTok{mylogit2 =}\StringTok{ }\KeywordTok{mle.logreg}\NormalTok{(fmla, mydata) }\CommentTok{#Estimate coefficients}
-
-
- \KeywordTok{print}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\KeywordTok{coef}\NormalTok{(mylogit1), mylogit2}\OperatorTok{$}\NormalTok{beta))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##                          [,1]         [,2]
-## (Intercept)      -3.989979073 -3.772676422
-## gre               0.002264426  0.001375522
-## gpa               0.804037549  0.898201239
-## as.factor(rank)2 -0.675442928 -0.675543009
-## as.factor(rank)3 -1.340203916 -1.356554831
-## as.factor(rank)4 -1.551463677 -1.563396035
-\end{verbatim}
-
-\section{References}\label{references}
-
-\url{http://www.columbia.edu/~so33/SusDev/Lecture_9.pdf}
-
-\chapter{Linear Mixed Models}\label{linear-mixed-models}
-
-\section{LM and GLM}\label{lm-and-glm}
+\chapter{LM and GLM}\label{lm-and-glm}
 
 Before moving to LMM, I would like to review LM and GLM first.
 
-\subsection{LM}\label{lm}
+\section{LM}\label{lm}
 
 \[Y|X \sim N(\mu(X),\sigma^2 I)\]
 
@@ -533,7 +306,7 @@ where,
 
 \(X^T \beta: covariates\)
 
-\subsection{GLM-Definition}\label{glm-definition}
+\section{GLM-Definition}\label{glm-definition}
 
 Ref:
 \url{https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf}
@@ -542,7 +315,7 @@ Ref:
 
 \[g(\mu(X))=X^T \beta\]
 
-\subsection{GLM-log link example}\label{glm-log-link-example}
+\section{GLM-log link example}\label{glm-log-link-example}
 
 \[\mu_i = \gamma e^{\delta t_i}\] Link function is log link, and it
 becomes:
@@ -550,7 +323,7 @@ becomes:
 \[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\] (This
 is somehow similar to Poisson distribution.)
 
-\subsection{GLM-Reciprocal link:}\label{glm-reciprocal-link}
+\section{GLM-Reciprocal link:}\label{glm-reciprocal-link}
 
 \[\mu_i=\frac{\alpha x_i}{h+x_i}\]
 
@@ -558,7 +331,7 @@ Reciprocal link:
 
 \[g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}\]
 
-\subsection{GLM-exponential family:}\label{glm-exponential-family}
+\section{GLM-exponential family:}\label{glm-exponential-family}
 
 In a more general sense, for exponential family:
 
@@ -606,7 +379,7 @@ Where,
 
 \(h(x) =1\)
 
-\subsection{Canonical exponential
+\section{Canonical exponential
 family}\label{canonical-exponential-family}
 
 Canonical exponential family:
@@ -630,7 +403,7 @@ Where (we assume \(\sigma^2\) is known.),
 
 \(\begin{aligned} c(x, \phi) &=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)
 
-\subsection{Canonical exponential family - Expected value and
+\section{Canonical exponential family - Expected value and
 variance}\label{canonical-exponential-family---expected-value-and-variance}
 
 \textbf{First derivative}
@@ -664,13 +437,14 @@ Thus, we can get,
 For second derivative, from the calculation above, we know that,
 
 \[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&=-E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \\ &= -E[(\frac{X-b^{'}(\theta)}{\phi})^2]\\ &=-E[(\frac{X-E(X)}{\phi})^2] \\ &= -\frac{Var(X)}{\phi^2}\end{aligned}\]
+
 At the same time,
 \[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&=E[\frac{\partial (\frac{X-b^{'}(\theta)}{\phi})}{\partial \theta}] \\ &= E[-\frac{b^{''}(\theta)}{\phi}]\\ &= - \frac{b^{''}(\theta)}{\phi} \end{aligned}\]
 Thus,
 
 \[Var(X)=b^{''}(\theta) \phi\]
 
-\subsection{Expected value and variance - Possion
+\section{Expected value and variance - Possion
 Example}\label{expected-value-and-variance---possion-example}
 
 Example of possion distribution
@@ -697,7 +471,7 @@ Thus, we can get:
 \[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]
 \[Var(X)=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2}=\mu\]
 
-\subsection{Canonical link}\label{canonical-link}
+\section{Canonical link}\label{canonical-link}
 
 A link functin can link \(X^T \beta\) to the mean \(\mu\).
 
@@ -713,8 +487,7 @@ Thus,
 
 \[g=b^{' -1}(\theta)\]
 
-\subsection{Canonical link -
-Bernoulli}\label{canonical-link---bernoulli}
+\section{Canonical link - Bernoulli}\label{canonical-link---bernoulli}
 
 PMF of Bernoulli:
 
@@ -748,7 +521,7 @@ inverse function:
 
 \[g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta\]
 
-\subsection{NR - Bernoulli}\label{nr---bernoulli}
+\section{NR - Bernoulli}\label{nr---bernoulli}
 
 We know that the PMF for Bernoulli:
 
@@ -767,8 +540,10 @@ Thus,
 
 \[\beta^{k+1}=\beta^k-(H_{\ell}(\beta^k))^{-1}\nabla_{\ell}(\beta^k) \]
 
-\subsection{Iteratively Re-weighted Least
+\section{Iteratively Re-weighted Least
 Squares}\label{iteratively-re-weighted-least-squares}
+
+\chapter{Linear Mixed Models}\label{linear-mixed-models}
 
 \section{LMM}\label{lmm}
 
@@ -1305,364 +1080,6 @@ calculate time serial data.
 ## Number of Groups: 11
 \end{verbatim}
 
-\chapter{Basic Stat Concepts}\label{basic-stat-concepts}
-
-\section{Score}\label{score}
-
-The score is the gradient (the vector of partial derivatives) of
-\(log L(\theta)\), with respect to an m-dimensional parameter vector
-\(\theta\).
-
-\[S(\theta) = \frac{\partial\ell}{\partial \theta}\] Typically, they use
-\(\nabla\) to denote the partical derivative.
-
-\[\nabla \ell\]
-
-Such differentiation will generate a \(m \times 1\) row vector, which
-indicates the sensitivity of the likelihood.
-
-Quote from Steffen Lauritzen's slides: ``Generally the solution to this
-equation must be calculated by iterative methods. One of the most common
-methods is the Newton--Raphson method and this is based on successive
-approximations to the solution, using Taylor's theorem to approximate
-the equation.''
-
-For instance, using logit link, we can get the first derivative of log
-likelihood logistic regression as follows. We can not really find
-\(\beta\) easily to make the equation to be 0.
-
-\[\begin{aligned}
-\frac{\partial \ell} {\partial \beta} 
-&= \sum_{i=1}^{n}x_i^T[y_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}] \\
-&=\sum_{i=1}^{n} x_i^T[y_i-\hat{y_i}]
-\end{aligned}\]
-
-\section{Gradient and Jacobian}\label{gradient-and-jacobian}
-
-\textbf{Remarks}: This part discusses gradient in a more general sense.
-
-When \(f(x)\) is only in a single dimension space:
-
-\(\mathbb{R}^n \rightarrow \mathbb{R}\)
-
-\[\nabla f(x)=[\frac{\partial f}{\partial x_1},\frac{\partial f}{\partial x_2},...,\frac{\partial f}{\partial x_n}]\]
-When \(f(x)\) is only in a m-dimension space (i.e., Jacobian):
-\(\mathbb{R}^n \rightarrow \mathbb{R^m}\)
-
-\[Jac(f)=\begin{bmatrix}
-\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \frac{\partial f_1}{\partial x_3} & ... & \frac{\partial f_1}{\partial x_n}\\
-\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \frac{\partial f_2}{\partial x_3} & ... & \frac{\partial f_2}{\partial x_n} \\
-...\\
-\frac{\partial f_m}{\partial x_1} & \frac{\partial f_m}{\partial x_2} & \frac{\partial f_n}{\partial x_3} & ... & \frac{\partial f_m}{\partial x_n}
-\end{bmatrix}\]
-
-For instance,
-
-\(\mathbb{R}^n \rightarrow \mathbb{R}\):
-
-\[f(x,y)=x^2+2y\]
-\[\nabla f(x,y)=[\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}]=[2x,2]\]
-\(\mathbb{R}^n \rightarrow \mathbb{R^m}\)
-
-\[f(x,y)=(x^2+2y,x^3)\] \[Jac(f)=\begin{bmatrix}
-2x & 2\\
-2x^2 & 0 
-\end{bmatrix}\]
-
-\section{Hessian and Fisher
-Information}\label{hessian-and-fisher-information}
-
-Hessian matrix or Hessian is a square matrix of second-order partial
-derivatives of a scalar-valued function, or scalar field.
-
-\(\mathbb{R}^n \rightarrow \mathbb{R}\)
-
-\[Hessian=\nabla ^2(f) =\begin{bmatrix}
-\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \frac{\partial^2 f}{\partial x_1 \partial x_3} & ... & \frac{\partial^2 f}{\partial x_1 \partial x_n}\\
-\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \frac{\partial^2 f}{\partial x_2 \partial x_3} & ... & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
-\frac{\partial^2 f}{\partial x_3 \partial x_1} & \frac{\partial^2 f}{\partial x_3 \partial x_2} & \frac{\partial^2 f}{\partial x_3^2} & ... & \frac{\partial^2 f}{\partial x_3 \partial x_n} \\
-...\\
-\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \frac{\partial^2 f}{\partial x_n \partial x_3} & ... & \frac{\partial^2 f}{\partial x_n^2}
-\end{bmatrix}\]
-
-As a special case, in the context of logit:
-
-Suppose that the log likelihood function is \(\ell (\theta)\).
-\(\theta\) is a \(m\) demension vector.
-
-\[ \theta = \begin{bmatrix}\theta_1 \\
-\theta_2 \\
-\theta_3 \\
-\theta_4 \\
-...\\
-\theta_m \\
-\end{bmatrix}\]
-
-\[Hessian=\nabla ^2(\ell) =\begin{bmatrix}
-\frac{\partial^2 \ell}{\partial \theta_1^2} & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_2} & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_3} & ... & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_m}\\
-\frac{\partial^2 \ell}{\partial \theta_2 \partial \theta_1} & \frac{\partial^2 \ell}{\partial \theta_2^2 } & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_3} & ... & \frac{\partial^2 \ell}{\partial \theta_1 \partial \theta_m} \\
-\frac{\partial^2 \ell}{\partial \theta_3 \partial \theta_1} & \frac{\partial^2 \ell}{\partial \theta_3 \theta_2 } & \frac{\partial^2 \ell}{\partial \theta_3^2} & ... & \frac{\partial^2 \ell}{\partial \theta_3 \partial \theta_m} \\
-...\\
-\frac{\partial^2 \ell}{\partial \theta_m \partial \theta_1} & \frac{\partial^2 \ell}{\partial \theta_m \theta_2 } & \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_3} & ... & \frac{\partial^2 \ell}{\partial \theta_m \partial \theta_m} 
-\end{bmatrix}\]
-
-``In statistics, the observed information, or observed Fisher
-information, is the negative of the second derivative (the Hessian
-matrix) of the''log-likelihood" (the logarithm of the likelihood
-function). It is a sample-based version of the Fisher information."
-(Direct quote from Wikipedia.)
-
-Thus, the observed information matrix:
-
-\[-Hessian=-\nabla ^2(\ell) \]
-
-Expected (Fisher) information matrix:
-
-\[E[-\nabla ^2(\ell)] \]
-
-\section{Canonical link function}\label{canonical-link-function}
-
-Inspired by a Stack Exchange post, I created the following figure:
-
-\[ \frac{Paramter}{\theta} \longrightarrow \gamma^{'}(\theta) = \mu \longrightarrow \frac{Mean}{\mu} \longrightarrow g(\mu) = \eta \longrightarrow \frac{ Linear predictor}{\eta} \]
-
-For the case of \(n\) time Bernoulli (i.e., Binomial), its canonical
-link function is logit. Specifically,
-
-\[ \frac{Paramter}{\theta=\beta^Tx_i}  \longrightarrow \gamma^{'}(\theta)= \frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\longrightarrow \frac{Mean}{\mu=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow g(\mu) = log \frac{\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}{1-\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}}\longrightarrow \frac{ Linear predictor}{\eta = \beta^Tx_i}\]
-Thus, we can see that,
-
-\[\theta \equiv \eta \] The link function \(g(\mu)\) relates the linear
-predictor \(\eta = \beta^Tx_i\) to the mean \(\mu\).
-
-\textbf{Remarks}:
-
-\begin{enumerate}
-\def\labelenumi{(\arabic{enumi})}
-\item
-  Parameter is \(\theta = \beta ^T x_i\) (Not \(\mu\)!).
-\item
-  \(\mu=p(y=1)=\frac{e^{\beta^Tx_i}}{1+e^{\beta^Tx_i}}\) (Not logit!).
-\item
-  Link function (i.e., \(g(\mu)\)) = logit = logarithm of odds = log
-  \(\frac{Event - Happened }{Event - Not - Happened}\).
-\item
-  \(g(\mu) = log \frac{\mu}{1-\mu}=\beta^T x_i\). Thus, link function =
-  linear predictor = log odds!
-\item
-  Quote from the Stack Exchange post ``Newton Method and Fisher scoring
-  for finding the ML estimator coincide, these links simplify the
-  derivation of the MLE.''
-\end{enumerate}
-
-(Recall, we know that \(\mu\) or \(p(y=1)\) is the mean function. Recall
-that, \(n\) trails of coin flips, and get \(p\) heads. Thus
-\(\mu = \frac{p}{n}\).)
-
-\section{Ordinary Least Squares (OLS)}\label{ordinary-least-squares-ols}
-
-Suppose we have \(n\) observation, and \(m\) variables.
-
-\[\begin{bmatrix}
-x_{11} & x_{12} & x_{13} & ... & x_{1m}\\
-x_{21} & x_{22} & x_{23} & ... & x_{2m} \\
-...\\
-x_{n1} & x_{n2} & x_{n3} & ... & x_{nm}
-\end{bmatrix}\]
-
-Thus, we can write it as the following \(n\) equations.
-
-\[y_1=\beta_0+\beta_1 x_{11}+\beta_2 x_{12}+...+ \beta_m x_{1m}\]
-\[y_2=\beta_0+\beta_1 x_{21}+\beta_2 x_{22}+...+ \beta_m x_{2m}\]
-\[y_3=\beta_0+\beta_1 x_{31}+\beta_2 x_{32}+...+ \beta_m x_{3m}\]
-\[...\]
-
-\[y_n=\beta_0+\beta_1 x_{n1}+\beta_2 x_{n2}+...+ \beta_m x_{nm}\]
-
-We can combine all the \(n\) equations as the following one:
-
-\[y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+...+ \beta_m x_{im}  (i \in [1,n])\]
-
-We can further rewrite it as a matrix format as follows.
-
-\[y= X \beta\] Where,
-
-\[y = \begin{bmatrix}y_1 \\
-y_2 \\
-y_3 \\
-y_4 \\
-...\\
-y_n \\
-\end{bmatrix}\]
-
-\[X=\begin{bmatrix}
-1 & x_{11} & x_{12} & x_{13} & ... & x_{1m}\\
-1 & x_{21} & x_{22} & x_{23} & ... & x_{2m} \\
-...\\
-1 & x_{n1} & x_{n2} & x_{n3} & ... & x_{nm}
-\end{bmatrix}\]
-
-\[\beta = \begin{bmatrix}\beta_0 \\
-\beta_1 \\
-\beta_2 \\
-\beta_3 \\
-...\\
-\beta_m \\
-\end{bmatrix}\]
-
-Since later we need the inverse of \(X\), we need to make it into a
-square matrix.
-
-\[X^Ty=X^TX \hat{\beta} \Rightarrow \hat{\beta} = (X^TX)^{-1} X^Ty\]
-
-We can use R to implement this calculation. As we can see, there is no
-need to do any iterations at all, but rather just pure matrix
-calculation.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{X<-}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{),}\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{) }\CommentTok{# we define a 2 column matrix, with 500 rows}
-\NormalTok{X<-}\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{,X) }\CommentTok{# add a 1 constant}
-\NormalTok{beta_true<-}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{) }\CommentTok{# True regression coefficients}
-\NormalTok{beta_true<-}\KeywordTok{as.matrix}\NormalTok{(beta_true)}
-\NormalTok{y=X}\OperatorTok{%*%}\NormalTok{beta_true}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{500}\NormalTok{)}
-
-\NormalTok{transposed_X<-}\KeywordTok{t}\NormalTok{(X)}
-\NormalTok{beta_hat<-}\KeywordTok{solve}\NormalTok{(transposed_X}\OperatorTok{%*%}\NormalTok{X)}\OperatorTok{%*%}\NormalTok{transposed_X}\OperatorTok{%*%}\NormalTok{y}
-\NormalTok{beta_hat}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##          [,1]
-## [1,] 2.017690
-## [2,] 1.054682
-## [3,] 2.037671
-\end{verbatim}
-
-\textbf{Side Notes} The function of as.matrix will automatically make
-c(2,1,2) become the dimension of \(3 \times 1\), you do not need to
-transpose the \(\beta\).
-
-\section{Taylor series}\label{taylor-series}
-
-\[\begin{aligned}
-f(x)|_{a} &=f(a)+\frac{f^{'}(a)}{1!}(x-a)+\frac{f^{'}(a)}{2!}(x-a)^2+\frac{f^{''}(a)}{3!}(x-a)^{3}+...\\&=\sum_{n=0}^{\infty} \frac{f^{n}(a)}{n!}(x-a)^n 
-\end{aligned}\]
-
-For example:
-
-\[\begin{aligned} 
-e^x |_{a=0} &= e^a+ \frac{e^a}{1!}(x-a)+\frac{e^a}{2!}(x-a)^2+...+\frac{e^a}{n!}(x-a)^n \\ 
-&=  1+ \frac{1}{1!}x+\frac{1}{2!}x^2+...+\frac{1}{n!}x^n
-\end{aligned}\]
-
-if \(x=2\)
-
-\(e^2 = 7.389056\)
-
-\(e^2 \approx 1+\frac{1}{1!}x =1+\frac{1}{1!}2=3\)
-
-\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 =1+\frac{1}{1!}2 + \frac{1}{2!}2 =5\)
-\ldots{}
-
-\(e^2 \approx 1+\frac{1}{1!}x+\frac{1}{2!}x^2 +\frac{1}{3!}x^2+\frac{1}{4!}x^2+\frac{1}{5!}x^2=7.2666...\)
-
-\section{Fisher scoring}\label{fisher-scoring}
-
-{[}I will come back to this later.{]}
-
-\url{https://www2.stat.duke.edu/courses/Fall00/sta216/handouts/diagnostics.pdf}
-
-\url{https://stats.stackexchange.com/questions/176351/implement-fisher-scoring-for-linear-regression}
-
-\section{References}\label{references-1}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Steffen Lauritzen's slides:
-\end{enumerate}
-
-\url{http://www.stats.ox.ac.uk/~steffen/teaching/bs2HT9/scoring.pdf}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  The Stack Exchange post:
-\end{enumerate}
-
-\url{https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Wilipedia for OLS
-\end{enumerate}
-
-\url{https://en.wikipedia.org/wiki/Ordinary_least_squares}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Gradient and Jacobian
-\end{enumerate}
-
-\url{https://math.stackexchange.com/questions/1519367/difference-between-gradient-and-jacobian}
-
-\url{https://www.youtube.com/watch?v=3xVMVT-2_t4}
-
-\url{https://math.stackexchange.com/questions/661195/what-is-the-difference-between-the-gradient-and-the-directional-derivative}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{4}
-\tightlist
-\item
-  Hessian
-\end{enumerate}
-
-\url{https://en.wikipedia.org/wiki/Hessian_matrix}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{5}
-\tightlist
-\item
-  Observed information
-\end{enumerate}
-
-\url{https://en.wikipedia.org/wiki/Observed_information}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{6}
-\tightlist
-\item
-  Fisher information
-\end{enumerate}
-
-\url{https://people.missouristate.edu/songfengzheng/Teaching/MTH541/Lecture\%20notes/Fisher_info.pdf}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{7}
-\tightlist
-\item
-  Link function
-\end{enumerate}
-
-\url{https://en.wikipedia.org/wiki/Generalized_linear_model\#Link_function}
-
-\url{https://stats.stackexchange.com/questions/40876/what-is-the-difference-between-a-link-function-and-a-canonical-link-function}
-
 \chapter{Basic R}\label{basic-r}
 
 This section is about R coding.
@@ -1812,10 +1229,10 @@ output in vector or matrix.''
 
 \begin{verbatim}
 ##           [,1]      [,2]
-## [1,] 0.7767640 0.3839558
-## [2,] 0.8404593 0.9506320
-## [3,] 0.8705815 0.7041046
-## [4,] 0.9530419 0.4219814
+## [1,] 0.6557058 0.2891597
+## [2,] 0.7085305 0.1471136
+## [3,] 0.5440660 0.9630242
+## [4,] 0.5941420 0.9022990
 \end{verbatim}
 
 \begin{Shaded}
@@ -1825,7 +1242,7 @@ output in vector or matrix.''
 \end{Shaded}
 
 \begin{verbatim}
-##  num [1:4, 1:2] 0.777 0.84 0.871 0.953 0.384 ...
+##  num [1:4, 1:2] 0.656 0.709 0.544 0.594 0.289 ...
 \end{verbatim}
 
 \begin{Shaded}
@@ -1836,8 +1253,8 @@ output in vector or matrix.''
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.7767640 0.8404593 0.8705815 0.9530419 0.3839558 0.9506320 0.7041046
-## [8] 0.4219814
+## [1] 0.6557058 0.7085305 0.5440660 0.5941420 0.2891597 0.1471136 0.9630242
+## [8] 0.9022990
 \end{verbatim}
 
 \begin{Shaded}
@@ -1847,7 +1264,7 @@ output in vector or matrix.''
 \end{Shaded}
 
 \begin{verbatim}
-##  num [1:8] 0.777 0.84 0.871 0.953 0.384 ...
+##  num [1:8] 0.656 0.709 0.544 0.594 0.289 ...
 \end{verbatim}
 
 \chapter{Computing Techniques}\label{computing-techniques}
@@ -1897,7 +1314,7 @@ the calculation of the integral.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 \section{Importance sampling}\label{importance-sampling}
 
@@ -1954,7 +1371,7 @@ the definition of expected value.
 ## Warning: Removed 2 rows containing missing values (geom_path).
 \end{verbatim}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 \section{Newton Raphson algorithm}\label{newton-raphson-algorithm}
 
@@ -2027,7 +1444,7 @@ we can see the following plot, it converts very quickly.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \subsection{Logistic regression}\label{logistic-regression}
 
@@ -2248,7 +1665,7 @@ Use normal pdf to sample gamma distribution
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}
 
 \section{EM}\label{em}
 
@@ -2285,7 +1702,7 @@ For examples, you can refer to the following link:
 (It is em\_R.r in R\_codes folder. Personally, I can also refer to Quiz
 2 in 536.)
 
-\section{References}\label{references-2}
+\section{References}\label{references}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2530,7 +1947,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2539,7 +1956,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-29-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2548,7 +1965,7 @@ than ideology, since we only accept a constant when it is positive.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-29-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-3.pdf}
 
 \section{Simulating Data of Liberal Users on Twitter and Model
 Testing}\label{simulating-data-of-liberal-users-on-twitter-and-model-testing}
@@ -2589,7 +2006,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-30-1.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2598,7 +2015,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-30-2.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2607,7 +2024,7 @@ algorithm.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-30-3.pdf}
+\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-3.pdf}
 
 \bibliography{book.bib,packages.bib}
 

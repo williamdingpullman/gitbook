@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 LM and GLM | GLMM, Concepts, &amp; R</title>
+  <meta name="description" content="The webpages are mainly about logit models." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 LM and GLM | GLMM, Concepts, &amp; R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="The webpages are mainly about logit models." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 LM and GLM | GLMM, Concepts, &amp; R" />
+  
+  <meta name="twitter:description" content="The webpages are mainly about logit models." />
+  
+
+<meta name="author" content="Bill Last Updated:" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basics.html"/>
+<link rel="next" href="linear-mixed-models.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://williamdingpullman.github.io/" target="blank">Bill's Stats Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface: Motivation</a></li>
+<li class="chapter" data-level="1" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>1</b> Basics</a><ul>
+<li class="chapter" data-level="1.1" data-path="basics.html"><a href="basics.html#logit"><i class="fa fa-check"></i><b>1.1</b> Logit</a></li>
+<li class="chapter" data-level="1.2" data-path="basics.html"><a href="basics.html#probit"><i class="fa fa-check"></i><b>1.2</b> Probit</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="lm-and-glm.html"><a href="lm-and-glm.html"><i class="fa fa-check"></i><b>2</b> LM and GLM</a><ul>
+<li class="chapter" data-level="2.1" data-path="lm-and-glm.html"><a href="lm-and-glm.html#lm"><i class="fa fa-check"></i><b>2.1</b> LM</a></li>
+<li class="chapter" data-level="2.2" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-definition"><i class="fa fa-check"></i><b>2.2</b> GLM-Definition</a></li>
+<li class="chapter" data-level="2.3" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-log-link-example"><i class="fa fa-check"></i><b>2.3</b> GLM-log link example</a></li>
+<li class="chapter" data-level="2.4" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-reciprocal-link"><i class="fa fa-check"></i><b>2.4</b> GLM-Reciprocal link:</a></li>
+<li class="chapter" data-level="2.5" data-path="lm-and-glm.html"><a href="lm-and-glm.html#glm-exponential-family"><i class="fa fa-check"></i><b>2.5</b> GLM-exponential family:</a></li>
+<li class="chapter" data-level="2.6" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-exponential-family"><i class="fa fa-check"></i><b>2.6</b> Canonical exponential family</a></li>
+<li class="chapter" data-level="2.7" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-exponential-family---expected-value-and-variance"><i class="fa fa-check"></i><b>2.7</b> Canonical exponential family - Expected value and variance</a></li>
+<li class="chapter" data-level="2.8" data-path="lm-and-glm.html"><a href="lm-and-glm.html#expected-value-and-variance---possion-example"><i class="fa fa-check"></i><b>2.8</b> Expected value and variance - Possion Example</a></li>
+<li class="chapter" data-level="2.9" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-link"><i class="fa fa-check"></i><b>2.9</b> Canonical link</a></li>
+<li class="chapter" data-level="2.10" data-path="lm-and-glm.html"><a href="lm-and-glm.html#canonical-link---bernoulli"><i class="fa fa-check"></i><b>2.10</b> Canonical link - Bernoulli</a></li>
+<li class="chapter" data-level="2.11" data-path="lm-and-glm.html"><a href="lm-and-glm.html#nr---bernoulli"><i class="fa fa-check"></i><b>2.11</b> NR - Bernoulli</a></li>
+<li class="chapter" data-level="2.12" data-path="lm-and-glm.html"><a href="lm-and-glm.html#iteratively-re-weighted-least-squares"><i class="fa fa-check"></i><b>2.12</b> Iteratively Re-weighted Least Squares</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>3</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#lmm"><i class="fa fa-check"></i><b>3.1</b> LMM</a></li>
+<li class="chapter" data-level="3.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#calculate-mean"><i class="fa fa-check"></i><b>3.2</b> Calculate mean</a></li>
+<li class="chapter" data-level="3.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#test-the-treatment-effect"><i class="fa fa-check"></i><b>3.3</b> Test the treatment effect</a></li>
+<li class="chapter" data-level="3.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#another-example"><i class="fa fa-check"></i><b>3.4</b> Another example</a></li>
+<li class="chapter" data-level="3.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#full-lmm-model"><i class="fa fa-check"></i><b>3.5</b> Full LMM model</a></li>
+<li class="chapter" data-level="3.6" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#serial-correlations-in-time-and-space"><i class="fa fa-check"></i><b>3.6</b> Serial correlations in time and space</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-r.html"><a href="basic-r.html"><i class="fa fa-check"></i><b>4</b> Basic R</a><ul>
+<li class="chapter" data-level="4.1" data-path="basic-r.html"><a href="basic-r.html#apply-lapply-sapply"><i class="fa fa-check"></i><b>4.1</b> apply, lapply, sapply</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="basic-r.html"><a href="basic-r.html#apply"><i class="fa fa-check"></i><b>4.1.1</b> apply</a></li>
+<li class="chapter" data-level="4.1.2" data-path="basic-r.html"><a href="basic-r.html#lapply"><i class="fa fa-check"></i><b>4.1.2</b> lapply</a></li>
+<li class="chapter" data-level="4.1.3" data-path="basic-r.html"><a href="basic-r.html#sapply"><i class="fa fa-check"></i><b>4.1.3</b> sapply</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="basic-r.html"><a href="basic-r.html#c"><i class="fa fa-check"></i><b>4.2</b> C</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="computing-techniques.html"><a href="computing-techniques.html"><i class="fa fa-check"></i><b>5</b> Computing Techniques</a><ul>
+<li class="chapter" data-level="5.1" data-path="computing-techniques.html"><a href="computing-techniques.html#monte-carlo-approximation"><i class="fa fa-check"></i><b>5.1</b> Monte carlo approximation</a></li>
+<li class="chapter" data-level="5.2" data-path="computing-techniques.html"><a href="computing-techniques.html#importance-sampling"><i class="fa fa-check"></i><b>5.2</b> Importance sampling</a></li>
+<li class="chapter" data-level="5.3" data-path="computing-techniques.html"><a href="computing-techniques.html#newton-raphson-algorithm"><i class="fa fa-check"></i><b>5.3</b> Newton Raphson algorithm</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="computing-techniques.html"><a href="computing-techniques.html#calculate-the-root"><i class="fa fa-check"></i><b>5.3.1</b> Calculate the root</a></li>
+<li class="chapter" data-level="5.3.2" data-path="computing-techniques.html"><a href="computing-techniques.html#logistic-regression"><i class="fa fa-check"></i><b>5.3.2</b> Logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="computing-techniques.html"><a href="computing-techniques.html#metropolis-hastings"><i class="fa fa-check"></i><b>5.4</b> Metropolis Hastings</a></li>
+<li class="chapter" data-level="5.5" data-path="computing-techniques.html"><a href="computing-techniques.html#em"><i class="fa fa-check"></i><b>5.5</b> EM</a></li>
+<li class="chapter" data-level="5.6" data-path="computing-techniques.html"><a href="computing-techniques.html#references"><i class="fa fa-check"></i><b>5.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Mixed Models</a><ul>
+<li class="chapter" data-level="6.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#basics-of-glmm"><i class="fa fa-check"></i><b>6.1</b> Basics of GLMM</a></li>
+<li class="chapter" data-level="6.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#some-references"><i class="fa fa-check"></i><b>6.2</b> Some References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="twitter-example.html"><a href="twitter-example.html"><i class="fa fa-check"></i><b>7</b> Twitter Example</a><ul>
+<li class="chapter" data-level="7.1" data-path="twitter-example.html"><a href="twitter-example.html#model"><i class="fa fa-check"></i><b>7.1</b> Model</a></li>
+<li class="chapter" data-level="7.2" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-senators-on-twitter"><i class="fa fa-check"></i><b>7.2</b> Simulating Data of Senators on Twitter</a></li>
+<li class="chapter" data-level="7.3" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-conservative-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.3</b> Simulating Data of Conservative Users on Twitter and Model Testing</a></li>
+<li class="chapter" data-level="7.4" data-path="twitter-example.html"><a href="twitter-example.html#simulating-data-of-liberal-users-on-twitter-and-model-testing"><i class="fa fa-check"></i><b>7.4</b> Simulating Data of Liberal Users on Twitter and Model Testing</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">GLMM, Concepts, &amp; R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lm-and-glm" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> LM and GLM</h1>
+<p>Before moving to LMM, I would like to review LM and GLM first.</p>
+<div id="lm" class="section level2">
+<h2><span class="header-section-number">2.1</span> LM</h2>
+<p><span class="math display">\[Y|X \sim N(\mu(X),\sigma^2 I)\]</span></p>
+<p><span class="math display">\[E(Y|X)=\mu(X)=X^T \beta\]</span></p>
+<p>where,</p>
+<p><span class="math inline">\(\mu(X): random component\)</span></p>
+<p><span class="math inline">\(X^T \beta: covariates\)</span></p>
+</div>
+<div id="glm-definition" class="section level2">
+<h2><span class="header-section-number">2.2</span> GLM-Definition</h2>
+<p>Ref: <a href="https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf" class="uri">https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf</a></p>
+<p><span class="math display">\[Y \sim exponential family\]</span> Link function</p>
+<p><span class="math display">\[g(\mu(X))=X^T \beta\]</span></p>
+</div>
+<div id="glm-log-link-example" class="section level2">
+<h2><span class="header-section-number">2.3</span> GLM-log link example</h2>
+<p><span class="math display">\[\mu_i = \gamma e^{\delta t_i}\]</span> Link function is log link, and it becomes:</p>
+<p><span class="math display">\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\]</span> (This is somehow similar to Poisson distribution.)</p>
+</div>
+<div id="glm-reciprocal-link" class="section level2">
+<h2><span class="header-section-number">2.4</span> GLM-Reciprocal link:</h2>
+<p><span class="math display">\[\mu_i=\frac{\alpha x_i}{h+x_i}\]</span></p>
+<p>Reciprocal link:</p>
+<p><span class="math display">\[g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}\]</span></p>
+</div>
+<div id="glm-exponential-family" class="section level2">
+<h2><span class="header-section-number">2.5</span> GLM-exponential family:</h2>
+<p>In a more general sense, for exponential family:</p>
+<p><span class="math display">\[\begin{aligned} P_{\theta}(X)=P(X, \theta)&amp;= e^{\sum \eta_i(\theta)T_i(X)} C(\theta)h(x)\\ &amp;=e^{\sum \eta_i(\theta)T_i(X)} e^{-log(\frac{1}{c(\theta)})}h(x) \\ &amp;= e^{\sum \eta_i(\theta)T_i(X)-log(\frac{1}{c(\theta)})} h(x)  \\&amp;= e^{\sum \eta_i(\theta)T_i(X)-B(\theta)} h(x) \end{aligned}\]</span> <strong>Normal distribution</strong></p>
+<p>For normal distributions, it belongs to exponential family.</p>
+<p><span class="math display">\[\begin{aligned} P_{\theta}(X) &amp;= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}\\ &amp;=e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} e^{log(\frac{1}{\sigma\sqrt{2\pi}})} \\ &amp;= e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}-log (\sigma\sqrt{2\pi})} \\ &amp;= e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &amp;=e^{-\frac{1}{2\sigma^2}x^2+\frac{x\mu}{\sigma^2}-(\frac{1}{2\sigma^2} \mu^2+log(\sqrt{2\pi}\sigma))} \end{aligned}\]</span> Where,</p>
+<p><span class="math inline">\(\eta_1 =-\frac{1}{2\sigma^2}\)</span> and <span class="math inline">\(T_1(x)=x^2\)</span></p>
+<p><span class="math inline">\(\eta_2 =-\frac{\mu}{\sigma^2}\)</span> and <span class="math inline">\(T_2(x)=x\)</span></p>
+<p><span class="math inline">\(B(\theta)=\frac{1}{2\sigma^2} \mu^2+log(\sqrt{2\pi}\sigma)\)</span></p>
+<p><span class="math inline">\(h(x)=1\)</span></p>
+<p>In the case above, <span class="math inline">\(\theta=(\mu, \sigma^2)\)</span>. If <span class="math inline">\(\sigma^2\)</span> is known, <span class="math inline">\(\theta=\mu\)</span>. In this case, we can rewrite the normal pdf as follows.</p>
+<p><span class="math display">\[\begin{aligned} P_{\theta}(X) &amp;=e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &amp;=e^{\frac{x\mu}{\sigma^2}-\frac{1}{2\sigma^2} \mu^2}e^{-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)} \end{aligned}\]</span> Where,</p>
+<p><span class="math inline">\(\eta_1 =-\frac{\mu}{\sigma^2}\)</span> and <span class="math inline">\(T_1(x)=x\)</span></p>
+<p><span class="math inline">\(B(\theta)=\frac{1}{2\sigma^2} \mu^2\)</span></p>
+<p><span class="math inline">\(\begin{aligned} h(x) &amp;=e^{-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)} \\&amp;=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}\frac{x^2}{\sigma^2}} \end{aligned}\)</span></p>
+<p>Thus, we can see that <span class="math inline">\(h(x)\)</span> is a normal pdf <span class="math inline">\(\sim N(0, \sigma^2)\)</span>.</p>
+<p><strong>Bernoulli</strong></p>
+<p>Another example, <span class="math inline">\(x\)</span> is descrete. For example, Bernoulli:</p>
+<p><span class="math display">\[ \begin{aligned} &amp;= p^x(1-p)^{1-x}  \\ &amp;=e^{log(p^x(1-p)^{1-x})} \\ &amp;= e^{xlog(p)+(1-x)log(1-p)}\\ &amp;= e^{xlog(p)-xlog(1-p)+log(1-p)}\\ &amp;=e^{xlog(\frac{p}{1-p})+log(1-p)} \end{aligned}\]</span></p>
+<p>Where,</p>
+<p><span class="math inline">\(\eta_1 =log(\frac{p}{1-p})\)</span> and <span class="math inline">\(T_1(x)=x\)</span></p>
+<p><span class="math inline">\(B(\theta)=log(\frac{1}{1-p})\)</span></p>
+<p><span class="math inline">\(h(x) =1\)</span></p>
+</div>
+<div id="canonical-exponential-family" class="section level2">
+<h2><span class="header-section-number">2.6</span> Canonical exponential family</h2>
+<p>Canonical exponential family:</p>
+<p><span class="math display">\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]</span> where, <span class="math inline">\(b(.)\)</span> and <span class="math inline">\(c(.,.)\)</span> are known.</p>
+<p><strong>Normal distribution</strong></p>
+<p>Again, use the normal pdf:</p>
+<p><span class="math display">\[\begin{aligned} P_{\theta}(X) &amp;= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}\\ &amp;=e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}} e^{log(\frac{1}{\sigma\sqrt{2\pi}})} \\ &amp;= e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}-log (\sigma\sqrt{2\pi})} \\ &amp;= e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &amp;= e^{\frac{x\mu}{\sigma^2}-\frac{\mu^2}{2\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \\ &amp;=e^{\frac{x\mu-\frac{1}{2}\mu^2}{\sigma^2}+(-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)) } \end{aligned}\]</span></p>
+<p>Where (we assume <span class="math inline">\(\sigma^2\)</span> is known.),</p>
+<p><span class="math inline">\(\theta=\mu\)</span></p>
+<p><span class="math inline">\(\phi =\sigma^2\)</span></p>
+<p><span class="math inline">\(b(\theta)=\frac{1}{2}\theta^2\)</span></p>
+<p><span class="math inline">\(\begin{aligned} c(x, \phi) &amp;=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &amp;=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &amp;=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)</span></p>
+</div>
+<div id="canonical-exponential-family---expected-value-and-variance" class="section level2">
+<h2><span class="header-section-number">2.7</span> Canonical exponential family - Expected value and variance</h2>
+<p><strong>First derivative</strong></p>
+<p>Canonical exponential family:</p>
+<p><span class="math display">\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]</span></p>
+<p>log likelihood (only one observation) <span class="math display">\[log f_{\theta}(x)\]</span></p>
+<p><span class="math display">\[\begin{aligned} E[\frac{\partial (logf_{\theta}(X))}{\partial \theta} ] &amp;=E[\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)}] \\ &amp;= \int \frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)} f_{\theta}(X) dx  \\ &amp;= \int \frac{\partial f_{\theta}(X)}{\partial \theta} dx \\ &amp;= \frac{\partial}{\partial \theta} \int f_{\theta}(X)dx \\ &amp;= \frac{\partial 1}{\partial \theta} \\ &amp;=0  \end{aligned}\]</span> <strong>Second derivative</strong></p>
+<p>Second derivative</p>
+<p><span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2} ] &amp;=E[ \frac{\partial}{\partial \theta}(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})] \\  
+&amp;=E[\frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f^2_{\theta}(X)}] \\ &amp;= \int \frac{\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2}f_{\theta}(X)-(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ &amp;=\int (\frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} - \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)})dx  \\ 
+&amp;= \int \frac{\partial^2 f_{\theta}(X)}{\partial \theta^2} dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
+&amp;=\frac{\partial^2}{\partial \theta^2}\int f_{\theta}(X) dx -\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\ 
+&amp;=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{f_{\theta}(X)}dx \\
+&amp;=0-\int \frac{(\frac{\partial f_{\theta}(X)}{\partial \theta})^2}{(f_{\theta}(X))^2}f_{\theta}(x)dx \\ &amp;= - E[(\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)})^2]\\ &amp;= -E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \end{aligned}\]</span></p>
+<p>Based on the first derivative, we can get:</p>
+<p><span class="math display">\[log(f_{\theta}(X))=\frac{X\theta-b(\theta)}{\phi}+c(X,\phi)\]</span> <span class="math display">\[E[\frac{\partial (log(f_{\theta}(X)))}{\partial \theta}]= E[\frac{X-b^{&#39;}(\theta)}{\phi}]=\frac{E(X)-b^{&#39;}(\theta)}{\phi}=0\]</span> Thus, we can get,</p>
+<p><span class="math display">\[E(X)=b^{&#39;}(\theta)\]</span></p>
+<p>For second derivative, from the calculation above, we know that,</p>
+<p><span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&amp;=-E[(\frac{\partial (logf_{\theta}(X))}{\partial \theta})^2] \\ &amp;= -E[(\frac{X-b^{&#39;}(\theta)}{\phi})^2]\\ &amp;=-E[(\frac{X-E(X)}{\phi})^2] \\ &amp;= -\frac{Var(X)}{\phi^2}\end{aligned}\]</span></p>
+<p>At the same time, <span class="math display">\[\begin{aligned} E[\frac{\partial^2 (logf_{\theta}(X))}{\partial \theta^2}]&amp;=E[\frac{\partial (\frac{X-b^{&#39;}(\theta)}{\phi})}{\partial \theta}] \\ &amp;= E[-\frac{b^{&#39;&#39;}(\theta)}{\phi}]\\ &amp;= - \frac{b^{&#39;&#39;}(\theta)}{\phi} \end{aligned}\]</span> Thus,</p>
+<p><span class="math display">\[Var(X)=b^{&#39;&#39;}(\theta) \phi\]</span></p>
+</div>
+<div id="expected-value-and-variance---possion-example" class="section level2">
+<h2><span class="header-section-number">2.8</span> Expected value and variance - Possion Example</h2>
+<p>Example of possion distribution</p>
+<p><span class="math display">\[P(\lambda)=\frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
+<p>If we put <span class="math inline">\(k\)</span> as <span class="math inline">\(y\)</span>, and <span class="math inline">\(\lambda\)</span> as <span class="math inline">\(\mu\)</span>, we can get:</p>
+<p><span class="math display">\[P(\mu)=\frac{\mu^y e^{-\mu}}{y!}\]</span> Compare to,</p>
+<p><span class="math display">\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]</span></p>
+<p>We can write it as the exponential format:</p>
+<p><span class="math display">\[\begin{aligned} P(\mu) &amp;=\frac{\mu^y e^{-\mu}}{y!}  \\ &amp;= e^{log(\mu^y)+log(e^{-\mu})-log(y!)} \\ &amp;= e^{ylog(\mu)-\mu-log(y!)}\end{aligned}\]</span></p>
+<p>We thus know that <span class="math inline">\(\theta=log(\mu)\)</span>. We can contintue to write the equation above as follows.</p>
+<p><span class="math display">\[=e^{y\theta-e^{\theta}-log(y!)}\]</span></p>
+<p>Thus, we can get:</p>
+<p><span class="math display">\[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]</span> <span class="math display">\[Var(X)=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{&#39;&#39;} (e^{\theta})}{\partial \theta^2}=\mu\]</span></p>
+</div>
+<div id="canonical-link" class="section level2">
+<h2><span class="header-section-number">2.9</span> Canonical link</h2>
+<p>A link functin can link <span class="math inline">\(X^T \beta\)</span> to the mean <span class="math inline">\(\mu\)</span>.</p>
+<p>That is,</p>
+<p><span class="math display">\[g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)\]</span> We know that</p>
+<p><span class="math display">\[\mu = b^{&#39;}(\theta)\]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[ b^{&#39;}(\theta)=g^{-1}(X^T \beta)\]</span> Thus,</p>
+<p><span class="math display">\[g=b^{&#39; -1}(\theta)\]</span></p>
+</div>
+<div id="canonical-link---bernoulli" class="section level2">
+<h2><span class="header-section-number">2.10</span> Canonical link - Bernoulli</h2>
+<p>PMF of Bernoulli:</p>
+<p><span class="math display">\[ \begin{aligned} &amp;= p^y(1-p)^{1-y}  \\ &amp;=e^{log(p^y(1-p)^{1-y})} \\ &amp;= e^{ylog(p)+(1-y)log(1-p)}\\ &amp;= e^{ylog(p)-ylog(1-p)+log(1-p)}\\ &amp;=e^{ylog(\frac{p}{1-p})+log(1-p)} \end{aligned} \]</span> Copared to the following:</p>
+<p><span class="math display">\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]</span> We need to change the format of Bernoulli:</p>
+<p><span class="math display">\[\theta= log \frac{p}{1-p}\]</span> Thus, <span class="math display">\[e^{\theta}=\frac{p}{1-p} \rightarrow p=\frac{e^{\theta}}{1+e^{\theta}} \]</span> After that, we can contintue the Bernoulli:</p>
+<p><span class="math display">\[\begin{aligned} &amp;= e^{y\theta+log(1-\frac{e^{\theta}}{1+e^{\theta}})} \\ &amp;=e^{y\theta+log(\frac{1}{1+e^{\theta}})} \\ &amp;=e^{y\theta-log(1+e^{\theta})} \end{aligned}\]</span></p>
+<p>Where,</p>
+<p><span class="math display">\[b(\theta)=log(1+e^{\theta})\]</span></p>
+<p>We can then try to calculate the derivative:</p>
+<p><span class="math display">\[b^{&#39;}(\theta)=\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}\]</span> We know that</p>
+<p><span class="math display">\[b^{&#39;}(\theta)=\mu\]</span> Thus, we can get</p>
+<p><span class="math display">\[\mu=\frac{e^{\theta}}{1+e^{\theta}}\]</span> We can then calculate the inverse function:</p>
+<p><span class="math display">\[\theta=log(\frac{\mu}{1-\mu})\]</span> Thus,</p>
+<p><span class="math display">\[g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta\]</span></p>
+</div>
+<div id="nr---bernoulli" class="section level2">
+<h2><span class="header-section-number">2.11</span> NR - Bernoulli</h2>
+<p>We know that the PMF for Bernoulli:</p>
+<p><span class="math display">\[\begin{aligned} &amp;= p^y(1-p)^{1-y} \\  &amp;=e^{y\theta-log(1+e^{\theta})} \\ &amp;=e^{yx^T \beta-log(1+e^{x^T \beta})} \end{aligned}\]</span> Thus,</p>
+<p><span class="math display">\[\ell(\beta|Y,X)=\sum_{i=1}^{n}(Y_iX_i^{T}\beta-log(1+e^{X_i^T \beta}))\]</span> Thus, teh gradient is:</p>
+<p><span class="math display">\[\nabla_{\ell}(\beta)=\sum_{i=1}^{n}(Y_iX_i - \frac{e^{X_i^T \beta}}{1+e^{X_i^T \beta}})\]</span> The Hessian is:</p>
+<p><span class="math display">\[H_{\ell}(\beta)=-\sum_{i=1}^{n}\frac{e^{X_i^T \beta}}{(1+e^{X_i^T \beta})^2}X_iX_i^T\]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[\beta^{k+1}=\beta^k-(H_{\ell}(\beta^k))^{-1}\nabla_{\ell}(\beta^k) \]</span></p>
+</div>
+<div id="iteratively-re-weighted-least-squares" class="section level2">
+<h2><span class="header-section-number">2.12</span> Iteratively Re-weighted Least Squares</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="linear-mixed-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-GLM.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
