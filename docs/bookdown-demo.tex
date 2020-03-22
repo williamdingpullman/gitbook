@@ -1,36 +1,46 @@
-\documentclass[]{book}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
-\usepackage[unicode=true]{hyperref}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            pdftitle={GLMM, Concepts, \& R},
-            pdfauthor={Bill Last Updated:},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
-\usepackage{natbib}
-\bibliographystyle{apalike}
+  pdftitle={GLMM, Concepts, \& R},
+  pdfauthor={Bill Last Updated:},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -40,40 +50,46 @@
 \usepackage{framed}
 \definecolor{shadecolor}{RGB}{248,248,248}
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -83,31 +99,14 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
 \usepackage{booktabs}
 \usepackage{amsthm}
 \makeatletter
@@ -116,31 +115,35 @@
   \thm@postskip=\thm@preskip
 }
 \makeatother
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
 
 \title{GLMM, Concepts, \& R}
 \author{Bill Last Updated:}
-\date{19 January, 2020}
+\date{22 March, 2020}
 
 \begin{document}
+\frontmatter
 \maketitle
 
 {
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\chapter*{Preface: Motivation}\label{my-section}
+\mainmatter
+\hypertarget{my-section}{%
+\chapter*{Preface: Motivation}\label{my-section}}
 \addcontentsline{toc}{chapter}{Preface: Motivation}
 
-All the notes I have done here are the preparation for my stat master
-project, which will be about Generalized Linear Mixed Models. While I
-have tried my best, probably there are still some typos and errors.
-Please feel free to let me know in case you find one. Thank you!
+All the notes I have done here are the preparation for my stat master project, which will be about Generalized Linear Mixed Models. While I have tried my best, probably there are still some typos and errors. Please feel free to let me know in case you find one. Thank you!
 
-\chapter{LM and GLM}\label{lm-and-glm}
+\hypertarget{lm-and-glm}{%
+\chapter{LM and GLM}\label{lm-and-glm}}
 
 Before moving to LMM, I would like to review LM and GLM first.
 
-\section{LM}\label{lm}
+\hypertarget{lm}{%
+\section{LM}\label{lm}}
 
 \[Y|X \sim N(\mu(X),\sigma^2 I)\]
 
@@ -152,24 +155,27 @@ where,
 
 \(X^T \beta: covariates\)
 
-\section{GLM-Definition}\label{glm-definition}
+\hypertarget{glm-definition}{%
+\section{GLM-Definition}\label{glm-definition}}
 
-Ref:
-\url{https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf}
+Ref: \url{https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/lecture-slides/MIT18_650F16_GLM.pdf}
 
-\[Y \sim exponential family\] Link function
+\[Y \sim exponential family\]
+Link function
 
 \[g(\mu(X))=X^T \beta\]
 
-\section{GLM-log link example}\label{glm-log-link-example}
+\hypertarget{glm-log-link-example}{%
+\section{GLM-log link example}\label{glm-log-link-example}}
 
-\[\mu_i = \gamma e^{\delta t_i}\] Link function is log link, and it
-becomes:
+\[\mu_i = \gamma e^{\delta t_i}\]
+Link function is log link, and it becomes:
 
-\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\] (This
-is somehow similar to Poisson distribution.)
+\[log(\mu_i) = log(\gamma) + log(\delta t_i)=\beta_0+\beta_1 t_i\]
+(This is somehow similar to Poisson distribution.)
 
-\section{GLM-Reciprocal link:}\label{glm-reciprocal-link}
+\hypertarget{glm-reciprocal-link}{%
+\section{GLM-Reciprocal link:}\label{glm-reciprocal-link}}
 
 \[\mu_i=\frac{\alpha x_i}{h+x_i}\]
 
@@ -177,7 +183,8 @@ Reciprocal link:
 
 \[g(\mu_i)=\frac{1}{\mu_i}=\frac{1}{\alpha}+\frac{h}{\alpha}\frac{1}{x_i}=\beta_0+\beta_1 \frac{1}{x_i}\]
 
-\section{GLM-exponential family:}\label{glm-exponential-family}
+\hypertarget{glm-exponential-family}{%
+\section{GLM-exponential family:}\label{glm-exponential-family}}
 
 In a more general sense, for exponential family:
 
@@ -197,8 +204,7 @@ Where,
 
 \(h(x)=1\)
 
-In the case above, \(\theta=(\mu, \sigma^2)\). If \(\sigma^2\) is known,
-\(\theta=\mu\). In this case, we can rewrite the normal pdf as follows.
+In the case above, \(\theta=(\mu, \sigma^2)\). If \(\sigma^2\) is known, \(\theta=\mu\). In this case, we can rewrite the normal pdf as follows.
 
 \[\begin{aligned} P_{\theta}(X) &=e^{-\frac{1}{2\sigma^2}x^2-\frac{1}{2\sigma^2} \mu^2+\frac{x\mu}{\sigma^2}-log(\sqrt{2\pi}\sigma)}\\ &=e^{\frac{x\mu}{\sigma^2}-\frac{1}{2\sigma^2} \mu^2}e^{-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma)} \end{aligned}\]
 Where,
@@ -225,13 +231,13 @@ Where,
 
 \(h(x) =1\)
 
-\section{Canonical exponential
-family}\label{canonical-exponential-family}
+\hypertarget{canonical-exponential-family}{%
+\section{Canonical exponential family}\label{canonical-exponential-family}}
 
 Canonical exponential family:
 
-\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\] where,
-\(b(.)\) and \(c(.,.)\) are known.
+\[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]
+where, \(b(.)\) and \(c(.,.)\) are known.
 
 \textbf{Normal distribution}
 
@@ -249,8 +255,8 @@ Where (we assume \(\sigma^2\) is known.),
 
 \(\begin{aligned} c(x, \phi) &=-\frac{1}{2\sigma^2}x^2-log(\sqrt{2\pi}\sigma) \\ &=-\frac{1}{2\sigma^2}x^2-\frac{1}{2}log(2\pi\sigma^2) \\ &=-\frac{1}{2}(\frac{x^2}{\sigma^2}+log(2\pi\sigma^2)) \\ &=-\frac{1}{2}(\frac{x^2}{\phi}+log(2\pi \phi)) \end{aligned}\)
 
-\section{Canonical exponential family - Expected value and
-variance}\label{canonical-exponential-family---expected-value-and-variance}
+\hypertarget{canonical-exponential-family---expected-value-and-variance}{%
+\section{Canonical exponential family - Expected value and variance}\label{canonical-exponential-family---expected-value-and-variance}}
 
 \textbf{First derivative}
 
@@ -258,7 +264,8 @@ Canonical exponential family:
 
 \[f_{\theta}(x)=e^{\frac{x\theta-b(\theta)}{\phi}+c(x,\phi)}\]
 
-log likelihood (only one observation) \[log f_{\theta}(x)\]
+log likelihood (only one observation)
+\[log f_{\theta}(x)\]
 
 \[\begin{aligned} E[\frac{\partial (logf_{\theta}(X))}{\partial \theta} ] &=E[\frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)}] \\ &= \int \frac{\frac{\partial f_{\theta}(X)}{\partial \theta}}{f_{\theta}(X)} f_{\theta}(X) dx  \\ &= \int \frac{\partial f_{\theta}(X)}{\partial \theta} dx \\ &= \frac{\partial}{\partial \theta} \int f_{\theta}(X)dx \\ &= \frac{\partial 1}{\partial \theta} \\ &=0  \end{aligned}\]
 \textbf{Second derivative}
@@ -290,8 +297,8 @@ Thus,
 
 \[Var(X)=b^{''}(\theta) \phi\]
 
-\section{Expected value and variance - Possion
-Example}\label{expected-value-and-variance---possion-example}
+\hypertarget{expected-value-and-variance---possion-example}{%
+\section{Expected value and variance - Possion Example}\label{expected-value-and-variance---possion-example}}
 
 Example of possion distribution
 
@@ -299,7 +306,8 @@ Example of possion distribution
 
 If we put \(k\) as \(y\), and \(\lambda\) as \(\mu\), we can get:
 
-\[P(\mu)=\frac{\mu^y e^{-\mu}}{y!}\] Compare to,
+\[P(\mu)=\frac{\mu^y e^{-\mu}}{y!}\]
+Compare to,
 
 \[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]
 
@@ -307,8 +315,7 @@ We can write it as the exponential format:
 
 \[\begin{aligned} P(\mu) &=\frac{\mu^y e^{-\mu}}{y!}  \\ &= e^{log(\mu^y)+log(e^{-\mu})-log(y!)} \\ &= e^{ylog(\mu)-\mu-log(y!)}\end{aligned}\]
 
-We thus know that \(\theta=log(\mu)\). We can contintue to write the
-equation above as follows.
+We thus know that \(\theta=log(\mu)\). We can contintue to write the equation above as follows.
 
 \[=e^{y\theta-e^{\theta}-log(y!)}\]
 
@@ -317,33 +324,38 @@ Thus, we can get:
 \[E(X)=\frac{\partial (e^{\theta})}{\partial \theta}=e^{\theta}=\mu\]
 \[Var(X)=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2} \phi=\frac{\partial^{''} (e^{\theta})}{\partial \theta^2}=\mu\]
 
-\section{Canonical link}\label{canonical-link}
+\hypertarget{canonical-link}{%
+\section{Canonical link}\label{canonical-link}}
 
 A link functin can link \(X^T \beta\) to the mean \(\mu\).
 
 That is,
 
-\[g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)\] We know that
+\[g(\mu)=X^T \beta \rightarrow \mu = g^{-1}(X^T \beta)\]
+We know that
 
 \[\mu = b^{'}(\theta)\]
 
 Thus,
 
-\[ b^{'}(\theta)=g^{-1}(X^T \beta)\] Thus,
+\[ b^{'}(\theta)=g^{-1}(X^T \beta)\]
+Thus,
 
 \[g=b^{' -1}(\theta)\]
 
-\section{Canonical link - Bernoulli}\label{canonical-link---bernoulli}
+\hypertarget{canonical-link---bernoulli}{%
+\section{Canonical link - Bernoulli}\label{canonical-link---bernoulli}}
 
 PMF of Bernoulli:
 
 \[ \begin{aligned} &= p^y(1-p)^{1-y}  \\ &=e^{log(p^y(1-p)^{1-y})} \\ &= e^{ylog(p)+(1-y)log(1-p)}\\ &= e^{ylog(p)-ylog(1-p)+log(1-p)}\\ &=e^{ylog(\frac{p}{1-p})+log(1-p)} \end{aligned} \]
 Copared to the following:
 
-\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\] We need
-to change the format of Bernoulli:
+\[f_{\theta}(y)=e^{\frac{y\theta-b(\theta)}{\phi}+c(y,\phi)}\]
+We need to change the format of Bernoulli:
 
-\[\theta= log \frac{p}{1-p}\] Thus,
+\[\theta= log \frac{p}{1-p}\]
+Thus,
 \[e^{\theta}=\frac{p}{1-p} \rightarrow p=\frac{e^{\theta}}{1+e^{\theta}} \]
 After that, we can contintue the Bernoulli:
 
@@ -358,16 +370,19 @@ We can then try to calculate the derivative:
 \[b^{'}(\theta)=\frac{\partial (log(1+e^{\theta}))}{\partial \theta}=\frac{e^{\theta}}{1+e^{\theta}}\]
 We know that
 
-\[b^{'}(\theta)=\mu\] Thus, we can get
+\[b^{'}(\theta)=\mu\]
+Thus, we can get
 
-\[\mu=\frac{e^{\theta}}{1+e^{\theta}}\] We can then calculate the
-inverse function:
+\[\mu=\frac{e^{\theta}}{1+e^{\theta}}\]
+We can then calculate the inverse function:
 
-\[\theta=log(\frac{\mu}{1-\mu})\] Thus,
+\[\theta=log(\frac{\mu}{1-\mu})\]
+Thus,
 
 \[g(\mu)=log(\frac{\mu}{1-\mu})=X^T \beta\]
 
-\section{NR - Bernoulli}\label{nr---bernoulli}
+\hypertarget{nr---bernoulli}{%
+\section{NR - Bernoulli}\label{nr---bernoulli}}
 
 We know that the PMF for Bernoulli:
 
@@ -386,47 +401,32 @@ Thus,
 
 \[\beta^{k+1}=\beta^k-(H_{\ell}(\beta^k))^{-1}\nabla_{\ell}(\beta^k) \]
 
-\section{Iteratively Re-weighted Least
-Squares}\label{iteratively-re-weighted-least-squares}
+\hypertarget{iteratively-re-weighted-least-squares}{%
+\section{Iteratively Re-weighted Least Squares}\label{iteratively-re-weighted-least-squares}}
 
-\chapter{Linear Mixed Models}\label{linear-mixed-models}
+\hypertarget{linear-mixed-models}{%
+\chapter{Linear Mixed Models}\label{linear-mixed-models}}
 
-\section{LMM}\label{lmm}
+\hypertarget{lmm}{%
+\section{LMM}\label{lmm}}
 
-The following is a shortened version of Jonathan Rosenblatt's LMM
-tutorial. \url{http://www.john-ros.com/Rcourse/lme.html}.
+The following is a shortened version of Jonathan Rosenblatt's LMM tutorial. \url{http://www.john-ros.com/Rcourse/lme.html}.
 
-In addition, another reference is from Douglas Bates's R package
-document.
+In addition, another reference is from Douglas Bates's R package document.
 \url{https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf?fbclid=IwAR1nmmRP9A0BrhKdgBibNjM5acR_spTpXV8QlQGdmTWyQz3ZtV3LYn6kCbQ}
 
-Assume that \(y\) is a function of \(x\) and \(u\), where \(x\) is the
-fixed effect and \(u\) is the random effect. Thus, we can get,
+Assume that \(y\) is a function of \(x\) and \(u\), where \(x\) is the fixed effect and \(u\) is the random effect. Thus, we can get,
 
 \[y|x, u = x'\beta+z'u+\epsilon\]
 
-For random effect, one example can be that you want to test the
-treatment effect, and sample 8 observations from 4 groups. You measure
-before and after the treatment. In this case, \(x\) represents the
-treatment effect, whereas \(z\) represents the group effect (i.e.,
-random effect). Note that, in this case, it reminds the paired t-test.
-Remember in SPSS, why do we do paired t-test? Typically, it is the case
-when we measure a subject (or, participant) twice. In this case, we can
-consider each participant as an unit of random effect (rather than as
-group in the last example.)
+For random effect, one example can be that you want to test the treatment effect, and sample 8 observations from 4 groups. You measure before and after the treatment. In this case, \(x\) represents the treatment effect, whereas \(z\) represents the group effect (i.e., random effect). Note that, in this case, it reminds the paired t-test. Remember in SPSS, why do we do paired t-test? Typically, it is the case when we measure a subject (or, participant) twice. In this case, we can consider each participant as an unit of random effect (rather than as group in the last example.)
 
-\section{Calculate mean}\label{calculate-mean}
+\hypertarget{calculate-mean}{%
+\section{Calculate mean}\label{calculate-mean}}
 
-The following code generates 4 numbers (\(N(0,10)\)) for 4 groups. Then,
-replicate it within each group.That is, in the end, there are 8
-observations.
+The following code generates 4 numbers (\(N(0,10)\)) for 4 groups. Then, replicate it within each group.That is, in the end, there are 8 observations.
 
-Note that, in the following code, there are no ``independent
-variables''. Both the linear model and mixed model are actually just
-trying to calculate the mean. Note that
-lmer(y\textasciitilde{}1+1\textbar{}groups) and
-lmer(y\textasciitilde{}1\textbar{}groups) will generate the same
-results.
+Note that, in the following code, there are no ``independent variables''. Both the linear model and mixed model are actually just trying to calculate the mean. Note that lmer(y\textasciitilde1+1\textbar groups) and lmer(y\textasciitilde1\textbar groups) will generate the same results.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -456,14 +456,14 @@ results.
 
 \CommentTok{# fit a linear model assuming independence}
 \CommentTok{# i.e., assume that there is no "group things".}
-\NormalTok{lm.}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\NormalTok{)}
+\NormalTok{lm}\FloatTok{.5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\NormalTok{)}
 
 \CommentTok{# fit a mixed-model that deals with the group dependence}
 \CommentTok{#install.packages("lme4")}
 \KeywordTok{library}\NormalTok{(lme4)}
 \NormalTok{lme.}\FloatTok{5.}\NormalTok{a <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{+}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
 \NormalTok{lme.}\FloatTok{5.}\NormalTok{b <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
-\NormalTok{lm.}\DecValTok{5}
+\NormalTok{lm}\FloatTok{.5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -517,7 +517,8 @@ results.
 ##       4.283
 \end{verbatim}
 
-\section{Test the treatment effect}\label{test-the-treatment-effect}
+\hypertarget{test-the-treatment-effect}{%
+\section{Test the treatment effect}\label{test-the-treatment-effect}}
 
 As we can see that, LLM and paired t-test generate the same t-value.
 
@@ -597,7 +598,8 @@ As we can see that, LLM and paired t-test generate the same t-value.
 ## 0.2664793
 \end{verbatim}
 
-\section{Another example}\label{another-example}
+\hypertarget{another-example}{%
+\section{Another example}\label{another-example}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -681,18 +683,12 @@ As we can see that, LLM and paired t-test generate the same t-value.
 ## (Intercept)  1527.50      19.38    78.8
 \end{verbatim}
 
-\section{Full LMM model}\label{full-lmm-model}
+\hypertarget{full-lmm-model}{%
+\section{Full LMM model}\label{full-lmm-model}}
 
-In the following, I used the data from the package of lme4. For Days +
-(1 \textbar{} Subject), it only has random intercept; in contrast, Days
-+ ( Days\textbar{} Subject ) has both random intercept and random slope
-for Days. Note that, random effects do not generate specific slopes for
-each level of Days, but rather just a variance of all the slopes.
+In the following, I used the data from the package of lme4. For Days + (1 \textbar{} Subject), it only has random intercept; in contrast, Days + ( Days\textbar{} Subject ) has both random intercept and random slope for Days. Note that, random effects do not generate specific slopes for each level of Days, but rather just a variance of all the slopes.
 
-Therefore, we can see that ``Days + ( Days\textbar{} Subject )'' and
-``Days + ( 1+Days\textbar{} Subject )'' generate the same results. For
-more discussion, you can refer to the following link:
-\url{https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r}
+Therefore, we can see that ``Days + ( Days\textbar{} Subject )'' and ``Days + ( 1+Days\textbar{} Subject )'' generate the same results. For more discussion, you can refer to the following link: \url{https://www.jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -811,13 +807,10 @@ more discussion, you can refer to the following link:
 ## Days -0.138
 \end{verbatim}
 
-\section{Serial correlations in time and
-space}\label{serial-correlations-in-time-and-space}
+\hypertarget{serial-correlations-in-time-and-space}{%
+\section{Serial correlations in time and space}\label{serial-correlations-in-time-and-space}}
 
-The hierarchical model of \(y|x, u = x'\beta+z'u+\epsilon\) can work
-well for correlations within blocks, but not for correlations in time as
-the correlations decay in time. The following uses nlme package to
-calculate time serial data.
+The hierarchical model of \(y|x, u = x'\beta+z'u+\epsilon\) can work well for correlations within blocks, but not for correlations in time as the correlations decay in time. The following uses nlme package to calculate time serial data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -926,31 +919,29 @@ calculate time serial data.
 ## Number of Groups: 11
 \end{verbatim}
 
-\chapter{Generalized Linear Mixed
-Models}\label{generalized-linear-mixed-models}
+\hypertarget{generalized-linear-mixed-models}{%
+\chapter{Generalized Linear Mixed Models}\label{generalized-linear-mixed-models}}
 
-\section{Basics of GLMM}\label{basics-of-glmm}
+\hypertarget{basics-of-glmm}{%
+\section{Basics of GLMM}\label{basics-of-glmm}}
 
 Recall the formula in the probit model:
 
-\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)=N(0,I)\] Similar to
-LMM, binary model with random effect can be written as follows.
+\[Y^*=X\beta+\epsilon, \epsilon \sim N(0,\sigma^2)=N(0,I)\]
+Similar to LMM, binary model with random effect can be written as follows.
 
-\[Y^*=X\beta+ Z u+\epsilon\] where,
+\[Y^*=X\beta+ Z u+\epsilon\]
+where,
 
-\[\epsilon \sim N(0,I)\] \[u \sim N(0, D)\]
+\[\epsilon \sim N(0,I)\]
+\[u \sim N(0, D)\]
 
-We also assume \(\epsilon\) and \(u\) are independent.Thus, we know that
-\(D\) represents the virances of the random effects. If we make
-\(u =1\), the model becomes the usual probit model. McCulloch (1994)
-states that there are a few advantages to use probit, rather than logit
-models. (Note that, however, probit is not canonical link function, but
-logit is!)
+We also assume \(\epsilon\) and \(u\) are independent.Thus, we know that \(D\) represents the virances of the random effects. If we make \(u =1\), the model becomes the usual probit model. McCulloch (1994) states that there are a few advantages to use probit, rather than logit models. (Note that, however, probit is not canonical link function, but logit is!)
 
-The following is the note from Charle E. McCulloch's ``Maximum
-likelihood algorithems for Generalized Linear Mixed Models''
+The following is the note from Charle E. McCulloch's ``Maximum likelihood algorithems for Generalized Linear Mixed Models''
 
-\section{Some References}\label{some-references}
+\hypertarget{some-references}{%
+\section{Some References}\label{some-references}}
 
 \url{http://www.biostat.umn.edu/~baolin/teaching/linmods/glmm.html}
 
@@ -958,6 +949,7 @@ likelihood algorithems for Generalized Linear Mixed Models''
 
 \url{https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html}
 
-\bibliography{book.bib,packages.bib}
+\backmatter
+  \bibliography{book.bib,packages.bib}
 
 \end{document}

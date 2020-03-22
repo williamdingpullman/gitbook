@@ -5,7 +5,7 @@ bookdown::gitbook:
       before: |
         <li><a href="https://williamdingpullman.github.io/" target="blank">Bill's Stats Notes</a></li>
       after: |
-        <li><a href="https://www.williamsding.com/" target="blank">Bill's website</a></li>
+        <li></li>
     edit: https://github.com/rstudio/bookdown-demo/edit/master/%s
     download: ["pdf", "epub"]
 bookdown::pdf_book:
